@@ -81,6 +81,11 @@ export default {
           light: "hsl(var(--slate-light))",
           foreground: "hsl(var(--slate-foreground))",
         },
+        "product-black": {
+          DEFAULT: "hsl(var(--product-black))",
+          light: "hsl(var(--product-black-light))",
+          foreground: "hsl(var(--product-black-foreground))",
+        },
       },
       borderRadius: {
         lg: "var(--radius)",

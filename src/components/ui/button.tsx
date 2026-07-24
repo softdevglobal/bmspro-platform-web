@@ -19,6 +19,7 @@ const buttonVariants = cva(
         pink: "bg-pink text-pink-foreground hover:bg-pink/90 shadow-sm hover:shadow-md",
         blue: "bg-blue text-blue-foreground hover:bg-blue/90 shadow-sm hover:shadow-md",
         teal: "bg-teal text-teal-foreground hover:bg-teal/90 shadow-sm hover:shadow-md",
+        black: "bg-product-black text-product-black-foreground hover:bg-product-black/90 shadow-sm hover:shadow-md",
         // Hero variants
         hero: "bg-primary text-primary-foreground hover:bg-primary/90 shadow-lg hover:shadow-xl hover:-translate-y-0.5",
         "hero-secondary": "bg-card text-foreground border border-border hover:bg-secondary shadow-sm hover:shadow-md",

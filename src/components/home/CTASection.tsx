@@ -1,40 +1,52 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, ShieldCheck } from "lucide-react";
 
 export function CTASection() {
   return (
-    <section className="section-padding">
+    <section className="section-padding bg-background">
       <div className="container-narrow">
-        <div className="relative overflow-hidden rounded-3xl bg-primary p-8 md:p-12 text-center">
-          {/* Background decoration */}
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,rgba(255,255,255,0.1),rgba(255,255,255,0))]" />
-          
+        <div className="relative overflow-hidden rounded-[2rem] border border-border/50 bg-card px-8 py-12 md:px-14 md:py-16 text-center shadow-elevated">
+          <div
+            className="absolute inset-0 pointer-events-none"
+            aria-hidden
+            style={{
+              background: `
+                radial-gradient(ellipse 45% 60% at 0% 50%, hsl(var(--blue) / 0.1), transparent),
+                radial-gradient(ellipse 40% 55% at 100% 50%, hsl(var(--pink) / 0.1), transparent)
+              `,
+            }}
+          />
+
           <div className="relative">
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-primary-foreground mb-4">
-              Ready to streamline your operations?
-            </h2>
-            <p className="text-lg text-primary-foreground/80 max-w-xl mx-auto mb-8">
-              Join thousands of service businesses that trust BMS Pro to manage their bookings and workflows.
+            <p className="font-display text-sm font-semibold tracking-[0.18em] uppercase text-muted-foreground mb-4">
+              BMS Pro
             </p>
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <Button
-                size="xl"
-                className="bg-primary-foreground text-primary hover:bg-primary-foreground/90"
-                asChild
-              >
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-foreground mb-4 tracking-tight">
+              Meet your virtual front desk
+            </h2>
+            <p className="text-lg text-muted-foreground max-w-xl mx-auto mb-6">
+              Book a strategy call — we&apos;ll show the software, explain the receptionist handover, and
+              match you to Black, Blue, or Pink.
+            </p>
+
+            <div className="inline-flex items-start sm:items-center gap-2.5 max-w-md rounded-2xl border border-teal/25 bg-teal-light px-4 py-3 text-left mb-8">
+              <ShieldCheck className="h-5 w-5 text-teal shrink-0 mt-0.5 sm:mt-0" />
+              <p className="text-sm font-semibold text-foreground leading-snug">
+                100% Real Human Receptionists.{" "}
+                <span className="text-muted-foreground font-medium">No AI Voicebots.</span>
+              </p>
+            </div>
+
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 sm:gap-4">
+              <Button variant="hero" size="xl" className="rounded-full" asChild>
                 <Link to="/contact">
-                  Start Your Free Trial
+                  Book Your Strategy Call
                   <ArrowRight className="h-5 w-5" />
                 </Link>
               </Button>
-              <Button
-                variant="outline"
-                size="xl"
-                className="border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10"
-                asChild
-              >
-                <Link to="/pricing">View Pricing</Link>
+              <Button variant="outline" size="xl" className="rounded-full" asChild>
+                <Link to="/contact">Meet Your Virtual Front Desk</Link>
               </Button>
             </div>
           </div>

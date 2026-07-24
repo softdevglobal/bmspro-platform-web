@@ -3,66 +3,66 @@ import { Quote } from "lucide-react";
 const testimonials = [
   {
     id: 1,
-    quote: "BMS Pro transformed how we manage our salon appointments. Our no-show rate dropped by 60% and our clients love the easy booking experience.",
+    quote:
+      "While we're with clients, their receptionists fill our calendar. Missed calls used to mean empty chairs — not anymore.",
     name: "Sarah Mitchell",
     role: "Owner, Serenity Hair Studio",
+    bar: "bg-pink",
     image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&h=150&fit=crop&crop=face",
   },
   {
     id: 2,
-    quote: "As a trades business, scheduling was always chaotic. Now my team knows exactly where they need to be, and our customers get automatic updates. Game changer.",
+    quote:
+      "My electricians stay on the tools. The front desk books the jobs into Blue and only calls us when it's technical.",
     name: "James Walker",
     role: "Director, Walker Electrical Services",
+    bar: "bg-blue",
     image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face",
   },
   {
     id: 3,
-    quote: "The booking engine integrated seamlessly into our website. Within the first month, we saw a 40% increase in online bookings. The team support has been exceptional.",
+    quote:
+      "Mechanics under the hood, not on the phone. Black plus a real receptionist filtered the chaos out of our workshop.",
     name: "Emily Chen",
-    role: "Practice Manager, Mindful Wellness Clinic",
+    role: "Ops Lead, Northside Auto Group",
+    bar: "bg-product-black",
     image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop&crop=face",
   },
 ];
 
 export function TestimonialsSection() {
   return (
-    <section className="section-padding bg-secondary/30">
+    <section className="section-padding bg-background">
       <div className="container-wide">
-        {/* Section Header */}
-        <div className="text-center max-w-2xl mx-auto mb-16">
-          <span className="inline-block px-4 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-medium mb-4">
-            Trusted by Thousands
-          </span>
-          <h2 className="text-3xl sm:text-4xl font-semibold text-foreground mb-4">
-            Real Stories from Real Businesses
+        <div className="text-center max-w-2xl mx-auto mb-14">
+          <span className="text-sm font-semibold text-primary uppercase tracking-wider">Social Proof</span>
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mt-2 mb-4 tracking-tight">
+            Teams who stopped missing calls
           </h2>
-          <p className="text-muted-foreground text-lg">
-            Hear from business owners who have transformed their operations with BMS Pro.
+          <p className="text-lg text-muted-foreground">
+            Workshops, salons, and trades running BMS Pro with a real human front desk.
           </p>
         </div>
 
-        {/* Testimonials Grid */}
-        <div className="grid md:grid-cols-3 gap-8">
+        <div className="grid md:grid-cols-3 gap-6">
           {testimonials.map((testimonial, index) => (
             <div
               key={testimonial.id}
-              className="card-elevated p-8 flex flex-col animate-fade-up"
+              className="relative overflow-hidden rounded-3xl border border-border/60 bg-card p-8 flex flex-col shadow-card animate-fade-up"
               style={{ animationDelay: `${index * 100}ms` }}
             >
-              {/* Quote Icon */}
-              <Quote className="h-8 w-8 text-primary/30 mb-4" />
-              
-              {/* Quote Text */}
+              <div className={`absolute top-0 inset-x-0 h-1 ${testimonial.bar}`} aria-hidden />
+              <Quote className="h-7 w-7 text-muted-foreground/40 mb-4" />
+
               <blockquote className="text-foreground leading-relaxed mb-6 flex-grow">
-                "{testimonial.quote}"
+                &ldquo;{testimonial.quote}&rdquo;
               </blockquote>
-              
-              {/* Author */}
+
               <div className="flex items-center gap-4 pt-4 border-t border-border/50">
                 <img
                   src={testimonial.image}
                   alt={testimonial.name}
-                  className="w-12 h-12 rounded-full object-cover ring-2 ring-primary/10"
+                  className="w-12 h-12 rounded-full object-cover ring-2 ring-border"
                 />
                 <div>
                   <p className="font-medium text-foreground">{testimonial.name}</p>
@@ -71,18 +71,6 @@ export function TestimonialsSection() {
               </div>
             </div>
           ))}
-        </div>
-
-        {/* Trust Indicators */}
-        <div className="mt-16 text-center">
-          <p className="text-muted-foreground mb-6">Trusted by over 10,000 businesses across Australia</p>
-          <div className="flex flex-wrap justify-center items-center gap-8 opacity-60">
-            <div className="text-2xl font-semibold text-foreground">4.9★</div>
-            <div className="h-8 w-px bg-border" />
-            <div className="text-sm text-muted-foreground">500+ Reviews</div>
-            <div className="h-8 w-px bg-border hidden sm:block" />
-            <div className="text-sm text-muted-foreground hidden sm:block">Featured in Business Australia</div>
-          </div>
         </div>
       </div>
     </section>

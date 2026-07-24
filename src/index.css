@@ -59,12 +59,18 @@
     --slate-light: 40 15% 96%;
     --slate-foreground: 220 25% 25%;
 
+    /* BMS Pro Black — charcoal product accent (avoids Tailwind black collision) */
+    --product-black: 220 18% 12%;
+    --product-black-light: 220 12% 94%;
+    --product-black-foreground: 0 0% 100%;
+
     /* Gradients - softer, warmer */
     --gradient-hero: linear-gradient(135deg, hsl(40 30% 97%) 0%, hsl(150 15% 95%) 100%);
     --gradient-card: linear-gradient(180deg, hsl(40 20% 99%) 0%, hsl(40 25% 97%) 100%);
     --gradient-pink: linear-gradient(135deg, hsl(340 55% 55%) 0%, hsl(340 50% 65%) 100%);
     --gradient-blue: linear-gradient(135deg, hsl(210 55% 55%) 0%, hsl(210 50% 65%) 100%);
     --gradient-teal: linear-gradient(135deg, hsl(172 45% 45%) 0%, hsl(172 40% 55%) 100%);
+    --gradient-black: linear-gradient(135deg, hsl(220 18% 18%) 0%, hsl(220 15% 28%) 100%);
 
     /* Shadows - warmer, softer */
     --shadow-sm: 0 1px 2px 0 hsl(40 20% 70% / 0.3);
@@ -205,6 +211,10 @@
   .badge-slate {
     @apply bg-slate-light text-slate-foreground px-3 py-1 rounded-full text-sm font-medium;
   }
+
+  .badge-black {
+    @apply bg-product-black-light text-product-black px-3 py-1 rounded-full text-sm font-medium;
+  }
 }
 
 @layer utilities {
@@ -264,6 +274,19 @@
     to {
       opacity: 1;
       transform: scale(1);
+    }
+  }
+
+  .animate-gradient-drift {
+    animation: gradientDrift 18s ease-in-out infinite alternate;
+  }
+
+  @keyframes gradientDrift {
+    from {
+      transform: translate3d(-2%, -1%, 0) scale(1);
+    }
+    to {
+      transform: translate3d(2%, 1%, 0) scale(1.05);
     }
   }
 }
