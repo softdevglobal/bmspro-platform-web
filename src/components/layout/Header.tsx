@@ -70,7 +70,7 @@ export function Header() {
             <img src="/logo.png" alt="BMS Pro" className="h-9 w-auto" />
             <span
               className={cn(
-                "text-xl font-semibold transition-colors",
+                "text-xl font-display font-bold tracking-tight transition-colors",
                 overHero ? "text-white" : "text-foreground"
               )}
             >
@@ -90,7 +90,7 @@ export function Header() {
                   <Link
                     to={item.href}
                     className={cn(
-                      "flex items-center gap-1 px-4 py-2 text-base font-medium transition-colors",
+                      "flex items-center gap-1 px-4 py-2 text-sm font-label font-medium transition-colors",
                       overHero
                         ? "text-white/80 hover:text-white"
                         : "text-muted-foreground hover:text-foreground"
@@ -124,7 +124,7 @@ export function Header() {
                   key={item.name}
                   to={item.href}
                   className={cn(
-                    "px-4 py-2 text-base font-medium transition-colors",
+                    "px-4 py-2 text-sm font-label font-medium transition-colors",
                     overHero
                       ? "text-white/80 hover:text-white"
                       : "text-muted-foreground hover:text-foreground"

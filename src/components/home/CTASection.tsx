@@ -28,13 +28,13 @@ export function CTASection() {
       </div>
 
       <div className="container-wide relative section-padding text-center">
-        <p className="font-display text-sm font-semibold tracking-[0.2em] uppercase text-white/55 mb-4">
+        <p className="font-label text-sm font-semibold tracking-[0.2em] uppercase text-white/55 mb-4">
           BMS Pro
         </p>
-        <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 tracking-tight max-w-3xl mx-auto">
+        <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 tracking-tight max-w-3xl mx-auto">
           Meet your virtual front desk
         </h2>
-        <p className="text-lg text-white/65 max-w-xl mx-auto mb-6">
+        <p className="font-sans text-lg text-white/65 max-w-xl mx-auto mb-6">
           Book a strategy call — we&apos;ll show the software, explain the receptionist handover, and
           match you to Black, Blue, or Pink.
         </p>

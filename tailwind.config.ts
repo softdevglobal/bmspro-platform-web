@@ -14,8 +14,12 @@ export default {
     },
     extend: {
       fontFamily: {
-        sans: ["DM Sans", "Inter", "system-ui", "sans-serif"],
-        display: ["DM Sans", "Inter", "system-ui", "sans-serif"],
+        // Body / UI copy
+        sans: ["Figtree", "system-ui", "sans-serif"],
+        // Brand + major headlines
+        display: ["Syne", "system-ui", "sans-serif"],
+        // Eyebrows, chips, nav labels, product tags
+        label: ["Space Grotesk", "system-ui", "sans-serif"],
       },
       colors: {
         border: "hsl(var(--border))",

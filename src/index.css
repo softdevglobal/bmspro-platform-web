@@ -151,19 +151,25 @@
   }
 
   h1 {
-    @apply text-4xl sm:text-5xl lg:text-6xl;
+    @apply text-4xl sm:text-5xl lg:text-6xl font-bold;
+    letter-spacing: -0.03em;
   }
 
   h2 {
-    @apply text-3xl sm:text-4xl;
+    @apply text-3xl sm:text-4xl font-bold;
+    letter-spacing: -0.025em;
   }
 
   h3 {
-    @apply text-xl sm:text-2xl;
+    @apply text-xl sm:text-2xl font-semibold;
   }
 
   p {
-    @apply text-base leading-relaxed;
+    @apply text-base leading-relaxed font-sans;
+  }
+
+  button, input, textarea, select {
+    @apply font-sans;
   }
 }
 
@@ -197,23 +203,27 @@
   }
 
   .badge-pink {
-    @apply bg-pink-light text-pink px-3 py-1 rounded-full text-sm font-medium;
+    @apply bg-pink-light text-pink px-3 py-1 rounded-full text-sm font-medium font-label;
   }
 
   .badge-blue {
-    @apply bg-blue-light text-blue px-3 py-1 rounded-full text-sm font-medium;
+    @apply bg-blue-light text-blue px-3 py-1 rounded-full text-sm font-medium font-label;
   }
 
   .badge-teal {
-    @apply bg-teal-light text-teal px-3 py-1 rounded-full text-sm font-medium;
+    @apply bg-teal-light text-teal px-3 py-1 rounded-full text-sm font-medium font-label;
   }
 
   .badge-slate {
-    @apply bg-slate-light text-slate-foreground px-3 py-1 rounded-full text-sm font-medium;
+    @apply bg-slate-light text-slate-foreground px-3 py-1 rounded-full text-sm font-medium font-label;
   }
 
   .badge-black {
-    @apply bg-product-black-light text-product-black px-3 py-1 rounded-full text-sm font-medium;
+    @apply bg-product-black-light text-product-black px-3 py-1 rounded-full text-sm font-medium font-label;
+  }
+
+  .eyebrow {
+    @apply font-label text-xs font-semibold uppercase tracking-wider;
   }
 }
 

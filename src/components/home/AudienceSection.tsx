@@ -35,13 +35,13 @@ export function AudienceSection() {
     <section className="section-padding bg-background relative overflow-hidden">
       <div className="container-wide relative">
         <div className="text-center max-w-2xl mx-auto mb-12 sm:mb-14">
-          <span className="inline-flex rounded-full border border-border bg-secondary/60 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+          <span className="eyebrow inline-flex rounded-full border border-border bg-secondary/60 px-3 py-1 text-muted-foreground">
             Who It&apos;s For
           </span>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mt-4 mb-4 tracking-tight">
+          <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mt-4 mb-4 tracking-tight">
             Operational takeover for real industries
           </h2>
-          <p className="text-lg text-muted-foreground">
+          <p className="font-sans text-lg text-muted-foreground">
             Software that fits the trade — plus a human front desk that escapes the daily phone chaos.
           </p>
         </div>
@@ -63,13 +63,13 @@ export function AudienceSection() {
                 <div className="absolute inset-0 bg-gradient-to-t from-[hsl(220_22%_6%/0.92)] via-[hsl(220_22%_6%/0.45)] to-[hsl(220_22%_6%/0.15)]" />
                 <div className="relative h-full flex flex-col justify-end p-6 sm:p-7 text-white">
                   <span
-                    className={`inline-flex w-fit items-center gap-1.5 rounded-full px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider mb-3 ${audience.badge}`}
+                    className={`inline-flex w-fit items-center gap-1.5 rounded-full px-2.5 py-1 text-[10px] font-label font-bold uppercase tracking-wider mb-3 ${audience.badge}`}
                   >
                     <Icon className="h-3 w-3" />
                     {audience.product}
                   </span>
-                  <h3 className="text-xl font-bold mb-2">{audience.title}</h3>
-                  <p className="text-sm text-white/75 leading-relaxed">{audience.description}</p>
+                  <h3 className="font-display text-xl font-bold mb-2">{audience.title}</h3>
+                  <p className="font-sans text-sm text-white/75 leading-relaxed">{audience.description}</p>
                 </div>
               </div>
             );
