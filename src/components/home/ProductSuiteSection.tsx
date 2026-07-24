@@ -2,7 +2,6 @@ import { Link } from "react-router-dom";
 import { ArrowRight, Wrench, Sparkles, Hammer, LucideIcon } from "lucide-react";
 
 type ShowcaseProduct = {
-  name: string;
   shortName: string;
   tagline: string;
   headline: string;
@@ -11,20 +10,18 @@ type ShowcaseProduct = {
   href: string;
   icon: LucideIcon;
   cta: string;
-  panel: string;
-  accentBar: string;
-  chip: string;
+  image: string;
+  badge: string;
   ctaClass: string;
 };
 
 const products: ShowcaseProduct[] = [
   {
-    name: "BMS Pro Black",
     shortName: "Black",
     tagline: "Mechanic Shops",
     headline: "Keep your mechanics under the hood, not on the phone.",
     description:
-      "Human receptionists filter routine calls and book jobs into the system — so technicians only take the complex technical ones.",
+      "Human receptionists filter routine calls and book jobs into the system — technicians only take the complex technical ones.",
     features: [
       "Bay & job scheduling in software",
       "Receptionist books routine work",
@@ -34,39 +31,16 @@ const products: ShowcaseProduct[] = [
     href: "/contact",
     icon: Wrench,
     cta: "Book Your Strategy Call",
-    panel: "bg-[hsl(220_22%_10%)] text-white border-white/10",
-    accentBar: "bg-gradient-to-r from-white/40 to-transparent",
-    chip: "bg-white/10 text-white/80",
+    image: "https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?w=1000&h=1400&fit=crop",
+    badge: "bg-product-black text-white",
     ctaClass: "bg-white text-[hsl(220_22%_10%)] hover:bg-white/90",
   },
   {
-    name: "BMS Pro Blue",
-    shortName: "Blue",
-    tagline: "Trades",
-    headline: "Keep plumbers, carpenters & electricians on the tools.",
-    description:
-      "Your virtual front desk books jobs, handles reschedules, and only escalates what needs a tradesperson — so billable hours stay protected.",
-    features: [
-      "Job dispatch in the software",
-      "Humans answer every call",
-      "Quotes & bookings captured",
-      "Fewer interruptions on site",
-    ],
-    href: "/contact",
-    icon: Hammer,
-    cta: "Book Your Strategy Call",
-    panel: "bg-blue text-blue-foreground border-blue/20",
-    accentBar: "bg-gradient-to-r from-white/35 to-transparent",
-    chip: "bg-white/15 text-white/90",
-    ctaClass: "bg-white text-blue hover:bg-white/90",
-  },
-  {
-    name: "BMS Pro Pink",
     shortName: "Pink",
     tagline: "Salons",
-    headline: "While you're with a client, our receptionists are filling your calendar.",
+    headline: "While you're with a client, our receptionists fill your calendar.",
     description:
-      "Missed calls mean missed bookings. A real person manages the calendar, handles reschedules, and keeps chairs full — without interrupting the floor.",
+      "Missed calls mean missed bookings. A real person manages the calendar and keeps chairs full — without interrupting the floor.",
     features: [
       "Live calendar in the software",
       "Humans capture every booking",
@@ -76,76 +50,111 @@ const products: ShowcaseProduct[] = [
     href: "/contact",
     icon: Sparkles,
     cta: "Meet Your Virtual Front Desk",
-    panel: "bg-pink text-pink-foreground border-pink/20",
-    accentBar: "bg-gradient-to-r from-white/35 to-transparent",
-    chip: "bg-white/15 text-white/90",
+    image: "https://images.unsplash.com/photo-1560066984-138dadb4c035?w=1000&h=1400&fit=crop",
+    badge: "bg-pink text-white",
     ctaClass: "bg-white text-pink hover:bg-white/90",
+  },
+  {
+    shortName: "Blue",
+    tagline: "Trades",
+    headline: "Keep plumbers, carpenters & electricians on the tools.",
+    description:
+      "Your virtual front desk books jobs, handles reschedules, and only escalates what needs a tradesperson.",
+    features: [
+      "Job dispatch in the software",
+      "Humans answer every call",
+      "Quotes & bookings captured",
+      "Fewer interruptions on site",
+    ],
+    href: "/contact",
+    icon: Hammer,
+    cta: "Book Your Strategy Call",
+    image: "https://images.unsplash.com/photo-1621905251189-08b45d6a269e?w=1000&h=1400&fit=crop",
+    badge: "bg-blue text-white",
+    ctaClass: "bg-white text-blue hover:bg-white/90",
   },
 ];
 
 export function ProductSuiteSection() {
   return (
-    <section id="products" className="scroll-mt-24 relative overflow-hidden bg-secondary/25">
+    <section id="products" className="scroll-mt-24 relative overflow-hidden bg-[hsl(220_22%_8%)] text-white">
+      <div className="absolute inset-0 pointer-events-none" aria-hidden>
+        <div className="absolute inset-0 bg-[hsl(220_22%_8%)]" />
+        <div
+          className="absolute inset-0 opacity-40"
+          style={{
+            background: `
+              radial-gradient(ellipse 40% 50% at 10% 20%, hsl(220 18% 20% / 0.8), transparent),
+              radial-gradient(ellipse 35% 40% at 90% 30%, hsl(340 60% 40% / 0.25), transparent),
+              radial-gradient(ellipse 40% 45% at 50% 100%, hsl(210 65% 38% / 0.3), transparent)
+            `,
+          }}
+        />
+      </div>
+
       <div className="container-wide relative section-padding">
-        <div className="max-w-2xl mb-12 lg:mb-14">
-          <span className="text-sm font-semibold text-primary uppercase tracking-wider">
+        <div className="max-w-2xl mb-12 lg:mb-14 text-center mx-auto">
+          <span className="inline-flex rounded-full border border-white/20 bg-white/10 backdrop-blur-sm px-3 py-1 text-xs font-semibold uppercase tracking-wider text-white/80">
             Software + Human Front Desk
           </span>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mt-2 mb-3 tracking-tight">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mt-4 mb-3 tracking-tight">
             Pitched to the chaos you escape every day
           </h2>
-          <p className="text-lg text-muted-foreground">
-            Black for workshops, Pink for salons, Blue for trades — each with software built for the
-            industry and receptionists who know how to book it.
+          <p className="text-lg text-white/65">
+            Black for workshops, Pink for salons, Blue for trades — each with software and receptionists who know how to book it.
           </p>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-5 lg:gap-6">
+        <div className="grid md:grid-cols-3 gap-4 lg:gap-5">
           {products.map((product, index) => {
             const Icon = product.icon;
             return (
               <article
-                key={product.name}
-                className={`group relative overflow-hidden rounded-3xl border p-7 sm:p-8 flex flex-col min-h-[440px] shadow-elevated transition-transform duration-500 hover:-translate-y-1.5 animate-fade-up ${product.panel}`}
+                key={product.shortName}
+                className="group relative overflow-hidden rounded-3xl min-h-[480px] flex flex-col border border-white/10 shadow-elevated animate-fade-up"
                 style={{ animationDelay: `${index * 100}ms` }}
               >
-                <div className={`absolute top-0 inset-x-0 h-1 ${product.accentBar}`} aria-hidden />
-                <div className="absolute -right-8 -top-8 h-32 w-32 rounded-full bg-white/10 blur-2xl group-hover:scale-150 transition-transform duration-700" />
+                <img
+                  src={product.image}
+                  alt=""
+                  className="absolute inset-0 h-full w-full object-cover scale-105 blur-[2px] transition-transform duration-700 group-hover:scale-110"
+                />
+                <div className="absolute inset-0 bg-[hsl(220_22%_6%/0.72)] group-hover:bg-[hsl(220_22%_6%/0.66)] transition-colors" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[hsl(220_22%_6%/0.95)] via-[hsl(220_22%_6%/0.55)] to-transparent" />
 
-                <div className="relative flex items-start justify-between mb-6">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white/15 backdrop-blur-sm">
-                    <Icon className="h-6 w-6" />
+                <div className="relative flex flex-col flex-grow p-6 sm:p-7">
+                  <div className="flex items-start justify-between mb-8">
+                    <span className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider ${product.badge}`}>
+                      <Icon className="h-3 w-3" />
+                      {product.tagline}
+                    </span>
+                    <span className="text-xs font-semibold uppercase tracking-[0.18em] text-white/50">
+                      BMS Pro {product.shortName}
+                    </span>
                   </div>
-                  <span className={`px-3 py-1 rounded-full text-xs font-semibold ${product.chip}`}>
-                    {product.tagline}
-                  </span>
-                </div>
 
-                <div className="relative flex-grow">
-                  <p className="text-xs font-semibold uppercase tracking-[0.22em] opacity-70 mb-2">
-                    BMS Pro {product.shortName}
-                  </p>
-                  <h3 className="text-xl sm:text-2xl font-bold tracking-tight mb-4 leading-snug">
-                    {product.headline}
-                  </h3>
-                  <p className="text-sm opacity-85 leading-relaxed mb-6">{product.description}</p>
-                  <ul className="space-y-2.5 mb-8">
-                    {product.features.map((feature) => (
-                      <li key={feature} className="flex items-center gap-2.5 text-sm opacity-90">
-                        <span className="h-1.5 w-1.5 rounded-full bg-current opacity-60" />
-                        {feature}
-                      </li>
-                    ))}
-                  </ul>
+                  <div className="mt-auto">
+                    <h3 className="text-xl sm:text-2xl font-bold tracking-tight mb-3 leading-snug">
+                      {product.headline}
+                    </h3>
+                    <p className="text-sm text-white/70 leading-relaxed mb-5">{product.description}</p>
+                    <ul className="space-y-2 mb-7">
+                      {product.features.map((feature) => (
+                        <li key={feature} className="flex items-center gap-2.5 text-sm text-white/80">
+                          <span className="h-1.5 w-1.5 rounded-full bg-white/50" />
+                          {feature}
+                        </li>
+                      ))}
+                    </ul>
+                    <Link
+                      to={product.href}
+                      className={`inline-flex items-center justify-center gap-2 w-full h-12 rounded-full text-sm font-semibold transition-all ${product.ctaClass}`}
+                    >
+                      {product.cta}
+                      <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                    </Link>
+                  </div>
                 </div>
-
-                <Link
-                  to={product.href}
-                  className={`relative inline-flex items-center justify-center gap-2 w-full h-12 rounded-full text-sm font-semibold transition-all duration-200 ${product.ctaClass}`}
-                >
-                  {product.cta}
-                  <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-                </Link>
               </article>
             );
           })}
