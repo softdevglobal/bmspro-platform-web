@@ -4,6 +4,11 @@
 
 @layer base {
   :root {
+    /* Typography — DM Sans body/UI, Geist display, Geist Mono code */
+    --font-sans: "DM Sans", system-ui, sans-serif;
+    --font-geist-sans: "Geist", system-ui, sans-serif;
+    --font-geist-mono: "Geist Mono", ui-monospace, monospace;
+
     /* Core palette - Calming Psychology Theme */
     /* Warm cream background - less clinical, more approachable */
     --background: 40 30% 97%;

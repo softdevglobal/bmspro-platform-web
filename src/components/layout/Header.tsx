@@ -34,9 +34,26 @@ const navigation = [
   { name: "Contact", href: "/contact" },
 ];
 
+/** Pages with full-bleed image heroes that sit under the transparent nav */
+const HERO_ROUTES = new Set([
+  "/",
+  "/products",
+  "/products/black",
+  "/products/pink",
+  "/products/blue",
+  "/pricing",
+  "/contact",
+]);
+
+function isActivePath(pathname: string, href: string, hasChildren?: boolean) {
+  if (href === "/") return pathname === "/";
+  if (hasChildren) return pathname === href || pathname.startsWith(`${href}/`);
+  return pathname === href;
+}
+
 export function Header() {
   const location = useLocation();
-  const isHome = location.pathname === "/";
+  const hasHero = HERO_ROUTES.has(location.pathname);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [productsOpen, setProductsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -53,7 +70,19 @@ export function Header() {
     setProductsOpen(false);
   }, [location.pathname]);
 
-  const overHero = isHome && !scrolled && !mobileMenuOpen;
+  const overHero = hasHero && !scrolled && !mobileMenuOpen;
+
+  const linkClass = (active: boolean) =>
+    cn(
+      "relative px-4 py-2 text-sm font-label font-medium rounded-full transition-colors",
+      overHero
+        ? active
+          ? "text-white bg-white/15"
+          : "text-white/75 hover:text-white hover:bg-white/10"
+        : active
+          ? "text-foreground bg-secondary"
+          : "text-muted-foreground hover:text-foreground hover:bg-secondary/60"
+    );
 
   return (
     <header
@@ -64,7 +93,7 @@ export function Header() {
           : "border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80 shadow-sm"
       )}
     >
-      <nav className="container-wide flex h-16 items-center justify-between">
+      <nav className="container-wide flex h-16 items-center justify-between" aria-label="Main">
         <div className="flex items-center gap-8">
           <Link to="/" className="flex items-center gap-3">
             <img src="/logo.png" alt="BMS Pro" className="h-9 w-auto" />
@@ -79,61 +108,90 @@ export function Header() {
           </Link>
 
           <div className="hidden md:flex items-center gap-1">
-            {navigation.map((item) =>
-              item.children ? (
-                <div
-                  key={item.name}
-                  className="relative"
-                  onMouseEnter={() => setProductsOpen(true)}
-                  onMouseLeave={() => setProductsOpen(false)}
-                >
-                  <Link
-                    to={item.href}
-                    className={cn(
-                      "flex items-center gap-1 px-4 py-2 text-sm font-label font-medium transition-colors",
-                      overHero
-                        ? "text-white/80 hover:text-white"
-                        : "text-muted-foreground hover:text-foreground"
-                    )}
+            {navigation.map((item) => {
+              const active = isActivePath(location.pathname, item.href, Boolean(item.children));
+
+              if (item.children) {
+                return (
+                  <div
+                    key={item.name}
+                    className="relative"
+                    onMouseEnter={() => setProductsOpen(true)}
+                    onMouseLeave={() => setProductsOpen(false)}
                   >
-                    {item.name}
-                    <ChevronDown className="h-4 w-4" />
-                  </Link>
-                  {productsOpen && (
-                    <div className="absolute top-full left-0 mt-1 w-80 rounded-2xl border border-border bg-card p-2 shadow-elevated animate-fade-in">
-                      {item.children.map((child) => (
+                    <Link
+                      to={item.href}
+                      aria-current={active ? "page" : undefined}
+                      className={cn(linkClass(active), "flex items-center gap-1")}
+                    >
+                      {item.name}
+                      <ChevronDown
+                        className={cn(
+                          "h-4 w-4 transition-transform",
+                          productsOpen && "rotate-180"
+                        )}
+                      />
+                    </Link>
+                    {productsOpen && (
+                      <div className="absolute top-full left-0 mt-1 w-80 rounded-2xl border border-border bg-card p-2 shadow-elevated animate-fade-in">
+                        {item.children.map((child) => {
+                          const childActive = location.pathname === child.href;
+                          return (
+                            <Link
+                              key={child.name}
+                              to={child.href}
+                              aria-current={childActive ? "page" : undefined}
+                              className={cn(
+                                "flex items-start gap-3 rounded-xl px-3 py-3 transition-colors",
+                                childActive ? "bg-secondary" : "hover:bg-secondary"
+                              )}
+                            >
+                              <span
+                                className={cn(
+                                  "mt-1.5 h-2.5 w-2.5 rounded-full shrink-0",
+                                  child.dot
+                                )}
+                              />
+                              <div>
+                                <div
+                                  className={cn(
+                                    "text-base font-medium",
+                                    childActive ? "text-foreground" : "text-foreground"
+                                  )}
+                                >
+                                  {child.name}
+                                </div>
+                                <div className="text-sm text-muted-foreground">
+                                  {child.description}
+                                </div>
+                              </div>
+                            </Link>
+                          );
+                        })}
                         <Link
-                          key={child.name}
-                          to={child.href}
-                          className="flex items-start gap-3 rounded-xl px-3 py-3 hover:bg-secondary transition-colors"
+                          to="/products"
+                          className="mt-1 flex items-center justify-between rounded-xl px-3 py-2.5 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors"
                         >
-                          <span
-                            className={cn("mt-1.5 h-2.5 w-2.5 rounded-full shrink-0", child.dot)}
-                          />
-                          <div>
-                            <div className="text-base font-medium text-foreground">{child.name}</div>
-                            <div className="text-sm text-muted-foreground">{child.description}</div>
-                          </div>
+                          View all products
+                          <ArrowRight className="h-4 w-4" />
                         </Link>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              ) : (
+                      </div>
+                    )}
+                  </div>
+                );
+              }
+
+              return (
                 <Link
                   key={item.name}
                   to={item.href}
-                  className={cn(
-                    "px-4 py-2 text-sm font-label font-medium transition-colors",
-                    overHero
-                      ? "text-white/80 hover:text-white"
-                      : "text-muted-foreground hover:text-foreground"
-                  )}
+                  aria-current={active ? "page" : undefined}
+                  className={linkClass(active)}
                 >
                   {item.name}
                 </Link>
-              )
-            )}
+              );
+            })}
           </div>
         </div>
 
@@ -141,7 +199,10 @@ export function Header() {
           <Button
             variant="ghost"
             size="sm"
-            className={cn(overHero && "text-white hover:bg-white/10 hover:text-white")}
+            className={cn(
+              "rounded-full",
+              overHero && "text-white hover:bg-white/10 hover:text-white"
+            )}
             asChild
           >
             <Link to="/login">Sign in</Link>
@@ -180,32 +241,50 @@ export function Header() {
       {mobileMenuOpen && (
         <div id="mobile-menu" className="md:hidden border-t border-border bg-background">
           <div className="container-wide py-4 space-y-2">
-            {navigation.map((item) => (
-              <div key={item.name}>
-                <Link
-                  to={item.href}
-                  className="block px-4 py-3 text-base font-medium text-foreground hover:bg-secondary rounded-lg"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  {item.name}
-                </Link>
-                {item.children && (
-                  <div className="ml-4 mt-1 space-y-1">
-                    {item.children.map((child) => (
-                      <Link
-                        key={child.name}
-                        to={child.href}
-                        className="flex items-center gap-2 px-4 py-2 text-base text-muted-foreground hover:text-foreground hover:bg-secondary rounded-lg"
-                        onClick={() => setMobileMenuOpen(false)}
-                      >
-                        <span className={cn("h-2 w-2 rounded-full", child.dot)} />
-                        {child.name}
-                      </Link>
-                    ))}
-                  </div>
-                )}
-              </div>
-            ))}
+            {navigation.map((item) => {
+              const active = isActivePath(location.pathname, item.href, Boolean(item.children));
+              return (
+                <div key={item.name}>
+                  <Link
+                    to={item.href}
+                    aria-current={active ? "page" : undefined}
+                    className={cn(
+                      "block px-4 py-3 text-base font-label font-medium rounded-lg transition-colors",
+                      active
+                        ? "bg-secondary text-foreground"
+                        : "text-foreground hover:bg-secondary"
+                    )}
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    {item.name}
+                  </Link>
+                  {item.children && (
+                    <div className="ml-4 mt-1 space-y-1">
+                      {item.children.map((child) => {
+                        const childActive = location.pathname === child.href;
+                        return (
+                          <Link
+                            key={child.name}
+                            to={child.href}
+                            aria-current={childActive ? "page" : undefined}
+                            className={cn(
+                              "flex items-center gap-2 px-4 py-2 text-base rounded-lg transition-colors",
+                              childActive
+                                ? "bg-secondary text-foreground font-medium"
+                                : "text-muted-foreground hover:text-foreground hover:bg-secondary"
+                            )}
+                            onClick={() => setMobileMenuOpen(false)}
+                          >
+                            <span className={cn("h-2 w-2 rounded-full", child.dot)} />
+                            {child.name}
+                          </Link>
+                        );
+                      })}
+                    </div>
+                  )}
+                </div>
+              );
+            })}
             <div className="pt-4 border-t border-border space-y-2">
               <Button variant="outline" className="w-full rounded-full" asChild>
                 <Link to="/login" onClick={() => setMobileMenuOpen(false)}>
