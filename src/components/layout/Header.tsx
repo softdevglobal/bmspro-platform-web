@@ -12,7 +12,7 @@ const navigation = [
     children: [
       {
         name: "BMS Pro Black",
-        href: "/contact",
+        href: "/products/black",
         description: "Mechanic shops — filter calls, book jobs",
         dot: "bg-product-black",
       },

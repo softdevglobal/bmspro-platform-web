@@ -28,7 +28,7 @@ const products: ShowcaseProduct[] = [
       "Technical calls filtered through",
       "Less downtime on the floor",
     ],
-    href: "/contact",
+    href: "/products/black",
     icon: Wrench,
     cta: "Book Your Strategy Call",
     image: "https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?w=1000&h=1400&fit=crop",

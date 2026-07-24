@@ -3,6 +3,7 @@ import { Mail, Phone, MapPin } from "lucide-react";
 
 const footerLinks = {
   products: [
+    { name: "BMS Pro Black", href: "/products/black" },
     { name: "BMS Pro Pink", href: "/products/pink" },
     { name: "BMS Pro Blue", href: "/products/blue" },
     { name: "BMS Pro FieldFlow", href: "/products/fieldflow" },

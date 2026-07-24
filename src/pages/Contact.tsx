@@ -200,6 +200,7 @@ const Contact = () => {
                     onChange={handleChange}
                   >
                     <option value="">Select a product</option>
+                    <option value="black">BMS Pro Black</option>
                     <option value="pink">BMS Pro Pink</option>
                     <option value="blue">BMS Pro Blue</option>
                     <option value="fieldflow">BMS Pro FieldFlow</option>

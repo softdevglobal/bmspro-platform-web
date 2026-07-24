@@ -1,9 +1,27 @@
 import { Layout } from "@/components/layout/Layout";
 import { ProductCard } from "@/components/ProductCard";
 import { SEO } from "@/components/SEO";
-import { Sparkles, Wrench, Smartphone, Code } from "lucide-react";
+import { Sparkles, Wrench, Smartphone, Code, Hammer } from "lucide-react";
 
 const products = [
+  {
+    name: "BMS Pro Black",
+    tagline: "Mechanic Shops",
+    description:
+      "Filter calls and book jobs — workshop operations in one place. Human receptionists book routine work so mechanics stay under the hood.",
+    features: [
+      "Bay & job scheduling",
+      "Receptionist call filtering",
+      "Workshop onboarding support",
+      "Demo & pricing walkthroughs",
+      "Less downtime on the floor",
+      "Jobs booked into the system",
+    ],
+    href: "/products/black",
+    variant: "black" as const,
+    icon: Wrench,
+    cta: "Book a Demo",
+  },
   {
     name: "BMS Pro Pink",
     tagline: "Salons & Beauty",
@@ -35,7 +53,7 @@ const products = [
     ],
     href: "/products/blue",
     variant: "blue" as const,
-    icon: Wrench,
+    icon: Hammer,
     cta: "Book a Demo",
   },
   {
@@ -91,7 +109,7 @@ const Products = () => {
     <Layout>
       <SEO
         title="Products | BMS Pro Suite for Service Businesses"
-        description="Explore BMS Pro Pink, Blue, FieldFlow, and Booking Engine — four products built to run bookings, jobs, and field operations on one platform."
+        description="Explore BMS Pro Black, Pink, Blue, FieldFlow, and Booking Engine — products built to run bookings, jobs, and field operations on one platform."
         path="/products"
         jsonLd={jsonLd}
       />
@@ -103,7 +121,7 @@ const Products = () => {
               The complete toolkit for service businesses
             </h1>
             <p className="text-xl text-muted-foreground">
-              Four powerful products designed to work together or standalone. Choose what fits your business today, add more as you grow.
+              Powerful products designed to work together or standalone. Choose what fits your business today, add more as you grow.
             </p>
           </div>
 
