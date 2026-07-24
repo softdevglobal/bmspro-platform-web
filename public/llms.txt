@@ -1,0 +1,25 @@
+# BMS Pro
+
+> Unified booking and operations platform for salons, trades, field teams, and embeddable booking — built for Australian service businesses.
+
+BMS Pro is a suite of four products that share one platform: BMS Pro Pink (salons & beauty), BMS Pro Blue (trades & services), BMS Pro FieldFlow (field operations), and a white-label Booking Engine. Based in Lynbrook, Victoria, Australia.
+
+## Pages
+
+- [Home](/): Platform overview and product suite.
+- [Products](/products): All four BMS Pro products.
+- [BMS Pro Pink](/products/pink): Appointment booking for salons, spas, and personal services.
+- [BMS Pro Blue](/products/blue): Job scheduling for trades and service businesses.
+- [BMS Pro FieldFlow](/products/fieldflow): Mobile-first workflow management for field teams.
+- [Booking Engine](/products/booking-engine): Embeddable booking widget with Stripe payments.
+- [Pricing](/pricing): Plans and pricing for all products.
+- [About](/about): Company story and team.
+- [Careers](/careers): Open roles and how to apply.
+- [Blog](/blog): Product updates and industry insights.
+- [Contact](/contact): Book a demo or get in touch.
+
+## Optional
+
+- [Privacy Policy](/privacy)
+- [Terms of Service](/terms)
+- [Cookie Policy](/cookies)

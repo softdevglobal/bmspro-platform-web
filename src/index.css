@@ -1,0 +1,269 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Core palette - Calming Psychology Theme */
+    /* Warm cream background - less clinical, more approachable */
+    --background: 40 30% 97%;
+    --foreground: 220 25% 25%;
+
+    /* Cards with subtle warmth */
+    --card: 40 20% 99%;
+    --card-foreground: 220 25% 25%;
+
+    --popover: 40 20% 99%;
+    --popover-foreground: 220 25% 25%;
+
+    /* Primary - Calming blue for trust and stability */
+    --primary: 210 65% 38%;
+    --primary-foreground: 0 0% 100%;
+
+    /* Secondary - Soft sage green tint for healing */
+    --secondary: 150 20% 95%;
+    --secondary-foreground: 220 25% 25%;
+
+    /* Muted - Warm neutrals */
+    --muted: 40 15% 94%;
+    --muted-foreground: 220 15% 38%;
+
+    /* Accent - Soft sage for calm interaction states */
+    --accent: 150 25% 93%;
+    --accent-foreground: 220 25% 25%;
+
+    --destructive: 0 65% 55%;
+    --destructive-foreground: 0 0% 100%;
+
+    /* Softer borders */
+    --border: 40 15% 88%;
+    --input: 40 15% 88%;
+    --ring: 210 55% 45%;
+
+    --radius: 0.75rem;
+
+    /* Product accent colors - softened for psychology theme */
+    --pink: 340 60% 40%;
+    --pink-light: 340 40% 96%;
+    --pink-foreground: 0 0% 100%;
+
+    --blue: 210 65% 38%;
+    --blue-light: 210 40% 96%;
+    --blue-foreground: 0 0% 100%;
+
+    --teal: 172 55% 30%;
+    --teal-light: 172 35% 95%;
+    --teal-foreground: 0 0% 100%;
+
+    --slate: 220 20% 35%;
+    --slate-light: 40 15% 96%;
+    --slate-foreground: 220 25% 25%;
+
+    /* Gradients - softer, warmer */
+    --gradient-hero: linear-gradient(135deg, hsl(40 30% 97%) 0%, hsl(150 15% 95%) 100%);
+    --gradient-card: linear-gradient(180deg, hsl(40 20% 99%) 0%, hsl(40 25% 97%) 100%);
+    --gradient-pink: linear-gradient(135deg, hsl(340 55% 55%) 0%, hsl(340 50% 65%) 100%);
+    --gradient-blue: linear-gradient(135deg, hsl(210 55% 55%) 0%, hsl(210 50% 65%) 100%);
+    --gradient-teal: linear-gradient(135deg, hsl(172 45% 45%) 0%, hsl(172 40% 55%) 100%);
+
+    /* Shadows - warmer, softer */
+    --shadow-sm: 0 1px 2px 0 hsl(40 20% 70% / 0.3);
+    --shadow-md: 0 4px 6px -1px hsl(40 20% 60% / 0.2), 0 2px 4px -2px hsl(40 20% 60% / 0.15);
+    --shadow-lg: 0 10px 15px -3px hsl(40 20% 50% / 0.15), 0 4px 6px -4px hsl(40 20% 50% / 0.1);
+    --shadow-xl: 0 20px 25px -5px hsl(40 20% 50% / 0.15), 0 8px 10px -6px hsl(40 20% 50% / 0.1);
+    --shadow-card: 0 2px 8px 0 hsl(210 30% 40% / 0.06), 0 1px 3px -1px hsl(210 30% 40% / 0.04);
+    --shadow-card-hover: 0 12px 35px -8px hsl(210 30% 40% / 0.12);
+
+    /* Sidebar */
+    --sidebar-background: 40 20% 98%;
+    --sidebar-foreground: 220 25% 30%;
+    --sidebar-primary: 210 55% 45%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 150 20% 95%;
+    --sidebar-accent-foreground: 220 25% 25%;
+    --sidebar-border: 40 15% 88%;
+    --sidebar-ring: 210 55% 45%;
+  }
+
+  .dark {
+    /* Dark mode - still calming, with warm undertones */
+    --background: 220 20% 10%;
+    --foreground: 40 15% 92%;
+
+    --card: 220 18% 13%;
+    --card-foreground: 40 15% 92%;
+
+    --popover: 220 18% 13%;
+    --popover-foreground: 40 15% 92%;
+
+    --primary: 210 50% 60%;
+    --primary-foreground: 220 20% 10%;
+
+    --secondary: 200 15% 18%;
+    --secondary-foreground: 40 15% 92%;
+
+    --muted: 220 15% 18%;
+    --muted-foreground: 220 12% 55%;
+
+    --accent: 200 15% 18%;
+    --accent-foreground: 40 15% 92%;
+
+    --destructive: 0 55% 45%;
+    --destructive-foreground: 40 15% 92%;
+
+    --border: 220 15% 20%;
+    --input: 220 15% 20%;
+    --ring: 210 50% 60%;
+
+    --sidebar-background: 220 18% 12%;
+    --sidebar-foreground: 40 15% 90%;
+    --sidebar-primary: 210 50% 60%;
+    --sidebar-primary-foreground: 220 20% 10%;
+    --sidebar-accent: 200 15% 18%;
+    --sidebar-accent-foreground: 40 15% 90%;
+    --sidebar-border: 220 15% 20%;
+    --sidebar-ring: 210 50% 60%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    font-size: 18px; /* Base font size increased from 16px */
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    line-height: 1.7;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-display tracking-tight;
+  }
+
+  h1 {
+    @apply text-4xl sm:text-5xl lg:text-6xl;
+  }
+
+  h2 {
+    @apply text-3xl sm:text-4xl;
+  }
+
+  h3 {
+    @apply text-xl sm:text-2xl;
+  }
+
+  p {
+    @apply text-base leading-relaxed;
+  }
+}
+
+@layer components {
+  .container-narrow {
+    @apply max-w-5xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  .container-wide {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  .section-padding {
+    @apply py-16 sm:py-24;
+  }
+
+  .card-elevated {
+    @apply bg-card rounded-xl border border-border/50;
+    box-shadow: var(--shadow-card);
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+  }
+
+  .card-elevated:hover {
+    box-shadow: var(--shadow-card-hover);
+    transform: translateY(-2px);
+  }
+
+  .text-gradient {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(135deg, hsl(var(--foreground)) 0%, hsl(var(--muted-foreground)) 100%);
+  }
+
+  .badge-pink {
+    @apply bg-pink-light text-pink px-3 py-1 rounded-full text-sm font-medium;
+  }
+
+  .badge-blue {
+    @apply bg-blue-light text-blue px-3 py-1 rounded-full text-sm font-medium;
+  }
+
+  .badge-teal {
+    @apply bg-teal-light text-teal px-3 py-1 rounded-full text-sm font-medium;
+  }
+
+  .badge-slate {
+    @apply bg-slate-light text-slate-foreground px-3 py-1 rounded-full text-sm font-medium;
+  }
+}
+
+@layer utilities {
+  .animate-fade-up {
+    animation: fadeUp 0.6s ease-out forwards;
+  }
+
+  .animate-fade-in {
+    animation: fadeIn 0.5s ease-out forwards;
+  }
+
+  .animate-scale-in {
+    animation: scaleIn 0.4s ease-out forwards;
+  }
+
+  .delay-100 {
+    animation-delay: 100ms;
+  }
+
+  .delay-200 {
+    animation-delay: 200ms;
+  }
+
+  .delay-300 {
+    animation-delay: 300ms;
+  }
+
+  .delay-400 {
+    animation-delay: 400ms;
+  }
+
+  @keyframes fadeUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes scaleIn {
+    from {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+}
