@@ -23,9 +23,9 @@ const heroCollage = [
 
 export function HeroSection() {
   return (
-    <section className="relative bg-background">
+    <section className="relative bg-background -mt-16">
       {/* Full-bleed image hero — content sits on top */}
-      <div className="relative min-h-[min(92vh,860px)] flex items-center overflow-hidden">
+      <div className="relative min-h-[min(92vh,860px)] flex items-center overflow-hidden pt-16">
         {/* Background collage */}
         <div className="absolute inset-0 grid grid-cols-1 sm:grid-cols-3" aria-hidden>
           {heroCollage.map((panel) => (
