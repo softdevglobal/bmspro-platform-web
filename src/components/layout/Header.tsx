@@ -93,29 +93,52 @@ export function Header() {
                       "flex items-center gap-1 px-4 py-2 text-sm font-label font-medium transition-colors",
                       overHero
                         ? "text-white/80 hover:text-white"
-                        : "text-muted-foreground hover:text-foreground"
+                        : "text-muted-foreground hover:text-foreground",
+                      productsOpen && (overHero ? "text-white" : "text-foreground")
                     )}
+                    aria-expanded={productsOpen}
+                    aria-haspopup="menu"
                   >
                     {item.name}
-                    <ChevronDown className="h-4 w-4" />
+                    <ChevronDown
+                      className={cn(
+                        "h-4 w-4 transition-transform",
+                        productsOpen && "rotate-180"
+                      )}
+                    />
                   </Link>
                   {productsOpen && (
-                    <div className="absolute top-full left-0 mt-1 w-80 rounded-2xl border border-border bg-card p-2 shadow-elevated animate-fade-in">
-                      {item.children.map((child) => (
-                        <Link
-                          key={child.name}
-                          to={child.href}
-                          className="flex items-start gap-3 rounded-xl px-3 py-3 hover:bg-secondary transition-colors"
-                        >
-                          <span
-                            className={cn("mt-1.5 h-2.5 w-2.5 rounded-full shrink-0", child.dot)}
-                          />
-                          <div>
-                            <div className="text-base font-medium text-foreground">{child.name}</div>
-                            <div className="text-sm text-muted-foreground">{child.description}</div>
-                          </div>
-                        </Link>
-                      ))}
+                    <div className="absolute top-full left-0 z-50 pt-1">
+                      {/* Invisible hover bridge — keeps menu open while moving into it */}
+                      <div
+                        role="menu"
+                        className="w-80 rounded-2xl border border-border bg-card p-2 shadow-elevated animate-fade-in"
+                      >
+                        {item.children.map((child) => (
+                          <Link
+                            key={child.name}
+                            to={child.href}
+                            role="menuitem"
+                            className="flex items-start gap-3 rounded-xl px-3 py-3 hover:bg-secondary transition-colors"
+                            onClick={() => setProductsOpen(false)}
+                          >
+                            <span
+                              className={cn(
+                                "mt-1.5 h-2.5 w-2.5 rounded-full shrink-0",
+                                child.dot
+                              )}
+                            />
+                            <div>
+                              <div className="text-base font-medium text-foreground">
+                                {child.name}
+                              </div>
+                              <div className="text-sm text-muted-foreground">
+                                {child.description}
+                              </div>
+                            </div>
+                          </Link>
+                        ))}
+                      </div>
                     </div>
                   )}
                 </div>
