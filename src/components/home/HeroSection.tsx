@@ -47,7 +47,7 @@ export function HeroSection() {
         <div className="container-wide relative z-10 py-16 sm:py-20 lg:py-24 w-full">
           <div className="max-w-3xl mx-auto text-center text-white">
             <p className="font-display text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-extrabold tracking-tight mb-5 animate-fade-up leading-[1.02]">
-              BMS Pro
+              BMS PRO
             </p>
 
             <h1 className="font-display text-2xl sm:text-3xl lg:text-4xl font-bold mb-4 animate-fade-up delay-100 leading-snug">

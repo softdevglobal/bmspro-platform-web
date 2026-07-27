@@ -1,144 +1,157 @@
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 import { Layout } from "@/components/layout/Layout";
 import { SEO } from "@/components/SEO";
-import { Button } from "@/components/ui/button";
-import { Check, ArrowRight } from "lucide-react";
+import { BlackPricingSection } from "@/components/pricing/BlackPricingSection";
+import { BluePricingSection } from "@/components/pricing/BluePricingSection";
+import { PinkPricingSection } from "@/components/pricing/PinkPricingSection";
+import { cn } from "@/lib/utils";
 
-const plans = [
+type PricingProduct = "black" | "blue" | "pink";
+
+const PRODUCTS: {
+  id: PricingProduct;
+  name: string;
+  audience: string;
+  icon: string;
+  activeClass: string;
+  ringClass: string;
+}[] = [
   {
-    name: "Starter",
-    description: "Perfect for solo operators and small teams just getting started.",
-    price: "$29",
-    period: "/month",
-    features: [
-      "Up to 2 staff members",
-      "500 bookings/month",
-      "Online booking page",
-      "Client management",
-      "Email reminders",
-      "Basic reporting",
-    ],
-    cta: "Start Free Trial",
-    variant: "outline" as const,
-    popular: false,
+    id: "black",
+    name: "Black",
+    audience: "Workshops",
+    icon: "/products/black/icon.png",
+    activeClass: "bg-white text-[hsl(220_22%_10%)] shadow-lg",
+    ringClass: "ring-white/40",
   },
   {
-    name: "Professional",
-    description: "For growing businesses that need more power and flexibility.",
-    price: "$79",
-    period: "/month",
-    features: [
-      "Up to 10 staff members",
-      "Unlimited bookings",
-      "All Starter features",
-      "SMS reminders",
-      "Advanced analytics",
-      "API access",
-      "Priority support",
-    ],
-    cta: "Start Free Trial",
-    variant: "default" as const,
-    popular: true,
+    id: "blue",
+    name: "Blue",
+    audience: "Trades",
+    icon: "/products/blue/icon.png",
+    activeClass: "bg-blue text-white shadow-lg shadow-blue/30",
+    ringClass: "ring-blue/50",
   },
   {
-    name: "Enterprise",
-    description: "For large organizations with complex requirements.",
-    price: "Custom",
-    period: "",
-    features: [
-      "Unlimited staff",
-      "Unlimited bookings",
-      "All Professional features",
-      "Multi-location",
-      "Custom integrations",
-      "Dedicated support",
-      "SLA guarantee",
-      "Custom training",
-    ],
-    cta: "Contact Sales",
-    variant: "outline" as const,
-    popular: false,
+    id: "pink",
+    name: "Pink",
+    audience: "Salons",
+    icon: "/products/pink/icon.png",
+    activeClass: "bg-pink text-white shadow-lg shadow-pink/30",
+    ringClass: "ring-pink/50",
   },
 ];
 
+function productFromHash(hash: string): PricingProduct {
+  if (hash.includes("blue")) return "blue";
+  if (hash.includes("pink")) return "pink";
+  return "black";
+}
+
+function hashForProduct(product: PricingProduct): string {
+  if (product === "blue") return "blue-plans";
+  if (product === "pink") return "pink-plans";
+  return "black-plans";
+}
+
 const Pricing = () => {
+  const location = useLocation();
+  const [product, setProduct] = useState<PricingProduct>(() =>
+    productFromHash(location.hash)
+  );
+
+  useEffect(() => {
+    setProduct(productFromHash(location.hash));
+  }, [location.hash]);
+
+  const selectProduct = (next: PricingProduct) => {
+    setProduct(next);
+    window.history.replaceState(null, "", `#${hashForProduct(next)}`);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
   return (
     <Layout>
       <SEO
-        title="Pricing | BMS Pro Plans from $29/month"
-        description="Simple, transparent pricing for BMS Pro. Starter, Professional, and Enterprise plans with a 14-day free trial. No credit card required."
+        title="Pricing | BMS Pro Black, Blue & Pink"
+        description="BMS Pro plans — Black for workshops, Blue for trades, Pink for salons. AUD pricing with clear features per tier."
         path="/pricing"
       />
-      <section className="section-padding">
-        <div className="container-wide">
-          <div className="text-center max-w-3xl mx-auto mb-16">
-            <span className="text-sm font-semibold text-primary uppercase tracking-wider">Pricing</span>
-            <h1 className="text-4xl sm:text-5xl font-bold text-foreground mt-2 mb-6">
-              Simple, transparent pricing
-            </h1>
-            <p className="text-xl text-muted-foreground">
-              Choose the plan that fits your business. All plans include a 14-day free trial.
-            </p>
-          </div>
 
-          <h2 className="text-2xl sm:text-3xl font-bold text-foreground text-center mb-10">
-            Plans for every stage of growth
-          </h2>
-
-          <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-            {plans.map((plan, index) => (
-              <div
-                key={plan.name}
-                className={`relative card-elevated p-8 flex flex-col animate-fade-up ${
-                  plan.popular ? "border-2 border-primary" : ""
-                }`}
-                style={{ animationDelay: `${index * 100}ms` }}
-              >
-                {plan.popular && (
-                  <span className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1 rounded-full bg-primary text-primary-foreground text-xs font-semibold">
-                    Most Popular
-                  </span>
-                )}
-
-                <div className="mb-6">
-                  <h3 className="text-xl font-bold text-foreground mb-2">{plan.name}</h3>
-                  <p className="text-sm text-muted-foreground">{plan.description}</p>
-                </div>
-
-                <div className="mb-6">
-                  <span className="text-4xl font-bold text-foreground">{plan.price}</span>
-                  <span className="text-muted-foreground">{plan.period}</span>
-                </div>
-
-                <ul className="space-y-3 mb-8 flex-grow">
-                  {plan.features.map((feature) => (
-                    <li key={feature} className="flex items-start gap-3">
-                      <Check className="h-5 w-5 text-teal flex-shrink-0 mt-0.5" />
-                      <span className="text-sm text-muted-foreground">{feature}</span>
-                    </li>
-                  ))}
-                </ul>
-
-                <Button variant={plan.variant} size="lg" className="w-full" asChild>
-                  <Link to="/contact">
-                    {plan.cta}
-                    <ArrowRight className="h-4 w-4" />
-                  </Link>
-                </Button>
+      <div className="relative">
+        {/* Floating product picker overlaid on the hero */}
+        <div className="absolute inset-x-0 top-[4.75rem] sm:top-20 z-40 pointer-events-none">
+          <div className="container-wide">
+            <div
+              className="pointer-events-auto mx-auto max-w-2xl rounded-2xl border border-white/15 bg-[hsl(220_22%_8%/0.75)] p-1.5 shadow-[0_16px_48px_-16px_hsl(220_22%_4%/0.65)] backdrop-blur-xl animate-fade-up"
+              role="tablist"
+              aria-label="Choose a product"
+            >
+              <div className="grid grid-cols-3 gap-1.5">
+                {PRODUCTS.map((item) => {
+                  const selected = product === item.id;
+                  return (
+                    <button
+                      key={item.id}
+                      type="button"
+                      role="tab"
+                      aria-selected={selected}
+                      onClick={() => selectProduct(item.id)}
+                      className={cn(
+                        "group flex flex-col sm:flex-row items-center gap-2 sm:gap-3 rounded-xl px-2 py-3 sm:px-3.5 sm:py-3 text-left transition-all duration-200",
+                        selected
+                          ? cn(item.activeClass, "ring-2", item.ringClass)
+                          : "text-white/70 hover:bg-white/10 hover:text-white"
+                      )}
+                    >
+                      <img
+                        src={item.icon}
+                        alt=""
+                        className={cn(
+                          "h-9 w-9 sm:h-10 sm:w-10 rounded-lg object-cover shrink-0 transition-transform duration-200",
+                          selected
+                            ? "ring-1 ring-black/10"
+                            : "ring-1 ring-white/20 group-hover:scale-105"
+                        )}
+                      />
+                      <span className="min-w-0 text-center sm:text-left">
+                        <span className="block font-display text-sm sm:text-base font-bold leading-tight tracking-tight">
+                          {item.name}
+                        </span>
+                        <span
+                          className={cn(
+                            "hidden sm:block text-xs font-medium mt-0.5",
+                            selected ? "opacity-80" : "text-white/45"
+                          )}
+                        >
+                          {item.audience}
+                        </span>
+                      </span>
+                    </button>
+                  );
+                })}
               </div>
-            ))}
-          </div>
-
-          <div className="mt-16 text-center">
-            <p className="text-muted-foreground mb-4">
-              Need a custom solution? Looking for multi-product bundles?
-            </p>
-            <Button variant="outline" asChild>
-              <Link to="/contact">Talk to Sales</Link>
-            </Button>
+            </div>
           </div>
         </div>
-      </section>
+
+        {product === "black" && (
+          <div role="tabpanel" id="black-plans">
+            <BlackPricingSection offsetHeader overlayPicker />
+          </div>
+        )}
+        {product === "blue" && (
+          <div role="tabpanel" id="blue-plans">
+            <BluePricingSection offsetHeader overlayPicker />
+          </div>
+        )}
+        {product === "pink" && (
+          <div role="tabpanel" id="pink-plans">
+            <PinkPricingSection offsetHeader overlayPicker />
+          </div>
+        )}
+      </div>
     </Layout>
   );
 };

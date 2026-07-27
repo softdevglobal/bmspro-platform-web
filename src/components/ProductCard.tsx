@@ -78,24 +78,28 @@ export function ProductCard({
         <div className={cn("p-3 rounded-xl transition-transform duration-300 group-hover:scale-105", styles.icon)}>
           <Icon className="h-6 w-6" />
         </div>
-        <span className={cn("px-3 py-1 rounded-full text-xs font-medium", styles.badge)}>
+        <span className={cn("px-3 py-1 rounded-full text-xs font-label font-medium", styles.badge)}>
           {tagline}
         </span>
       </div>
 
-      <h3 className="text-xl sm:text-2xl font-bold text-foreground mb-2">{name}</h3>
-      <p className="text-muted-foreground text-sm mb-5 flex-grow">{description}</p>
+      <h3 className="font-display text-xl sm:text-2xl font-bold text-foreground mb-2 tracking-tight">
+        {name}
+      </h3>
+      <p className="font-sans text-muted-foreground text-sm mb-5 flex-grow leading-relaxed">
+        {description}
+      </p>
 
       <ul className="space-y-2.5 mb-8">
         {features.slice(0, 4).map((feature) => (
-          <li key={feature} className="flex items-center gap-2 text-sm text-muted-foreground">
+          <li key={feature} className="flex items-center gap-2 text-sm text-muted-foreground font-sans">
             <div className="h-1.5 w-1.5 rounded-full bg-muted-foreground/50" />
             {feature}
           </li>
         ))}
       </ul>
 
-      <Button variant={styles.button} className="w-full group/btn" asChild>
+      <Button variant={styles.button} className="w-full rounded-full group/btn" asChild>
         <Link to={href}>
           {cta}
           <ArrowRight className="h-4 w-4 transition-transform group-hover/btn:translate-x-1" />
