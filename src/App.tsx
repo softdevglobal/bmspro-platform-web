@@ -8,8 +8,6 @@ import Products from "./pages/Products";
 import ProductPink from "./pages/ProductPink";
 import ProductBlue from "./pages/ProductBlue";
 import ProductBlack from "./pages/ProductBlack";
-import ProductFieldFlow from "./pages/ProductFieldFlow";
-import ProductBookingEngine from "./pages/ProductBookingEngine";
 import Pricing from "./pages/Pricing";
 import Contact from "./pages/Contact";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
@@ -34,8 +32,6 @@ const App = () => (
           <Route path="/products/pink" element={<ProductPink />} />
           <Route path="/products/blue" element={<ProductBlue />} />
           <Route path="/products/black" element={<ProductBlack />} />
-          <Route path="/products/fieldflow" element={<ProductFieldFlow />} />
-          <Route path="/products/booking-engine" element={<ProductBookingEngine />} />
           <Route path="/pricing" element={<Pricing />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/privacy" element={<PrivacyPolicy />} />

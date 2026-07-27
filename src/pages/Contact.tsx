@@ -228,8 +228,6 @@ const Contact = () => {
                     <option value="black">BMS Pro Black</option>
                     <option value="pink">BMS Pro Pink</option>
                     <option value="blue">BMS Pro Blue</option>
-                    <option value="fieldflow">BMS Pro FieldFlow</option>
-                    <option value="booking-engine">Booking Engine</option>
                     <option value="all">Full Platform</option>
                   </select>
                 </div>

@@ -6,8 +6,6 @@ import { Button } from "@/components/ui/button";
 import {
   Sparkles,
   Wrench,
-  Smartphone,
-  Code,
   Hammer,
   ArrowRight,
   ShieldCheck,
@@ -68,42 +66,6 @@ const products = [
     icon: Hammer,
     cta: "Book a Demo",
   },
-  {
-    name: "BMS Pro FieldFlow",
-    tagline: "Field Operations",
-    description:
-      "Mobile-first workflow management for field teams. Real-time updates, task tracking, and seamless communication between office and field.",
-    features: [
-      "Mobile-first interface",
-      "Real-time status updates",
-      "Task workflows & checklists",
-      "Location tracking",
-      "Photo documentation",
-      "Offline capability",
-    ],
-    href: "/products/fieldflow",
-    variant: "teal" as const,
-    icon: Smartphone,
-    cta: "Explore FieldFlow",
-  },
-  {
-    name: "Booking Engine",
-    tagline: "Embeddable",
-    description:
-      "A powerful, embeddable booking widget for your website. White-label ready with Stripe payments and full availability management.",
-    features: [
-      "Easy website embed",
-      "Stripe payments ready",
-      "White-label options",
-      "Full API access",
-      "Custom branding",
-      "Multi-language",
-    ],
-    href: "/products/booking-engine",
-    variant: "slate" as const,
-    icon: Code,
-    cta: "View Documentation",
-  },
 ];
 
 const Products = () => {
@@ -123,7 +85,7 @@ const Products = () => {
     <Layout>
       <SEO
         title="Products | BMS Pro Suite for Service Businesses"
-        description="Explore BMS Pro Black, Pink, Blue, FieldFlow, and Booking Engine — products built to run bookings, jobs, and field operations on one platform."
+        description="Explore BMS Pro Black, Pink, and Blue — products built to run bookings, jobs, and workshop operations on one platform."
         path="/products"
         jsonLd={jsonLd}
       />
