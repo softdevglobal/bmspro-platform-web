@@ -90,7 +90,7 @@ export function PinkPricingSection({
           >
             <div className="absolute inset-0" aria-hidden>
               <img
-                src="/products/pink/hero.png"
+                src="/products/pink/hero.jpg"
                 alt=""
                 className="absolute inset-0 h-full w-full object-cover scale-105"
               />
@@ -279,7 +279,7 @@ export function PinkPricingSection({
           <section className="relative overflow-hidden text-white">
             <div className="absolute inset-0" aria-hidden>
               <img
-                src="/products/pink/hero.png"
+                src="/products/pink/hero.jpg"
                 alt=""
                 className="absolute inset-0 h-full w-full object-cover scale-110 blur-sm"
               />

@@ -5,331 +5,152 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
+import { BlackPricingSection } from "@/components/pricing/BlackPricingSection";
+import { submitContactForm } from "@/lib/contactForm";
+import { useToast } from "@/hooks/use-toast";
+import { useState, type ReactNode } from "react";
+import { cn } from "@/lib/utils";
 import {
   ArrowRight,
-  Wrench,
-  Users,
-  MessageSquare,
-  CreditCard,
-  CalendarCheck,
-  Building2,
-  Car,
-  FileText,
-  Building,
+  Bell,
+  Calendar,
+  Check,
+  ChevronDown,
+  ChevronUp,
   Globe,
   Headphones,
-  Bell,
-  Megaphone,
-  ScrollText,
   LayoutDashboard,
-  Settings,
-  Smartphone,
-  ShieldCheck,
-  LucideIcon,
+  Mail,
+  MessageSquare,
+  Minus,
+  Phone,
+  Plus,
+  Star,
+  TrendingUp,
+  Wrench,
 } from "lucide-react";
-import { useState } from "react";
-import { useToast } from "@/hooks/use-toast";
-import { submitContactForm } from "@/lib/contactForm";
 
-type FeatureModule = {
-  id: string;
-  number: string;
-  title: string;
-  who: string;
-  icon: LucideIcon;
-  summary: string;
-  points: string[];
-  image?: string;
-};
+const TRUST_LOGOS = [
+  "Mechanic shops",
+  "Auto workshops",
+  "Garages",
+  "Service centres",
+  "Multi-bay yards",
+  "Dealership service",
+];
 
-const featureModules: FeatureModule[] = [
+const FORM_STEPS = [
   {
-    id: "services",
-    number: "01",
-    title: "Services",
-    who: "Owners set the menu · Ready-made templates to start",
-    icon: Wrench,
-    summary:
-      "Build the services you offer — prices, duration, photos, and who does the work. Price by car type, or keep one flat price.",
-    points: [
-      "Add services with name, price, time, and photo",
-      "Assign to branches and the right staff",
-      "Different prices for small cars, SUVs, utes, and more",
-      "Inspection checklists by vehicle area",
-      "Start from ready-made templates",
-    ],
-    image: "https://images.unsplash.com/photo-1487754180451-c456f719a1fc?w=900&h=700&fit=crop",
+    title: "Visual selective cards",
+    body: "Customers tap services, vehicle type, and branch instead of typing. Fast, easy, and feels effortless.",
   },
   {
-    id: "staff",
-    number: "02",
-    title: "Staff",
-    who: "Owners manage the team · Staff work from the phone app",
-    icon: Users,
-    summary:
-      "Add your team, set rosters, track who’s on site, approve leave, and keep training records.",
-    points: [
-      "Logins for staff and branch managers",
-      "Rosters, training, and welcome emails",
-      "Check-in on a map near each branch",
-      "Timesheets and leave approvals",
-      "Staff can decline jobs they can’t take",
-    ],
-    image: "https://images.unsplash.com/photo-1625047509248-ec889cbff17f?w=900&h=700&fit=crop",
+    title: "Instant book through calendar",
+    body: "Live availability from your working hours — they pick a slot that fits the bay.",
   },
   {
-    id: "sms",
-    number: "03",
-    title: "Text messages",
-    who: "Owners send texts and top up credits",
-    icon: MessageSquare,
-    summary:
-      "Text customers and staff from the workshop. Some plans include credits; top up anytime.",
-    points: [
-      "Credits included with some plans",
-      "Buy extra packs when you run low",
-      "Personalise with the customer’s name",
-      "Greeting and promo templates",
-      "See what you’ve sent and what’s left",
+    title: "Offer recommended upsells",
+    body: "Suggest add-ons and next services while they’re already booking.",
+  },
+  {
+    title: "Ask the right questions",
+    body: "Capture notes, vehicle details, and photos before the car arrives.",
+  },
+  {
+    title: "Confirm by SMS",
+    body: "Instant confirmation and reminders so no-shows drop without chasing calls.",
+  },
+];
+
+const FAQS = [
+  {
+    category: "Book Now",
+    items: [
+      {
+        q: "Why Book Now instead of a website contact form?",
+        a: "Contact forms dump leads into email. Book Now captures the service, vehicle type, branch, and slot — then confirms by SMS so the job is already on the board.",
+      },
+      {
+        q: "What if I don’t have a website?",
+        a: "You get a public booking link for your workshop. Share it on Google, Facebook, or SMS — no website rebuild required.",
+      },
+      {
+        q: "Can I customise what customers can book?",
+        a: "Yes. You control services, prices by vehicle type, branches, hours, and who can take the job.",
+      },
     ],
   },
   {
-    id: "billing",
-    number: "04",
-    title: "Plans & billing",
-    who: "Owners pay and change plans anytime",
-    icon: CreditCard,
-    summary:
-      "Pick a plan that fits your workshop — weekly or monthly, with optional trial and SMS included.",
-    points: [
-      "Clear pricing in Australian dollars",
-      "Branch and staff limits that match your plan",
-      "Pay securely online",
-      "Upgrade, downgrade, or cancel when you need",
-      "Sign up and choose a plan in one flow",
+    category: "Front desk & calls",
+    items: [
+      {
+        q: "Do I need a receptionist?",
+        a: "Online-only plans run without one. Front Desk plans add a human receptionist who filters routine calls and books jobs while mechanics stay under the hood.",
+      },
+      {
+        q: "What happens after hours?",
+        a: "Customers can still book online 24/7. With Front Desk coverage, overflow and after-hours calls get answered instead of going to voicemail.",
+      },
     ],
   },
   {
-    id: "bookings",
-    number: "05",
-    title: "Bookings",
-    who: "Office, floor, and customers online",
-    icon: CalendarCheck,
-    summary:
-      "See today’s jobs on a board or calendar — from request to done, with extra work and reminders covered.",
-    points: [
-      "Day board and calendar views",
-      "Pending → confirmed → completed",
-      "Staff accept or decline jobs",
-      "Price extra work found in the bay",
-      "Service reminders after each job",
-    ],
-    image: "https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=900&h=700&fit=crop",
-  },
-  {
-    id: "branches",
-    number: "06",
-    title: "Branches",
-    who: "One site or many — under your plan",
-    icon: Building2,
-    summary:
-      "Each branch has its own hours, contacts, booking limits, and staff check-in area.",
-    points: [
-      "Add branches within your plan",
-      "Hours, contacts, and daily booking limits",
-      "Assign services, staff, and a manager",
-      "Map check-in or branch QR code",
-      "Schedule and simple site numbers",
-    ],
-  },
-  {
-    id: "customers",
-    number: "07",
-    title: "Customers & vehicles",
-    who: "Everything about your customers in one place",
-    icon: Car,
-    summary:
-      "Keep every customer and their cars ready for bookings, the phone, and the call centre.",
-    points: [
-      "Name, phone, email, and notes",
-      "Vehicles with rego, make, model, and VIN",
-      "Past bookings at a glance",
-      "Import or export with a spreadsheet",
-    ],
-    image: "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=900&h=700&fit=crop",
-  },
-  {
-    id: "finance-docs",
-    number: "08",
-    title: "Quotes & invoices",
-    who: "Owners send docs · Customers view online",
-    icon: FileText,
-    summary:
-      "Customers send photos for an estimate. You reply with quotes and invoices as PDFs.",
-    points: [
-      "Photo estimate requests",
-      "Quotes and invoices as PDF",
-      "Mark invoices paid",
-      "Reusable priced line items",
-    ],
-  },
-  {
-    id: "book-now",
-    number: "09",
-    title: "Online booking",
-    who: "Your customers book 24/7",
-    icon: Globe,
-    summary:
-      "A public booking page for your workshop — service, branch, time, and vehicle-type pricing.",
-    points: [
-      "Customers pick service, branch, and slot",
-      "Prices match the vehicle type",
-      "Account, vehicles, and booking history",
-      "Estimates, quotes, and invoices online",
-      "Your logo, terms, and booking link",
-    ],
-    image: "https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?w=900&h=700&fit=crop",
-  },
-  {
-    id: "call-center",
-    number: "10",
-    title: "Call centre",
-    who: "Humans on the phone for your workshop",
-    icon: Headphones,
-    summary:
-      "Agents book jobs while talking to customers, chat with your team, and keep call recordings.",
-    points: [
-      "Book jobs while on the call",
-      "Look up customers and services fast",
-      "Chat between agents and the workshop",
-      "Answered, missed, and outbound call logs",
-      "Play back recordings when needed",
-    ],
-  },
-  {
-    id: "notifications",
-    number: "11",
-    title: "Notifications",
-    who: "Never miss a booking or declined job",
-    icon: Bell,
-    summary:
-      "Bell, toasts, and sound for new requests, extra work, and messages that need you.",
-    points: [
-      "New booking requests",
-      "Staff declined a job",
-      "Extra work found or priced",
-      "Call-centre chats and announcements",
-    ],
-  },
-  {
-    id: "broadcasts",
-    number: "12",
-    title: "Announcements",
-    who: "Platform news to your workshop",
-    icon: Megaphone,
-    summary: "Important updates to owners — or everyone on admin and mobile.",
-    points: [
-      "Announcements on admin and/or mobile",
-      "Owners only, or all staff",
-      "In-app notices you can’t miss",
-    ],
-  },
-  {
-    id: "audit",
-    number: "13",
-    title: "Activity history",
-    who: "Know what changed and when",
-    icon: ScrollText,
-    summary:
-      "A clear record of bookings, staff, customers, settings, and logins.",
-    points: [
-      "Creates, updates, and status changes",
-      "Search and filter what happened",
-      "Peace of mind for owners",
-    ],
-  },
-  {
-    id: "dashboards",
-    number: "14",
-    title: "Dashboards",
-    who: "Today’s workshop at a glance",
-    icon: LayoutDashboard,
-    summary:
-      "Revenue, booking mix, weekly calendar, and today’s schedule — filtered by branch or staff.",
-    points: [
-      "Revenue and booking counts",
-      "Weekly calendar and today’s jobs",
-      "Notifications and support chat",
-    ],
-  },
-  {
-    id: "settings",
-    number: "15",
-    title: "Settings",
-    who: "Your workshop profile and login",
-    icon: Settings,
-    summary: "Business details, booking terms, logo, and password — all in one place.",
-    points: [
-      "Name, ABN, address, phone, logo",
-      "Terms shown on online booking",
-      "Sign in, reset password, register",
-    ],
-  },
-  {
-    id: "support-chat",
-    number: "16",
-    title: "Support chat",
-    who: "Help when you need it",
-    icon: Headphones,
-    summary: "Chat with support from your dashboard — claim, transfer, or close cleanly.",
-    points: [
-      "Floating chat on the dashboard",
-      "Live presence so you know someone’s there",
-      "Agents claim and close conversations",
-    ],
-  },
-  {
-    id: "tenants",
-    number: "17",
-    title: "Getting started",
-    who: "We set your workshop up on Black",
-    icon: Building,
-    summary:
-      "The BMS Pro team onboards your business — details, plan, and your public booking link.",
-    points: [
-      "Business details and ABN",
-      "Plan and timezone",
-      "Your customer booking link",
+    category: "Workshop software",
+    items: [
+      {
+        q: "Does Black include SMS?",
+        a: "Plans can include SMS credits. You can also top up. Confirmations, reminders, and custom messages go out from the workshop.",
+      },
+      {
+        q: "Can staff use it on the floor?",
+        a: "Yes. Staff check in, handle leave, and accept or decline jobs on the mobile app while owners run the office dashboard.",
+      },
     ],
   },
 ];
 
-const roles = [
+const TESTIMONIALS = [
   {
-    title: "Workshop owner",
-    blurb: "Full control — bookings, staff, billing, customers, and settings.",
-    icon: Wrench,
+    quote:
+      "Mechanics under the hood, not on the phone. Black plus a real receptionist filtered the chaos out of our workshop.",
+    name: "Workshop owner",
+    role: "Multi-bay garage · VIC",
+    image: "/products/black/mechanic-portrait.jpg",
+    stat: null as string | null,
   },
   {
-    title: "Branch manager",
-    blurb: "Runs their site — bookings and schedule for their branch.",
-    icon: Building2,
-  },
-  {
-    title: "Staff",
-    blurb: "Mobile-first — check in, leave, accept or decline jobs on the floor.",
-    icon: Smartphone,
-  },
-  {
-    title: "Platform team",
-    blurb: "Onboards workshops, plans, and platform announcements.",
-    icon: Building,
+    quote: null,
+    name: "Service manager",
+    role: "Independent workshop · NSW",
+    image: "/products/black/workshop-bay.jpg",
+    stat: "Fewer missed bookings in the first month on Black",
   },
 ];
+
+function Pill({
+  children,
+  className,
+}: {
+  children: ReactNode;
+  className?: string;
+}) {
+  return (
+    <span
+      className={cn(
+        "inline-flex items-center gap-1.5 rounded-full border border-product-black/20 bg-product-black/5 px-2.5 py-0.5 text-xs font-semibold text-product-black align-middle mx-1",
+        className
+      )}
+    >
+      {children}
+    </span>
+  );
+}
 
 const ProductBlack = () => {
   const { toast } = useToast();
   const [loading, setLoading] = useState(false);
+  const [openFormStep, setOpenFormStep] = useState(0);
+  const [faqCat, setFaqCat] = useState(0);
+  const [openFaq, setOpenFaq] = useState(0);
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -349,11 +170,11 @@ const ProductBlack = () => {
     try {
       await submitContactForm(
         { ...formData, product: "black" },
-        "Demo request — BMS Pro Black"
+        "BMS Pro Black demo request"
       );
       toast({
-        title: "Message sent",
-        description: "Thanks — we'll get back within 24 hours.",
+        title: "Demo request sent!",
+        description: "We'll get back to you within 24 hours.",
       });
       setFormData({
         firstName: "",
@@ -363,11 +184,10 @@ const ProductBlack = () => {
         product: "black",
         message: "",
       });
-    } catch (error) {
+    } catch (err) {
       toast({
-        title: "Couldn’t send message",
-        description:
-          error instanceof Error ? error.message : "Please try again shortly.",
+        title: "Error sending message",
+        description: err instanceof Error ? err.message : "Please try again or email us.",
         variant: "destructive",
       });
     } finally {
@@ -378,409 +198,818 @@ const ProductBlack = () => {
   return (
     <Layout>
       <SEO
-        title="BMS Pro Black | Workshop Management for Mechanic Shops"
-        description="Workshop software for mechanic shops — bookings, staff, SMS, online booking, call centre, quotes, and invoices. Filter calls and book jobs in one place."
+        title="BMS Pro Black | Workshop Booking & Operations"
+        description="Let customers book from anywhere. Online booking, SMS reminders, staff, and optional human front desk for mechanic shops."
         path="/products/black"
         jsonLd={{
           "@context": "https://schema.org",
           "@type": "Product",
           name: "BMS Pro Black",
           description:
-            "Workshop management for mechanic shops, auto workshops, and garages — bookings, staff, SMS, online booking, and call centre.",
+            "Workshop software for mechanic shops — Book Now, SMS, staff, and optional front desk.",
           brand: { "@type": "Brand", name: "BMS Pro" },
           url: "https://bmspros.com.au/products/black",
         }}
       />
 
-      {/* Full-bleed image hero — matches home page language */}
-      <section className="relative bg-background -mt-16">
-        <div className="relative min-h-[min(88vh,780px)] flex items-center overflow-hidden pt-16">
-          <div className="absolute inset-0" aria-hidden>
-            <img
-              src="/products/black/hero.png"
-              alt=""
-              className="absolute inset-0 h-full w-full object-cover scale-105 blur-[1px]"
-            />
-            <div className="absolute inset-0 bg-[hsl(220_22%_6%/0.62)]" />
-            <div className="absolute inset-0 bg-gradient-to-b from-[hsl(220_22%_6%/0.45)] via-[hsl(220_22%_6%/0.35)] to-[hsl(220_22%_6%/0.82)]" />
-          </div>
-
-          <div className="container-wide relative z-10 py-16 sm:py-20 w-full">
-            <div className="max-w-3xl mx-auto text-center text-white">
-              <div className="inline-flex items-center gap-2.5 mb-6 animate-fade-up">
+      {/* Hero — Avenue-style growth visual */}
+      <section className="relative overflow-hidden bg-white pt-8 pb-16 sm:pt-12 sm:pb-24">
+        <div className="container-wide">
+          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+            <div>
+              <div className="inline-flex items-center gap-2 mb-5">
                 <img
                   src="/products/black/icon.png"
                   alt=""
-                  className="h-9 w-9 rounded-lg ring-1 ring-white/25"
+                  className="h-8 w-8 rounded-lg ring-1 ring-black/10"
                 />
-                <span className="font-label text-sm font-semibold tracking-[0.16em] uppercase text-white/90">
+                <span className="text-xs font-bold uppercase tracking-[0.14em] text-product-black">
                   BMS Pro Black
                 </span>
               </div>
-
-              <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight mb-4 animate-fade-up delay-100 leading-[1.05]">
-                Your workshop, fully managed.
+              <h1 className="text-4xl sm:text-5xl lg:text-[3.25rem] font-bold tracking-tight text-[hsl(220_22%_10%)] leading-[1.08] mb-4">
+                Let your customers book from anywhere, anytime.
               </h1>
-
-              <p className="font-sans text-base sm:text-lg text-white/70 max-w-2xl mx-auto mb-8 animate-fade-up delay-200 leading-relaxed">
-                Streamline bookings, staff, services, and operations — all from one dashboard.
-                Filter calls and book jobs so mechanics stay under the hood.
+              <p className="text-lg text-muted-foreground mb-8 max-w-md">
+                Your workshop bookings before &amp; after using Black — fewer missed calls, fuller
+                bays, mechanics under the hood.
               </p>
+              <Button
+                size="xl"
+                variant="black"
+                className="rounded-full h-12 px-7"
+                asChild
+              >
+                <a href="#demo">
+                  Try BMS Pro Black
+                  <ArrowRight className="h-4 w-4" />
+                </a>
+              </Button>
+              <div className="mt-6 flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
+                <span className="inline-flex items-center gap-1.5">
+                  <Check className="h-4 w-4 text-emerald-600" />
+                  No lock-in contract
+                </span>
+                <span className="inline-flex items-center gap-1.5 rounded-full border border-border px-3 py-1 text-xs font-medium">
+                  Book Now · Google-ready link
+                </span>
+              </div>
+            </div>
 
-              <div className="flex flex-col items-center gap-4 animate-fade-up delay-300">
-                <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 w-full sm:w-auto">
-                  <Button
-                    size="xl"
-                    className="rounded-full w-full sm:w-auto bg-white text-[hsl(220_22%_10%)] hover:bg-white/90 shadow-lg"
-                    asChild
-                  >
-                    <a href="#demo">
-                      Book a Demo
-                      <ArrowRight className="h-5 w-5" />
-                    </a>
-                  </Button>
-                  <Button
-                    size="xl"
-                    variant="outline"
-                    className="rounded-full w-full sm:w-auto border-white/40 bg-white/10 text-white hover:bg-white/20 hover:text-white backdrop-blur-sm"
-                    asChild
-                  >
-                    <a href="#features">See what&apos;s included</a>
-                  </Button>
-                </div>
-
-                <div className="inline-flex items-start sm:items-center gap-2.5 max-w-lg rounded-2xl border border-white/25 bg-white/10 backdrop-blur-md px-4 py-3 text-left">
-                  <ShieldCheck className="h-5 w-5 text-teal shrink-0 mt-0.5 sm:mt-0" />
-                  <p className="text-sm font-semibold text-white leading-snug">
-                    Built for mechanic shops.{" "}
-                    <span className="text-white/70 font-medium">
-                      Auto repair, garages &amp; service centres.
-                    </span>
-                  </p>
+            <div className="relative">
+              <div className="relative overflow-hidden rounded-[2rem] shadow-[0_30px_60px_-25px_hsl(220_30%_15%/0.45)] ring-1 ring-black/5">
+                <img
+                  src="/products/black/mechanic-focus.jpg"
+                  alt="Mechanic working under the bonnet in a workshop"
+                  className="h-full w-full object-cover aspect-[4/3]"
+                  loading="eager"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[hsl(220_30%_8%)]/70 via-transparent to-transparent" />
+                <div className="absolute bottom-5 left-5 right-5 flex items-end justify-between gap-3 text-white">
+                  <div>
+                    <p className="text-xs uppercase tracking-[0.16em] text-white/70">
+                      Bays working
+                    </p>
+                    <p className="text-2xl font-bold leading-tight">Mechanics under the hood</p>
+                  </div>
+                  <span className="hidden sm:inline-flex shrink-0 items-center gap-1.5 rounded-full bg-white/15 backdrop-blur px-3 py-1.5 text-xs font-medium">
+                    <Wrench className="h-3.5 w-3.5" />
+                    Not on the phone
+                  </span>
                 </div>
               </div>
 
-              <div className="mt-10 flex flex-wrap items-center justify-center gap-2 animate-fade-up delay-400">
-                {["Bookings", "Staff", "Invoicing", "Multi-branch", "Online booking", "Call centre"].map(
-                  (tag) => (
-                    <span
-                      key={tag}
-                      className="inline-flex rounded-full border border-white/20 bg-white/10 backdrop-blur-sm px-3 py-1.5 text-sm font-label font-semibold text-white"
-                    >
-                      {tag}
-                    </span>
-                  )
-                )}
+              {/* Floating bookings chart */}
+              <div className="absolute -bottom-8 -left-2 sm:-left-8 w-[230px] rounded-2xl bg-white border border-border shadow-xl p-4">
+                <div className="flex items-center justify-between mb-3">
+                  <p className="text-xs font-semibold text-foreground">Bookings</p>
+                  <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-emerald-600">
+                    <TrendingUp className="h-3 w-3" />
+                    +38%
+                  </span>
+                </div>
+                <div className="flex items-end gap-1.5 h-20">
+                  {[22, 28, 34, 38, 56, 64, 72, 80].map((h, i) => (
+                    <div
+                      key={i}
+                      className={cn(
+                        "flex-1 rounded-full",
+                        i < 4
+                          ? "bg-[hsl(220_20%_88%)]"
+                          : "bg-gradient-to-t from-product-black to-[hsl(220_14%_38%)]"
+                      )}
+                      style={{ height: `${h}px` }}
+                    />
+                  ))}
+                </div>
+                <p className="mt-3 text-[11px] leading-snug text-muted-foreground">
+                  First month with <span className="font-semibold text-foreground">BMS Pro Black</span>
+                </p>
+              </div>
+
+              {/* Floating booking confirmation */}
+              <div className="absolute -top-4 -right-2 sm:-right-6 w-[210px] rounded-2xl bg-white border border-border shadow-xl p-3.5">
+                <div className="flex items-start gap-2.5">
+                  <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-emerald-500 text-white">
+                    <Check className="h-4 w-4" />
+                  </span>
+                  <div>
+                    <p className="text-xs font-semibold text-foreground">Booking confirmed</p>
+                    <p className="text-[11px] text-muted-foreground leading-snug">
+                      Logbook service · Thu 8:00 AM
+                    </p>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </div>
+      </section>
 
-        {/* Demo form card — light elevated panel overlapping hero */}
-        <div
-          id="demo"
-          className="container-wide relative -mt-10 sm:-mt-14 lg:-mt-16 pb-12 sm:pb-16 z-20 scroll-mt-24"
-        >
-          <div className="max-w-xl mx-auto card-elevated p-6 sm:p-8 lg:p-10 border border-border/60 shadow-elevated">
-            <div className="mb-6 sm:mb-8 text-center sm:text-left">
-              <span className="inline-flex items-center gap-1.5 rounded-full bg-product-black-light text-product-black px-3 py-1 text-xs font-semibold uppercase tracking-wider mb-3">
-                <Wrench className="h-3 w-3" />
-                Mechanic shops
+      {/* Trust strip */}
+      <section className="border-y border-border/60 bg-[hsl(220_14%_97%)] py-8 overflow-hidden">
+        <div className="container-wide">
+          <div className="flex flex-wrap items-center justify-center gap-x-10 gap-y-3">
+            {TRUST_LOGOS.map((label) => (
+              <span
+                key={label}
+                className="text-sm font-semibold uppercase tracking-wider text-muted-foreground/50"
+              >
+                {label}
               </span>
-              <h2 className="font-display text-2xl sm:text-3xl font-bold tracking-tight text-foreground mb-2">
-                Book a Demo
-              </h2>
-              <p className="font-sans text-muted-foreground">
-                Request a walkthrough of BMS Pro Black for your workshop.
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Front desk / never miss a call */}
+      <section className="section-padding bg-white">
+        <div className="container-wide">
+          <div className="rounded-[2rem] bg-product-black text-white overflow-hidden">
+            <div className="grid lg:grid-cols-2 gap-8 p-8 sm:p-12 lg:p-14">
+              <div className="flex flex-col justify-center">
+                <div className="mb-5 flex h-11 w-11 items-center justify-center rounded-xl bg-white/10">
+                  <Phone className="h-5 w-5" />
+                </div>
+                <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4 leading-tight">
+                  Never miss a call again — meet your workshop front desk.
+                </h2>
+                <p className="text-white/70 text-lg leading-relaxed mb-8 max-w-md">
+                  Human receptionists filter routine calls and book jobs into Black. Technicians only
+                  take the complex ones — so the floor keeps moving.
+                </p>
+                <Button
+                  size="lg"
+                  className="w-fit rounded-full bg-white text-product-black hover:bg-white/90"
+                  asChild
+                >
+                  <a href="#demo">
+                    Book a strategy call
+                    <ArrowRight className="h-4 w-4" />
+                  </a>
+                </Button>
+              </div>
+
+              <div className="rounded-3xl border border-white/15 bg-white/10 backdrop-blur-md p-6 sm:p-7 flex flex-col gap-6">
+                <p className="text-lg font-semibold leading-snug">
+                  Keep mechanics under the hood, not on the phone.
+                </p>
+                <div className="relative overflow-hidden rounded-2xl">
+                  <img
+                    src="/products/black/front-desk.jpg"
+                    alt="Receptionist with a headset answering workshop calls"
+                    className="h-full w-full object-cover aspect-[4/3]"
+                    loading="lazy"
+                  />
+                  <span className="absolute bottom-3 left-3 inline-flex items-center gap-1.5 rounded-full bg-product-black/85 backdrop-blur px-3 py-1.5 text-xs font-medium text-white">
+                    <Headphones className="h-3.5 w-3.5" />
+                    Live reception
+                  </span>
+                </div>
+                <p className="text-sm text-white/65 leading-relaxed">
+                  Reception books routine work into the system. Technical calls get through. Less
+                  downtime on the floor.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Book from Google / Book Now */}
+      <section className="section-padding bg-[hsl(220_14%_98%)]">
+        <div className="container-wide grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+          <div>
+            <p className="text-sm font-semibold text-product-black mb-3 inline-flex items-center gap-2">
+              <Globe className="h-4 w-4" />
+              Book Now
+            </p>
+            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-foreground mb-4">
+              Bookings straight from your public link
+            </h2>
+            <p className="text-muted-foreground text-lg leading-relaxed mb-6">
+              Share your workshop Book Now page on Google, social, or SMS. Customers pick a service,
+              vehicle type, and slot — then get a
+              <Pill>
+                <Calendar className="h-3 w-3" />
+                Book Online
+              </Pill>
+              confirmation without you answering the phone.
+            </p>
+            <Button variant="black" className="rounded-full" asChild>
+              <a href="https://black.bmspros.com.au/book-now" target="_blank" rel="noreferrer">
+                See Book Now
+                <ArrowRight className="h-4 w-4" />
+              </a>
+            </Button>
+          </div>
+
+          <div className="relative mx-auto w-full max-w-[280px]">
+            <div className="rounded-[2rem] border-[10px] border-[hsl(220_22%_12%)] bg-white shadow-2xl overflow-hidden aspect-[9/16]">
+              <div className="flex items-center justify-between px-4 pt-3 pb-2">
+                <span className="text-product-black text-lg">←</span>
+                <div className="h-1.5 flex-1 mx-4 rounded-full bg-secondary overflow-hidden">
+                  <div className="h-full w-1/4 rounded-full bg-product-black" />
+                </div>
+                <span className="text-red-500 font-bold">×</span>
+              </div>
+              <div className="px-5 pt-8 text-center">
+                <p className="text-xl font-bold text-foreground">Select service type</p>
+                <div className="mt-8 space-y-3 text-left">
+                  {["Logbook service", "Brake inspection", "Wheel alignment"].map((s) => (
+                    <div
+                      key={s}
+                      className="rounded-2xl border border-border bg-secondary/40 px-4 py-3 text-sm font-medium"
+                    >
+                      {s}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Reminders */}
+      <section className="section-padding bg-white">
+        <div className="container-wide grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+          <div className="space-y-3 order-2 lg:order-1">
+            {[
+              {
+                icon: Mail,
+                color: "bg-red-500",
+                title: "Your appointment is confirmed",
+                body: "You're all set for Thu, 8:00 AM — bay booked, SMS on the way.",
+              },
+              {
+                icon: MessageSquare,
+                color: "bg-emerald-500",
+                title: "1H reminder",
+                body: "Your car service tomorrow at 8:00 AM. Reply if you need to reschedule.",
+              },
+              {
+                icon: MessageSquare,
+                color: "bg-emerald-500",
+                title: "Thanks for choosing us",
+                body: "Service complete. Leave a quick Google review when you have a moment.",
+              },
+            ].map((card) => (
+              <div
+                key={card.title}
+                className="flex gap-3 rounded-2xl border border-border bg-[hsl(220_14%_97%)] p-4 shadow-sm"
+              >
+                <div
+                  className={cn(
+                    "flex h-10 w-10 shrink-0 items-center justify-center rounded-xl text-white",
+                    card.color
+                  )}
+                >
+                  <card.icon className="h-5 w-5" />
+                </div>
+                <div>
+                  <p className="text-sm font-semibold text-foreground">{card.title}</p>
+                  <p className="text-xs text-muted-foreground mt-0.5 leading-relaxed">{card.body}</p>
+                </div>
+              </div>
+            ))}
+            <div className="pt-4">
+              <img
+                src="/products/black/sms-phone.jpg"
+                alt="Customer checking a booking reminder on their phone"
+                className="w-full rounded-2xl object-cover shadow-lg"
+                loading="lazy"
+              />
+            </div>
+          </div>
+
+          <div className="order-1 lg:order-2">
+            <p className="text-sm font-semibold text-product-black mb-3 inline-flex items-center gap-2">
+              <Bell className="h-4 w-4" />
+              Booking reminders
+            </p>
+            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-5">
+              Automated confirmations and reminders
+            </h2>
+            <p className="text-muted-foreground text-lg leading-relaxed mb-4">
+              Customers receive instant confirmation
+              <Pill>
+                <MessageSquare className="h-3 w-3" />
+                via SMS and email
+              </Pill>
+              when they book. Automated reminders go out before the appointment, reducing no-shows.
+            </p>
+            <p className="text-muted-foreground text-lg leading-relaxed">
+              You can also
+              <Pill>
+                <Wrench className="h-3 w-3" />
+                schedule service reminders
+              </Pill>
+              to bring customers back when it’s time for their next service.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Dashboard bento */}
+      <section className="section-padding bg-[hsl(220_14%_98%)]">
+        <div className="container-wide grid lg:grid-cols-2 gap-12 items-start">
+          <div>
+            <p className="text-sm font-semibold text-product-black mb-3 inline-flex items-center gap-2">
+              <LayoutDashboard className="h-4 w-4" />
+              Workshop dashboard
+            </p>
+            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4">
+              Know how your workshop is performing at a glance
+            </h2>
+            <p className="text-muted-foreground text-lg leading-relaxed">
+              Track bookings, staff, SMS, and revenue — with confirmations and reminders doing the
+              heavy lifting in the background.
+            </p>
+          </div>
+
+          <div className="grid sm:grid-cols-2 gap-4">
+            <div className="rounded-3xl bg-product-black text-white p-6 sm:row-span-1">
+              <p className="text-5xl font-bold tracking-tight mb-2">242</p>
+              <p className="text-sm text-white/75 leading-relaxed">
+                Customers submitted bookings through Book Now this month.
               </p>
             </div>
+            <div className="rounded-3xl bg-white border border-border p-6 shadow-sm">
+              <p className="font-semibold mb-1">Submission activity</p>
+              <p className="text-sm text-muted-foreground mb-4">
+                Half of bookings come from your public link.
+              </p>
+              <div className="h-16 flex items-end gap-1">
+                {[40, 55, 48, 70, 85].map((h, i) => (
+                  <div
+                    key={i}
+                    className="flex-1 rounded-t-md bg-product-black/20"
+                    style={{ height: `${h}%` }}
+                  />
+                ))}
+              </div>
+            </div>
+            <div className="rounded-3xl bg-white border border-border p-6 shadow-sm overflow-hidden">
+              <p className="font-semibold mb-1">Popular service</p>
+              <p className="text-sm text-muted-foreground mb-3">
+                Most booked this month: <span className="font-medium text-foreground">Logbook service</span>
+              </p>
+              <img
+                src="/products/black/workshop-bay.jpg"
+                alt=""
+                className="rounded-xl h-24 w-full object-cover"
+              />
+            </div>
+            <div className="rounded-3xl bg-white border border-border p-6 shadow-sm">
+              <p className="font-semibold mb-3">Upsells &amp; add-ons</p>
+              <div className="space-y-2">
+                {[
+                  { label: "Brake pads", w: "80%" },
+                  { label: "Cabin filter", w: "55%" },
+                  { label: "Wheel align", w: "40%" },
+                ].map((row) => (
+                  <div key={row.label} className="flex items-center gap-2 text-xs">
+                    <span className="w-20 text-muted-foreground shrink-0">{row.label}</span>
+                    <div className="flex-1 h-2 rounded-full bg-secondary overflow-hidden">
+                      <div
+                        className="h-full rounded-full bg-product-black"
+                        style={{ width: row.w }}
+                      />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <div className="grid grid-cols-2 gap-3">
-                <div className="space-y-1.5">
-                  <Label htmlFor="firstName">First name</Label>
-                  <Input
-                    id="firstName"
-                    placeholder="John"
-                    required
-                    value={formData.firstName}
-                    onChange={handleChange}
-                    className="h-11 rounded-xl"
-                  />
+      {/* Reviews */}
+      <section className="section-padding bg-white">
+        <div className="container-wide grid lg:grid-cols-2 gap-12 items-center">
+          <div className="rounded-3xl bg-[hsl(220_14%_94%)] overflow-hidden max-w-md mx-auto lg:mx-0">
+            <div className="p-5">
+              <div className="rounded-2xl bg-[hsl(220_18%_22%)] text-white px-4 py-3 text-sm leading-relaxed">
+                Hi Michael, thanks for trusting us with your vehicle. Please leave a quick Google
+                review for our workshop.
+              </div>
+            </div>
+            <div className="relative aspect-[16/10]">
+              <img
+                src="/products/black/hero.jpg"
+                alt="Workshop after service"
+                className="absolute inset-0 h-full w-full object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex flex-col justify-end p-6 text-white">
+                <p className="text-2xl font-bold">Your service is complete!</p>
+                <p className="text-sm text-white/80 mt-1">Thanks for choosing your workshop.</p>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <p className="text-sm font-semibold text-product-black mb-3 inline-flex items-center gap-2">
+              <Star className="h-4 w-4 fill-product-black" />
+              Get more Google reviews
+            </p>
+            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-5">
+              Turn satisfied customers into Google reviews
+            </h2>
+            <p className="text-muted-foreground text-lg leading-relaxed">
+              Google reviews drive local search. Black can
+              <Pill>
+                <MessageSquare className="h-3 w-3" />
+                request reviews
+              </Pill>
+              after every service, so you’re constantly building reputation. The more
+              <Pill>
+                <Star className="h-3 w-3 fill-amber-400 text-amber-400" />
+                5-star reviews
+              </Pill>
+              you collect, the easier it is for new customers to find you.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Visual forms accordion */}
+      <section className="section-padding bg-[hsl(220_14%_97%)]">
+        <div className="container-wide">
+          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-center mb-12 max-w-2xl mx-auto">
+            Visual forms that make bookings feel instant
+          </h2>
+          <div className="grid lg:grid-cols-2 gap-10 items-start">
+            <div className="space-y-3">
+              {FORM_STEPS.map((step, i) => {
+                const open = openFormStep === i;
+                return (
+                  <button
+                    key={step.title}
+                    type="button"
+                    onClick={() => setOpenFormStep(open ? -1 : i)}
+                    className="w-full text-left rounded-2xl bg-white border border-border p-5 shadow-sm"
+                  >
+                    <div className="flex items-center justify-between gap-3">
+                      <span className="font-semibold text-foreground">{step.title}</span>
+                      <span className="flex h-7 w-7 items-center justify-center rounded-full bg-product-black text-white shrink-0">
+                        {open ? <Minus className="h-3.5 w-3.5" /> : <Plus className="h-3.5 w-3.5" />}
+                      </span>
+                    </div>
+                    {open && (
+                      <div className="mt-3 pr-8">
+                        <p className="text-sm font-medium text-foreground mb-1">
+                          Let customers tap their choice instead of typing.
+                        </p>
+                        <p className="text-sm text-muted-foreground leading-relaxed">{step.body}</p>
+                      </div>
+                    )}
+                  </button>
+                );
+              })}
+            </div>
+
+            <div className="relative mx-auto w-full max-w-[260px]">
+              <div className="rounded-[2rem] border-[10px] border-[hsl(220_22%_12%)] bg-white shadow-xl overflow-hidden aspect-[9/16]">
+                <div className="flex items-center justify-between px-4 pt-3">
+                  <span className="text-product-black">←</span>
+                  <div className="h-1.5 flex-1 mx-3 rounded-full bg-secondary">
+                    <div className="h-full w-[30%] rounded-full bg-product-black" />
+                  </div>
+                  <span className="text-red-500 font-bold">×</span>
                 </div>
-                <div className="space-y-1.5">
-                  <Label htmlFor="lastName">Last name</Label>
-                  <Input
-                    id="lastName"
-                    placeholder="Smith"
-                    required
-                    value={formData.lastName}
-                    onChange={handleChange}
-                    className="h-11 rounded-xl"
-                  />
-                </div>
+                <p className="text-center text-xl font-bold mt-10 px-4">Select a service</p>
               </div>
-              <div className="space-y-1.5">
-                <Label htmlFor="email">Work email</Label>
-                <Input
-                  id="email"
-                  type="email"
-                  placeholder="jay@workshop.com.au"
-                  required
-                  value={formData.email}
-                  onChange={handleChange}
-                  className="h-11 rounded-xl"
-                />
-              </div>
-              <div className="space-y-1.5">
-                <Label htmlFor="company">Company name</Label>
-                <Input
-                  id="company"
-                  placeholder="Lynbrook Auto"
-                  required
-                  value={formData.company}
-                  onChange={handleChange}
-                  className="h-11 rounded-xl"
-                />
-              </div>
-              <div className="space-y-1.5">
-                <Label htmlFor="message">
-                  Message <span className="text-muted-foreground font-normal">(optional)</span>
-                </Label>
-                <Textarea
-                  id="message"
-                  placeholder="Tell us about your workshop..."
-                  rows={3}
-                  value={formData.message}
-                  onChange={handleChange}
-                  className="rounded-xl resize-none"
-                />
-              </div>
-              <Button
-                type="submit"
-                variant="black"
-                size="lg"
-                className="w-full h-12 rounded-full text-base font-semibold"
-                disabled={loading}
-              >
-                {loading ? "Sending..." : "Request Demo"}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Integrations band */}
+      <section className="relative overflow-hidden section-padding bg-product-black text-white">
+        <div
+          className="absolute inset-0 opacity-[0.07]"
+          style={{
+            backgroundImage:
+              "linear-gradient(to right, white 1px, transparent 1px), linear-gradient(to bottom, white 1px, transparent 1px)",
+            backgroundSize: "48px 48px",
+          }}
+        />
+        <div className="container-wide relative text-center max-w-2xl mx-auto">
+          <div className="flex items-center justify-center gap-3 mb-6">
+            <div className="h-12 w-12 rounded-xl bg-white/10 flex items-center justify-center">
+              <img src="/products/black/icon.png" alt="" className="h-7 w-7 rounded-md" />
+            </div>
+            <ArrowRight className="h-4 w-4 text-white/50" />
+            <div className="h-12 w-12 rounded-xl bg-white flex items-center justify-center">
+              <Globe className="h-6 w-6 text-product-black" />
+            </div>
+          </div>
+          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-3">
+            One enquiry, updates everywhere
+          </h2>
+          <p className="text-white/70 text-lg mb-8">
+            Bookings, SMS, staff, and the board stay in sync — no double entry between the phone and
+            the hoist.
+          </p>
+          <Button
+            size="lg"
+            className="rounded-full bg-white text-product-black hover:bg-white/90"
+            asChild
+          >
+            <a href="#demo">Try BMS Pro Black</a>
+          </Button>
+        </div>
+      </section>
+
+      {/* Testimonials */}
+      <section className="section-padding bg-white">
+        <div className="container-wide">
+          <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-10">
+            <div className="max-w-xl">
+              <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-3">
+                Don&apos;t take our word for it. Hear it from workshops on Black.
+              </h2>
+              <p className="text-muted-foreground text-lg">
+                More bookings. Clearer boards. Real results.
+              </p>
+            </div>
+            <Button variant="black" className="rounded-full w-fit" asChild>
+              <a href="#demo">
+                Try BMS Pro Black
                 <ArrowRight className="h-4 w-4" />
-              </Button>
-            </form>
+              </a>
+            </Button>
+          </div>
 
-            <p className="mt-6 text-center text-xs text-muted-foreground">
+          <div className="grid md:grid-cols-5 gap-4">
+            <article className="md:col-span-2 relative min-h-[360px] rounded-3xl overflow-hidden">
+              <img
+                src={TESTIMONIALS[0].image}
+                alt=""
+                className="absolute inset-0 h-full w-full object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/40 to-transparent" />
+              <div className="relative h-full flex flex-col justify-end p-6 text-white">
+                <p className="text-lg font-medium leading-snug mb-6">&ldquo;{TESTIMONIALS[0].quote}&rdquo;</p>
+                <div>
+                  <p className="font-semibold">{TESTIMONIALS[0].name}</p>
+                  <p className="text-sm text-white/65">{TESTIMONIALS[0].role}</p>
+                </div>
+              </div>
+            </article>
+            <article className="md:col-span-3 relative min-h-[360px] rounded-3xl overflow-hidden">
+              <img
+                src={TESTIMONIALS[1].image}
+                alt=""
+                className="absolute inset-0 h-full w-full object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent" />
+              <div className="relative h-full flex flex-col justify-end p-8 text-white">
+                <p className="text-2xl sm:text-3xl font-bold leading-snug mb-6 max-w-lg">
+                  {TESTIMONIALS[1].stat}
+                </p>
+                <div>
+                  <p className="font-semibold">{TESTIMONIALS[1].name}</p>
+                  <p className="text-sm text-white/65">{TESTIMONIALS[1].role}</p>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      {/* Pricing */}
+      <section id="pricing" className="scroll-mt-20">
+        <BlackPricingSection offsetHeader={false} />
+      </section>
+
+      {/* FAQ */}
+      <section className="section-padding bg-white">
+        <div className="container-wide">
+          <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-6 mb-10">
+            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">Questions &amp; answers</h2>
+            <p className="text-muted-foreground max-w-md lg:text-right">
+              Everything you need to know about getting started with BMS Pro Black for your workshop.
+            </p>
+          </div>
+
+          <div className="grid lg:grid-cols-[240px_1fr] gap-8">
+            <nav className="space-y-1">
+              {FAQS.map((cat, i) => (
+                <button
+                  key={cat.category}
+                  type="button"
+                  onClick={() => {
+                    setFaqCat(i);
+                    setOpenFaq(0);
+                  }}
+                  className={cn(
+                    "w-full text-left rounded-xl px-4 py-3 text-sm font-medium transition-colors",
+                    faqCat === i
+                      ? "bg-secondary text-product-black"
+                      : "text-foreground hover:bg-secondary/60"
+                  )}
+                >
+                  {cat.category}
+                </button>
+              ))}
+            </nav>
+
+            <div className="space-y-3">
+              {FAQS[faqCat].items.map((item, i) => {
+                const open = openFaq === i;
+                return (
+                  <div key={item.q} className="rounded-2xl bg-[hsl(220_14%_96%)] overflow-hidden">
+                    <button
+                      type="button"
+                      className="w-full flex items-center justify-between gap-4 px-5 py-4 text-left"
+                      onClick={() => setOpenFaq(open ? -1 : i)}
+                    >
+                      <span
+                        className={cn(
+                          "font-semibold",
+                          open ? "text-product-black" : "text-foreground"
+                        )}
+                      >
+                        {item.q}
+                      </span>
+                      {open ? (
+                        <ChevronUp className="h-4 w-4 shrink-0 text-muted-foreground" />
+                      ) : (
+                        <ChevronDown className="h-4 w-4 shrink-0 text-muted-foreground" />
+                      )}
+                    </button>
+                    {open && (
+                      <p className="px-5 pb-5 text-sm text-muted-foreground leading-relaxed">
+                        {item.a}
+                      </p>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Demo form */}
+      <section id="demo" className="scroll-mt-20 section-padding bg-[hsl(220_14%_97%)]">
+        <div className="container-wide grid lg:grid-cols-2 gap-10 lg:gap-16 items-start">
+          <div>
+            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4">
+              Try BMS Pro Black for your workshop
+            </h2>
+            <p className="text-muted-foreground text-lg mb-6">
+              Book a walkthrough — demo, pricing, or help getting your bays onto Black.
+            </p>
+            <ul className="space-y-3 text-sm text-muted-foreground">
+              {[
+                "Online booking + SMS confirmations",
+                "Optional human front desk",
+                "Staff, branches, and job board",
+              ].map((t) => (
+                <li key={t} className="flex items-center gap-2">
+                  <Check className="h-4 w-4 text-product-black" />
+                  {t}
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <form
+            onSubmit={handleSubmit}
+            className="rounded-3xl bg-white border border-border p-6 sm:p-8 shadow-sm space-y-4"
+          >
+            <div className="grid grid-cols-2 gap-3">
+              <div className="space-y-1.5">
+                <Label htmlFor="firstName">First name</Label>
+                <Input
+                  id="firstName"
+                  required
+                  value={formData.firstName}
+                  onChange={handleChange}
+                  className="h-11 rounded-xl"
+                />
+              </div>
+              <div className="space-y-1.5">
+                <Label htmlFor="lastName">Last name</Label>
+                <Input
+                  id="lastName"
+                  required
+                  value={formData.lastName}
+                  onChange={handleChange}
+                  className="h-11 rounded-xl"
+                />
+              </div>
+            </div>
+            <div className="space-y-1.5">
+              <Label htmlFor="email">Work email</Label>
+              <Input
+                id="email"
+                type="email"
+                required
+                value={formData.email}
+                onChange={handleChange}
+                className="h-11 rounded-xl"
+              />
+            </div>
+            <div className="space-y-1.5">
+              <Label htmlFor="company">Workshop name</Label>
+              <Input
+                id="company"
+                required
+                value={formData.company}
+                onChange={handleChange}
+                className="h-11 rounded-xl"
+              />
+            </div>
+            <div className="space-y-1.5">
+              <Label htmlFor="message">Message (optional)</Label>
+              <Textarea
+                id="message"
+                rows={3}
+                value={formData.message}
+                onChange={handleChange}
+                className="rounded-xl resize-none"
+              />
+            </div>
+            <Button
+              type="submit"
+              variant="black"
+              size="lg"
+              className="w-full rounded-full h-12"
+              disabled={loading}
+            >
+              {loading ? "Sending..." : "Request Demo"}
+              <ArrowRight className="h-4 w-4" />
+            </Button>
+            <p className="text-xs text-center text-muted-foreground">
               By continuing you agree to our{" "}
-              <Link to="/terms" className="underline underline-offset-2 hover:text-foreground">
+              <Link to="/terms" className="underline">
                 Terms
               </Link>{" "}
               and{" "}
-              <Link to="/privacy" className="underline underline-offset-2 hover:text-foreground">
+              <Link to="/privacy" className="underline">
                 Privacy Policy
               </Link>
               .
             </p>
-          </div>
+          </form>
         </div>
       </section>
 
-      {/* Features — light home-style section */}
-      <section id="features" className="section-padding bg-secondary/30 scroll-mt-20">
-        <div className="container-wide">
-          <div className="max-w-2xl mx-auto text-center mb-12 lg:mb-14">
-            <span className="eyebrow inline-flex rounded-full border border-border bg-background/80 px-3 py-1 text-muted-foreground">
-              What you get
-            </span>
-            <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mt-4 mb-3 tracking-tight">
-              Everything that runs a modern workshop
-            </h2>
-            <p className="font-sans text-lg text-muted-foreground">
-              Bookings, staff, texts, quotes, online booking, and call centre — built for mechanic
-              shops.
-            </p>
+      {/* Closing CTA */}
+      <section className="relative overflow-hidden section-padding bg-product-black text-white text-center">
+        <div
+          className="absolute inset-0 opacity-[0.06]"
+          style={{
+            backgroundImage:
+              "linear-gradient(to right, white 1px, transparent 1px), linear-gradient(to bottom, white 1px, transparent 1px)",
+            backgroundSize: "40px 40px",
+          }}
+        />
+        <div className="container-wide relative max-w-2xl mx-auto">
+          <div className="flex justify-center mb-6">
+            <img
+              src="/products/black/icon.png"
+              alt=""
+              className="h-14 w-14 rounded-2xl ring-1 ring-white/20"
+            />
           </div>
-
-          <div className="grid sm:grid-cols-2 xl:grid-cols-3 gap-4 lg:gap-5">
-            {featureModules.map((mod, index) => {
-              const Icon = mod.icon;
-              return (
-                <article
-                  key={mod.id}
-                  id={mod.id}
-                  className="group relative overflow-hidden rounded-3xl min-h-[320px] flex flex-col border border-border/40 shadow-elevated scroll-mt-24 animate-fade-up"
-                  style={{ animationDelay: `${Math.min(index, 8) * 40}ms` }}
-                >
-                  {mod.image ? (
-                    <>
-                      <img
-                        src={mod.image}
-                        alt=""
-                        className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
-                        loading="lazy"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-[hsl(220_22%_6%/0.92)] via-[hsl(220_22%_6%/0.45)] to-[hsl(220_22%_6%/0.15)]" />
-                    </>
-                  ) : (
-                    <div className="absolute inset-0 bg-gradient-to-br from-product-black-light via-card to-secondary" />
-                  )}
-
-                  <div
-                    className={`relative flex flex-col flex-grow p-6 sm:p-7 ${
-                      mod.image ? "text-white" : "text-foreground"
-                    }`}
-                  >
-                    <div className="flex items-start justify-between mb-6">
-                      <span
-                        className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[10px] font-label font-bold uppercase tracking-wider ${
-                          mod.image
-                            ? "bg-white text-[hsl(220_22%_10%)]"
-                            : "bg-product-black text-white"
-                        }`}
-                      >
-                        <Icon className="h-3 w-3" />
-                        {mod.number}
-                      </span>
-                      <span
-                        className={`text-[10px] font-semibold uppercase tracking-[0.16em] ${
-                          mod.image ? "text-white/50" : "text-muted-foreground"
-                        }`}
-                      >
-                        Black
-                      </span>
-                    </div>
-
-                    <div className="mt-auto">
-                      <h3 className="font-display text-xl font-bold tracking-tight mb-2">
-                        {mod.title}
-                      </h3>
-                      <p
-                        className={`text-xs mb-3 ${
-                          mod.image ? "text-white/55" : "text-muted-foreground"
-                        }`}
-                      >
-                        {mod.who}
-                      </p>
-                      <p
-                        className={`text-sm leading-relaxed mb-4 ${
-                          mod.image ? "text-white/75" : "text-muted-foreground"
-                        }`}
-                      >
-                        {mod.summary}
-                      </p>
-                      <ul className="space-y-2">
-                        {mod.points.slice(0, 4).map((point) => (
-                          <li
-                            key={point}
-                            className={`flex items-start gap-2.5 text-sm ${
-                              mod.image ? "text-white/85" : "text-muted-foreground"
-                            }`}
-                          >
-                            <span
-                              className={`mt-1.5 h-1.5 w-1.5 rounded-full shrink-0 ${
-                                mod.image ? "bg-white/50" : "bg-product-black/40"
-                              }`}
-                            />
-                            {point}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  </div>
-                </article>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
-      {/* Roles — light cards like home Audience / Benefits */}
-      <section className="section-padding bg-background">
-        <div className="container-wide">
-          <div className="max-w-2xl mx-auto text-center mb-10 sm:mb-12">
-            <span className="eyebrow inline-flex rounded-full border border-border bg-secondary/60 px-3 py-1 text-muted-foreground">
-              Who it&apos;s for
-            </span>
-            <h2 className="font-display text-3xl sm:text-4xl font-bold text-foreground mt-4 mb-3 tracking-tight">
-              The right tools for each role
-            </h2>
-            <p className="font-sans text-muted-foreground">
-              Owners and managers in the office. Staff on the floor with the phone app.
-            </p>
-          </div>
-
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            {roles.map((role, index) => {
-              const Icon = role.icon;
-              return (
-                <div
-                  key={role.title}
-                  className="card-elevated p-6 animate-fade-up"
-                  style={{ animationDelay: `${index * 80}ms` }}
-                >
-                  <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-product-black/10 text-product-black mb-4">
-                    <Icon className="h-5 w-5" />
-                  </div>
-                  <h3 className="font-display text-lg font-semibold text-foreground mb-2">
-                    {role.title}
-                  </h3>
-                  <p className="font-sans text-sm text-muted-foreground leading-relaxed">
-                    {role.blurb}
-                  </p>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
-      {/* CTA — photo-backed like home */}
-      <section className="relative overflow-hidden text-white">
-        <div className="absolute inset-0" aria-hidden>
-          <img
-            src="/products/black/hero.png"
-            alt=""
-            className="absolute inset-0 h-full w-full object-cover scale-110 blur-sm"
-          />
-          <div className="absolute inset-0 bg-[hsl(220_22%_6%/0.72)]" />
-          <div className="absolute inset-0 bg-gradient-to-b from-[hsl(220_22%_6%/0.5)] via-[hsl(220_22%_6%/0.55)] to-[hsl(220_22%_6%/0.85)]" />
-        </div>
-
-        <div className="container-wide relative section-padding text-center">
-          <img
-            src="/products/black/icon.png"
-            alt=""
-            className="h-12 w-12 rounded-2xl mb-6 ring-1 ring-white/20 mx-auto"
-          />
-          <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 tracking-tight max-w-3xl mx-auto">
-            Ready to run your workshop on Black?
+          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-3">
+            Growing bookings has never been this easy.
           </h2>
-          <p className="font-sans text-lg text-white/70 max-w-xl mx-auto mb-8">
-            Book a strategy call for a demo, pricing, or help getting set up.
+          <p className="text-white/65 mb-8">
+            No lock-in · Book Now link ready · Built for Australian workshops
           </p>
-
-          <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 sm:gap-4">
-            <Button
-              size="xl"
-              className="rounded-full bg-white text-[hsl(220_22%_10%)] hover:bg-white/90 shadow-lg"
-              asChild
-            >
-              <Link to="/contact">
-                Book Your Strategy Call
-                <ArrowRight className="h-5 w-5" />
-              </Link>
-            </Button>
-            <Button
-              size="xl"
-              variant="outline"
-              className="rounded-full border-white/40 bg-white/10 text-white hover:bg-white/20 hover:text-white backdrop-blur-sm"
-              asChild
-            >
-              <Link to="/pricing">View Pricing</Link>
-            </Button>
-          </div>
-
-          <p className="mt-8 text-sm text-white/50">
-            info@bmspros.com.au · 03 8797 3795 · Lynbrook VIC
-          </p>
+          <Button
+            size="lg"
+            className="rounded-full bg-white text-product-black hover:bg-white/90"
+            asChild
+          >
+            <a href="#demo">Try BMS Pro Black</a>
+          </Button>
         </div>
       </section>
     </Layout>

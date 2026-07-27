@@ -82,7 +82,7 @@ export function BlackPricingSection({
         >
           <div className="absolute inset-0" aria-hidden>
             <img
-              src="/products/black/hero.png"
+              src="/products/black/hero.jpg"
               alt=""
               className="absolute inset-0 h-full w-full object-cover scale-105"
             />
@@ -274,7 +274,7 @@ export function BlackPricingSection({
       <section className="relative overflow-hidden text-white">
         <div className="absolute inset-0" aria-hidden>
           <img
-            src="/products/black/hero.png"
+            src="/products/black/hero.jpg"
             alt=""
             className="absolute inset-0 h-full w-full object-cover scale-110 blur-sm"
           />
