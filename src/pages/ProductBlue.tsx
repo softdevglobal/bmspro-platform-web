@@ -31,7 +31,7 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
-import { supabase } from "@/integrations/supabase/client";
+import { submitContactForm } from "@/lib/contactForm";
 
 type FeatureModule = {
   id: string;
@@ -92,7 +92,7 @@ const featureModules: FeatureModule[] = [
       "Track pending, scheduled, completed, and cancelled",
       "Comes in from Book Now, the office, or mobile",
     ],
-    image: "/products/blue/hero.png",
+    image: "/products/blue/jobs.png",
   },
   {
     id: "jobs",
@@ -170,7 +170,7 @@ const featureModules: FeatureModule[] = [
       "Leave approve or reject",
       "Permission flags (e.g. can create quotations)",
     ],
-    image: "/products/blue/hero.png",
+    image: "/products/blue/jobs.png",
   },
   {
     id: "sms",
@@ -363,13 +363,13 @@ const ProductBlue = () => {
     e.preventDefault();
     setLoading(true);
     try {
-      const { error } = await supabase.functions.invoke("send-contact-email", {
-        body: { ...formData, product: "blue" },
-      });
-      if (error) throw error;
+      await submitContactForm(
+        { ...formData, product: "blue" },
+        "Demo request — BMS Pro Blue"
+      );
       toast({
-        title: "Demo request sent!",
-        description: "We'll get back to you within 24 hours.",
+        title: "Message sent",
+        description: "Thanks — we'll get back within 24 hours.",
       });
       setFormData({
         firstName: "",
@@ -379,10 +379,11 @@ const ProductBlue = () => {
         product: "blue",
         message: "",
       });
-    } catch {
+    } catch (error) {
       toast({
-        title: "Error sending message",
-        description: "Please try again or email us directly.",
+        title: "Couldn’t send message",
+        description:
+          error instanceof Error ? error.message : "Please try again shortly.",
         variant: "destructive",
       });
     } finally {
@@ -412,7 +413,7 @@ const ProductBlue = () => {
         <div className="relative min-h-[min(88vh,780px)] flex items-center overflow-hidden pt-16">
           <div className="absolute inset-0" aria-hidden>
             <img
-              src="/products/blue/hero.png"
+              src="/products/blue/jobs.png"
               alt=""
               className="absolute inset-0 h-full w-full object-cover scale-105 blur-[1px]"
             />
@@ -751,7 +752,7 @@ const ProductBlue = () => {
       <section className="relative overflow-hidden text-white">
         <div className="absolute inset-0" aria-hidden>
           <img
-            src="/products/blue/hero.png"
+            src="/products/blue/jobs.png"
             alt=""
             className="absolute inset-0 h-full w-full object-cover scale-110 blur-sm"
           />
@@ -789,12 +790,12 @@ const ProductBlue = () => {
               className="rounded-full border-white/40 bg-white/10 text-white hover:bg-white/20 hover:text-white backdrop-blur-sm"
               asChild
             >
-              <Link to="/pricing">View Pricing</Link>
+              <Link to="/pricing#blue-plans">View Pricing</Link>
             </Button>
           </div>
 
           <p className="mt-8 text-sm text-white/50">
-            admin@bmspros.com.au · 03 8797 3795 · Lynbrook VIC
+            info@bmspros.com.au · 03 8797 3795 · Lynbrook VIC
           </p>
         </div>
       </section>

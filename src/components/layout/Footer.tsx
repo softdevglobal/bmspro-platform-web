@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { Mail, Phone, MapPin } from "lucide-react";
+import { SITE_CONTACT_EMAIL } from "@/lib/siteContact";
 
 const footerLinks = {
   products: [
@@ -95,11 +96,11 @@ export function Footer() {
             <ul className="space-y-3">
               <li>
                 <a
-                  href="mailto:admin@bmspros.com.au"
+                  href={`mailto:${SITE_CONTACT_EMAIL}`}
                   className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
                 >
                   <Mail className="h-4 w-4" />
-                  admin@bmspros.com.au
+                  {SITE_CONTACT_EMAIL}
                 </a>
               </li>
               <li>

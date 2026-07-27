@@ -133,17 +133,17 @@ const Products = () => {
         <div className="relative min-h-[min(72vh,640px)] flex items-center overflow-hidden pt-16">
           <div className="absolute inset-0 grid grid-cols-1 sm:grid-cols-3" aria-hidden>
             <img
-              src="https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?w=900&h=1200&fit=crop"
+              src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=900&h=1200&fit=crop"
               alt=""
               className="h-full w-full object-cover scale-110 blur-xs sm:blur-sm min-h-[220px]"
             />
             <img
-              src="https://images.unsplash.com/photo-1560066984-138dadb4c035?w=900&h=1200&fit=crop"
+              src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=900&h=1200&fit=crop"
               alt=""
               className="hidden sm:block h-full w-full object-cover scale-110 blur-sm"
             />
             <img
-              src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e?w=900&h=1200&fit=crop"
+              src="https://images.unsplash.com/photo-1553877522-43269d4ea984?w=900&h=1200&fit=crop"
               alt=""
               className="hidden sm:block h-full w-full object-cover scale-110 blur-sm"
             />
@@ -268,7 +268,7 @@ const Products = () => {
               className="hidden sm:block h-full w-full object-cover scale-110 blur-sm"
             />
             <img
-              src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e?w=900&h=800&fit=crop"
+              src="/products/blue/jobs.png"
               alt=""
               className="hidden sm:block h-full w-full object-cover scale-110 blur-sm"
             />

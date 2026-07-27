@@ -154,7 +154,7 @@ export default function Careers() {
                     </div>
                   </div>
                   <a
-                    href={`mailto:admin@bmspros.com.au?subject=Application: ${job.title}`}
+                    href={`mailto:info@bmspros.com.au?subject=Application: ${job.title}`}
                     className="inline-flex items-center justify-center px-5 py-2.5 bg-primary text-primary-foreground font-medium rounded-lg hover:bg-primary/90 transition-colors whitespace-nowrap"
                   >
                     Apply Now
@@ -193,7 +193,7 @@ export default function Careers() {
             Want to learn more about working at BMS Pro? Get in touch with our team.
           </p>
           <a
-            href="mailto:admin@bmspros.com.au?subject=Career Question"
+            href="mailto:info@bmspros.com.au?subject=Career Question"
             className="inline-flex items-center justify-center px-6 py-3 bg-primary text-primary-foreground font-medium rounded-lg hover:bg-primary/90 transition-colors"
           >
             Contact Us

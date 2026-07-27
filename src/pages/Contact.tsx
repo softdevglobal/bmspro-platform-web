@@ -15,7 +15,8 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
-import { supabase } from "@/integrations/supabase/client";
+import { submitContactForm } from "@/lib/contactForm";
+import { SITE_CONTACT_EMAIL } from "@/lib/siteContact";
 
 const Contact = () => {
   const { toast } = useToast();
@@ -40,19 +41,11 @@ const Contact = () => {
     setLoading(true);
 
     try {
-      const { error } = await supabase.functions.invoke("send-contact-email", {
-        body: formData,
-      });
-
-      if (error) {
-        throw error;
-      }
-
+      await submitContactForm(formData, "Contact / demo request — BMS Pro");
       toast({
-        title: "Message sent!",
-        description: "We'll get back to you within 24 hours.",
+        title: "Message sent",
+        description: "Thanks — we'll get back within 24 hours.",
       });
-
       setFormData({
         firstName: "",
         lastName: "",
@@ -61,11 +54,11 @@ const Contact = () => {
         product: "",
         message: "",
       });
-    } catch (error: unknown) {
-      console.error("Error sending contact form:", error);
+    } catch (error) {
       toast({
-        title: "Error sending message",
-        description: "Please try again or email us directly.",
+        title: "Couldn’t send message",
+        description:
+          error instanceof Error ? error.message : "Please try again shortly.",
         variant: "destructive",
       });
     } finally {
@@ -86,17 +79,17 @@ const Contact = () => {
         <div className="relative min-h-[min(72vh,640px)] flex items-center overflow-hidden pt-16">
           <div className="absolute inset-0 grid grid-cols-1 sm:grid-cols-3" aria-hidden>
             <img
-              src="https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?w=900&h=1200&fit=crop"
+              src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=900&h=1200&fit=crop"
               alt=""
               className="h-full w-full object-cover scale-110 blur-xs sm:blur-sm min-h-[220px]"
             />
             <img
-              src="https://images.unsplash.com/photo-1560066984-138dadb4c035?w=900&h=1200&fit=crop"
+              src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=900&h=1200&fit=crop"
               alt=""
               className="hidden sm:block h-full w-full object-cover scale-110 blur-sm"
             />
             <img
-              src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e?w=900&h=1200&fit=crop"
+              src="https://images.unsplash.com/photo-1596524430615-b46475ddff6e?w=900&h=1200&fit=crop"
               alt=""
               className="hidden sm:block h-full w-full object-cover scale-110 blur-sm"
             />
@@ -281,7 +274,7 @@ const Contact = () => {
 
             <div className="lg:col-span-2 space-y-4">
               <a
-                href="mailto:admin@bmspros.com.au"
+                href={`mailto:${SITE_CONTACT_EMAIL}`}
                 className="card-elevated flex items-start gap-4 p-5 border border-border/60 shadow-elevated hover:border-primary/30 transition-colors"
               >
                 <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-primary/10 text-primary shrink-0">
@@ -289,7 +282,7 @@ const Contact = () => {
                 </div>
                 <div>
                   <p className="font-display font-semibold text-foreground mb-0.5">Email us</p>
-                  <p className="font-sans text-sm text-muted-foreground">admin@bmspros.com.au</p>
+                  <p className="font-sans text-sm text-muted-foreground">{SITE_CONTACT_EMAIL}</p>
                 </div>
               </a>
 
@@ -326,8 +319,8 @@ const Contact = () => {
                       Looking for support?
                     </h3>
                     <p className="font-sans text-sm text-muted-foreground leading-relaxed">
-                      Existing customers can reach us through the dashboard or at
-                      admin@bmspros.com.au
+                      Existing customers can reach us through the dashboard or at{" "}
+                      {SITE_CONTACT_EMAIL}
                     </p>
                   </div>
                 </div>

@@ -12,7 +12,6 @@ import ProductFieldFlow from "./pages/ProductFieldFlow";
 import ProductBookingEngine from "./pages/ProductBookingEngine";
 import Pricing from "./pages/Pricing";
 import Contact from "./pages/Contact";
-import Login from "./pages/Login";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import TermsOfService from "./pages/TermsOfService";
 import About from "./pages/About";
@@ -39,7 +38,6 @@ const App = () => (
           <Route path="/products/booking-engine" element={<ProductBookingEngine />} />
           <Route path="/pricing" element={<Pricing />} />
           <Route path="/contact" element={<Contact />} />
-          <Route path="/login" element={<Login />} />
           <Route path="/privacy" element={<PrivacyPolicy />} />
           <Route path="/terms" element={<TermsOfService />} />
           <Route path="/about" element={<About />} />

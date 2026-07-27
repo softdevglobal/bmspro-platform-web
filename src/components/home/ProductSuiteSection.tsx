@@ -69,7 +69,7 @@ const products: ShowcaseProduct[] = [
     href: "/products/blue",
     icon: Hammer,
     cta: "Book Your Strategy Call",
-    image: "https://images.unsplash.com/photo-1621905251189-08b45d6a269e?w=1000&h=1400&fit=crop",
+    image: "/products/blue/jobs.png",
     badge: "bg-blue text-white",
     ctaClass: "bg-white text-blue hover:bg-white/90",
   },

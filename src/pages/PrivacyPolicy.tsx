@@ -245,7 +245,7 @@ const PrivacyPolicy = () => {
               <div className="bg-secondary/50 rounded-xl p-6">
                 <p className="text-foreground font-medium mb-2">Privacy Officer – BMS Pro Pty Ltd</p>
                 <p className="text-muted-foreground text-sm">
-                  Email: <a href="mailto:admin@bmspros.com.au" className="text-primary hover:underline">admin@bmspros.com.au</a><br />
+                  Email: <a href="mailto:info@bmspros.com.au" className="text-primary hover:underline">info@bmspros.com.au</a><br />
                   Phone: <a href="tel:0387973795" className="text-primary hover:underline">03 8797 3795</a><br />
                   Address: 12 Stelvio Close, Lynbrook VIC 3975, Australia
                 </p>

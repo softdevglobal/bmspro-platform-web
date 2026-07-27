@@ -29,7 +29,7 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
-import { supabase } from "@/integrations/supabase/client";
+import { submitContactForm } from "@/lib/contactForm";
 
 type FeatureModule = {
   id: string;
@@ -347,13 +347,13 @@ const ProductBlack = () => {
     e.preventDefault();
     setLoading(true);
     try {
-      const { error } = await supabase.functions.invoke("send-contact-email", {
-        body: { ...formData, product: "black" },
-      });
-      if (error) throw error;
+      await submitContactForm(
+        { ...formData, product: "black" },
+        "Demo request — BMS Pro Black"
+      );
       toast({
-        title: "Demo request sent!",
-        description: "We'll get back to you within 24 hours.",
+        title: "Message sent",
+        description: "Thanks — we'll get back within 24 hours.",
       });
       setFormData({
         firstName: "",
@@ -363,10 +363,11 @@ const ProductBlack = () => {
         product: "black",
         message: "",
       });
-    } catch {
+    } catch (error) {
       toast({
-        title: "Error sending message",
-        description: "Please try again or email us directly.",
+        title: "Couldn’t send message",
+        description:
+          error instanceof Error ? error.message : "Please try again shortly.",
         variant: "destructive",
       });
     } finally {
@@ -778,7 +779,7 @@ const ProductBlack = () => {
           </div>
 
           <p className="mt-8 text-sm text-white/50">
-            admin@bmspros.com.au · 03 8797 3795 · Lynbrook VIC
+            info@bmspros.com.au · 03 8797 3795 · Lynbrook VIC
           </p>
         </div>
       </section>

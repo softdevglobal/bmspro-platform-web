@@ -197,17 +197,6 @@ export function Header() {
 
         <div className="hidden md:flex items-center gap-3">
           <Button
-            variant="ghost"
-            size="sm"
-            className={cn(
-              "rounded-full",
-              overHero && "text-white hover:bg-white/10 hover:text-white"
-            )}
-            asChild
-          >
-            <Link to="/login">Sign in</Link>
-          </Button>
-          <Button
             size="sm"
             className={cn(
               "rounded-full",
@@ -286,11 +275,6 @@ export function Header() {
               );
             })}
             <div className="pt-4 border-t border-border space-y-2">
-              <Button variant="outline" className="w-full rounded-full" asChild>
-                <Link to="/login" onClick={() => setMobileMenuOpen(false)}>
-                  Sign in
-                </Link>
-              </Button>
               <Button className="w-full rounded-full" asChild>
                 <Link to="/contact" onClick={() => setMobileMenuOpen(false)}>
                   Book Your Strategy Call
