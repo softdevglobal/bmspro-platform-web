@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight, LucideIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-export type ProductVariant = "pink" | "blue" | "teal" | "slate";
+export type ProductVariant = "pink" | "blue" | "teal" | "slate" | "black";
 
 interface ProductCardProps {
   name: string;
@@ -14,28 +14,42 @@ interface ProductCardProps {
   variant: ProductVariant;
   icon: LucideIcon;
   cta: string;
+  className?: string;
 }
 
-const variantStyles: Record<ProductVariant, { badge: string; icon: string; button: "pink" | "blue" | "teal" | "default" }> = {
+const variantStyles: Record<
+  ProductVariant,
+  { badge: string; icon: string; accent: string; button: "pink" | "blue" | "teal" | "black" | "default" }
+> = {
   pink: {
     badge: "bg-pink-light text-pink",
     icon: "bg-pink/10 text-pink",
+    accent: "group-hover:border-pink/40 group-hover:shadow-[0_16px_40px_-12px_hsl(var(--pink)/0.35)]",
     button: "pink",
   },
   blue: {
     badge: "bg-blue-light text-blue",
     icon: "bg-blue/10 text-blue",
+    accent: "group-hover:border-blue/40 group-hover:shadow-[0_16px_40px_-12px_hsl(var(--blue)/0.35)]",
     button: "blue",
   },
   teal: {
     badge: "bg-teal-light text-teal",
     icon: "bg-teal/10 text-teal",
+    accent: "group-hover:border-teal/40 group-hover:shadow-[0_16px_40px_-12px_hsl(var(--teal)/0.35)]",
     button: "teal",
   },
   slate: {
     badge: "bg-slate-light text-slate-foreground",
     icon: "bg-secondary text-foreground",
+    accent: "group-hover:border-slate/30",
     button: "default",
+  },
+  black: {
+    badge: "bg-product-black-light text-product-black",
+    icon: "bg-product-black/10 text-product-black",
+    accent: "group-hover:border-product-black/50 group-hover:shadow-[0_16px_40px_-12px_hsl(var(--product-black)/0.4)]",
+    button: "black",
   },
 };
 
@@ -48,13 +62,20 @@ export function ProductCard({
   variant,
   icon: Icon,
   cta,
+  className,
 }: ProductCardProps) {
   const styles = variantStyles[variant];
 
   return (
-    <div className="group card-elevated p-6 flex flex-col h-full">
-      <div className="flex items-start justify-between mb-4">
-        <div className={cn("p-3 rounded-xl", styles.icon)}>
+    <div
+      className={cn(
+        "group card-elevated p-6 sm:p-8 flex flex-col h-full border-2 border-transparent",
+        styles.accent,
+        className
+      )}
+    >
+      <div className="flex items-start justify-between mb-5">
+        <div className={cn("p-3 rounded-xl transition-transform duration-300 group-hover:scale-105", styles.icon)}>
           <Icon className="h-6 w-6" />
         </div>
         <span className={cn("px-3 py-1 rounded-full text-xs font-medium", styles.badge)}>
@@ -62,10 +83,10 @@ export function ProductCard({
         </span>
       </div>
 
-      <h3 className="text-xl font-bold text-foreground mb-2">{name}</h3>
-      <p className="text-muted-foreground text-sm mb-4 flex-grow">{description}</p>
+      <h3 className="text-xl sm:text-2xl font-bold text-foreground mb-2">{name}</h3>
+      <p className="text-muted-foreground text-sm mb-5 flex-grow">{description}</p>
 
-      <ul className="space-y-2 mb-6">
+      <ul className="space-y-2.5 mb-8">
         {features.slice(0, 4).map((feature) => (
           <li key={feature} className="flex items-center gap-2 text-sm text-muted-foreground">
             <div className="h-1.5 w-1.5 rounded-full bg-muted-foreground/50" />

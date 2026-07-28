@@ -1,7 +1,8 @@
-import { Link } from "react-router-dom";
-import { useState } from "react";
+import { Link, useLocation } from "react-router-dom";
+import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Menu, X, ChevronDown } from "lucide-react";
+import { Menu, X, ChevronDown, ArrowRight } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 const navigation = [
   { name: "Home", href: "/" },
@@ -9,10 +10,24 @@ const navigation = [
     name: "Products",
     href: "/products",
     children: [
-      { name: "BMS Pro Pink", href: "/products/pink", description: "Salon & personal services" },
-      { name: "BMS Pro Blue", href: "/products/blue", description: "Trades & service businesses" },
-      { name: "BMS Pro FieldFlow", href: "/products/fieldflow", description: "Field operations" },
-      { name: "Booking Engine", href: "/products/booking-engine", description: "Embeddable booking" },
+      {
+        name: "BMS Pro Black",
+        href: "/contact",
+        description: "Mechanic shops — filter calls, book jobs",
+        dot: "bg-product-black",
+      },
+      {
+        name: "BMS Pro Blue",
+        href: "/products/blue",
+        description: "Plumbers, carpenters & electricians",
+        dot: "bg-blue",
+      },
+      {
+        name: "BMS Pro Pink",
+        href: "/products/pink",
+        description: "Salons & beauty — fill the calendar",
+        dot: "bg-pink",
+      },
     ],
   },
   { name: "Pricing", href: "/pricing" },
@@ -20,19 +35,49 @@ const navigation = [
 ];
 
 export function Header() {
+  const location = useLocation();
+  const isHome = location.pathname === "/";
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [productsOpen, setProductsOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 24);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  useEffect(() => {
+    setMobileMenuOpen(false);
+    setProductsOpen(false);
+  }, [location.pathname]);
+
+  const overHero = isHome && !scrolled && !mobileMenuOpen;
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+    <header
+      className={cn(
+        "sticky top-0 z-50 w-full transition-all duration-300",
+        overHero
+          ? "border-b border-white/10 bg-[hsl(220_22%_6%/0.4)] backdrop-blur-md"
+          : "border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80 shadow-sm"
+      )}
+    >
       <nav className="container-wide flex h-16 items-center justify-between">
         <div className="flex items-center gap-8">
           <Link to="/" className="flex items-center gap-3">
             <img src="/logo.png" alt="BMS Pro" className="h-9 w-auto" />
-            <span className="text-xl font-semibold text-foreground">BMS Pro</span>
+            <span
+              className={cn(
+                "text-xl font-semibold transition-colors",
+                overHero ? "text-white" : "text-foreground"
+              )}
+            >
+              BMS Pro
+            </span>
           </Link>
 
-          {/* Desktop navigation */}
           <div className="hidden md:flex items-center gap-1">
             {navigation.map((item) =>
               item.children ? (
@@ -44,21 +89,31 @@ export function Header() {
                 >
                   <Link
                     to={item.href}
-                    className="flex items-center gap-1 px-4 py-2 text-base font-medium text-muted-foreground hover:text-foreground transition-colors"
+                    className={cn(
+                      "flex items-center gap-1 px-4 py-2 text-base font-medium transition-colors",
+                      overHero
+                        ? "text-white/80 hover:text-white"
+                        : "text-muted-foreground hover:text-foreground"
+                    )}
                   >
                     {item.name}
                     <ChevronDown className="h-4 w-4" />
                   </Link>
                   {productsOpen && (
-                    <div className="absolute top-full left-0 mt-1 w-72 rounded-xl border border-border bg-card p-2 shadow-lg animate-fade-in">
+                    <div className="absolute top-full left-0 mt-1 w-80 rounded-2xl border border-border bg-card p-2 shadow-elevated animate-fade-in">
                       {item.children.map((child) => (
                         <Link
                           key={child.name}
                           to={child.href}
-                          className="block rounded-lg px-4 py-3 hover:bg-secondary transition-colors"
+                          className="flex items-start gap-3 rounded-xl px-3 py-3 hover:bg-secondary transition-colors"
                         >
-                          <div className="text-base font-medium text-foreground">{child.name}</div>
-                          <div className="text-sm text-muted-foreground">{child.description}</div>
+                          <span
+                            className={cn("mt-1.5 h-2.5 w-2.5 rounded-full shrink-0", child.dot)}
+                          />
+                          <div>
+                            <div className="text-base font-medium text-foreground">{child.name}</div>
+                            <div className="text-sm text-muted-foreground">{child.description}</div>
+                          </div>
                         </Link>
                       ))}
                     </div>
@@ -68,7 +123,12 @@ export function Header() {
                 <Link
                   key={item.name}
                   to={item.href}
-                  className="px-4 py-2 text-base font-medium text-muted-foreground hover:text-foreground transition-colors"
+                  className={cn(
+                    "px-4 py-2 text-base font-medium transition-colors",
+                    overHero
+                      ? "text-white/80 hover:text-white"
+                      : "text-muted-foreground hover:text-foreground"
+                  )}
                 >
                   {item.name}
                 </Link>
@@ -78,28 +138,45 @@ export function Header() {
         </div>
 
         <div className="hidden md:flex items-center gap-3">
-          <Button variant="ghost" size="sm" asChild>
+          <Button
+            variant="ghost"
+            size="sm"
+            className={cn(overHero && "text-white hover:bg-white/10 hover:text-white")}
+            asChild
+          >
             <Link to="/login">Sign in</Link>
           </Button>
-          <Button size="sm" asChild>
-            <Link to="/contact">Book a Demo</Link>
+          <Button
+            size="sm"
+            className={cn(
+              "rounded-full",
+              overHero && "bg-white text-[hsl(220_22%_10%)] hover:bg-white/90"
+            )}
+            asChild
+          >
+            <Link to="/contact">
+              Book Your Strategy Call
+              <ArrowRight className="h-4 w-4" />
+            </Link>
           </Button>
         </div>
 
-        {/* Mobile menu button */}
         <button
           type="button"
-          className="md:hidden p-2"
+          className={cn("md:hidden p-2 rounded-lg", overHero ? "text-white" : "text-foreground")}
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
           aria-expanded={mobileMenuOpen}
           aria-controls="mobile-menu"
         >
-          {mobileMenuOpen ? <X className="h-6 w-6" aria-hidden="true" /> : <Menu className="h-6 w-6" aria-hidden="true" />}
+          {mobileMenuOpen ? (
+            <X className="h-6 w-6" aria-hidden="true" />
+          ) : (
+            <Menu className="h-6 w-6" aria-hidden="true" />
+          )}
         </button>
       </nav>
 
-      {/* Mobile menu */}
       {mobileMenuOpen && (
         <div id="mobile-menu" className="md:hidden border-t border-border bg-background">
           <div className="container-wide py-4 space-y-2">
@@ -118,9 +195,10 @@ export function Header() {
                       <Link
                         key={child.name}
                         to={child.href}
-                        className="block px-4 py-2 text-base text-muted-foreground hover:text-foreground hover:bg-secondary rounded-lg"
+                        className="flex items-center gap-2 px-4 py-2 text-base text-muted-foreground hover:text-foreground hover:bg-secondary rounded-lg"
                         onClick={() => setMobileMenuOpen(false)}
                       >
+                        <span className={cn("h-2 w-2 rounded-full", child.dot)} />
                         {child.name}
                       </Link>
                     ))}
@@ -129,11 +207,16 @@ export function Header() {
               </div>
             ))}
             <div className="pt-4 border-t border-border space-y-2">
-              <Button variant="outline" className="w-full" asChild>
-                <Link to="/login" onClick={() => setMobileMenuOpen(false)}>Sign in</Link>
+              <Button variant="outline" className="w-full rounded-full" asChild>
+                <Link to="/login" onClick={() => setMobileMenuOpen(false)}>
+                  Sign in
+                </Link>
               </Button>
-              <Button className="w-full" asChild>
-                <Link to="/contact" onClick={() => setMobileMenuOpen(false)}>Book a Demo</Link>
+              <Button className="w-full rounded-full" asChild>
+                <Link to="/contact" onClick={() => setMobileMenuOpen(false)}>
+                  Book Your Strategy Call
+                  <ArrowRight className="h-4 w-4" />
+                </Link>
               </Button>
             </div>
           </div>

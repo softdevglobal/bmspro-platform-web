@@ -12,8 +12,8 @@ const Index = () => {
   return (
     <Layout>
       <SEO
-        title="BMS Pro | Booking & Operations Platform for Service Businesses"
-        description="One platform for bookings, jobs, and field operations. BMS Pro powers salons, trades, and field teams across Australia."
+        title="BMS Pro | Software + Real Human Receptionists"
+        description="Booking software for mechanic shops, salons, and trades — paired with 100% real human receptionists. No AI voicebots. Book your strategy call."
         path="/"
         jsonLd={[
           {

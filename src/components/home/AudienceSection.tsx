@@ -1,56 +1,79 @@
-import { Scissors, HardHat, Truck, Building2 } from "lucide-react";
+import { Wrench, Scissors, HardHat } from "lucide-react";
 
 const audiences = [
   {
+    icon: Wrench,
+    title: "Mechanic Shops",
+    product: "Black",
+    description:
+      "Stop losing billable time to phone calls. Receptionists book routine jobs and only pass complex technical questions to the floor.",
+    image: "https://images.unsplash.com/photo-1487754180451-c456f719a1fc?w=900&h=700&fit=crop",
+    badge: "bg-product-black",
+  },
+  {
     icon: Scissors,
-    title: "Salons & Spas",
-    description: "Hair salons, beauty spas, nail studios, and wellness centers managing appointments and client relationships.",
+    title: "Salons & Beauty",
+    product: "Pink",
+    description:
+      "While stylists are with clients, receptionists fill the calendar, handle reschedules, and protect revenue from missed calls.",
+    image: "https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=900&h=700&fit=crop",
+    badge: "bg-pink",
   },
   {
     icon: HardHat,
-    title: "Trades & Contractors",
-    description: "Plumbers, electricians, HVAC technicians, and contractors managing jobs, quotes, and field teams.",
-  },
-  {
-    icon: Truck,
-    title: "Field Service Teams",
-    description: "Mobile workforces, delivery teams, and service technicians requiring real-time coordination.",
-  },
-  {
-    icon: Building2,
-    title: "Multi-Location Businesses",
-    description: "Franchise operations and businesses with multiple sites needing centralized management.",
+    title: "Tradespeople",
+    product: "Blue",
+    description:
+      "Plumbers, carpenters, and electricians stay on the tools while a real person books jobs and manages the calendar.",
+    image: "https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=900&h=700&fit=crop",
+    badge: "bg-blue",
   },
 ];
 
 export function AudienceSection() {
   return (
-    <section className="section-padding">
-      <div className="container-wide">
-        <div className="text-center max-w-2xl mx-auto mb-12">
-          <span className="text-sm font-semibold text-primary uppercase tracking-wider">Who It's For</span>
-          <h2 className="text-3xl sm:text-4xl font-bold text-foreground mt-2 mb-4">
-            Built for service businesses that mean business
+    <section className="section-padding bg-background relative overflow-hidden">
+      <div className="container-wide relative">
+        <div className="text-center max-w-2xl mx-auto mb-12 sm:mb-14">
+          <span className="inline-flex rounded-full border border-border bg-secondary/60 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+            Who It&apos;s For
+          </span>
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mt-4 mb-4 tracking-tight">
+            Operational takeover for real industries
           </h2>
           <p className="text-lg text-muted-foreground">
-            Whether you're managing a single salon or coordinating a fleet of technicians, BMS Pro scales with you.
+            Software that fits the trade — plus a human front desk that escapes the daily phone chaos.
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {audiences.map((audience, index) => (
-            <div
-              key={audience.title}
-              className="text-center group animate-fade-up"
-              style={{ animationDelay: `${index * 100}ms` }}
-            >
-              <div className="inline-flex items-center justify-center h-16 w-16 rounded-2xl bg-secondary mb-4 group-hover:bg-primary/5 transition-colors">
-                <audience.icon className="h-8 w-8 text-foreground" />
+        <div className="grid md:grid-cols-3 gap-4 lg:gap-5">
+          {audiences.map((audience, index) => {
+            const Icon = audience.icon;
+            return (
+              <div
+                key={audience.title}
+                className="group relative overflow-hidden rounded-3xl min-h-[280px] sm:min-h-[320px] border border-border/40 shadow-elevated animate-fade-up"
+                style={{ animationDelay: `${index * 100}ms` }}
+              >
+                <img
+                  src={audience.image}
+                  alt={audience.title}
+                  className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[hsl(220_22%_6%/0.92)] via-[hsl(220_22%_6%/0.45)] to-[hsl(220_22%_6%/0.15)]" />
+                <div className="relative h-full flex flex-col justify-end p-6 sm:p-7 text-white">
+                  <span
+                    className={`inline-flex w-fit items-center gap-1.5 rounded-full px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider mb-3 ${audience.badge}`}
+                  >
+                    <Icon className="h-3 w-3" />
+                    {audience.product}
+                  </span>
+                  <h3 className="text-xl font-bold mb-2">{audience.title}</h3>
+                  <p className="text-sm text-white/75 leading-relaxed">{audience.description}</p>
+                </div>
               </div>
-              <h3 className="text-lg font-semibold text-foreground mb-2">{audience.title}</h3>
-              <p className="text-sm text-muted-foreground">{audience.description}</p>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </section>
