@@ -122,7 +122,9 @@ export function Header() {
                     <Link
                       to={item.href}
                       aria-current={active ? "page" : undefined}
-                      className={cn(linkClass(active), "flex items-center gap-1")}
+                      aria-expanded={productsOpen}
+                      aria-haspopup="menu"
+                      className={cn(linkClass(active || productsOpen), "flex items-center gap-1")}
                     >
                       {item.name}
                       <ChevronDown
@@ -133,48 +135,53 @@ export function Header() {
                       />
                     </Link>
                     {productsOpen && (
-                      <div className="absolute top-full left-0 mt-1 w-80 rounded-2xl border border-border bg-card p-2 shadow-elevated animate-fade-in">
-                        {item.children.map((child) => {
-                          const childActive = location.pathname === child.href;
-                          return (
-                            <Link
-                              key={child.name}
-                              to={child.href}
-                              aria-current={childActive ? "page" : undefined}
-                              className={cn(
-                                "flex items-start gap-3 rounded-xl px-3 py-3 transition-colors",
-                                childActive ? "bg-secondary" : "hover:bg-secondary"
-                              )}
-                            >
-                              <span
-                                className={cn(
-                                  "mt-1.5 h-2.5 w-2.5 rounded-full shrink-0",
-                                  child.dot
-                                )}
-                              />
-                              <div>
-                                <div
-                                  className={cn(
-                                    "text-base font-medium",
-                                    childActive ? "text-foreground" : "text-foreground"
-                                  )}
-                                >
-                                  {child.name}
-                                </div>
-                                <div className="text-sm text-muted-foreground">
-                                  {child.description}
-                                </div>
-                              </div>
-                            </Link>
-                          );
-                        })}
-                        <Link
-                          to="/products"
-                          className="mt-1 flex items-center justify-between rounded-xl px-3 py-2.5 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors"
+                      <div className="absolute top-full left-0 z-50 pt-1">
+                        {/* Invisible hover bridge — keeps menu open while moving into it */}
+                        <div
+                          role="menu"
+                          className="w-80 rounded-2xl border border-border bg-card p-2 shadow-elevated animate-fade-in"
                         >
-                          View all products
-                          <ArrowRight className="h-4 w-4" />
-                        </Link>
+                          {item.children.map((child) => {
+                            const childActive = location.pathname === child.href;
+                            return (
+                              <Link
+                                key={child.name}
+                                to={child.href}
+                                role="menuitem"
+                                aria-current={childActive ? "page" : undefined}
+                                className={cn(
+                                  "flex items-start gap-3 rounded-xl px-3 py-3 transition-colors",
+                                  childActive ? "bg-secondary" : "hover:bg-secondary"
+                                )}
+                                onClick={() => setProductsOpen(false)}
+                              >
+                                <span
+                                  className={cn(
+                                    "mt-1.5 h-2.5 w-2.5 rounded-full shrink-0",
+                                    child.dot
+                                  )}
+                                />
+                                <div>
+                                  <div className="text-base font-medium text-foreground">
+                                    {child.name}
+                                  </div>
+                                  <div className="text-sm text-muted-foreground">
+                                    {child.description}
+                                  </div>
+                                </div>
+                              </Link>
+                            );
+                          })}
+                          <Link
+                            to="/products"
+                            role="menuitem"
+                            className="mt-1 flex items-center justify-between rounded-xl px-3 py-2.5 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors"
+                            onClick={() => setProductsOpen(false)}
+                          >
+                            View all products
+                            <ArrowRight className="h-4 w-4" />
+                          </Link>
+                        </div>
                       </div>
                     )}
                   </div>

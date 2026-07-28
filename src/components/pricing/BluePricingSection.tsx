@@ -128,7 +128,7 @@ export function BluePricingSection({
           >
             <div className="absolute inset-0" aria-hidden>
               <img
-                src="/products/blue/jobs.png"
+                src="/products/blue/jobs.jpg"
                 alt=""
                 className="absolute inset-0 h-full w-full object-cover scale-105"
               />
@@ -339,7 +339,7 @@ export function BluePricingSection({
           <section className="relative overflow-hidden text-white">
             <div className="absolute inset-0" aria-hidden>
               <img
-                src="/products/blue/jobs.png"
+                src="/products/blue/jobs.jpg"
                 alt=""
                 className="absolute inset-0 h-full w-full object-cover scale-110 blur-sm"
               />

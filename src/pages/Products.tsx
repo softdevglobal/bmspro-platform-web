@@ -230,7 +230,7 @@ const Products = () => {
               className="hidden sm:block h-full w-full object-cover scale-110 blur-sm"
             />
             <img
-              src="/products/blue/jobs.png"
+              src="/products/blue/jobs.jpg"
               alt=""
               className="hidden sm:block h-full w-full object-cover scale-110 blur-sm"
             />
