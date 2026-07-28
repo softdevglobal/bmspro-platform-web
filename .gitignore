@@ -17,6 +17,38 @@ dist-ssr
 .env.*
 !.env.example
 
+# Keys & certificates
+*.pem
+*.key
+*.crt
+*.cer
+*.p12
+*.pfx
+*.keystore
+*.jks
+id_rsa*
+id_ed25519*
+
+# Credential files
+secrets.json
+credentials.json
+service-account*.json
+*-serviceaccount.json
+*.secret
+*.secrets
+.npmrc
+.netrc
+.pgpass
+
+# Cloud / deploy state
+.vercel
+.netlify
+.firebase
+.terraform/
+*.tfstate
+*.tfstate.*
+.aws/
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
