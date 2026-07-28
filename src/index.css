@@ -4,10 +4,10 @@
 
 @layer base {
   :root {
-    /* Typography — DM Sans body/UI, Geist display, Geist Mono code */
-    --font-sans: "DM Sans", system-ui, sans-serif;
-    --font-geist-sans: "Geist", system-ui, sans-serif;
-    --font-geist-mono: "Geist Mono", ui-monospace, monospace;
+    /* Typography — Ubuntu across the whole site */
+    --font-sans: "Ubuntu", system-ui, sans-serif;
+    --font-geist-sans: "Ubuntu", system-ui, sans-serif;
+    --font-geist-mono: "Ubuntu", ui-monospace, monospace;
 
     /* Core palette - Calming Psychology Theme */
     /* Warm cream background - less clinical, more approachable */
@@ -180,11 +180,11 @@
 
 @layer components {
   .container-narrow {
-    @apply max-w-5xl mx-auto px-4 sm:px-6 lg:px-8;
+    @apply max-w-5xl mx-auto px-[10%];
   }
 
   .container-wide {
-    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+    @apply max-w-7xl mx-auto px-[10%];
   }
 
   .section-padding {
