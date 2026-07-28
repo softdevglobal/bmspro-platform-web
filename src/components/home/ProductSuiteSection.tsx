@@ -28,7 +28,7 @@ const products: ShowcaseProduct[] = [
       "Technical calls filtered through",
       "Less downtime on the floor",
     ],
-    href: "/contact",
+    href: "/products/black",
     icon: Wrench,
     cta: "Book Your Strategy Call",
     image: "https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?w=1000&h=1400&fit=crop",
@@ -47,7 +47,7 @@ const products: ShowcaseProduct[] = [
       "Reschedules handled for you",
       "Revenue protection, not voicemail",
     ],
-    href: "/contact",
+    href: "/products/pink",
     icon: Sparkles,
     cta: "Meet Your Virtual Front Desk",
     image: "https://images.unsplash.com/photo-1560066984-138dadb4c035?w=1000&h=1400&fit=crop",
@@ -66,10 +66,10 @@ const products: ShowcaseProduct[] = [
       "Quotes & bookings captured",
       "Fewer interruptions on site",
     ],
-    href: "/contact",
+    href: "/products/blue",
     icon: Hammer,
     cta: "Book Your Strategy Call",
-    image: "https://images.unsplash.com/photo-1621905251189-08b45d6a269e?w=1000&h=1400&fit=crop",
+    image: "/products/blue/jobs.png",
     badge: "bg-blue text-white",
     ctaClass: "bg-white text-blue hover:bg-white/90",
   },
@@ -94,13 +94,13 @@ export function ProductSuiteSection() {
 
       <div className="container-wide relative section-padding">
         <div className="max-w-2xl mb-12 lg:mb-14 text-center mx-auto">
-          <span className="inline-flex rounded-full border border-white/20 bg-white/10 backdrop-blur-sm px-3 py-1 text-xs font-semibold uppercase tracking-wider text-white/80">
+          <span className="eyebrow inline-flex rounded-full border border-white/20 bg-white/10 backdrop-blur-sm px-3 py-1 text-white/80">
             Software + Human Front Desk
           </span>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mt-4 mb-3 tracking-tight">
+          <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold mt-4 mb-3 tracking-tight">
             Pitched to the chaos you escape every day
           </h2>
-          <p className="text-lg text-white/65">
+          <p className="font-sans text-lg text-white/65">
             Black for workshops, Pink for salons, Blue for trades — each with software and receptionists who know how to book it.
           </p>
         </div>
@@ -124,20 +124,20 @@ export function ProductSuiteSection() {
 
                 <div className="relative flex flex-col flex-grow p-6 sm:p-7">
                   <div className="flex items-start justify-between mb-8">
-                    <span className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider ${product.badge}`}>
+                    <span className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[10px] font-label font-bold uppercase tracking-wider ${product.badge}`}>
                       <Icon className="h-3 w-3" />
                       {product.tagline}
                     </span>
-                    <span className="text-xs font-semibold uppercase tracking-[0.18em] text-white/50">
+                    <span className="font-label text-xs font-semibold uppercase tracking-[0.18em] text-white/50">
                       BMS Pro {product.shortName}
                     </span>
                   </div>
 
                   <div className="mt-auto">
-                    <h3 className="text-xl sm:text-2xl font-bold tracking-tight mb-3 leading-snug">
+                    <h3 className="font-display text-xl sm:text-2xl font-bold tracking-tight mb-3 leading-snug">
                       {product.headline}
                     </h3>
-                    <p className="text-sm text-white/70 leading-relaxed mb-5">{product.description}</p>
+                    <p className="font-sans text-sm text-white/70 leading-relaxed mb-5">{product.description}</p>
                     <ul className="space-y-2 mb-7">
                       {product.features.map((feature) => (
                         <li key={feature} className="flex items-center gap-2.5 text-sm text-white/80">

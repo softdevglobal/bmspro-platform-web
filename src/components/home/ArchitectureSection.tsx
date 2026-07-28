@@ -17,13 +17,13 @@ export function ArchitectureSection() {
 
       <div className="container-wide relative section-padding">
         <div className="text-center max-w-2xl mx-auto mb-12">
-          <span className="inline-flex rounded-full border border-white/20 bg-white/10 backdrop-blur-sm px-3 py-1 text-xs font-semibold uppercase tracking-wider text-white/80">
+          <span className="eyebrow inline-flex rounded-full border border-white/20 bg-white/10 backdrop-blur-sm px-3 py-1 text-white/80">
             How It Works
           </span>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mt-4 mb-4 tracking-tight">
+          <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold mt-4 mb-4 tracking-tight">
             Software + humans, one operation
           </h2>
-          <p className="text-lg text-white/65">
+          <p className="font-sans text-lg text-white/65">
             Your industry product, a live calendar, and a real receptionist working as one front desk.
           </p>
         </div>
@@ -44,8 +44,8 @@ export function ArchitectureSection() {
             </div>
 
             <div className="rounded-3xl border border-white/10 bg-product-black p-6">
-              <span className="text-[10px] font-bold uppercase tracking-wider text-white/50">Black</span>
-              <h3 className="font-semibold text-lg mt-1 mb-2">Mechanic shops</h3>
+              <span className="text-[10px] font-label font-bold uppercase tracking-wider text-white/50">Black</span>
+              <h3 className="font-display font-semibold text-lg mt-1 mb-2">Mechanic shops</h3>
               <p className="text-sm text-white/60 mb-4">Efficiency &amp; call filtering</p>
               <div className="flex items-center text-xs text-white/45">
                 <ArrowRight className="h-3 w-3 mr-1" /> Synced with reception
@@ -53,8 +53,8 @@ export function ArchitectureSection() {
             </div>
 
             <div className="rounded-3xl border border-white/10 bg-blue p-6">
-              <span className="text-[10px] font-bold uppercase tracking-wider text-white/70">Blue</span>
-              <h3 className="font-semibold text-lg mt-1 mb-2">Trades</h3>
+              <span className="text-[10px] font-label font-bold uppercase tracking-wider text-white/70">Blue</span>
+              <h3 className="font-display font-semibold text-lg mt-1 mb-2">Trades</h3>
               <p className="text-sm text-white/80 mb-4">Jobs booked without interrupting the tools</p>
               <div className="flex items-center text-xs text-white/70">
                 <ArrowRight className="h-3 w-3 mr-1" /> Synced with reception
@@ -62,8 +62,8 @@ export function ArchitectureSection() {
             </div>
 
             <div className="rounded-3xl border border-white/10 bg-pink p-6">
-              <span className="text-[10px] font-bold uppercase tracking-wider text-white/70">Pink</span>
-              <h3 className="font-semibold text-lg mt-1 mb-2">Salons</h3>
+              <span className="text-[10px] font-label font-bold uppercase tracking-wider text-white/70">Pink</span>
+              <h3 className="font-display font-semibold text-lg mt-1 mb-2">Salons</h3>
               <p className="text-sm text-white/80 mb-4">Calendar filled while you&apos;re with clients</p>
               <div className="flex items-center text-xs text-white/70">
                 <ArrowRight className="h-3 w-3 mr-1" /> Synced with reception

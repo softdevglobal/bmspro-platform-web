@@ -7,14 +7,13 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import {
   ArrowRight,
-  Hammer,
+  Wrench,
   Users,
   MessageSquare,
   CreditCard,
-  ClipboardList,
-  Briefcase,
-  CalendarDays,
-  UserRound,
+  CalendarCheck,
+  Building2,
+  Car,
   FileText,
   Building,
   Globe,
@@ -25,7 +24,6 @@ import {
   LayoutDashboard,
   Settings,
   Smartphone,
-  Wrench,
   ShieldCheck,
   LucideIcon,
 } from "lucide-react";
@@ -46,304 +44,290 @@ type FeatureModule = {
 
 const featureModules: FeatureModule[] = [
   {
-    id: "workflow",
-    number: "01",
-    title: "Core workflow",
-    who: "Business owners · Modules you can turn on as you grow",
-    icon: Briefcase,
-    summary:
-      "Run your trade business from request to paid invoice: Requests → Quotations → Jobs → Invoices.",
-    points: [
-      "Start with service and inspection requests",
-      "Send quotations when you’re ready to price the work",
-      "Turn approved work into jobs for the team",
-      "Invoice when the job is done",
-      "Quotations, jobs, and invoices can be switched on per business",
-    ],
-    image: "/products/blue/quotes.png",
-  },
-  {
     id: "services",
-    number: "02",
+    number: "01",
     title: "Services",
-    who: "Owners set the menu · Ready-made trade templates to start",
+    who: "Owners set the menu · Ready-made templates to start",
     icon: Wrench,
     summary:
-      "Build the services you offer — name, description, price, duration, and photo — or start from trade templates.",
+      "Build the services you offer — prices, duration, photos, and who does the work. Price by car type, or keep one flat price.",
     points: [
-      "Add, edit, or remove services anytime",
-      "Price, duration, and image for each service",
-      "Start from platform templates for your trade",
-      "Powers Book Now, requests, quotes, and jobs",
+      "Add services with name, price, time, and photo",
+      "Assign to branches and the right staff",
+      "Different prices for small cars, SUVs, utes, and more",
+      "Inspection checklists by vehicle area",
+      "Start from ready-made templates",
     ],
-    image: "/products/blue/jobs.png",
-  },
-  {
-    id: "requests",
-    number: "03",
-    title: "Requests",
-    who: "Owners in the office · Staff on mobile · Customers online",
-    icon: ClipboardList,
-    summary:
-      "Capture service and inspection requests — schedule them, create the customer if needed, and feed calendar, quotes, and jobs.",
-    points: [
-      "Add requests from the office dashboard",
-      "Pick a service, time, and customer contact",
-      "Track pending, scheduled, completed, and cancelled",
-      "Comes in from Book Now, the office, or mobile",
-    ],
-    image: "/products/blue/jobs.png",
-  },
-  {
-    id: "jobs",
-    number: "04",
-    title: "Jobs",
-    who: "Owners manage · Staff execute on mobile",
-    icon: Hammer,
-    summary:
-      "A job board for work that moves from requests and quotations — with duration estimates, status, and photos.",
-    points: [
-      "See jobs progressing from request or quote",
-      "Duration presets for scheduling",
-      "Status updates and job images",
-      "Turn on when your business is ready for jobs",
-    ],
-    image: "/products/blue/jobs.png",
-  },
-  {
-    id: "calendar",
-    number: "05",
-    title: "Calendar & capacity",
-    who: "Business owners",
-    icon: CalendarDays,
-    summary:
-      "One calendar for requests, jobs, personal events, and closures — plus working hours that drive Book Now slots.",
-    points: [
-      "Requests, jobs, personal events, and closures together",
-      "Set working hours and slot capacity",
-      "Book Now only offers times you can take",
-    ],
-    image: "/products/blue/quotes.png",
-  },
-  {
-    id: "quotes-invoices",
-    number: "06",
-    title: "Quotes, invoices & items",
-    who: "Owners · Customers view PDFs online · Staff with quote permission",
-    icon: FileText,
-    summary:
-      "Draft and send quotations and invoices as PDFs — with a reusable priced item list for faster quoting.",
-    points: [
-      "Quotations: draft, edit, send, PDF preview",
-      "Invoices: draft, edit, send, mark paid",
-      "Reusable line items with price and image",
-      "Email or SMS when you send a quote",
-    ],
-    image: "/products/blue/quotes.png",
-  },
-  {
-    id: "customers",
-    number: "07",
-    title: "Customers",
-    who: "Business owners",
-    icon: UserRound,
-    summary:
-      "Keep every customer in one place — reused across requests, quotes, invoices, and texts.",
-    points: [
-      "Name, phone, email, notes, and status",
-      "Created from requests and Book Now",
-      "Customers can log in on Book Now for history and docs",
-    ],
+    image: "https://images.unsplash.com/photo-1487754180451-c456f719a1fc?w=900&h=700&fit=crop",
   },
   {
     id: "staff",
-    number: "08",
+    number: "02",
     title: "Staff",
-    who: "Owners manage the team · Staff use the phone app",
+    who: "Owners manage the team · Staff work from the phone app",
     icon: Users,
     summary:
-      "Add your team, set rosters, approve leave, and export timesheets. Staff work from mobile — not the web admin.",
+      "Add your team, set rosters, track who’s on site, approve leave, and keep training records.",
     points: [
-      "Create logins with welcome emails",
-      "Weekly roster and plan staff limits",
-      "Attendance clock-in/out and timesheet export",
-      "Leave approve or reject",
-      "Permission flags (e.g. can create quotations)",
+      "Logins for staff and branch managers",
+      "Rosters, training, and welcome emails",
+      "Check-in on a map near each branch",
+      "Timesheets and leave approvals",
+      "Staff can decline jobs they can’t take",
     ],
-    image: "/products/blue/jobs.png",
+    image: "https://images.unsplash.com/photo-1625047509248-ec889cbff17f?w=900&h=700&fit=crop",
   },
   {
     id: "sms",
-    number: "09",
+    number: "03",
     title: "Text messages",
-    who: "Owners send texts and buy credits",
+    who: "Owners send texts and top up credits",
     icon: MessageSquare,
     summary:
-      "Text customers from the business. Some plans include credits; top up anytime when you need more.",
+      "Text customers and staff from the workshop. Some plans include credits; top up anytime.",
     points: [
       "Credits included with some plans",
-      "Buy extra packs that sit on top of the bundle",
-      "Custom messages to customers",
-      "See sent, failed, and skipped in the log",
+      "Buy extra packs when you run low",
+      "Personalise with the customer’s name",
+      "Greeting and promo templates",
+      "See what you’ve sent and what’s left",
     ],
   },
   {
     id: "billing",
-    number: "10",
+    number: "04",
     title: "Plans & billing",
-    who: "Owners pay and change plans · Platform sets the options",
+    who: "Owners pay and change plans anytime",
     icon: CreditCard,
     summary:
-      "Choose a plan that fits your team size — trials, staff limits, optional SMS, and secure online payment.",
+      "Pick a plan that fits your workshop — weekly or monthly, with optional trial and SMS included.",
     points: [
       "Clear pricing in Australian dollars",
-      "Upgrade or downgrade (downgrade blocked if over staff limit)",
-      "Trial and payment reminders when you need them",
-      "Sign up and pick a plan yourself",
+      "Branch and staff limits that match your plan",
+      "Pay securely online",
+      "Upgrade, downgrade, or cancel when you need",
+      "Sign up and choose a plan in one flow",
+    ],
+  },
+  {
+    id: "bookings",
+    number: "05",
+    title: "Bookings",
+    who: "Office, floor, and customers online",
+    icon: CalendarCheck,
+    summary:
+      "See today’s jobs on a board or calendar — from request to done, with extra work and reminders covered.",
+    points: [
+      "Day board and calendar views",
+      "Pending → confirmed → completed",
+      "Staff accept or decline jobs",
+      "Price extra work found in the bay",
+      "Service reminders after each job",
+    ],
+    image: "https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=900&h=700&fit=crop",
+  },
+  {
+    id: "branches",
+    number: "06",
+    title: "Branches",
+    who: "One site or many — under your plan",
+    icon: Building2,
+    summary:
+      "Each branch has its own hours, contacts, booking limits, and staff check-in area.",
+    points: [
+      "Add branches within your plan",
+      "Hours, contacts, and daily booking limits",
+      "Assign services, staff, and a manager",
+      "Map check-in or branch QR code",
+      "Schedule and simple site numbers",
+    ],
+  },
+  {
+    id: "customers",
+    number: "07",
+    title: "Customers & vehicles",
+    who: "Everything about your customers in one place",
+    icon: Car,
+    summary:
+      "Keep every customer and their cars ready for bookings, the phone, and the call centre.",
+    points: [
+      "Name, phone, email, and notes",
+      "Vehicles with rego, make, model, and VIN",
+      "Past bookings at a glance",
+      "Import or export with a spreadsheet",
+    ],
+    image: "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=900&h=700&fit=crop",
+  },
+  {
+    id: "finance-docs",
+    number: "08",
+    title: "Quotes & invoices",
+    who: "Owners send docs · Customers view online",
+    icon: FileText,
+    summary:
+      "Customers send photos for an estimate. You reply with quotes and invoices as PDFs.",
+    points: [
+      "Photo estimate requests",
+      "Quotes and invoices as PDF",
+      "Mark invoices paid",
+      "Reusable priced line items",
     ],
   },
   {
     id: "book-now",
-    number: "11",
+    number: "09",
     title: "Online booking",
-    who: "Your customers book online · You control the link",
+    who: "Your customers book 24/7",
     icon: Globe,
     summary:
-      "A public booking page for your trade — customers request services and pick available slots.",
+      "A public booking page for your workshop — service, branch, time, and vehicle-type pricing.",
     points: [
-      "Your own booking link and slug",
-      "Customers pick services and available times",
-      "Account for profile, history, requests, and PDFs",
-      "Logo, terms, hours, and service areas in settings",
+      "Customers pick service, branch, and slot",
+      "Prices match the vehicle type",
+      "Account, vehicles, and booking history",
+      "Estimates, quotes, and invoices online",
+      "Your logo, terms, and booking link",
     ],
-    image: "/products/blue/jobs.png",
+    image: "https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?w=900&h=700&fit=crop",
+  },
+  {
+    id: "call-center",
+    number: "10",
+    title: "Call centre",
+    who: "Humans on the phone for your workshop",
+    icon: Headphones,
+    summary:
+      "Agents book jobs while talking to customers, chat with your team, and keep call recordings.",
+    points: [
+      "Book jobs while on the call",
+      "Look up customers and services fast",
+      "Chat between agents and the workshop",
+      "Answered, missed, and outbound call logs",
+      "Play back recordings when needed",
+    ],
   },
   {
     id: "notifications",
-    number: "12",
+    number: "11",
     title: "Notifications",
-    who: "Owners · Staff on mobile",
+    who: "Never miss a booking or declined job",
     icon: Bell,
     summary:
-      "Bell and toasts for new requests, leave, support chats, announcements, and billing reminders.",
+      "Bell, toasts, and sound for new requests, extra work, and messages that need you.",
     points: [
-      "New service requests",
-      "Leave requests from staff",
-      "Support chat inbound",
-      "Platform announcements and trial signals",
+      "New booking requests",
+      "Staff declined a job",
+      "Extra work found or priced",
+      "Call-centre chats and announcements",
     ],
   },
   {
     id: "broadcasts",
-    number: "13",
+    number: "12",
     title: "Announcements",
-    who: "Platform team sends · Businesses receive",
+    who: "Platform news to your workshop",
     icon: Megaphone,
-    summary:
-      "Important updates to owners — or staff and owners — on admin and mobile.",
+    summary: "Important updates to owners — or everyone on admin and mobile.",
     points: [
-      "Titled announcements for admin and/or mobile",
-      "Owners only, or staff & owners",
-      "In-app notices you won’t miss",
+      "Announcements on admin and/or mobile",
+      "Owners only, or all staff",
+      "In-app notices you can’t miss",
     ],
   },
   {
     id: "audit",
-    number: "14",
+    number: "13",
     title: "Activity history",
-    who: "Owners for their business · Platform for the network",
+    who: "Know what changed and when",
     icon: ScrollText,
     summary:
-      "A clear record of what changed — requests, services, staff, customers, and settings.",
+      "A clear record of bookings, staff, customers, settings, and logins.",
     points: [
-      "Creates, updates, deletes, and status changes",
-      "Filter and search what happened",
-      "Platform view for onboard and plan changes",
+      "Creates, updates, and status changes",
+      "Search and filter what happened",
+      "Peace of mind for owners",
     ],
   },
   {
     id: "dashboards",
-    number: "15",
+    number: "14",
     title: "Dashboards",
-    who: "Business owners · Platform overview",
+    who: "Today’s workshop at a glance",
     icon: LayoutDashboard,
     summary:
-      "Today’s KPIs, quick actions, Book Now link, and calendar — or platform health for BMS Pro.",
+      "Revenue, booking mix, weekly calendar, and today’s schedule — filtered by branch or staff.",
     points: [
-      "Owner Today: KPIs, notifications, support chat",
-      "Calendar week/day for requests and jobs",
-      "Platform overview: tenants and plan mix",
+      "Revenue and booking counts",
+      "Weekly calendar and today’s jobs",
+      "Notifications and support chat",
     ],
   },
   {
     id: "settings",
-    number: "16",
+    number: "15",
     title: "Settings",
-    who: "Business owners",
+    who: "Your workshop profile and login",
     icon: Settings,
-    summary:
-      "Business profile, hours, GST, terms, Book Now link, and module toggles for quotes, invoices, and jobs.",
+    summary: "Business details, booking terms, logo, and password — all in one place.",
     points: [
-      "Name, ABN, address, phone, logo, service areas",
-      "Working hours and slot capacity",
-      "Turn quotations, invoices, and jobs on or off",
-      "Change password and sign in securely",
+      "Name, ABN, address, phone, logo",
+      "Terms shown on online booking",
+      "Sign in, reset password, register",
     ],
   },
   {
-    id: "support",
-    number: "17",
+    id: "support-chat",
+    number: "16",
     title: "Support chat",
-    who: "Business owners · Support agents",
+    who: "Help when you need it",
     icon: Headphones,
-    summary:
-      "Chat with support from a floating button on the dashboard when you need help.",
+    summary: "Chat with support from your dashboard — claim, transfer, or close cleanly.",
     points: [
-      "Open chat from the dashboard",
-      "Agents claim, transfer, or close",
-      "Presence so you know someone’s there",
+      "Floating chat on the dashboard",
+      "Live presence so you know someone’s there",
+      "Agents claim and close conversations",
     ],
   },
   {
-    id: "onboarding",
-    number: "18",
+    id: "tenants",
+    number: "17",
     title: "Getting started",
-    who: "We set you up — or you sign up yourself",
+    who: "We set your workshop up on Black",
     icon: Building,
     summary:
-      "Self-serve onboard with a plan, or the BMS Pro team brings your trade business online with a booking link ready to share.",
+      "The BMS Pro team onboards your business — details, plan, and your public booking link.",
     points: [
-      "Plumbing, electrical, HVAC, gas, cleaning, landscaping, carpentry, and more",
-      "Australian business details and ABN",
-      "Plan, trial, and your public booking link",
+      "Business details and ABN",
+      "Plan and timezone",
+      "Your customer booking link",
     ],
   },
 ];
 
 const roles = [
   {
-    title: "Business owner",
-    blurb: "Full control — requests, quotes, jobs, invoices, staff, SMS, and settings.",
-    icon: Hammer,
+    title: "Workshop owner",
+    blurb: "Full control — bookings, staff, billing, customers, and settings.",
+    icon: Wrench,
+  },
+  {
+    title: "Branch manager",
+    blurb: "Runs their site — bookings and schedule for their branch.",
+    icon: Building2,
   },
   {
     title: "Staff",
-    blurb: "Mobile-first — check in, leave, and run jobs on the tools. No web admin login.",
+    blurb: "Mobile-first — check in, leave, accept or decline jobs on the floor.",
     icon: Smartphone,
   },
   {
     title: "Platform team",
-    blurb: "Onboards businesses, plans, SMS packages, and announcements.",
+    blurb: "Onboards workshops, plans, and platform announcements.",
     icon: Building,
-  },
-  {
-    title: "Support agents",
-    blurb: "Help via chat APIs — look up tenants, services, and quotes when needed.",
-    icon: Headphones,
   },
 ];
 
-const ProductBlue = () => {
+const ProductBlack = () => {
   const { toast } = useToast();
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
@@ -351,7 +335,7 @@ const ProductBlue = () => {
     lastName: "",
     email: "",
     company: "",
-    product: "blue",
+    product: "black",
     message: "",
   });
 
@@ -364,8 +348,8 @@ const ProductBlue = () => {
     setLoading(true);
     try {
       await submitContactForm(
-        { ...formData, product: "blue" },
-        "Demo request — BMS Pro Blue"
+        { ...formData, product: "black" },
+        "Demo request — BMS Pro Black"
       );
       toast({
         title: "Message sent",
@@ -376,7 +360,7 @@ const ProductBlue = () => {
         lastName: "",
         email: "",
         company: "",
-        product: "blue",
+        product: "black",
         message: "",
       });
     } catch (error) {
@@ -394,26 +378,26 @@ const ProductBlue = () => {
   return (
     <Layout>
       <SEO
-        title="BMS Pro Blue | Trade & Field Service Management"
-        description="Trade software for plumbers, electricians, HVAC, and more — requests, quotes, jobs, invoices, staff, SMS, and online booking."
-        path="/products/blue"
+        title="BMS Pro Black | Workshop Management for Mechanic Shops"
+        description="Workshop software for mechanic shops — bookings, staff, SMS, online booking, call centre, quotes, and invoices. Filter calls and book jobs in one place."
+        path="/products/black"
         jsonLd={{
           "@context": "https://schema.org",
           "@type": "Product",
-          name: "BMS Pro Blue",
+          name: "BMS Pro Black",
           description:
-            "Multi-tenant trade and field-service software — requests, quotations, jobs, invoices, staff, SMS, and Book Now.",
+            "Workshop management for mechanic shops, auto workshops, and garages — bookings, staff, SMS, online booking, and call centre.",
           brand: { "@type": "Brand", name: "BMS Pro" },
-          url: "https://bmspros.com.au/products/blue",
+          url: "https://bmspros.com.au/products/black",
         }}
       />
 
-      {/* Full-bleed image hero — matches home / Black language */}
+      {/* Full-bleed image hero — matches home page language */}
       <section className="relative bg-background -mt-16">
         <div className="relative min-h-[min(88vh,780px)] flex items-center overflow-hidden pt-16">
           <div className="absolute inset-0" aria-hidden>
             <img
-              src="/products/blue/jobs.png"
+              src="/products/black/hero.png"
               alt=""
               className="absolute inset-0 h-full w-full object-cover scale-105 blur-[1px]"
             />
@@ -425,22 +409,22 @@ const ProductBlue = () => {
             <div className="max-w-3xl mx-auto text-center text-white">
               <div className="inline-flex items-center gap-2.5 mb-6 animate-fade-up">
                 <img
-                  src="/products/blue/icon.png"
+                  src="/products/black/icon.png"
                   alt=""
                   className="h-9 w-9 rounded-lg ring-1 ring-white/25"
                 />
                 <span className="font-label text-sm font-semibold tracking-[0.16em] uppercase text-white/90">
-                  BMS Pro Blue
+                  BMS Pro Black
                 </span>
               </div>
 
               <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight mb-4 animate-fade-up delay-100 leading-[1.05]">
-                Keep trades on the tools.
+                Your workshop, fully managed.
               </h1>
 
               <p className="font-sans text-base sm:text-lg text-white/70 max-w-2xl mx-auto mb-8 animate-fade-up delay-200 leading-relaxed">
-                Requests, quotes, jobs, and invoices in one place — so plumbers, electricians, and
-                field teams stay on site, not buried in admin.
+                Streamline bookings, staff, services, and operations — all from one dashboard.
+                Filter calls and book jobs so mechanics stay under the hood.
               </p>
 
               <div className="flex flex-col items-center gap-4 animate-fade-up delay-300">
@@ -468,16 +452,16 @@ const ProductBlue = () => {
                 <div className="inline-flex items-start sm:items-center gap-2.5 max-w-lg rounded-2xl border border-white/25 bg-white/10 backdrop-blur-md px-4 py-3 text-left">
                   <ShieldCheck className="h-5 w-5 text-teal shrink-0 mt-0.5 sm:mt-0" />
                   <p className="text-sm font-semibold text-white leading-snug">
-                    Built for trades &amp; field service.{" "}
+                    Built for mechanic shops.{" "}
                     <span className="text-white/70 font-medium">
-                      Plumbing, electrical, HVAC &amp; more.
+                      Auto repair, garages &amp; service centres.
                     </span>
                   </p>
                 </div>
               </div>
 
               <div className="mt-10 flex flex-wrap items-center justify-center gap-2 animate-fade-up delay-400">
-                {["Requests", "Quotes", "Jobs", "Invoices", "Calendar", "Online booking"].map(
+                {["Bookings", "Staff", "Invoicing", "Multi-branch", "Online booking", "Call centre"].map(
                   (tag) => (
                     <span
                       key={tag}
@@ -499,15 +483,15 @@ const ProductBlue = () => {
         >
           <div className="max-w-xl mx-auto card-elevated p-6 sm:p-8 lg:p-10 border border-border/60 shadow-elevated">
             <div className="mb-6 sm:mb-8 text-center sm:text-left">
-              <span className="inline-flex items-center gap-1.5 rounded-full bg-blue-light text-blue px-3 py-1 text-xs font-semibold uppercase tracking-wider mb-3">
-                <Hammer className="h-3 w-3" />
-                Trades &amp; field service
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-product-black-light text-product-black px-3 py-1 text-xs font-semibold uppercase tracking-wider mb-3">
+                <Wrench className="h-3 w-3" />
+                Mechanic shops
               </span>
               <h2 className="font-display text-2xl sm:text-3xl font-bold tracking-tight text-foreground mb-2">
                 Book a Demo
               </h2>
               <p className="font-sans text-muted-foreground">
-                Request a walkthrough of BMS Pro Blue for your trade business.
+                Request a walkthrough of BMS Pro Black for your workshop.
               </p>
             </div>
 
@@ -517,7 +501,7 @@ const ProductBlue = () => {
                   <Label htmlFor="firstName">First name</Label>
                   <Input
                     id="firstName"
-                    placeholder="James"
+                    placeholder="John"
                     required
                     value={formData.firstName}
                     onChange={handleChange}
@@ -528,7 +512,7 @@ const ProductBlue = () => {
                   <Label htmlFor="lastName">Last name</Label>
                   <Input
                     id="lastName"
-                    placeholder="Nguyen"
+                    placeholder="Smith"
                     required
                     value={formData.lastName}
                     onChange={handleChange}
@@ -541,7 +525,7 @@ const ProductBlue = () => {
                 <Input
                   id="email"
                   type="email"
-                  placeholder="james@trades.com.au"
+                  placeholder="jay@workshop.com.au"
                   required
                   value={formData.email}
                   onChange={handleChange}
@@ -552,7 +536,7 @@ const ProductBlue = () => {
                 <Label htmlFor="company">Company name</Label>
                 <Input
                   id="company"
-                  placeholder="Nguyen Plumbing"
+                  placeholder="Lynbrook Auto"
                   required
                   value={formData.company}
                   onChange={handleChange}
@@ -565,7 +549,7 @@ const ProductBlue = () => {
                 </Label>
                 <Textarea
                   id="message"
-                  placeholder="Tell us about your trade business..."
+                  placeholder="Tell us about your workshop..."
                   rows={3}
                   value={formData.message}
                   onChange={handleChange}
@@ -574,7 +558,7 @@ const ProductBlue = () => {
               </div>
               <Button
                 type="submit"
-                variant="blue"
+                variant="black"
                 size="lg"
                 className="w-full h-12 rounded-full text-base font-semibold"
                 disabled={loading}
@@ -607,11 +591,11 @@ const ProductBlue = () => {
               What you get
             </span>
             <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mt-4 mb-3 tracking-tight">
-              Everything that runs a modern trade business
+              Everything that runs a modern workshop
             </h2>
             <p className="font-sans text-lg text-muted-foreground">
-              From request to invoice — with calendar, staff, SMS, and online booking for field
-              teams.
+              Bookings, staff, texts, quotes, online booking, and call centre — built for mechanic
+              shops.
             </p>
           </div>
 
@@ -636,7 +620,7 @@ const ProductBlue = () => {
                       <div className="absolute inset-0 bg-gradient-to-t from-[hsl(220_22%_6%/0.92)] via-[hsl(220_22%_6%/0.45)] to-[hsl(220_22%_6%/0.15)]" />
                     </>
                   ) : (
-                    <div className="absolute inset-0 bg-gradient-to-br from-blue-light via-card to-secondary" />
+                    <div className="absolute inset-0 bg-gradient-to-br from-product-black-light via-card to-secondary" />
                   )}
 
                   <div
@@ -649,7 +633,7 @@ const ProductBlue = () => {
                         className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[10px] font-label font-bold uppercase tracking-wider ${
                           mod.image
                             ? "bg-white text-[hsl(220_22%_10%)]"
-                            : "bg-blue text-white"
+                            : "bg-product-black text-white"
                         }`}
                       >
                         <Icon className="h-3 w-3" />
@@ -660,7 +644,7 @@ const ProductBlue = () => {
                           mod.image ? "text-white/50" : "text-muted-foreground"
                         }`}
                       >
-                        Blue
+                        Black
                       </span>
                     </div>
 
@@ -692,7 +676,7 @@ const ProductBlue = () => {
                           >
                             <span
                               className={`mt-1.5 h-1.5 w-1.5 rounded-full shrink-0 ${
-                                mod.image ? "bg-white/50" : "bg-blue/40"
+                                mod.image ? "bg-white/50" : "bg-product-black/40"
                               }`}
                             />
                             {point}
@@ -708,7 +692,7 @@ const ProductBlue = () => {
         </div>
       </section>
 
-      {/* Roles */}
+      {/* Roles — light cards like home Audience / Benefits */}
       <section className="section-padding bg-background">
         <div className="container-wide">
           <div className="max-w-2xl mx-auto text-center mb-10 sm:mb-12">
@@ -719,7 +703,7 @@ const ProductBlue = () => {
               The right tools for each role
             </h2>
             <p className="font-sans text-muted-foreground">
-              Owners in the office. Staff on the tools with the phone app.
+              Owners and managers in the office. Staff on the floor with the phone app.
             </p>
           </div>
 
@@ -732,7 +716,7 @@ const ProductBlue = () => {
                   className="card-elevated p-6 animate-fade-up"
                   style={{ animationDelay: `${index * 80}ms` }}
                 >
-                  <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-blue/10 text-blue mb-4">
+                  <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-product-black/10 text-product-black mb-4">
                     <Icon className="h-5 w-5" />
                   </div>
                   <h3 className="font-display text-lg font-semibold text-foreground mb-2">
@@ -752,7 +736,7 @@ const ProductBlue = () => {
       <section className="relative overflow-hidden text-white">
         <div className="absolute inset-0" aria-hidden>
           <img
-            src="/products/blue/jobs.png"
+            src="/products/black/hero.png"
             alt=""
             className="absolute inset-0 h-full w-full object-cover scale-110 blur-sm"
           />
@@ -762,12 +746,12 @@ const ProductBlue = () => {
 
         <div className="container-wide relative section-padding text-center">
           <img
-            src="/products/blue/icon.png"
+            src="/products/black/icon.png"
             alt=""
             className="h-12 w-12 rounded-2xl mb-6 ring-1 ring-white/20 mx-auto"
           />
           <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 tracking-tight max-w-3xl mx-auto">
-            Ready to run your trade business on Blue?
+            Ready to run your workshop on Black?
           </h2>
           <p className="font-sans text-lg text-white/70 max-w-xl mx-auto mb-8">
             Book a strategy call for a demo, pricing, or help getting set up.
@@ -790,7 +774,7 @@ const ProductBlue = () => {
               className="rounded-full border-white/40 bg-white/10 text-white hover:bg-white/20 hover:text-white backdrop-blur-sm"
               asChild
             >
-              <Link to="/pricing#blue-plans">View Pricing</Link>
+              <Link to="/pricing">View Pricing</Link>
             </Button>
           </div>
 
@@ -803,4 +787,4 @@ const ProductBlue = () => {
   );
 };
 
-export default ProductBlue;
+export default ProductBlack;

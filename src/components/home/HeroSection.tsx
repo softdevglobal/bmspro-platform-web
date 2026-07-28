@@ -46,18 +46,18 @@ export function HeroSection() {
         {/* Content on the image */}
         <div className="container-wide relative z-10 py-16 sm:py-20 lg:py-24 w-full">
           <div className="max-w-3xl mx-auto text-center text-white">
-            <p className="font-display text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold tracking-tight mb-5 animate-fade-up leading-[1.05]">
-              BMS Pro
+            <p className="font-display text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-extrabold tracking-tight mb-5 animate-fade-up leading-[1.02]">
+              BMS PRO
             </p>
 
-            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-4 animate-fade-up delay-100 leading-snug">
+            <h1 className="font-display text-2xl sm:text-3xl lg:text-4xl font-bold mb-4 animate-fade-up delay-100 leading-snug">
               Your software. Their front desk.
-              <span className="block text-white/75 font-semibold mt-1">
+              <span className="block text-white/75 font-sans font-medium mt-1 text-xl sm:text-2xl lg:text-3xl">
                 Real humans answering — not bots.
               </span>
             </h1>
 
-            <p className="text-base sm:text-lg text-white/70 max-w-2xl mx-auto mb-8 animate-fade-up delay-200 leading-relaxed">
+            <p className="font-sans text-base sm:text-lg text-white/70 max-w-2xl mx-auto mb-8 animate-fade-up delay-200 leading-relaxed">
               Booking &amp; operations for mechanic shops, salons, and trades — paired with
               professional receptionists who book while your team works.
             </p>
@@ -105,7 +105,7 @@ export function HeroSection() {
                 return (
                   <span
                     key={item.label}
-                    className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 backdrop-blur-sm px-3 py-1.5 text-sm font-semibold text-white"
+                    className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 backdrop-blur-sm px-3 py-1.5 text-sm font-label font-semibold text-white"
                   >
                     <span className={`flex h-6 w-6 items-center justify-center rounded-full ${item.color}`}>
                       <Icon className="h-3 w-3" />

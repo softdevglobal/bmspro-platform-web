@@ -91,7 +91,7 @@ export default function Blog() {
             when new content is available.
           </p>
           <a
-            href="mailto:admin@bmspros.com.au?subject=Blog Subscription"
+            href="mailto:info@bmspros.com.au?subject=Blog Subscription"
             className="inline-flex items-center justify-center px-6 py-3 bg-primary text-primary-foreground font-medium rounded-lg hover:bg-primary/90 transition-colors"
           >
             Get Notified

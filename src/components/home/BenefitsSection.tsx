@@ -55,13 +55,13 @@ export function BenefitsSection() {
 
       <div className="container-wide relative section-padding">
         <div className="max-w-2xl mb-12 text-center mx-auto">
-          <span className="inline-flex rounded-full border border-white/20 bg-white/10 backdrop-blur-sm px-3 py-1 text-xs font-semibold uppercase tracking-wider text-white/80">
+          <span className="eyebrow inline-flex rounded-full border border-white/20 bg-white/10 backdrop-blur-sm px-3 py-1 text-white/80">
             The Bundle
           </span>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mt-4 mb-4 tracking-tight">
+          <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold mt-4 mb-4 tracking-tight">
             Not just software. A virtual front desk.
           </h2>
-          <p className="text-lg text-white/65">
+          <p className="font-sans text-lg text-white/65">
             The value is the handover — platform plus people who keep your calendar full and your team focused.
           </p>
         </div>
@@ -76,8 +76,8 @@ export function BenefitsSection() {
               <div className="inline-flex items-center justify-center h-11 w-11 rounded-xl bg-white/15 mb-4">
                 <benefit.icon className="h-5 w-5" />
               </div>
-              <h3 className="text-lg font-semibold mb-2">{benefit.title}</h3>
-              <p className="text-sm text-white/70 leading-relaxed">{benefit.description}</p>
+              <h3 className="font-display text-lg font-semibold mb-2">{benefit.title}</h3>
+              <p className="font-sans text-sm text-white/70 leading-relaxed">{benefit.description}</p>
             </div>
           ))}
         </div>

@@ -1,12 +1,12 @@
 import { Link } from "react-router-dom";
 import { Mail, Phone, MapPin } from "lucide-react";
+import { SITE_CONTACT_EMAIL } from "@/lib/siteContact";
 
 const footerLinks = {
   products: [
+    { name: "BMS Pro Black", href: "/products/black" },
     { name: "BMS Pro Pink", href: "/products/pink" },
     { name: "BMS Pro Blue", href: "/products/blue" },
-    { name: "BMS Pro FieldFlow", href: "/products/fieldflow" },
-    { name: "Booking Engine", href: "/products/booking-engine" },
   ],
   company: [
     { name: "About", href: "/about" },
@@ -30,7 +30,7 @@ export function Footer() {
           <div className="col-span-2 md:col-span-1">
             <Link to="/" className="flex items-center gap-3 mb-4">
               <img src="/logo.png" alt="BMS Pro" className="h-9 w-auto" />
-              <span className="text-xl font-semibold text-foreground">BMS Pro</span>
+              <span className="text-xl font-display font-bold tracking-tight text-foreground">BMS Pro</span>
             </Link>
             <p className="text-sm text-muted-foreground max-w-xs">
               One platform. Every booking. Every workflow. Built for service businesses that mean business.
@@ -39,7 +39,7 @@ export function Footer() {
 
           {/* Products */}
           <div>
-            <h4 className="font-semibold text-foreground mb-4">Products</h4>
+            <h4 className="font-label font-semibold text-foreground mb-4 uppercase text-sm tracking-wider">Products</h4>
             <ul className="space-y-3">
               {footerLinks.products.map((link) => (
                 <li key={link.name}>
@@ -56,7 +56,7 @@ export function Footer() {
 
           {/* Company */}
           <div>
-            <h4 className="font-semibold text-foreground mb-4">Company</h4>
+            <h4 className="font-label font-semibold text-foreground mb-4 uppercase text-sm tracking-wider">Company</h4>
             <ul className="space-y-3">
               {footerLinks.company.map((link) => (
                 <li key={link.name}>
@@ -73,7 +73,7 @@ export function Footer() {
 
           {/* Legal */}
           <div>
-            <h4 className="font-semibold text-foreground mb-4">Legal</h4>
+            <h4 className="font-label font-semibold text-foreground mb-4 uppercase text-sm tracking-wider">Legal</h4>
             <ul className="space-y-3">
               {footerLinks.legal.map((link) => (
                 <li key={link.name}>
@@ -90,15 +90,15 @@ export function Footer() {
 
           {/* Contact */}
           <div>
-            <h4 className="font-semibold text-foreground mb-4">Contact</h4>
+            <h4 className="font-label font-semibold text-foreground mb-4 uppercase text-sm tracking-wider">Contact</h4>
             <ul className="space-y-3">
               <li>
                 <a
-                  href="mailto:admin@bmspros.com.au"
+                  href={`mailto:${SITE_CONTACT_EMAIL}`}
                   className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
                 >
                   <Mail className="h-4 w-4" />
-                  admin@bmspros.com.au
+                  {SITE_CONTACT_EMAIL}
                 </a>
               </li>
               <li>

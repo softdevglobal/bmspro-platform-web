@@ -142,7 +142,7 @@ export default function CookiePolicy() {
                 If you have any questions about our use of cookies or this Cookie Policy, please contact us:
               </p>
               <ul className="text-muted-foreground space-y-2">
-                <li><strong className="text-foreground">Email:</strong> admin@bmspros.com.au</li>
+                <li><strong className="text-foreground">Email:</strong> info@bmspros.com.au</li>
                 <li><strong className="text-foreground">Phone:</strong> 03 8797 3795</li>
                 <li><strong className="text-foreground">Address:</strong> 12 Stelvio Close, Lynbrook VIC 3975</li>
               </ul>

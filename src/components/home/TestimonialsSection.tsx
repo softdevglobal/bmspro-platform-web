@@ -38,13 +38,13 @@ export function TestimonialsSection() {
     <section className="section-padding bg-[hsl(220_18%_96%)] relative overflow-hidden">
       <div className="container-wide relative">
         <div className="text-center max-w-2xl mx-auto mb-12 sm:mb-14">
-          <span className="inline-flex rounded-full border border-border bg-white px-3 py-1 text-xs font-semibold uppercase tracking-wider text-muted-foreground shadow-sm">
+          <span className="eyebrow inline-flex rounded-full border border-border bg-white px-3 py-1 text-muted-foreground shadow-sm">
             Social Proof
           </span>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mt-4 mb-4 tracking-tight">
+          <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mt-4 mb-4 tracking-tight">
             Teams who stopped missing calls
           </h2>
-          <p className="text-lg text-muted-foreground">
+          <p className="font-sans text-lg text-muted-foreground">
             Workshops, salons, and trades running BMS Pro with a real human front desk.
           </p>
         </div>
@@ -59,7 +59,7 @@ export function TestimonialsSection() {
               <div className={`absolute top-0 inset-x-0 h-1 ${testimonial.bar}`} aria-hidden />
               <div className="flex items-center justify-between mb-4">
                 <Quote className="h-7 w-7 text-muted-foreground/35" />
-                <span className={`text-[10px] font-bold uppercase tracking-wider text-white px-2.5 py-1 rounded-full ${testimonial.bar}`}>
+                <span className={`font-label text-[10px] font-bold uppercase tracking-wider text-white px-2.5 py-1 rounded-full ${testimonial.bar}`}>
                   {testimonial.product}
                 </span>
               </div>

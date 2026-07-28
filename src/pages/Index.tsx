@@ -7,6 +7,7 @@ import { BenefitsSection } from "@/components/home/BenefitsSection";
 import { ArchitectureSection } from "@/components/home/ArchitectureSection";
 import { TestimonialsSection } from "@/components/home/TestimonialsSection";
 import { CTASection } from "@/components/home/CTASection";
+import { SITE_CONTACT_EMAIL } from "@/lib/siteContact";
 
 const Index = () => {
   return (
@@ -22,7 +23,7 @@ const Index = () => {
             name: "BMS Pro",
             url: "https://bmspros.com.au",
             logo: "https://bmspros.com.au/logo.png",
-            email: "admin@bmspros.com.au",
+            email: SITE_CONTACT_EMAIL,
             telephone: "+61387973795",
             address: {
               "@type": "PostalAddress",
