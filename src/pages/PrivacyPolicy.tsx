@@ -106,7 +106,7 @@ const PrivacyPolicy = () => {
             <section className="mb-10">
               <h2 className="text-2xl font-bold text-foreground mb-4">5. Location Information</h2>
               <p className="text-muted-foreground mb-4">
-                BMS Pro Pink may collect location information to support optional on-site staff attendance verification features for businesses using the platform.
+                BMS Pro Salon may collect location information to support optional on-site staff attendance verification features for businesses using the platform.
               </p>
               <p className="text-muted-foreground mb-4">
                 Location data is used solely to verify that staff members are physically present at the salon's registered workplace during clock-in, clock-out, or active work shifts.

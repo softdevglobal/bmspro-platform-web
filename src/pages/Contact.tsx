@@ -107,7 +107,7 @@ const Contact = () => {
               </h1>
               <p className="font-sans text-base sm:text-lg text-white/70 max-w-2xl mx-auto mb-8 animate-fade-up delay-200 leading-relaxed">
                 Book a strategy call — we&apos;ll show the software, explain the receptionist
-                handover, and match you to Black, Blue, or Pink.
+                handover, and match you to Workshop, Trade, or Salon.
               </p>
 
               <div className="flex flex-col items-center gap-4 animate-fade-up delay-300">
@@ -225,9 +225,9 @@ const Contact = () => {
                     onChange={handleChange}
                   >
                     <option value="">Select a product</option>
-                    <option value="black">BMS Pro Black</option>
-                    <option value="pink">BMS Pro Pink</option>
-                    <option value="blue">BMS Pro Blue</option>
+                    <option value="black">BMS Pro Workshop</option>
+                    <option value="pink">BMS Pro Salon</option>
+                    <option value="blue">BMS Pro Trade</option>
                     <option value="all">Full Platform</option>
                   </select>
                 </div>

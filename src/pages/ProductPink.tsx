@@ -6,6 +6,9 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { PinkPricingSection } from "@/components/pricing/PinkPricingSection";
+import { ScrollPage, ScrollReveal } from "@/components/motion/ScrollReveal";
+import { AnimateBars, AnimateCount, AnimateProgress, AnimateVisual, MarqueeStrip } from "@/components/motion/AnimateVisual";
+import { BookingFlowPhone } from "@/components/motion/BookingFlowPhone";
 import { submitContactForm } from "@/lib/contactForm";
 import { useToast } from "@/hooks/use-toast";
 import { useState, type ReactNode } from "react";
@@ -25,105 +28,78 @@ import {
   Minus,
   Phone,
   Plus,
-  Scissors,
   Sparkles,
   Star,
-  TrendingUp,
 } from "lucide-react";
 
 const TRUST_LOGOS = [
   "Hair salons",
-  "Nail studios",
-  "Barber shops",
-  "Beauty clinics",
-  "Spas",
-  "Multi-chair salons",
+  "Beauty salons",
+  "Barbers",
+  "Nail salons",
+  "Makeup artists",
+  "Brow and lash studios",
+  "Massage businesses",
+  "Wellness businesses",
 ];
 
 const FORM_STEPS = [
   {
-    title: "Visual selective cards",
-    body: "Clients tap services, stylist, and time instead of typing. Fast, easy, and feels effortless.",
+    title: "The customer chooses a service",
+    body: "They pick from your clear service list — name, category, description, duration and optional price.",
   },
   {
-    title: "Instant book through calendar",
-    body: "Live availability from your staff schedules — they pick a slot that actually works.",
+    title: "They request a suitable appointment",
+    body: "The customer requests a time and provides their details through your booking link.",
   },
   {
-    title: "Offer recommended add-ons",
-    body: "Suggest colour, treatments, or products while they’re already booking.",
+    title: "The salon confirms the time",
+    body: "Confirm the time, suggest another time, change the staff member or decline the request. You stay in control of the calendar.",
   },
   {
-    title: "Ask the right questions",
-    body: "Capture notes, preferences, and photos before they walk in.",
+    title: "The appointment enters the staff calendar",
+    body: "Once accepted, the appointment appears on the correct staff calendar with service, time and notes.",
   },
   {
-    title: "Confirm by SMS",
-    body: "Instant confirmation and reminders so no-shows drop without chasing calls.",
+    title: "Confirmation and reminder are sent",
+    body: "The customer receives confirmation, then a configured reminder before the appointment.",
+  },
+  {
+    title: "Complete, thank and rebook",
+    body: "The appointment history is preserved. Where enabled, send a thank-you, review request or rebooking link.",
   },
 ];
 
 const FAQS = [
   {
-    category: "Book Now",
+    category: "Getting started",
     items: [
       {
-        q: "Why Book Now instead of a website contact form?",
-        a: "Contact forms dump leads into email. Book Now captures the service, stylist, and slot — then confirms by SMS so the appointment is already on the board.",
+        q: "Can I sign up without booking a demonstration?",
+        a: "Yes. You can create an account and explore BMS Pro Salon through the free trial.",
       },
       {
-        q: "What if I don’t have a website?",
-        a: "You get a public booking link for your salon. Share it on Google, Instagram, or SMS — no website rebuild required.",
-      },
-      {
-        q: "Can I customise what clients can book?",
-        a: "Yes. You control services, prices, staff, branches, hours, and who can take each booking.",
+        q: "Do customers automatically control my calendar?",
+        a: "No. Customers can request an appointment, but the salon controls final confirmation unless automatic confirmation is deliberately enabled.",
       },
     ],
   },
   {
-    category: "Front desk & calls",
+    category: "Appointments",
     items: [
       {
-        q: "Do I need a receptionist?",
-        a: "Online-only plans run without one. Front Desk plans add a human receptionist who filters routine calls and books clients while stylists stay on the floor.",
+        q: "Can customers choose a staff member?",
+        a: "Where enabled, customers can request an available staff member for services that person provides.",
       },
       {
-        q: "What happens after hours?",
-        a: "Clients can still book online 24/7. With Front Desk coverage, overflow and after-hours calls get answered instead of going to voicemail.",
+        q: "Can appointment reminders be sent automatically?",
+        a: "Where enabled, reminders can be sent according to your configured timing and templates.",
+      },
+      {
+        q: "Can I record cancellations and no-shows?",
+        a: "Yes. Appointments can retain their history while being marked cancelled, rescheduled or did not attend.",
       },
     ],
-  },
-  {
-    category: "Salon software",
-    items: [
-      {
-        q: "Does Pink include SMS?",
-        a: "Plans can include SMS credits. You can also top up. Confirmations, reminders, and loyalty messages go out from the salon.",
-      },
-      {
-        q: "Can staff use it on the floor?",
-        a: "Yes. Staff check schedules, accept bookings, and manage clients on the mobile app while owners run the office dashboard.",
-      },
-    ],
-  },
-];
-
-const TESTIMONIALS = [
-  {
-    quote:
-      "Stylists on the floor, not on the phone. Pink plus a real receptionist filtered the chaos out of our salon.",
-    name: "Salon owner",
-    role: "Multi-chair salon · VIC",
-    image: "/products/pink/stylist-portrait.jpg",
-    stat: null as string | null,
-  },
-  {
-    quote: null,
-    name: "Studio manager",
-    role: "Independent salon · NSW",
-    image: "/products/pink/salon-bay.jpg",
-    stat: "Fewer missed bookings in the first month on Pink",
   },
 ];
 
@@ -171,7 +147,7 @@ const ProductPink = () => {
     try {
       await submitContactForm(
         { ...formData, product: "pink" },
-        "BMS Pro Pink demo request"
+        "BMS Pro Salon demo request"
       );
       toast({
         title: "Demo request sent!",
@@ -199,25 +175,26 @@ const ProductPink = () => {
   return (
     <Layout>
       <SEO
-        title="BMS Pro Pink | Salon Booking & Operations"
-        description="Let clients book from anywhere. Online booking, SMS reminders, staff, and optional human front desk for salons and beauty."
+        title="BMS Pro Salon | Appointments for Salons, Barbers and Beauty"
+        description="Keep your appointments organised without living on your phone. Manage online booking requests, staff schedules, services and customer updates from one place."
         path="/products/pink"
         jsonLd={{
           "@context": "https://schema.org",
           "@type": "Product",
-          name: "BMS Pro Pink",
+          name: "BMS Pro Salon",
           description:
-            "Salon software for hair, nails, and beauty — Book Now, SMS, staff, and optional front desk.",
+            "Let customers request appointments online while you manage your services, staff schedules and daily bookings from one place.",
           brand: { "@type": "Brand", name: "BMS Pro" },
           url: "https://bmspros.com.au/products/pink",
         }}
       />
 
+      <ScrollPage>
       {/* Hero */}
-      <section className="relative overflow-hidden bg-white pt-8 pb-16 sm:pt-12 sm:pb-24">
+      <section className="relative bg-white pt-8 pb-16 sm:pt-12 sm:pb-24">
         <div className="container-wide">
-          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-            <div>
+          <div className="grid lg:grid-cols-[minmax(0,1fr)_minmax(0,1.25fr)] gap-10 lg:gap-14 items-center">
+            <ScrollReveal from="left" distance={64} className="relative z-10 min-w-0">
               <div className="inline-flex items-center gap-2 mb-5">
                 <img
                   src="/products/pink/icon.png"
@@ -225,113 +202,67 @@ const ProductPink = () => {
                   className="h-8 w-8 rounded-lg ring-1 ring-black/10"
                 />
                 <span className="text-xs font-bold uppercase tracking-[0.14em] text-pink">
-                  BMS Pro Pink
+                  BMS Pro Salon
                 </span>
               </div>
               <h1 className="text-4xl sm:text-5xl lg:text-[3.25rem] font-bold tracking-tight text-[hsl(220_22%_10%)] leading-[1.08] mb-4">
-                Let your clients book from anywhere, anytime.
+                Keep your appointments organised without living on your phone.
               </h1>
               <p className="text-lg text-muted-foreground mb-8 max-w-md">
-                Your salon bookings before &amp; after using Pink — fewer missed calls, fuller chairs,
-                stylists on the floor.
+                Manage online booking requests, staff schedules, services and customer updates from
+                one place. Your customers can request a suitable appointment, and you stay in control
+                of what gets confirmed.
               </p>
-              <Button size="xl" variant="pink" className="rounded-full h-12 px-7" asChild>
-                <a href="#demo">
-                  Try BMS Pro Pink
-                  <ArrowRight className="h-4 w-4" />
-                </a>
-              </Button>
+              <div className="flex flex-row flex-nowrap items-center gap-3">
+                <Button size="lg" variant="pink" className="rounded-full h-11 px-5 sm:px-6 shrink-0" asChild>
+                  <a href="#demo">
+                    Start Free Trial
+                    <ArrowRight className="h-4 w-4" />
+                  </a>
+                </Button>
+                <Button size="lg" variant="outline" className="rounded-full h-11 px-5 sm:px-6 shrink-0" asChild>
+                  <a href="#workflow">See BMS Pro Salon in Action</a>
+                </Button>
+              </div>
               <div className="mt-6 flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
                 <span className="inline-flex items-center gap-1.5">
                   <Check className="h-4 w-4 text-emerald-600" />
-                  No lock-in contract
-                </span>
-                <span className="inline-flex items-center gap-1.5 rounded-full border border-border px-3 py-1 text-xs font-medium">
-                  Book Now · Google-ready link
+                  Preview the booking experience before sharing it
                 </span>
               </div>
-            </div>
+            </ScrollReveal>
 
-            <div className="relative">
-              <div className="relative overflow-hidden rounded-[2rem] shadow-[0_30px_60px_-25px_hsl(340_30%_20%/0.35)] ring-1 ring-black/5">
-                <img
-                  src="/products/pink/stylist-focus.jpg"
-                  alt="Stylist cutting hair in a modern salon"
-                  className="h-full w-full object-cover aspect-[4/3]"
-                  loading="eager"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-[hsl(340_30%_10%)]/70 via-transparent to-transparent" />
-                <div className="absolute bottom-5 left-5 right-5 flex items-end justify-between gap-3 text-white">
-                  <div>
-                    <p className="text-xs uppercase tracking-[0.16em] text-white/70">Chairs working</p>
-                    <p className="text-2xl font-bold leading-tight">Stylists on the floor</p>
-                  </div>
-                  <span className="hidden sm:inline-flex shrink-0 items-center gap-1.5 rounded-full bg-white/15 backdrop-blur px-3 py-1.5 text-xs font-medium">
-                    <Scissors className="h-3.5 w-3.5" />
-                    Not on the phone
-                  </span>
-                </div>
+            <ScrollReveal from="right" distance={80} delay={0.12} className="relative z-0 min-w-0 w-full">
+              <div className="relative overflow-hidden rounded-[2rem] shadow-[0_30px_60px_-25px_hsl(340_30%_20%/0.35)] ring-1 ring-black/5 bg-[hsl(340_30%_10%)] w-full">
+                <video
+                  className="h-full w-full object-cover aspect-[16/10] sm:aspect-[16/9]"
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  preload="metadata"
+                  poster="/products/pink/stylist-focus.jpg"
+                  aria-label="BMS Pro Salon product demo"
+                >
+                  <source src="/products/pink/pink.mp4" type="video/mp4" />
+                </video>
               </div>
-
-              <div className="absolute -bottom-8 -left-2 sm:-left-8 w-[230px] rounded-2xl bg-white border border-border shadow-xl p-4">
-                <div className="flex items-center justify-between mb-3">
-                  <p className="text-xs font-semibold text-foreground">Bookings</p>
-                  <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-emerald-600">
-                    <TrendingUp className="h-3 w-3" />
-                    +42%
-                  </span>
-                </div>
-                <div className="flex items-end gap-1.5 h-20">
-                  {[22, 28, 34, 38, 56, 64, 72, 80].map((h, i) => (
-                    <div
-                      key={i}
-                      className={cn(
-                        "flex-1 rounded-full",
-                        i < 4
-                          ? "bg-[hsl(340_20%_90%)]"
-                          : "bg-gradient-to-t from-pink to-[hsl(340_50%_55%)]"
-                      )}
-                      style={{ height: `${h}px` }}
-                    />
-                  ))}
-                </div>
-                <p className="mt-3 text-[11px] leading-snug text-muted-foreground">
-                  First month with <span className="font-semibold text-foreground">BMS Pro Pink</span>
-                </p>
-              </div>
-
-              <div className="absolute -top-4 -right-2 sm:-right-6 w-[210px] rounded-2xl bg-white border border-border shadow-xl p-3.5">
-                <div className="flex items-start gap-2.5">
-                  <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-emerald-500 text-white">
-                    <Check className="h-4 w-4" />
-                  </span>
-                  <div>
-                    <p className="text-xs font-semibold text-foreground">Booking confirmed</p>
-                    <p className="text-[11px] text-muted-foreground leading-snug">
-                      Cut &amp; colour · Fri 2:00 PM
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
+            </ScrollReveal>
           </div>
         </div>
       </section>
 
       {/* Trust strip */}
       <section className="border-y border-border/60 bg-[hsl(340_20%_98%)] py-8 overflow-hidden">
-        <div className="container-wide">
-          <div className="flex flex-wrap items-center justify-center gap-x-10 gap-y-3">
-            {TRUST_LOGOS.map((label) => (
-              <span
-                key={label}
-                className="text-sm font-semibold uppercase tracking-wider text-muted-foreground/50"
-              >
-                {label}
-              </span>
-            ))}
-          </div>
+        <div className="container-wide mb-3 text-center">
+          <p className="text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground/60">
+            Built for appointment-based businesses
+          </p>
         </div>
+        <MarqueeStrip
+          items={TRUST_LOGOS}
+          fadeFromClassName="from-[hsl(340_20%_98%)]"
+        />
       </section>
 
       {/* Front desk */}
@@ -339,16 +270,18 @@ const ProductPink = () => {
         <div className="container-wide">
           <div className="rounded-[2rem] bg-[hsl(340_25%_12%)] text-white overflow-hidden">
             <div className="grid lg:grid-cols-2 gap-8 p-8 sm:p-12 lg:p-14">
-              <div className="flex flex-col justify-center">
+              <ScrollReveal from="left" distance={56} className="flex flex-col justify-center">
                 <div className="mb-5 flex h-11 w-11 items-center justify-center rounded-xl bg-white/10">
                   <Phone className="h-5 w-5" />
                 </div>
                 <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4 leading-tight">
-                  Never miss a call again — meet your salon front desk.
+                  Your appointments shouldn&apos;t be spread across five different conversations.
                 </h2>
                 <p className="text-white/70 text-lg leading-relaxed mb-8 max-w-md">
-                  Human receptionists filter routine calls and book clients into Pink. Stylists only
-                  take the complex ones — so the floor keeps moving.
+                  A customer messages through Instagram asking about Saturday. Someone else calls
+                  while you&apos;re with a client. Another customer texts to move tomorrow&apos;s
+                  appointment. One staff member has changed their hours, and now you&apos;re trying
+                  to work out where the booking can go.
                 </p>
                 <Button
                   size="lg"
@@ -356,15 +289,17 @@ const ProductPink = () => {
                   asChild
                 >
                   <a href="#demo">
-                    Book a strategy call
+                    Book a Live Demonstration
                     <ArrowRight className="h-4 w-4" />
                   </a>
                 </Button>
-              </div>
+              </ScrollReveal>
 
+              <ScrollReveal from="right" distance={72} delay={0.1}>
               <div className="rounded-3xl border border-white/15 bg-white/10 backdrop-blur-md p-6 sm:p-7 flex flex-col gap-6">
                 <p className="text-lg font-semibold leading-snug">
-                  Keep stylists on the floor, not on the phone.
+                  The information is there. It is just spread across calls, messages, notes and
+                  different calendars.
                 </p>
                 <div className="relative overflow-hidden rounded-2xl">
                   <img
@@ -375,14 +310,14 @@ const ProductPink = () => {
                   />
                   <span className="absolute bottom-3 left-3 inline-flex items-center gap-1.5 rounded-full bg-[hsl(340_25%_12%/0.85)] backdrop-blur px-3 py-1.5 text-xs font-medium text-white">
                     <Headphones className="h-3.5 w-3.5" />
-                    Live reception
+                    One connected system
                   </span>
                 </div>
                 <p className="text-sm text-white/65 leading-relaxed">
-                  Reception books routine appointments into the system. Complex requests get through.
-                  Less downtime on the floor.
+                  BMS Pro Salon keeps the customer, service, staff member and appointment together.
                 </p>
               </div>
+              </ScrollReveal>
             </div>
           </div>
         </div>
@@ -394,52 +329,31 @@ const ProductPink = () => {
           <div>
             <p className="text-sm font-semibold text-pink mb-3 inline-flex items-center gap-2">
               <Globe className="h-4 w-4" />
-              Book Now
+              Online booking
             </p>
             <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-foreground mb-4">
-              Bookings straight from your public link
+              Let customers request an appointment even when you&apos;re with someone else.
             </h2>
             <p className="text-muted-foreground text-lg leading-relaxed mb-6">
-              Share your salon Book Now page on Google, social, or SMS. Clients pick a service,
-              stylist, and slot — then get a
+              They can use your booking link through your website, Google Business Profile,
+              Instagram, Facebook, text message or email. You decide what gets confirmed — a request
+              does not automatically become a confirmed appointment unless you choose that setting.
               <Pill>
                 <Calendar className="h-3 w-3" />
-                Book Online
+                You stay in control
               </Pill>
-              confirmation without you answering the phone.
             </p>
             <Button variant="pink" className="rounded-full" asChild>
               <a href="https://pink.bmspros.com.au/book-now" target="_blank" rel="noreferrer">
-                See Book Now
+                Preview the Customer Booking Experience
                 <ArrowRight className="h-4 w-4" />
               </a>
             </Button>
           </div>
 
-          <div className="relative mx-auto w-full max-w-[280px]">
-            <div className="rounded-[2rem] border-[10px] border-[hsl(340_25%_12%)] bg-white shadow-2xl overflow-hidden aspect-[9/16]">
-              <div className="flex items-center justify-between px-4 pt-3 pb-2">
-                <span className="text-pink text-lg">←</span>
-                <div className="h-1.5 flex-1 mx-4 rounded-full bg-secondary overflow-hidden">
-                  <div className="h-full w-1/4 rounded-full bg-pink" />
-                </div>
-                <span className="text-red-500 font-bold">×</span>
-              </div>
-              <div className="px-5 pt-8 text-center">
-                <p className="text-xl font-bold text-foreground">Select a service</p>
-                <div className="mt-8 space-y-3 text-left">
-                  {["Cut & blow dry", "Colour & toner", "Balayage"].map((s) => (
-                    <div
-                      key={s}
-                      className="rounded-2xl border border-border bg-secondary/40 px-4 py-3 text-sm font-medium"
-                    >
-                      {s}
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
+          <AnimateVisual from="right" distance={72} delay={0.1} className="relative mx-auto w-full max-w-[280px] overflow-visible">
+            <BookingFlowPhone variant="salon" />
+          </AnimateVisual>
         </div>
       </section>
 
@@ -466,11 +380,9 @@ const ProductPink = () => {
                 title: "Thanks for choosing us",
                 body: "Appointment complete. Leave a quick Google review when you have a moment.",
               },
-            ].map((card) => (
-              <div
-                key={card.title}
-                className="flex gap-3 rounded-2xl border border-border bg-[hsl(340_20%_97%)] p-4 shadow-sm"
-              >
+            ].map((card, i) => (
+              <ScrollReveal key={card.title} from="left" distance={48} delay={i * 0.08}>
+              <div className="flex gap-3 rounded-2xl border border-border bg-[hsl(340_20%_97%)] p-4 shadow-sm">
                 <div
                   className={cn(
                     "flex h-10 w-10 shrink-0 items-center justify-center rounded-xl text-white",
@@ -484,7 +396,9 @@ const ProductPink = () => {
                   <p className="text-xs text-muted-foreground mt-0.5 leading-relaxed">{card.body}</p>
                 </div>
               </div>
+              </ScrollReveal>
             ))}
+            <AnimateVisual from="bottom" distance={56} delay={0.2}>
             <div className="pt-4">
               <img
                 src="/products/pink/sms-phone.jpg"
@@ -493,31 +407,32 @@ const ProductPink = () => {
                 loading="lazy"
               />
             </div>
+            </AnimateVisual>
           </div>
 
           <div className="order-1 lg:order-2">
             <p className="text-sm font-semibold text-pink mb-3 inline-flex items-center gap-2">
               <Bell className="h-4 w-4" />
-              Booking reminders
+              Reminders
             </p>
             <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-5">
-              Automated confirmations and reminders
+              Send reminders without typing the same message every day.
             </h2>
             <p className="text-muted-foreground text-lg leading-relaxed mb-4">
-              Clients receive instant confirmation
+              Use booking-received, appointment-confirmed, reminder, changed, cancelled, thank-you,
+              review and rebooking messages.
               <Pill>
                 <MessageSquare className="h-3 w-3" />
-                via SMS and email
+                You control timing and wording
               </Pill>
-              when they book. Automated reminders go out before the appointment, reducing no-shows.
             </p>
             <p className="text-muted-foreground text-lg leading-relaxed">
-              You can also
+              Handle changes without losing track —
               <Pill>
                 <Sparkles className="h-3 w-3" />
-                schedule rebook reminders
+                reschedule, cancel or record a no-show
               </Pill>
-              to bring clients back when it’s time for their next visit.
+              while preserving appointment history.
             </p>
           </div>
         </div>
@@ -529,39 +444,43 @@ const ProductPink = () => {
           <div>
             <p className="text-sm font-semibold text-pink mb-3 inline-flex items-center gap-2">
               <LayoutDashboard className="h-4 w-4" />
-              Salon dashboard
+              Calendar &amp; staff
             </p>
             <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4">
-              Know how your salon is performing at a glance
+              See the whole day without opening every message.
             </h2>
             <p className="text-muted-foreground text-lg leading-relaxed">
-              Track bookings, staff, SMS, and revenue — with confirmations and reminders doing the
-              heavy lifting in the background.
+              See who is booked, what service they are receiving, which staff member is responsible,
+              the start time, duration, status and relevant notes — with each staff calendar kept
+              clear.
             </p>
           </div>
 
           <div className="grid sm:grid-cols-2 gap-4">
+            <ScrollReveal from="bottom" distance={48} delay={0}>
             <div className="rounded-3xl bg-pink text-white p-6">
-              <p className="text-5xl font-bold tracking-tight mb-2">318</p>
+              <p className="text-5xl font-bold tracking-tight mb-2"><AnimateCount value={318} /></p>
               <p className="text-sm text-white/75 leading-relaxed">
                 Clients submitted bookings through Book Now this month.
               </p>
             </div>
+            </ScrollReveal>
+            <ScrollReveal from="bottom" distance={48} delay={0.08}>
             <div className="rounded-3xl bg-white border border-border p-6 shadow-sm">
               <p className="font-semibold mb-1">Submission activity</p>
               <p className="text-sm text-muted-foreground mb-4">
                 Half of bookings come from your public link.
               </p>
-              <div className="h-16 flex items-end gap-1">
-                {[40, 55, 48, 70, 85].map((h, i) => (
-                  <div
-                    key={i}
-                    className="flex-1 rounded-t-md bg-pink/20"
-                    style={{ height: `${h}%` }}
-                  />
-                ))}
-              </div>
+              <AnimateBars
+                className="h-16"
+                values={[40, 55, 48, 70, 85]}
+                asPercent
+                barClassName="rounded-t-md bg-pink/20"
+                delay={0.15}
+              />
             </div>
+            </ScrollReveal>
+            <ScrollReveal from="bottom" distance={48} delay={0.16}>
             <div className="rounded-3xl bg-white border border-border p-6 shadow-sm overflow-hidden">
               <p className="font-semibold mb-1">Popular service</p>
               <p className="text-sm text-muted-foreground mb-3">
@@ -574,23 +493,21 @@ const ProductPink = () => {
                 className="rounded-xl h-24 w-full object-cover"
               />
             </div>
+            </ScrollReveal>
+            <ScrollReveal from="bottom" distance={48} delay={0.24}>
             <div className="rounded-3xl bg-white border border-border p-6 shadow-sm">
               <p className="font-semibold mb-3">Upsells &amp; add-ons</p>
-              <div className="space-y-2">
-                {[
-                  { label: "Toner", w: "80%" },
-                  { label: "Treatment", w: "55%" },
-                  { label: "Blow dry", w: "40%" },
-                ].map((row) => (
-                  <div key={row.label} className="flex items-center gap-2 text-xs">
-                    <span className="w-20 text-muted-foreground shrink-0">{row.label}</span>
-                    <div className="flex-1 h-2 rounded-full bg-secondary overflow-hidden">
-                      <div className="h-full rounded-full bg-pink" style={{ width: row.w }} />
-                    </div>
-                  </div>
-                ))}
-              </div>
+              <AnimateProgress
+                barClassName="bg-pink"
+                delay={0.2}
+                rows={[
+                  { label: "Toner", width: "80%" },
+                  { label: "Treatment", width: "55%" },
+                  { label: "Blow dry", width: "40%" },
+                ]}
+              />
             </div>
+            </ScrollReveal>
           </div>
         </div>
       </section>
@@ -598,6 +515,7 @@ const ProductPink = () => {
       {/* Reviews */}
       <section className="section-padding bg-white">
         <div className="container-wide grid lg:grid-cols-2 gap-12 items-center">
+          <AnimateVisual from="left" distance={64}>
           <div className="rounded-3xl bg-[hsl(340_20%_94%)] overflow-hidden max-w-md mx-auto lg:mx-0">
             <div className="p-5">
               <div className="rounded-2xl bg-[hsl(340_25%_18%)] text-white px-4 py-3 text-sm leading-relaxed">
@@ -617,6 +535,7 @@ const ProductPink = () => {
               </div>
             </div>
           </div>
+          </AnimateVisual>
 
           <div>
             <p className="text-sm font-semibold text-pink mb-3 inline-flex items-center gap-2">
@@ -624,31 +543,35 @@ const ProductPink = () => {
               Get more Google reviews
             </p>
             <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-5">
-              Turn satisfied clients into Google reviews
+              Keep the customer&apos;s appointment history easy to find.
             </h2>
             <p className="text-muted-foreground text-lg leading-relaxed">
-              Google reviews drive local search. Pink can
+              Keep contact details, appointment history, preferred services, preferred staff member,
+              notes and future reminders together. After the visit, send a
               <Pill>
                 <MessageSquare className="h-3 w-3" />
-                request reviews
+                thank-you or review request
               </Pill>
-              after every visit, so you’re constantly building reputation. The more
+              . The more
               <Pill>
                 <Star className="h-3 w-3 fill-amber-400 text-amber-400" />
                 5-star reviews
               </Pill>
-              you collect, the easier it is for new clients to find you.
+              you collect, the easier it is for new customers to find you.
             </p>
           </div>
         </div>
       </section>
 
-      {/* Visual forms */}
-      <section className="section-padding bg-[hsl(340_20%_97%)]">
+      {/* Workflow */}
+      <section id="workflow" className="scroll-mt-20 section-padding bg-[hsl(340_20%_97%)]">
         <div className="container-wide">
-          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-center mb-12 max-w-2xl mx-auto">
-            Visual forms that make bookings feel instant
+          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-center mb-3 max-w-2xl mx-auto">
+            From booking request to completed appointment
           </h2>
+          <p className="text-muted-foreground text-center mb-12 max-w-xl mx-auto">
+            The customer gets a simple booking experience, while you keep control of your calendar.
+          </p>
           <div className="grid lg:grid-cols-2 gap-10 items-start">
             <div className="space-y-3">
               {FORM_STEPS.map((step, i) => {
@@ -661,16 +584,15 @@ const ProductPink = () => {
                     className="w-full text-left rounded-2xl bg-white border border-border p-5 shadow-sm"
                   >
                     <div className="flex items-center justify-between gap-3">
-                      <span className="font-semibold text-foreground">{step.title}</span>
+                      <span className="font-semibold text-foreground">
+                        {i + 1}. {step.title}
+                      </span>
                       <span className="flex h-7 w-7 items-center justify-center rounded-full bg-pink text-white shrink-0">
                         {open ? <Minus className="h-3.5 w-3.5" /> : <Plus className="h-3.5 w-3.5" />}
                       </span>
                     </div>
                     {open && (
                       <div className="mt-3 pr-8">
-                        <p className="text-sm font-medium text-foreground mb-1">
-                          Let clients tap their choice instead of typing.
-                        </p>
                         <p className="text-sm text-muted-foreground leading-relaxed">{step.body}</p>
                       </div>
                     )}
@@ -679,18 +601,27 @@ const ProductPink = () => {
               })}
             </div>
 
-            <div className="relative mx-auto w-full max-w-[260px]">
-              <div className="rounded-[2rem] border-[10px] border-[hsl(340_25%_12%)] bg-white shadow-xl overflow-hidden aspect-[9/16]">
-                <div className="flex items-center justify-between px-4 pt-3">
-                  <span className="text-pink">←</span>
-                  <div className="h-1.5 flex-1 mx-3 rounded-full bg-secondary">
-                    <div className="h-full w-[30%] rounded-full bg-pink" />
-                  </div>
-                  <span className="text-red-500 font-bold">×</span>
-                </div>
-                <p className="text-center text-xl font-bold mt-10 px-4">Select a stylist</p>
+            <AnimateVisual from="right" distance={72} delay={0.1} className="relative mx-auto w-full max-w-[280px] lg:sticky lg:top-28">
+              <div className="relative overflow-hidden rounded-[2rem] border-[10px] border-[hsl(340_25%_12%)] bg-[hsl(340_25%_12%)] shadow-2xl aspect-[9/16]">
+                <video
+                  className="absolute inset-0 h-full w-full object-cover"
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  preload="metadata"
+                  aria-label="BMS Pro Salon mobile booking flow"
+                  ref={(el) => {
+                    if (el) el.playbackRate = 0.65;
+                  }}
+                  onPlay={(e) => {
+                    e.currentTarget.playbackRate = 0.65;
+                  }}
+                >
+                  <source src="/products/pink/pink-mobile.mp4" type="video/mp4" />
+                </video>
               </div>
-            </div>
+            </AnimateVisual>
           </div>
         </div>
       </section>
@@ -706,7 +637,7 @@ const ProductPink = () => {
           }}
         />
         <div className="container-wide relative text-center max-w-2xl mx-auto">
-          <div className="flex items-center justify-center gap-3 mb-6">
+          <AnimateVisual from="scale" distance={40} className="flex items-center justify-center gap-3 mb-6">
             <div className="h-12 w-12 rounded-xl bg-white/10 flex items-center justify-center">
               <img src="/products/pink/icon.png" alt="" className="h-7 w-7 rounded-md" />
             </div>
@@ -714,75 +645,83 @@ const ProductPink = () => {
             <div className="h-12 w-12 rounded-xl bg-white flex items-center justify-center">
               <Globe className="h-6 w-6 text-pink" />
             </div>
-          </div>
+          </AnimateVisual>
           <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-3">
-            One enquiry, updates everywhere
+            Take a proper look inside BMS Pro Salon
           </h2>
           <p className="text-white/70 text-lg mb-8">
-            Bookings, SMS, staff, and the board stay in sync — no double entry between the phone and
-            the chair.
+            View the dashboard, booking request, calendar, services, customer, staff and message
+            screens using the real product.
           </p>
           <Button size="lg" className="rounded-full bg-white text-pink hover:bg-white/90" asChild>
-            <a href="#demo">Try BMS Pro Pink</a>
+            <a href="#demo">See BMS Pro Salon in Action</a>
           </Button>
         </div>
       </section>
 
-      {/* Testimonials */}
+      {/* Setup highlight */}
       <section className="section-padding bg-white">
         <div className="container-wide">
           <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-10">
             <div className="max-w-xl">
               <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-3">
-                Don&apos;t take our word for it. Hear it from salons on Pink.
+                Start with your services, staff and opening hours.
               </h2>
               <p className="text-muted-foreground text-lg">
-                More bookings. Clearer boards. Real results.
+                Add your salon details, services, service durations, staff, staff hours and customer
+                messages. Preview the booking page before making it public.
               </p>
             </div>
             <Button variant="pink" className="rounded-full w-fit" asChild>
               <a href="#demo">
-                Try BMS Pro Pink
+                Start Free Trial
                 <ArrowRight className="h-4 w-4" />
               </a>
             </Button>
           </div>
 
           <div className="grid md:grid-cols-5 gap-4">
-            <article className="md:col-span-2 relative min-h-[360px] rounded-3xl overflow-hidden">
+            <ScrollReveal from="left" distance={64} className="md:col-span-2">
+            <article className="relative min-h-[360px] rounded-3xl overflow-hidden h-full">
               <img
-                src={TESTIMONIALS[0].image}
+                src="/products/pink/stylist-portrait.jpg"
                 alt=""
                 className="absolute inset-0 h-full w-full object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/40 to-transparent" />
               <div className="relative h-full flex flex-col justify-end p-6 text-white">
                 <p className="text-lg font-medium leading-snug mb-6">
-                  &ldquo;{TESTIMONIALS[0].quote}&rdquo;
+                  Show customers what they can book — service name, category, description, duration,
+                  optional price and available staff.
                 </p>
                 <div>
-                  <p className="font-semibold">{TESTIMONIALS[0].name}</p>
-                  <p className="text-sm text-white/65">{TESTIMONIALS[0].role}</p>
+                  <p className="font-semibold">Services</p>
+                  <p className="text-sm text-white/65">Clear list with booking visibility you control</p>
                 </div>
               </div>
             </article>
-            <article className="md:col-span-3 relative min-h-[360px] rounded-3xl overflow-hidden">
+            </ScrollReveal>
+            <ScrollReveal from="right" distance={64} delay={0.12} className="md:col-span-3">
+            <article className="relative min-h-[360px] rounded-3xl overflow-hidden h-full">
               <img
-                src={TESTIMONIALS[1].image}
+                src="/products/pink/salon-bay.jpg"
                 alt=""
                 className="absolute inset-0 h-full w-full object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent" />
               <div className="relative h-full flex flex-col justify-end p-8 text-white">
                 <p className="text-2xl sm:text-3xl font-bold leading-snug mb-6 max-w-lg">
-                  {TESTIMONIALS[1].stat}
+                  Keep every staff calendar clear.
                 </p>
                 <div>
-                  <p className="font-semibold">{TESTIMONIALS[1].name}</p>
-                  <p className="text-sm text-white/65">{TESTIMONIALS[1].role}</p>
+                  <p className="font-semibold">Staff schedules</p>
+                  <p className="text-sm text-white/65">
+                    You control who can edit bookings and view records
+                  </p>
                 </div>
               </div>
             </article>
+            </ScrollReveal>
           </div>
         </div>
       </section>
@@ -798,7 +737,8 @@ const ProductPink = () => {
           <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-6 mb-10">
             <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">Questions &amp; answers</h2>
             <p className="text-muted-foreground max-w-md lg:text-right">
-              Everything you need to know about getting started with BMS Pro Pink for your salon.
+              Everything you need to know about getting started with BMS Pro Salon for your
+              appointment-based business.
             </p>
           </div>
 
@@ -859,16 +799,17 @@ const ProductPink = () => {
         <div className="container-wide grid lg:grid-cols-2 gap-10 lg:gap-16 items-start">
           <div>
             <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4">
-              Try BMS Pro Pink for your salon
+              Ready to organise your appointments in one place?
             </h2>
             <p className="text-muted-foreground text-lg mb-6">
-              Book a walkthrough — demo, pricing, or help getting your chairs onto Pink.
+              Set up your services, staff and availability, then preview the customer booking
+              experience before sharing it.
             </p>
             <ul className="space-y-3 text-sm text-muted-foreground">
               {[
-                "Online booking + SMS confirmations",
-                "Optional human front desk",
-                "Staff, branches, and appointment board",
+                "Online appointment requests you control",
+                "Services, staff calendars and customer records",
+                "Reminders, changes and rebooking messages",
               ].map((t) => (
                 <li key={t} className="flex items-center gap-2">
                   <Check className="h-4 w-4 text-pink" />
@@ -971,24 +912,35 @@ const ProductPink = () => {
           }}
         />
         <div className="container-wide relative max-w-2xl mx-auto">
-          <div className="flex justify-center mb-6">
+          <AnimateVisual from="scale" distance={40} className="flex justify-center mb-6">
             <img
               src="/products/pink/icon.png"
               alt=""
               className="h-14 w-14 rounded-2xl ring-1 ring-white/20"
             />
-          </div>
+          </AnimateVisual>
           <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-3">
-            Growing bookings has never been this easy.
+            Ready to organise your appointments in one place?
           </h2>
           <p className="text-white/65 mb-8">
-            No lock-in · Book Now link ready · Built for Australian salons
+            Explore BMS Pro Salon before moving your current appointments.
           </p>
-          <Button size="lg" className="rounded-full bg-white text-pink hover:bg-white/90" asChild>
-            <a href="#demo">Try BMS Pro Pink</a>
-          </Button>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
+            <Button size="lg" className="rounded-full bg-white text-pink hover:bg-white/90" asChild>
+              <a href="#demo">Start My Free Trial</a>
+            </Button>
+            <Button
+              size="lg"
+              variant="outline"
+              className="rounded-full border-white/40 bg-white/10 text-white hover:bg-white/20 hover:text-white"
+              asChild
+            >
+              <a href="#demo">Book a Live Demonstration</a>
+            </Button>
+          </div>
         </div>
       </section>
+      </ScrollPage>
     </Layout>
   );
 };

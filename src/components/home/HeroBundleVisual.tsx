@@ -6,7 +6,7 @@ export function HeroBundleVisual() {
     {
       time: "9:00",
       name: "Oil service — Bay 2",
-      tag: "Black",
+      tag: "Workshop",
       color: "bg-product-black text-white",
       icon: Wrench,
       vibe: "Workshop",
@@ -14,7 +14,7 @@ export function HeroBundleVisual() {
     {
       time: "10:30",
       name: "Colour & cut — Mia",
-      tag: "Pink",
+      tag: "Salon",
       color: "bg-pink text-white",
       icon: Sparkles,
       vibe: "Salon floor",
@@ -22,7 +22,7 @@ export function HeroBundleVisual() {
     {
       time: "1:00",
       name: "Emergency plumbing call-out",
-      tag: "Blue",
+      tag: "Trade",
       color: "bg-blue text-white",
       icon: Hammer,
       vibe: "Job site",

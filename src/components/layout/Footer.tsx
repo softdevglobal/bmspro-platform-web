@@ -4,9 +4,9 @@ import { SITE_CONTACT_EMAIL } from "@/lib/siteContact";
 
 const footerLinks = {
   products: [
-    { name: "BMS Pro Black", href: "/products/black" },
-    { name: "BMS Pro Pink", href: "/products/pink" },
-    { name: "BMS Pro Blue", href: "/products/blue" },
+    { name: "BMS Pro Workshop", href: "/products/black" },
+    { name: "BMS Pro Salon", href: "/products/pink" },
+    { name: "BMS Pro Trade", href: "/products/blue" },
   ],
   company: [
     { name: "About", href: "/about" },

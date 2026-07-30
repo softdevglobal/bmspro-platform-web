@@ -52,7 +52,7 @@ const includedItems = [
 ];
 
 export interface BlackPricingSectionProps {
-  /** Live plans — defaults to active Black public packages */
+  /** Live plans — defaults to active Workshop public packages */
   plans?: BlackPlan[];
   /** Optional SMS add-ons shown below subscription tiers */
   smsPacks?: SmsPack[];
@@ -117,7 +117,7 @@ export function BlackPricingSection({
               </div>
 
               <h1 className="font-display text-5xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight mb-4 animate-fade-up delay-100 leading-[1.02]">
-                BMS Pro Black
+                BMS Pro Workshop
               </h1>
 
               <p className="font-sans text-base sm:text-lg text-white/70 max-w-xl mx-auto mb-8 animate-fade-up delay-200 leading-relaxed">
@@ -293,7 +293,7 @@ export function BlackPricingSection({
               Live and in production
             </h2>
             <p className="font-sans text-lg text-white/70 max-w-xl mx-auto mb-8 animate-fade-up delay-200">
-              BMS Pro Black is a Softdev Global / BMS Pros product — serving Australian auto
+              BMS Pro Workshop is a Softdev Global / BMS Pros product — serving Australian auto
               workshops today.
             </p>
 

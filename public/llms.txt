@@ -2,15 +2,15 @@
 
 > Unified booking and operations platform for mechanic shops, salons, and trades — built for Australian service businesses.
 
-BMS Pro is a suite of three products that share one platform: BMS Pro Black (mechanic shops), BMS Pro Pink (salons & beauty), and BMS Pro Blue (trades & services). Based in Lynbrook, Victoria, Australia.
+BMS Pro is a suite of three products that share one platform: BMS Pro Workshop (mechanic shops), BMS Pro Salon (salons & beauty), and BMS Pro Trade (trades & services). Based in Lynbrook, Victoria, Australia.
 
 ## Pages
 
 - [Home](/): Platform overview and product suite.
 - [Products](/products): All three BMS Pro products.
-- [BMS Pro Black](/products/black): Workshop operations and job booking for mechanic shops.
-- [BMS Pro Pink](/products/pink): Appointment booking for salons, spas, and personal services.
-- [BMS Pro Blue](/products/blue): Job scheduling for trades and service businesses.
+- [BMS Pro Workshop](/products/black): Workshop operations and job booking for mechanic shops.
+- [BMS Pro Salon](/products/pink): Appointment booking for salons, spas, and personal services.
+- [BMS Pro Trade](/products/blue): Job scheduling for trades and service businesses.
 - [Pricing](/pricing): Plans and pricing for all products.
 - [About](/about): Company story and team.
 - [Careers](/careers): Open roles and how to apply.

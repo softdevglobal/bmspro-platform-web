@@ -1,5 +1,5 @@
 /**
- * BMS Pro Blue (TRADE) subscription plans for the portfolio pricing showcase.
+ * BMS Pro Trade subscription plans for the portfolio pricing showcase.
  * Sourced from live public packages (trade.bmspros.com.au /api/packages/public).
  * Extend via BluePricingSection `plans` prop — do not invent tiers.
  */
@@ -39,7 +39,7 @@ export interface BluePlan {
 
 const LIVE_SUBSCRIBE_URL = "https://trade.bmspros.com.au";
 
-/** Active public plans for BMS Pro Blue (TRADE) */
+/** Active public plans for BMS Pro Trade */
 export const BLUE_PLANS: BluePlan[] = [
   {
     planKey: "SOLO",

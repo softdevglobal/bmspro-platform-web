@@ -3,6 +3,7 @@ import { Layout } from "@/components/layout/Layout";
 import { ProductCard } from "@/components/ProductCard";
 import { SEO } from "@/components/SEO";
 import { Button } from "@/components/ui/button";
+import { ScrollPage, ScrollReveal } from "@/components/motion/ScrollReveal";
 import {
   Sparkles,
   Wrench,
@@ -13,58 +14,58 @@ import {
 
 const products = [
   {
-    name: "BMS Pro Black",
-    tagline: "Mechanic Shops",
+    name: "BMS Pro Workshop",
+    tagline: "Mechanics & automotive workshops",
     description:
-      "Filter calls and book jobs — workshop operations in one place. Human receptionists book routine work so mechanics stay under the hood.",
+      "Manage bookings, customer details, vehicle information, workshop schedules and service updates from one place. Customers can request a booking online. You choose the time that works.",
     features: [
-      "Bay & job scheduling",
-      "Receptionist call filtering",
-      "Workshop onboarding support",
-      "Demo & pricing walkthroughs",
-      "Less downtime on the floor",
-      "Jobs booked into the system",
+      "Online booking requests",
+      "Customer and vehicle records",
+      "Workshop calendar",
+      "Staff scheduling",
+      "Service updates",
+      "Appointment reminders",
     ],
     href: "/products/black",
     variant: "black" as const,
     icon: Wrench,
-    cta: "Book a Demo",
+    cta: "Explore BMS Pro Workshop",
   },
   {
-    name: "BMS Pro Pink",
-    tagline: "Salons & Beauty",
+    name: "BMS Pro Salon",
+    tagline: "Salons, barbers & appointments",
     description:
-      "Appointment booking built for salons, spas, and personal service businesses. Beautiful calendar views, client management, and seamless online booking.",
+      "Let customers request appointments online while you manage your services, staff schedules and daily bookings from one place. Spend less time answering booking messages and more time looking after your customers.",
     features: [
-      "Online booking portal",
-      "Staff scheduling & availability",
-      "Client profiles & history",
-      "Multi-location support",
-      "Automated reminders",
-      "Revenue reporting",
+      "Online appointment requests",
+      "Service selection",
+      "Staff calendars",
+      "Customer details",
+      "Appointment reminders",
+      "Daily booking management",
     ],
     href: "/products/pink",
     variant: "pink" as const,
     icon: Sparkles,
-    cta: "Book a Demo",
+    cta: "Explore BMS Pro Salon",
   },
   {
-    name: "BMS Pro Blue",
-    tagline: "Trades & Services",
+    name: "BMS Pro Trade",
+    tagline: "Tradies & field-service businesses",
     description:
-      "Job scheduling and management for trades, contractors, and service businesses. From quotes to completion, track every job with confidence.",
+      "Keep enquiries, quotes, jobs, staff, subcontractors and invoices connected from the first customer call through to final payment. When a quote is approved, turn it into a job without entering everything again.",
     features: [
-      "Job scheduling & dispatch",
-      "Technician assignment",
-      "Quote & invoice management",
-      "Customer records",
-      "Route optimization",
-      "Job costing",
+      "Enquiries and customer records",
+      "Quotes and follow-ups",
+      "Job scheduling",
+      "Staff and subcontractor assignment",
+      "Job updates and photos",
+      "Invoices and payment links",
     ],
     href: "/products/blue",
     variant: "blue" as const,
     icon: Hammer,
-    cta: "Book a Demo",
+    cta: "Explore BMS Pro Trade",
   },
 ];
 
@@ -84,12 +85,13 @@ const Products = () => {
   return (
     <Layout>
       <SEO
-        title="Products | BMS Pro Suite for Service Businesses"
-        description="Explore BMS Pro Black, Pink, and Blue — products built to run bookings, jobs, and workshop operations on one platform."
+        title="Products | BMS Pro Workshop, Trade and Salon"
+        description="Choose the BMS Pro built for your business — Workshop for mechanics, Trade for field service, and Salon for appointment-based businesses."
         path="/products"
         jsonLd={jsonLd}
       />
 
+      <ScrollPage>
       {/* Full-bleed image hero */}
       <section className="relative bg-background -mt-16">
         <div className="relative min-h-[min(72vh,640px)] flex items-center overflow-hidden pt-16">
@@ -119,11 +121,12 @@ const Products = () => {
                 Our Products
               </p>
               <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight mb-4 animate-fade-up delay-100 leading-[1.05]">
-                The complete toolkit for service businesses
+                Choose the BMS Pro built for your business
               </h1>
               <p className="font-sans text-base sm:text-lg text-white/70 max-w-2xl mx-auto mb-8 animate-fade-up delay-200 leading-relaxed">
-                Software that fits the trade — plus a human front desk that keeps calendars full and
-                teams focused. Choose what fits today, add more as you grow.
+                Every service business works differently. A workshop doesn&apos;t run like a salon,
+                and a tradie working across different job sites needs different tools again. That&apos;s
+                why BMS Pro comes in three versions.
               </p>
 
               <div className="flex flex-col items-center gap-4 animate-fade-up delay-300">
@@ -151,9 +154,9 @@ const Products = () => {
                 <div className="inline-flex items-start sm:items-center gap-2.5 max-w-lg rounded-2xl border border-white/25 bg-white/10 backdrop-blur-md px-4 py-3 text-left">
                   <ShieldCheck className="h-5 w-5 text-teal shrink-0 mt-0.5 sm:mt-0" />
                   <p className="text-sm font-semibold text-white leading-snug">
-                    Software + Human Front Desk.{" "}
+                    Practical booking and operations software.{" "}
                     <span className="text-white/70 font-medium">
-                      Black, Pink &amp; Blue — each pitched to your industry.
+                      Workshop, Trade &amp; Salon — each built for how you work.
                     </span>
                   </p>
                 </div>
@@ -194,22 +197,23 @@ const Products = () => {
               The Suite
             </span>
             <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mt-4 mb-3 tracking-tight">
-              Choose the right product for your business
+              Choose the BMS Pro built for your business
             </h2>
             <p className="font-sans text-lg text-muted-foreground">
-              Powerful products designed to work together or standalone.
+              Three versions — one for workshops, one for trades, one for salons.
             </p>
           </div>
 
           <div className="grid md:grid-cols-2 gap-5 lg:gap-6 max-w-5xl mx-auto">
             {products.map((product, index) => (
-              <div
+              <ScrollReveal
                 key={product.name}
-                className="animate-fade-up"
-                style={{ animationDelay: `${index * 80}ms` }}
+                from={index % 2 === 0 ? "left" : "right"}
+                distance={64}
+                delay={index * 0.08}
               >
                 <ProductCard {...product} className="shadow-elevated border border-border/60" />
-              </div>
+              </ScrollReveal>
             ))}
           </div>
         </div>
@@ -244,8 +248,8 @@ const Products = () => {
             Not sure which product fits?
           </h2>
           <p className="font-sans text-lg text-white/70 max-w-xl mx-auto mb-8">
-            Book a strategy call — we&apos;ll show the software, explain the receptionist handover,
-            and match you to Black, Blue, or Pink.
+            Book a strategy call — we&apos;ll show the software and match you to Workshop, Trade, or
+            Salon.
           </p>
           <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 sm:gap-4">
             <Button
@@ -269,6 +273,7 @@ const Products = () => {
           </div>
         </div>
       </section>
+      </ScrollPage>
     </Layout>
   );
 };
