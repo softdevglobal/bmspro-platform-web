@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { ArrowRight, Wrench, Sparkles, Hammer, LucideIcon } from "lucide-react";
+import { ArrowRight, Wrench, Scissors, Hammer, LucideIcon } from "lucide-react";
 
 type ShowcaseProduct = {
   shortName: string;
@@ -17,61 +17,67 @@ type ShowcaseProduct = {
 
 const products: ShowcaseProduct[] = [
   {
-    shortName: "Black",
-    tagline: "Mechanic Shops",
-    headline: "Keep your mechanics under the hood, not on the phone.",
+    shortName: "Workshop",
+    tagline: "Workshop",
+    headline: "BMS Pro Workshop",
     description:
-      "Human receptionists filter routine calls and book jobs into the system — technicians only take the complex technical ones.",
+      "Manage bookings, customer details, vehicle information, workshop schedules and service updates from one place. Customers can request a booking online. You choose the time that works, organise the job and keep the customer informed.",
     features: [
-      "Bay & job scheduling in software",
-      "Receptionist books routine work",
-      "Technical calls filtered through",
-      "Less downtime on the floor",
+      "Online booking requests",
+      "Customer and vehicle records",
+      "Workshop calendar",
+      "Staff scheduling",
+      "Service updates",
+      "Appointment reminders",
     ],
     href: "/products/black",
     icon: Wrench,
-    cta: "Book Your Strategy Call",
+    cta: "Explore BMS Pro Workshop",
     image: "https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?w=1000&h=1400&fit=crop",
     badge: "bg-product-black text-white",
     ctaClass: "bg-white text-[hsl(220_22%_10%)] hover:bg-white/90",
   },
   {
-    shortName: "Pink",
-    tagline: "Salons",
-    headline: "While you're with a client, our receptionists fill your calendar.",
+    shortName: "Trade",
+    tagline: "Trade Business",
+    headline: "BMS Pro Trade",
     description:
-      "Missed calls mean missed bookings. A real person manages the calendar and keeps chairs full — without interrupting the floor.",
+      "Keep enquiries, quotes, jobs, staff, subcontractors and invoices connected from the first customer call through to final payment. When a quote is approved, turn it into a job, schedule the work and assign the right person without entering everything again.",
     features: [
-      "Live calendar in the software",
-      "Humans capture every booking",
-      "Reschedules handled for you",
-      "Revenue protection, not voicemail",
-    ],
-    href: "/products/pink",
-    icon: Sparkles,
-    cta: "Meet Your Virtual Front Desk",
-    image: "https://images.unsplash.com/photo-1560066984-138dadb4c035?w=1000&h=1400&fit=crop",
-    badge: "bg-pink text-white",
-    ctaClass: "bg-white text-pink hover:bg-white/90",
-  },
-  {
-    shortName: "Blue",
-    tagline: "Trades",
-    headline: "Keep plumbers, carpenters & electricians on the tools.",
-    description:
-      "Your virtual front desk books jobs, handles reschedules, and only escalates what needs a tradesperson.",
-    features: [
-      "Job dispatch in the software",
-      "Humans answer every call",
-      "Quotes & bookings captured",
-      "Fewer interruptions on site",
+      "Enquiries and customer records",
+      "Quotes and follow-ups",
+      "Job scheduling",
+      "Staff and subcontractor assignment",
+      "Job updates and photos",
+      "Invoices and payment links",
     ],
     href: "/products/blue",
     icon: Hammer,
-    cta: "Book Your Strategy Call",
+    cta: "Explore BMS Pro Trade",
     image: "/products/blue/jobs.jpg",
     badge: "bg-blue text-white",
     ctaClass: "bg-white text-blue hover:bg-white/90",
+  },
+  {
+    shortName: "Salon",
+    tagline: "Salon",
+    headline: "BMS Pro Salon",
+    description:
+      "Let customers request appointments online while you manage your services, staff schedules and daily bookings from one place. Spend less time answering booking messages and more time looking after your customers.",
+    features: [
+      "Online appointment requests",
+      "Service selection",
+      "Staff calendars",
+      "Customer details",
+      "Appointment reminders",
+      "Daily booking management",
+    ],
+    href: "/products/pink",
+    icon: Scissors,
+    cta: "Explore BMS Pro Salon",
+    image: "https://images.unsplash.com/photo-1560066984-138dadb4c035?w=1000&h=1400&fit=crop",
+    badge: "bg-pink text-white",
+    ctaClass: "bg-white text-pink hover:bg-white/90",
   },
 ];
 
@@ -93,15 +99,14 @@ export function ProductSuiteSection() {
       </div>
 
       <div className="container-wide relative section-padding">
-        <div className="max-w-2xl mb-12 lg:mb-14 text-center mx-auto">
-          <span className="eyebrow inline-flex rounded-full border border-white/20 bg-white/10 backdrop-blur-sm px-3 py-1 text-white/80">
-            Software + Human Front Desk
-          </span>
+        <div className="max-w-3xl mb-12 lg:mb-14 text-center mx-auto">
           <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold mt-4 mb-3 tracking-tight">
-            Pitched to the chaos you escape every day
+            Choose the BMS Pro built for your business
           </h2>
-          <p className="font-sans text-lg text-white/65">
-            Black for workshops, Pink for salons, Blue for trades — each with software and receptionists who know how to book it.
+          <p className="font-sans text-lg text-white/65 leading-relaxed">
+            Every service business works differently. A workshop doesn’t run like a salon, and a
+            tradie working across different job sites needs different tools again. That’s why BMS Pro
+            comes in three versions.
           </p>
         </div>
 
@@ -111,7 +116,7 @@ export function ProductSuiteSection() {
             return (
               <article
                 key={product.shortName}
-                className="group relative overflow-hidden rounded-3xl min-h-[480px] flex flex-col border border-white/10 shadow-elevated animate-fade-up"
+                className="group relative overflow-hidden rounded-3xl min-h-[520px] flex flex-col border border-white/10 shadow-elevated animate-fade-up"
                 style={{ animationDelay: `${index * 100}ms` }}
               >
                 <img
@@ -124,12 +129,11 @@ export function ProductSuiteSection() {
 
                 <div className="relative flex flex-col flex-grow p-6 sm:p-7">
                   <div className="flex items-start justify-between mb-8">
-                    <span className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[10px] font-label font-bold uppercase tracking-wider ${product.badge}`}>
+                    <span
+                      className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[10px] font-label font-bold uppercase tracking-wider ${product.badge}`}
+                    >
                       <Icon className="h-3 w-3" />
                       {product.tagline}
-                    </span>
-                    <span className="font-label text-xs font-semibold uppercase tracking-[0.18em] text-white/50">
-                      BMS Pro {product.shortName}
                     </span>
                   </div>
 
@@ -137,11 +141,13 @@ export function ProductSuiteSection() {
                     <h3 className="font-display text-xl sm:text-2xl font-bold tracking-tight mb-3 leading-snug">
                       {product.headline}
                     </h3>
-                    <p className="font-sans text-sm text-white/70 leading-relaxed mb-5">{product.description}</p>
+                    <p className="font-sans text-sm text-white/70 leading-relaxed mb-5">
+                      {product.description}
+                    </p>
                     <ul className="space-y-2 mb-7">
                       {product.features.map((feature) => (
                         <li key={feature} className="flex items-center gap-2.5 text-sm text-white/80">
-                          <span className="h-1.5 w-1.5 rounded-full bg-white/50" />
+                          <span className="h-1.5 w-1.5 rounded-full bg-white/50 shrink-0" />
                           {feature}
                         </li>
                       ))}

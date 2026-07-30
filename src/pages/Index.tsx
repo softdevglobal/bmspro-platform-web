@@ -3,9 +3,11 @@ import { SEO } from "@/components/SEO";
 import { HeroSection } from "@/components/home/HeroSection";
 import { ProductSuiteSection } from "@/components/home/ProductSuiteSection";
 import { AudienceSection } from "@/components/home/AudienceSection";
-import { BenefitsSection } from "@/components/home/BenefitsSection";
 import { ArchitectureSection } from "@/components/home/ArchitectureSection";
-import { TestimonialsSection } from "@/components/home/TestimonialsSection";
+import { BenefitsSection } from "@/components/home/BenefitsSection";
+import { SoftwarePreviewSection } from "@/components/home/SoftwarePreviewSection";
+import { TrustWalkthroughSection } from "@/components/home/TrustWalkthroughSection";
+import { HomeFAQSection } from "@/components/home/HomeFAQSection";
 import { CTASection } from "@/components/home/CTASection";
 import { SITE_CONTACT_EMAIL } from "@/lib/siteContact";
 
@@ -13,8 +15,8 @@ const Index = () => {
   return (
     <Layout>
       <SEO
-        title="BMS Pro | Software + Real Human Receptionists"
-        description="Booking software for mechanic shops, salons, and trades — paired with 100% real human receptionists. No AI voicebots. Book your strategy call."
+        title="BMS Pro | Run the work without letting the admin run you"
+        description="One platform for workshops, trades and salons. Keep bookings, jobs, staff and customer updates in one place — built in Melbourne."
         path="/"
         jsonLd={[
           {
@@ -43,11 +45,13 @@ const Index = () => {
         ]}
       />
       <HeroSection />
-      <ProductSuiteSection />
       <AudienceSection />
-      <BenefitsSection />
-      <TestimonialsSection />
+      <ProductSuiteSection />
       <ArchitectureSection />
+      <BenefitsSection />
+      <SoftwarePreviewSection />
+      <TrustWalkthroughSection />
+      <HomeFAQSection />
       <CTASection />
     </Layout>
   );

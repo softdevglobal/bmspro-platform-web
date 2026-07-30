@@ -1,32 +1,40 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, ShieldCheck, Wrench, Sparkles, Hammer } from "lucide-react";
+import { ArrowRight, Wrench, Scissors, Hammer, Eye, Settings2, Handshake, MapPin } from "lucide-react";
 import { HeroBundleVisual } from "./HeroBundleVisual";
 
 const heroCollage = [
   {
     src: "https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?w=1200&h=1600&fit=crop",
     alt: "Mechanic workshop",
-    label: "Black · Mechanics",
   },
   {
     src: "https://images.unsplash.com/photo-1560066984-138dadb4c035?w=1200&h=1600&fit=crop",
     alt: "Hair salon",
-    label: "Pink · Salons",
   },
   {
     src: "https://images.unsplash.com/photo-1621905251189-08b45d6a269e?w=1200&h=1600&fit=crop",
     alt: "Tradesperson at work",
-    label: "Blue · Trades",
   },
+];
+
+const businessTypes = [
+  { label: "Workshop", href: "/products/black", icon: Wrench, color: "bg-product-black" },
+  { label: "Trade Business", href: "/products/blue", icon: Hammer, color: "bg-blue" },
+  { label: "Salon", href: "/products/pink", icon: Scissors, color: "bg-pink" },
+];
+
+const trustItems = [
+  { icon: Eye, label: "See the software before deciding" },
+  { icon: Settings2, label: "Built for everyday service businesses" },
+  { icon: Handshake, label: "Simple setup and guided onboarding" },
+  { icon: MapPin, label: "Australian-based team" },
 ];
 
 export function HeroSection() {
   return (
     <section className="relative bg-background -mt-16">
-      {/* Full-bleed image hero — content sits on top */}
       <div className="relative min-h-[min(92vh,860px)] flex items-center overflow-hidden pt-16">
-        {/* Background collage */}
         <div className="absolute inset-0 grid grid-cols-1 sm:grid-cols-3" aria-hidden>
           {heroCollage.map((panel) => (
             <div key={panel.src} className="relative min-h-[220px] sm:min-h-full overflow-hidden">
@@ -39,27 +47,22 @@ export function HeroSection() {
           ))}
         </div>
 
-        {/* Readability overlays */}
         <div className="absolute inset-0 bg-[hsl(220_22%_6%/0.68)] sm:bg-[hsl(220_22%_6%/0.62)]" />
         <div className="absolute inset-0 bg-gradient-to-b from-[hsl(220_22%_6%/0.5)] via-[hsl(220_22%_6%/0.35)] to-[hsl(220_22%_6%/0.8)]" />
 
-        {/* Content on the image */}
         <div className="container-wide relative z-10 py-16 sm:py-20 lg:py-24 w-full">
           <div className="max-w-3xl mx-auto text-center text-white">
-            <p className="font-display text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-extrabold tracking-tight mb-5 animate-fade-up leading-[1.02]">
-              BMS PRO
+            <p className="eyebrow inline-flex rounded-full border border-white/25 bg-white/10 backdrop-blur-sm px-3 py-1 text-white/80 mb-5 animate-fade-up">
+              One platform built around the way you work
             </p>
 
-            <h1 className="font-display text-2xl sm:text-3xl lg:text-4xl font-bold mb-4 animate-fade-up delay-100 leading-snug">
-              Your software. Their front desk.
-              <span className="block text-white/75 font-sans font-medium mt-1 text-xl sm:text-2xl lg:text-3xl">
-                Real humans answering — not bots.
-              </span>
+            <h1 className="font-display text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-extrabold tracking-tight mb-5 animate-fade-up delay-100 leading-[1.05]">
+              Run the work without letting the admin run you.
             </h1>
 
             <p className="font-sans text-base sm:text-lg text-white/70 max-w-2xl mx-auto mb-8 animate-fade-up delay-200 leading-relaxed">
-              Booking &amp; operations for mechanic shops, salons, and trades — paired with
-              professional receptionists who book while your team works.
+              Keep your bookings, jobs, staff and customer updates in one place—so you spend less
+              time chasing information and more time running your business.
             </p>
 
             <div className="flex flex-col items-center gap-4 animate-fade-up delay-300">
@@ -70,7 +73,7 @@ export function HeroSection() {
                   asChild
                 >
                   <Link to="/contact">
-                    Book Your Strategy Call
+                    See BMS Pro in Action
                     <ArrowRight className="h-5 w-5" />
                   </Link>
                 </Button>
@@ -80,48 +83,63 @@ export function HeroSection() {
                   className="rounded-full w-full sm:w-auto border-white/40 bg-white/10 text-white hover:bg-white/20 hover:text-white backdrop-blur-sm"
                   asChild
                 >
-                  <Link to="/contact">Meet Your Virtual Front Desk</Link>
+                  <a href="#products">Choose Your Business</a>
                 </Button>
               </div>
 
-              <div className="inline-flex items-start sm:items-center gap-2.5 max-w-lg rounded-2xl border border-white/25 bg-white/10 backdrop-blur-md px-4 py-3 text-left">
-                <ShieldCheck className="h-5 w-5 text-teal shrink-0 mt-0.5 sm:mt-0" />
-                <p className="text-sm font-semibold text-white leading-snug">
-                  100% Real Human Receptionists.{" "}
-                  <span className="text-white/70 font-medium">
-                    No AI Voicebots. No Frustrated Clients.
-                  </span>
-                </p>
-              </div>
+              <p className="text-sm text-white/65">
+                Built in Melbourne for workshops, tradies and salons.
+              </p>
             </div>
 
-            <div className="mt-10 flex flex-wrap items-center justify-center gap-3 animate-fade-up delay-400">
-              {[
-                { icon: Wrench, label: "Mechanics", color: "bg-product-black" },
-                { icon: Sparkles, label: "Salons", color: "bg-pink" },
-                { icon: Hammer, label: "Trades", color: "bg-blue" },
-              ].map((item) => {
-                const Icon = item.icon;
-                return (
-                  <span
-                    key={item.label}
-                    className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 backdrop-blur-sm px-3 py-1.5 text-sm font-label font-semibold text-white"
-                  >
-                    <span className={`flex h-6 w-6 items-center justify-center rounded-full ${item.color}`}>
-                      <Icon className="h-3 w-3" />
-                    </span>
-                    {item.label}
-                  </span>
-                );
-              })}
+            <div className="mt-10 animate-fade-up delay-400">
+              <p className="text-sm font-semibold text-white/80 mb-4">
+                Which type of business do you run?
+              </p>
+              <div className="flex flex-wrap items-center justify-center gap-3">
+                {businessTypes.map((item) => {
+                  const Icon = item.icon;
+                  return (
+                    <Link
+                      key={item.label}
+                      to={item.href}
+                      className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 backdrop-blur-sm px-4 py-2 text-sm font-label font-semibold text-white hover:bg-white/20 transition-colors"
+                    >
+                      <span
+                        className={`flex h-6 w-6 items-center justify-center rounded-full ${item.color}`}
+                      >
+                        <Icon className="h-3 w-3" />
+                      </span>
+                      {item.label}
+                    </Link>
+                  );
+                })}
+              </div>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Bundle visual sits just below the image hero */}
-      <div className="container-wide relative -mt-10 sm:-mt-14 lg:-mt-16 pb-12 sm:pb-16 z-20">
+      <div className="container-wide relative -mt-10 sm:-mt-14 lg:-mt-16 pb-8 sm:pb-10 z-20">
         <HeroBundleVisual />
+      </div>
+
+      <div className="border-y border-border/60 bg-[hsl(220_14%_97%)] py-7 sm:py-8">
+        <div className="container-wide">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+            {trustItems.map((item) => {
+              const Icon = item.icon;
+              return (
+                <div key={item.label} className="flex items-start gap-3">
+                  <span className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-white border border-border">
+                    <Icon className="h-4 w-4 text-foreground" />
+                  </span>
+                  <p className="text-sm font-medium text-foreground leading-snug">{item.label}</p>
+                </div>
+              );
+            })}
+          </div>
+        </div>
       </div>
     </section>
   );

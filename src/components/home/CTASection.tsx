@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, ShieldCheck } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 
 export function CTASection() {
   return (
@@ -28,33 +28,22 @@ export function CTASection() {
       </div>
 
       <div className="container-wide relative section-padding text-center">
-        <p className="font-label text-sm font-semibold tracking-[0.2em] uppercase text-white/55 mb-4">
-          BMS Pro
-        </p>
         <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 tracking-tight max-w-3xl mx-auto">
-          Meet your virtual front desk
+          Let’s see whether BMS Pro fits the way you work.
         </h2>
-        <p className="font-sans text-lg text-white/65 max-w-xl mx-auto mb-6">
-          Book a strategy call — we&apos;ll show the software, explain the receptionist handover, and
-          match you to Black, Blue, or Pink.
+        <p className="font-sans text-lg text-white/65 max-w-2xl mx-auto mb-8 leading-relaxed">
+          Tell us how you currently manage your bookings, jobs or appointments. We’ll show you the
+          parts of BMS Pro that are relevant to your business and leave out the parts you don’t need.
         </p>
 
-        <div className="inline-flex items-start sm:items-center gap-2.5 max-w-lg rounded-2xl border border-white/25 bg-white/10 backdrop-blur-md px-4 py-3 text-left mb-8">
-          <ShieldCheck className="h-5 w-5 text-teal shrink-0 mt-0.5 sm:mt-0" />
-          <p className="text-sm font-semibold text-white leading-snug">
-            100% Real Human Receptionists.{" "}
-            <span className="text-white/70 font-medium">No AI Voicebots. No Frustrated Clients.</span>
-          </p>
-        </div>
-
-        <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 sm:gap-4">
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 sm:gap-4 mb-6">
           <Button
             size="xl"
             className="rounded-full bg-white text-[hsl(220_22%_10%)] hover:bg-white/90 shadow-lg"
             asChild
           >
             <Link to="/contact">
-              Book Your Strategy Call
+              Book My Walkthrough
               <ArrowRight className="h-5 w-5" />
             </Link>
           </Button>
@@ -64,9 +53,13 @@ export function CTASection() {
             className="rounded-full border-white/40 bg-white/10 text-white hover:bg-white/20 hover:text-white backdrop-blur-sm"
             asChild
           >
-            <Link to="/contact">Meet Your Virtual Front Desk</Link>
+            <a href="#products">Choose My BMS Pro</a>
           </Button>
         </div>
+
+        <p className="text-sm text-white/50">
+          No exaggerated promises. Just a proper look at how the system works.
+        </p>
       </div>
     </section>
   );

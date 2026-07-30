@@ -1,36 +1,49 @@
-import { Calendar, Headphones, Filter, ShieldCheck } from "lucide-react";
+import {
+  Calendar,
+  ClipboardList,
+  FileText,
+  MessageSquare,
+  Users,
+  UserRound,
+} from "lucide-react";
 
-const benefits = [
+const capabilities = [
+  {
+    icon: ClipboardList,
+    title: "Bookings",
+    description: "Give customers a simple way to request a suitable day and time.",
+  },
   {
     icon: Calendar,
-    title: "Software that runs the day",
-    description:
-      "Live booking, attendance, and schedules for Black, Blue, and Pink — always in sync with the front desk.",
+    title: "Scheduling",
+    description: "See appointments, jobs and team availability from one calendar.",
   },
   {
-    icon: Headphones,
-    title: "Humans on every call",
-    description:
-      "Real receptionists answer, book, and reschedule. No AI voicebots. No frustrated clients.",
+    icon: UserRound,
+    title: "Customer records",
+    description: "Keep customer details and previous activity easy to find.",
   },
   {
-    icon: Filter,
-    title: "Chaos filtered out",
-    description:
-      "Routine questions get handled. Only the work that needs your team reaches the floor.",
+    icon: Users,
+    title: "Team management",
+    description: "Assign work and give your team the information they need.",
   },
   {
-    icon: ShieldCheck,
-    title: "Consultative onboarding",
+    icon: MessageSquare,
+    title: "Customer updates",
+    description: "Send confirmations, reminders and progress messages.",
+  },
+  {
+    icon: FileText,
+    title: "Business paperwork",
     description:
-      "Strategy call, handover, and a front desk that knows your business — not a login and leave.",
+      "Keep quotes, jobs and invoices connected where supported by the selected product.",
   },
 ];
 
 export function BenefitsSection() {
   return (
     <section className="relative overflow-hidden text-white">
-      {/* Blurred industry backdrop — matches hero language */}
       <div className="absolute inset-0" aria-hidden>
         <div className="absolute inset-0 grid grid-cols-3">
           <img
@@ -55,23 +68,20 @@ export function BenefitsSection() {
 
       <div className="container-wide relative section-padding">
         <div className="max-w-2xl mb-12 text-center mx-auto">
-          <span className="eyebrow inline-flex rounded-full border border-white/20 bg-white/10 backdrop-blur-sm px-3 py-1 text-white/80">
-            The Bundle
-          </span>
           <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold mt-4 mb-4 tracking-tight">
-            Not just software. A virtual front desk.
+            Everything your day needs to keep moving
           </h2>
-          <p className="font-sans text-lg text-white/65">
-            The value is the handover — platform plus people who keep your calendar full and your team focused.
+          <p className="font-sans text-sm text-white/55">
+            Available features vary by BMS Pro product.
           </p>
         </div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          {benefits.map((benefit, index) => (
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {capabilities.map((benefit, index) => (
             <div
               key={benefit.title}
               className="rounded-2xl border border-white/15 bg-white/10 backdrop-blur-md p-6 animate-fade-up"
-              style={{ animationDelay: `${index * 100}ms` }}
+              style={{ animationDelay: `${index * 80}ms` }}
             >
               <div className="inline-flex items-center justify-center h-11 w-11 rounded-xl bg-white/15 mb-4">
                 <benefit.icon className="h-5 w-5" />
