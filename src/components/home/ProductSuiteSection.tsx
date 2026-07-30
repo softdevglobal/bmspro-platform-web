@@ -116,7 +116,7 @@ export function ProductSuiteSection() {
             return (
               <article
                 key={product.shortName}
-                className="group relative overflow-hidden rounded-3xl min-h-[520px] flex flex-col border border-white/10 shadow-elevated animate-fade-up"
+                className="group relative overflow-hidden rounded-3xl min-h-[420px] sm:min-h-[480px] md:min-h-[520px] flex flex-col border border-white/10 shadow-elevated animate-fade-up"
                 style={{ animationDelay: `${index * 100}ms` }}
               >
                 <img

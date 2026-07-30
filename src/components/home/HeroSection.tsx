@@ -34,33 +34,41 @@ const trustItems = [
 export function HeroSection() {
   return (
     <section className="relative bg-background -mt-16">
-      <div className="relative min-h-[min(92vh,860px)] flex items-center overflow-hidden pt-16">
-        <div className="absolute inset-0 grid grid-cols-1 sm:grid-cols-3" aria-hidden>
+      <div className="relative min-h-[min(88vh,760px)] sm:min-h-[min(92vh,860px)] flex items-center overflow-hidden pt-16">
+        {/* Mobile: single image. Desktop: 3-panel collage */}
+        <div className="absolute inset-0 sm:hidden" aria-hidden>
+          <img
+            src={heroCollage[0].src}
+            alt=""
+            className="absolute inset-0 h-full w-full object-cover scale-105"
+          />
+        </div>
+        <div className="absolute inset-0 hidden sm:grid sm:grid-cols-3" aria-hidden>
           {heroCollage.map((panel) => (
-            <div key={panel.src} className="relative min-h-[220px] sm:min-h-full overflow-hidden">
+            <div key={panel.src} className="relative overflow-hidden">
               <img
                 src={panel.src}
                 alt=""
-                className="absolute inset-0 h-full w-full object-cover scale-110 blur-xs sm:blur-sm"
+                className="absolute inset-0 h-full w-full object-cover scale-110 blur-sm"
               />
             </div>
           ))}
         </div>
 
-        <div className="absolute inset-0 bg-[hsl(220_22%_6%/0.68)] sm:bg-[hsl(220_22%_6%/0.62)]" />
-        <div className="absolute inset-0 bg-gradient-to-b from-[hsl(220_22%_6%/0.5)] via-[hsl(220_22%_6%/0.35)] to-[hsl(220_22%_6%/0.8)]" />
+        <div className="absolute inset-0 bg-[hsl(220_22%_6%/0.72)] sm:bg-[hsl(220_22%_6%/0.62)]" />
+        <div className="absolute inset-0 bg-gradient-to-b from-[hsl(220_22%_6%/0.55)] via-[hsl(220_22%_6%/0.4)] to-[hsl(220_22%_6%/0.85)]" />
 
-        <div className="container-wide relative z-10 py-16 sm:py-20 lg:py-24 w-full">
-          <div className="max-w-3xl mx-auto text-center text-white">
-            <p className="eyebrow inline-flex rounded-full border border-white/25 bg-white/10 backdrop-blur-sm px-3 py-1 text-white/80 mb-5 animate-fade-up">
+        <div className="container-wide relative z-10 py-12 sm:py-20 lg:py-24 w-full">
+          <div className="max-w-3xl mx-auto text-center text-white px-1">
+            <p className="eyebrow inline-flex max-w-full text-center rounded-full border border-white/25 bg-white/10 backdrop-blur-sm px-3 py-1 text-white/80 mb-4 sm:mb-5 animate-fade-up">
               One platform built around the way you work
             </p>
 
-            <h1 className="font-display text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-extrabold tracking-tight mb-5 animate-fade-up delay-100 leading-[1.05]">
+            <h1 className="font-display text-[1.75rem] leading-tight sm:text-4xl lg:text-5xl xl:text-6xl font-extrabold tracking-tight mb-4 sm:mb-5 animate-fade-up delay-100 sm:leading-[1.05]">
               Run the work without letting the admin run you.
             </h1>
 
-            <p className="font-sans text-base sm:text-lg text-white/70 max-w-2xl mx-auto mb-8 animate-fade-up delay-200 leading-relaxed">
+            <p className="font-sans text-sm sm:text-lg text-white/70 max-w-2xl mx-auto mb-6 sm:mb-8 animate-fade-up delay-200 leading-relaxed">
               Keep your bookings, jobs, staff and customer updates in one place—so you spend less
               time chasing information and more time running your business.
             </p>
@@ -92,18 +100,18 @@ export function HeroSection() {
               </p>
             </div>
 
-            <div className="mt-10 animate-fade-up delay-400">
-              <p className="text-sm font-semibold text-white/80 mb-4">
+            <div className="mt-8 sm:mt-10 animate-fade-up delay-400">
+              <p className="text-sm font-semibold text-white/80 mb-3 sm:mb-4">
                 Which type of business do you run?
               </p>
-              <div className="flex flex-wrap items-center justify-center gap-3">
+              <div className="grid grid-cols-1 xs:grid-cols-3 gap-2 sm:flex sm:flex-wrap sm:items-center sm:justify-center sm:gap-3 max-w-md xs:max-w-none mx-auto">
                 {businessTypes.map((item) => {
                   const Icon = item.icon;
                   return (
                     <Link
                       key={item.label}
                       to={item.href}
-                      className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 backdrop-blur-sm px-4 py-2 text-sm font-label font-semibold text-white hover:bg-white/20 transition-colors"
+                      className="inline-flex items-center justify-center gap-2 rounded-full border border-white/20 bg-white/10 backdrop-blur-sm px-4 py-2.5 text-sm font-label font-semibold text-white hover:bg-white/20 transition-colors"
                     >
                       <span
                         className={`flex h-6 w-6 items-center justify-center rounded-full ${item.color}`}

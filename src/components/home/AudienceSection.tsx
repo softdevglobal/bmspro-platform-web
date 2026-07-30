@@ -2,8 +2,8 @@ export function AudienceSection() {
   return (
     <section className="section-padding bg-background relative overflow-hidden">
       <div className="container-wide relative">
-        <div className="grid lg:grid-cols-2 gap-10 lg:gap-14 items-center">
-          <div className="relative overflow-hidden rounded-3xl min-h-[320px] sm:min-h-[420px] border border-border/40 shadow-elevated">
+        <div className="grid lg:grid-cols-2 gap-8 sm:gap-10 lg:gap-14 items-center">
+          <div className="relative overflow-hidden rounded-2xl sm:rounded-3xl min-h-[220px] sm:min-h-[360px] lg:min-h-[420px] border border-border/40 shadow-elevated order-2 lg:order-1">
             <img
               src="https://images.unsplash.com/photo-1487754180451-c456f719a1fc?w=900&h=700&fit=crop"
               alt="Busy service business day"
@@ -12,12 +12,12 @@ export function AudienceSection() {
             <div className="absolute inset-0 bg-gradient-to-t from-[hsl(220_22%_6%/0.75)] via-[hsl(220_22%_6%/0.2)] to-transparent" />
           </div>
 
-          <div>
-            <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-6 tracking-tight">
+          <div className="order-1 lg:order-2">
+            <h2 className="font-display text-2xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-4 sm:mb-6 tracking-tight">
               Does running the day feel harder than it should?
             </h2>
 
-            <div className="space-y-3 text-muted-foreground text-base sm:text-lg leading-relaxed mb-6">
+            <div className="space-y-3 text-muted-foreground text-sm sm:text-lg leading-relaxed mb-6">
               <p>A customer calls while you’re already working.</p>
               <p>A quote still needs following up.</p>
               <p>Someone on your team is asking where the next job is.</p>
