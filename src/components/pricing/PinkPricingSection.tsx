@@ -60,7 +60,7 @@ const includedItems = [
 
 export interface PinkPricingSectionProps {
   plans?: PinkPlan[];
-  /** Full = brand hero + plans. Embedded = plans onward (for Product Pink page). */
+  /** Full = brand hero + plans. Embedded = plans onward (for Product Salon page). */
   variant?: "full" | "embedded";
   /** Pull hero under site header — only for first section on a page */
   offsetHeader?: boolean;
@@ -117,7 +117,7 @@ export function PinkPricingSection({
                 </div>
 
                 <h1 className="font-display text-5xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight mb-4 animate-fade-up delay-100 leading-[1.02]">
-                  BMS Pro Pink
+                  BMS Pro Salon
                 </h1>
 
                 <p className="font-sans text-base sm:text-lg text-white/70 max-w-xl mx-auto mb-8 animate-fade-up delay-200 leading-relaxed">
@@ -164,7 +164,7 @@ export function PinkPricingSection({
               Subscription plans
             </span>
             <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mt-4 mb-3 tracking-tight">
-              Pink pricing for Australian salons
+              Salon pricing for Australian salons
             </h2>
             <p className="font-sans text-lg text-muted-foreground mb-2">
               Clear AUD plans — from a single chair to multi-location beauty groups.
@@ -239,7 +239,7 @@ export function PinkPricingSection({
             <div className="container-wide">
               <div className="max-w-2xl mx-auto text-center mb-10 sm:mb-12">
                 <span className="eyebrow inline-flex rounded-full border border-border bg-secondary/60 px-3 py-1 text-muted-foreground">
-                  Across Pink
+                  Across Salon
                 </span>
                 <h2 className="font-display text-3xl sm:text-4xl font-bold text-foreground mt-4 mb-3 tracking-tight">
                   Built for salon outcomes
@@ -294,7 +294,7 @@ export function PinkPricingSection({
                 className="h-12 w-12 rounded-2xl mb-6 ring-1 ring-white/20 mx-auto animate-fade-up"
               />
               <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 tracking-tight animate-fade-up delay-100">
-                SoftDev Global · BMS Pro Pink
+                SoftDev Global · BMS Pro Salon
               </h2>
               <p className="font-sans text-lg text-white/70 max-w-xl mx-auto mb-8 animate-fade-up delay-200">
                 Salon management for Australian beauty businesses — book a demo or talk to sales.

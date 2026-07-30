@@ -6,6 +6,9 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { BlackPricingSection } from "@/components/pricing/BlackPricingSection";
+import { ScrollPage, ScrollReveal } from "@/components/motion/ScrollReveal";
+import { AnimateBars, AnimateCount, AnimateProgress, AnimateVisual, MarqueeStrip, PhoneMockup } from "@/components/motion/AnimateVisual";
+import { BookingFlowPhone } from "@/components/motion/BookingFlowPhone";
 import { submitContactForm } from "@/lib/contactForm";
 import { useToast } from "@/hooks/use-toast";
 import { useState, type ReactNode } from "react";
@@ -26,103 +29,107 @@ import {
   Phone,
   Plus,
   Star,
-  TrendingUp,
   Wrench,
 } from "lucide-react";
 
 const TRUST_LOGOS = [
-  "Mechanic shops",
-  "Auto workshops",
-  "Garages",
-  "Service centres",
-  "Multi-bay yards",
-  "Dealership service",
+  "Mechanical workshops",
+  "Roadworthy testing",
+  "Tyre and brake centres",
+  "Auto electricians",
+  "Vehicle service centres",
+  "Specialist repair workshops",
 ];
 
 const FORM_STEPS = [
   {
-    title: "Visual selective cards",
-    body: "Customers tap services, vehicle type, and branch instead of typing. Fast, easy, and feels effortless.",
+    title: "The customer requests a booking",
+    body: "They choose the service and suggest a day or time, and can provide name, contact details, registration, make and model, service request, preferred drop-off time and notes.",
   },
   {
-    title: "Instant book through calendar",
-    body: "Live availability from your working hours — they pick a slot that fits the bay.",
+    title: "You review the request",
+    body: "Accept the requested time, choose another available time, suggest a different day or decline when necessary. The customer does not control your workshop calendar.",
   },
   {
-    title: "Offer recommended upsells",
-    body: "Suggest add-ons and next services while they’re already booking.",
+    title: "The booking enters the schedule",
+    body: "Once accepted, the booking appears in the workshop calendar with the customer, vehicle, requested service, booking time, drop-off information and notes.",
   },
   {
-    title: "Ask the right questions",
-    body: "Capture notes, vehicle details, and photos before the car arrives.",
+    title: "The customer receives confirmation",
+    body: "The customer receives a booking confirmation without you writing the same message again.",
   },
   {
-    title: "Confirm by SMS",
-    body: "Instant confirmation and reminders so no-shows drop without chasing calls.",
+    title: "The workshop completes the work",
+    body: "Update the booking or service status as the vehicle moves through the workshop.",
+  },
+  {
+    title: "The customer is told what happens next",
+    body: "Send an update when the booking is confirmed, additional work needs approval, the vehicle is ready for collection or the service has been completed.",
   },
 ];
 
 const FAQS = [
   {
-    category: "Book Now",
+    category: "Bookings",
     items: [
       {
-        q: "Why Book Now instead of a website contact form?",
-        a: "Contact forms dump leads into email. Book Now captures the service, vehicle type, branch, and slot — then confirms by SMS so the job is already on the board.",
+        q: "Does a customer booking automatically enter my calendar?",
+        a: "The customer submits a booking request. You decide whether to accept it, offer another time or decline it.",
       },
       {
-        q: "What if I don’t have a website?",
-        a: "You get a public booking link for your workshop. Share it on Google, Facebook, or SMS — no website rebuild required.",
+        q: "Can customers book when the workshop is closed?",
+        a: "Yes. Customers can submit a request through your booking link at any time. You can review it when the workshop is available.",
       },
       {
-        q: "Can I customise what customers can book?",
-        a: "Yes. You control services, prices by vehicle type, branches, hours, and who can take the job.",
+        q: "Can I control which services customers request?",
+        a: "Yes. The workshop can configure the services displayed in the booking process.",
       },
     ],
   },
   {
-    category: "Front desk & calls",
+    category: "Customers",
     items: [
       {
-        q: "Do I need a receptionist?",
-        a: "Online-only plans run without one. Front Desk plans add a human receptionist who filters routine calls and books jobs while mechanics stay under the hood.",
-      },
-      {
-        q: "What happens after hours?",
-        a: "Customers can still book online 24/7. With Front Desk coverage, overflow and after-hours calls get answered instead of going to voicemail.",
+        q: "Will customers need to download an app?",
+        a: "No. Customers can use the booking links and messages sent to them without installing the workshop system.",
       },
     ],
   },
   {
-    category: "Workshop software",
+    category: "Getting started",
     items: [
       {
-        q: "Does Black include SMS?",
-        a: "Plans can include SMS credits. You can also top up. Confirmations, reminders, and custom messages go out from the workshop.",
-      },
-      {
-        q: "Can staff use it on the floor?",
-        a: "Yes. Staff check in, handle leave, and accept or decline jobs on the mobile app while owners run the office dashboard.",
+        q: "Do I need to rebuild the workshop overnight?",
+        a: "No. Start with workshop details, services, opening hours, booking availability, staff, customer messages and booking link. Introduce other functions once the essential workflow is working.",
       },
     ],
   },
 ];
 
-const TESTIMONIALS = [
+const WORKFLOW_SCREENS = [
   {
-    quote:
-      "Mechanics under the hood, not on the phone. Black plus a real receptionist filtered the chaos out of our workshop.",
-    name: "Workshop owner",
-    role: "Multi-bay garage · VIC",
-    image: "/products/black/mechanic-portrait.jpg",
-    stat: null as string | null,
+    title: "Select a service",
+    items: ["Logbook service", "Brake inspection", "Wheel alignment"],
   },
   {
-    quote: null,
-    name: "Service manager",
-    role: "Independent workshop · NSW",
-    image: "/products/black/workshop-bay.jpg",
-    stat: "Fewer missed bookings in the first month on Black",
+    title: "Suggested times",
+    items: ["Thu 8:00 AM", "Thu 10:30 AM", "Fri 9:00 AM"],
+  },
+  {
+    title: "Booking details",
+    items: ["ABC-123 · Toyota Camry", "Drop-off 7:45 AM", "Notes added"],
+  },
+  {
+    title: "Confirmed",
+    items: ["SMS sent", "On the calendar", "Bay reserved"],
+  },
+  {
+    title: "In workshop",
+    items: ["Checked in", "Under inspection", "Parts ordered"],
+  },
+  {
+    title: "Ready for pickup",
+    items: ["Service complete", "Customer notified", "Review request"],
   },
 ];
 
@@ -170,7 +177,7 @@ const ProductBlack = () => {
     try {
       await submitContactForm(
         { ...formData, product: "black" },
-        "BMS Pro Black demo request"
+        "BMS Pro Workshop demo request"
       );
       toast({
         title: "Demo request sent!",
@@ -198,25 +205,26 @@ const ProductBlack = () => {
   return (
     <Layout>
       <SEO
-        title="BMS Pro Black | Workshop Booking & Operations"
-        description="Let customers book from anywhere. Online booking, SMS reminders, staff, and optional human front desk for mechanic shops."
+        title="BMS Pro Workshop | Booking & Operations for Automotive Workshops"
+        description="Keep the workshop moving without running everything from memory. Manage bookings, customer details, vehicle information, staff schedules and service updates from one place."
         path="/products/black"
         jsonLd={{
           "@context": "https://schema.org",
           "@type": "Product",
-          name: "BMS Pro Black",
+          name: "BMS Pro Workshop",
           description:
-            "Workshop software for mechanic shops — Book Now, SMS, staff, and optional front desk.",
+            "Manage bookings, customer details, vehicle information, workshop schedules and service updates from one place.",
           brand: { "@type": "Brand", name: "BMS Pro" },
           url: "https://bmspros.com.au/products/black",
         }}
       />
 
+      <ScrollPage>
       {/* Hero — Avenue-style growth visual */}
-      <section className="relative overflow-hidden bg-white pt-8 pb-16 sm:pt-12 sm:pb-24">
+      <section className="relative bg-white pt-8 pb-16 sm:pt-12 sm:pb-24">
         <div className="container-wide">
-          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-            <div>
+          <div className="grid lg:grid-cols-[minmax(0,1fr)_minmax(0,1.25fr)] gap-10 lg:gap-14 items-center">
+            <ScrollReveal from="left" distance={64} className="relative z-10 min-w-0">
               <div className="inline-flex items-center gap-2 mb-5">
                 <img
                   src="/products/black/icon.png"
@@ -224,122 +232,74 @@ const ProductBlack = () => {
                   className="h-8 w-8 rounded-lg ring-1 ring-black/10"
                 />
                 <span className="text-xs font-bold uppercase tracking-[0.14em] text-product-black">
-                  BMS Pro Black
+                  BMS Pro Workshop
                 </span>
               </div>
               <h1 className="text-4xl sm:text-5xl lg:text-[3.25rem] font-bold tracking-tight text-[hsl(220_22%_10%)] leading-[1.08] mb-4">
-                Let your customers book from anywhere, anytime.
+                Keep the workshop moving without running everything from memory.
               </h1>
               <p className="text-lg text-muted-foreground mb-8 max-w-md">
-                Your workshop bookings before &amp; after using Black — fewer missed calls, fuller
-                bays, mechanics under the hood.
+                Manage bookings, customer details, vehicle information, staff schedules and service
+                updates from one place. Your team can see what is booked, and your customers know what
+                is happening without calling every hour.
               </p>
-              <Button
-                size="xl"
-                variant="black"
-                className="rounded-full h-12 px-7"
-                asChild
-              >
-                <a href="#demo">
-                  Try BMS Pro Black
-                  <ArrowRight className="h-4 w-4" />
-                </a>
-              </Button>
+              <div className="flex flex-row flex-nowrap items-center gap-3">
+                <Button
+                  size="lg"
+                  variant="black"
+                  className="rounded-full h-11 px-5 sm:px-6 shrink-0"
+                  asChild
+                >
+                  <a href="#demo">
+                    Start Free Trial
+                    <ArrowRight className="h-4 w-4" />
+                  </a>
+                </Button>
+                <Button
+                  size="lg"
+                  variant="outline"
+                  className="rounded-full h-11 px-5 sm:px-6 shrink-0"
+                  asChild
+                >
+                  <a href="#workflow">See BMS Pro Workshop in Action</a>
+                </Button>
+              </div>
               <div className="mt-6 flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
                 <span className="inline-flex items-center gap-1.5">
                   <Check className="h-4 w-4 text-emerald-600" />
-                  No lock-in contract
-                </span>
-                <span className="inline-flex items-center gap-1.5 rounded-full border border-border px-3 py-1 text-xs font-medium">
-                  Book Now · Google-ready link
+                  Built in Melbourne for Australian automotive workshops
                 </span>
               </div>
-            </div>
+            </ScrollReveal>
 
-            <div className="relative">
-              <div className="relative overflow-hidden rounded-[2rem] shadow-[0_30px_60px_-25px_hsl(220_30%_15%/0.45)] ring-1 ring-black/5">
-                <img
-                  src="/products/black/mechanic-focus.jpg"
-                  alt="Mechanic working under the bonnet in a workshop"
-                  className="h-full w-full object-cover aspect-[4/3]"
-                  loading="eager"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-[hsl(220_30%_8%)]/70 via-transparent to-transparent" />
-                <div className="absolute bottom-5 left-5 right-5 flex items-end justify-between gap-3 text-white">
-                  <div>
-                    <p className="text-xs uppercase tracking-[0.16em] text-white/70">
-                      Bays working
-                    </p>
-                    <p className="text-2xl font-bold leading-tight">Mechanics under the hood</p>
-                  </div>
-                  <span className="hidden sm:inline-flex shrink-0 items-center gap-1.5 rounded-full bg-white/15 backdrop-blur px-3 py-1.5 text-xs font-medium">
-                    <Wrench className="h-3.5 w-3.5" />
-                    Not on the phone
-                  </span>
-                </div>
+            <ScrollReveal from="right" distance={80} delay={0.12} className="relative z-0 min-w-0 w-full">
+              <div className="relative overflow-hidden rounded-[2rem] shadow-[0_30px_60px_-25px_hsl(220_30%_15%/0.45)] ring-1 ring-black/5 bg-[hsl(220_30%_8%)] w-full">
+                <video
+                  className="h-full w-full object-cover aspect-[16/10] sm:aspect-[16/9]"
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  preload="metadata"
+                  poster="/products/black/mechanic-focus.jpg"
+                  aria-label="BMS Pro Workshop product demo"
+                >
+                  <source src="/products/black/black.mp4" type="video/mp4" />
+                </video>
               </div>
-
-              {/* Floating bookings chart */}
-              <div className="absolute -bottom-8 -left-2 sm:-left-8 w-[230px] rounded-2xl bg-white border border-border shadow-xl p-4">
-                <div className="flex items-center justify-between mb-3">
-                  <p className="text-xs font-semibold text-foreground">Bookings</p>
-                  <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-emerald-600">
-                    <TrendingUp className="h-3 w-3" />
-                    +38%
-                  </span>
-                </div>
-                <div className="flex items-end gap-1.5 h-20">
-                  {[22, 28, 34, 38, 56, 64, 72, 80].map((h, i) => (
-                    <div
-                      key={i}
-                      className={cn(
-                        "flex-1 rounded-full",
-                        i < 4
-                          ? "bg-[hsl(220_20%_88%)]"
-                          : "bg-gradient-to-t from-product-black to-[hsl(220_14%_38%)]"
-                      )}
-                      style={{ height: `${h}px` }}
-                    />
-                  ))}
-                </div>
-                <p className="mt-3 text-[11px] leading-snug text-muted-foreground">
-                  First month with <span className="font-semibold text-foreground">BMS Pro Black</span>
-                </p>
-              </div>
-
-              {/* Floating booking confirmation */}
-              <div className="absolute -top-4 -right-2 sm:-right-6 w-[210px] rounded-2xl bg-white border border-border shadow-xl p-3.5">
-                <div className="flex items-start gap-2.5">
-                  <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-emerald-500 text-white">
-                    <Check className="h-4 w-4" />
-                  </span>
-                  <div>
-                    <p className="text-xs font-semibold text-foreground">Booking confirmed</p>
-                    <p className="text-[11px] text-muted-foreground leading-snug">
-                      Logbook service · Thu 8:00 AM
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
+            </ScrollReveal>
           </div>
         </div>
       </section>
 
-      {/* Trust strip */}
+      {/* Trust strip — Avenue-style marquee */}
       <section className="border-y border-border/60 bg-[hsl(220_14%_97%)] py-8 overflow-hidden">
-        <div className="container-wide">
-          <div className="flex flex-wrap items-center justify-center gap-x-10 gap-y-3">
-            {TRUST_LOGOS.map((label) => (
-              <span
-                key={label}
-                className="text-sm font-semibold uppercase tracking-wider text-muted-foreground/50"
-              >
-                {label}
-              </span>
-            ))}
-          </div>
+        <div className="container-wide mb-3 text-center">
+          <p className="text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground/60">
+            Built for the way a real workshop works
+          </p>
         </div>
+        <MarqueeStrip items={TRUST_LOGOS} fadeFromClassName="from-[hsl(220_14%_97%)]" />
       </section>
 
       {/* Front desk / never miss a call */}
@@ -347,16 +307,18 @@ const ProductBlack = () => {
         <div className="container-wide">
           <div className="rounded-[2rem] bg-product-black text-white overflow-hidden">
             <div className="grid lg:grid-cols-2 gap-8 p-8 sm:p-12 lg:p-14">
-              <div className="flex flex-col justify-center">
+              <ScrollReveal from="left" distance={56} className="flex flex-col justify-center">
                 <div className="mb-5 flex h-11 w-11 items-center justify-center rounded-xl bg-white/10">
                   <Phone className="h-5 w-5" />
                 </div>
                 <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4 leading-tight">
-                  Never miss a call again — meet your workshop front desk.
+                  You shouldn&apos;t need five different places to manage one booking.
                 </h2>
                 <p className="text-white/70 text-lg leading-relaxed mb-8 max-w-md">
-                  Human receptionists filter routine calls and book jobs into Black. Technicians only
-                  take the complex ones — so the floor keeps moving.
+                  A customer calls while you&apos;re under a vehicle. Someone sends a booking request
+                  through Facebook. Another customer texts asking whether their car is ready. The
+                  vehicle details are written in one place, the booking is in another and the
+                  customer&apos;s message is somewhere further up your phone.
                 </p>
                 <Button
                   size="lg"
@@ -364,15 +326,17 @@ const ProductBlack = () => {
                   asChild
                 >
                   <a href="#demo">
-                    Book a strategy call
+                    Book a Live Demonstration
                     <ArrowRight className="h-4 w-4" />
                   </a>
                 </Button>
-              </div>
+              </ScrollReveal>
 
-              <div className="rounded-3xl border border-white/15 bg-white/10 backdrop-blur-md p-6 sm:p-7 flex flex-col gap-6">
+              <ScrollReveal from="right" distance={72} delay={0.1}>
+                <div className="rounded-3xl border border-white/15 bg-white/10 backdrop-blur-md p-6 sm:p-7 flex flex-col gap-6">
                 <p className="text-lg font-semibold leading-snug">
-                  Keep mechanics under the hood, not on the phone.
+                  That might work when the workshop is quiet. But once the day gets busy, things get
+                  missed.
                 </p>
                 <div className="relative overflow-hidden rounded-2xl">
                   <img
@@ -383,14 +347,15 @@ const ProductBlack = () => {
                   />
                   <span className="absolute bottom-3 left-3 inline-flex items-center gap-1.5 rounded-full bg-product-black/85 backdrop-blur px-3 py-1.5 text-xs font-medium text-white">
                     <Headphones className="h-3.5 w-3.5" />
-                    Live reception
+                    One connected system
                   </span>
                 </div>
                 <p className="text-sm text-white/65 leading-relaxed">
-                  Reception books routine work into the system. Technical calls get through. Less
-                  downtime on the floor.
+                  BMS Pro Workshop puts the booking, customer, vehicle and schedule together so you
+                  can see what needs to happen next.
                 </p>
-              </div>
+                </div>
+              </ScrollReveal>
             </div>
           </div>
         </div>
@@ -399,55 +364,34 @@ const ProductBlack = () => {
       {/* Book from Google / Book Now */}
       <section className="section-padding bg-[hsl(220_14%_98%)]">
         <div className="container-wide grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-          <div>
+          <ScrollReveal from="left" distance={56}>
             <p className="text-sm font-semibold text-product-black mb-3 inline-flex items-center gap-2">
               <Globe className="h-4 w-4" />
-              Book Now
+              Online booking
             </p>
             <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-foreground mb-4">
-              Bookings straight from your public link
+              Let customers request a booking even when you can&apos;t answer the phone.
             </h2>
             <p className="text-muted-foreground text-lg leading-relaxed mb-6">
-              Share your workshop Book Now page on Google, social, or SMS. Customers pick a service,
-              vehicle type, and slot — then get a
+              Give them a booking link they can use through your website, Google Business Profile,
+              social media, text messages or email. They request a suitable time. You decide whether
+              it works — a booking request is not automatically accepted.
               <Pill>
                 <Calendar className="h-3 w-3" />
-                Book Online
+                You stay in control
               </Pill>
-              confirmation without you answering the phone.
             </p>
             <Button variant="black" className="rounded-full" asChild>
               <a href="https://black.bmspros.com.au/book-now" target="_blank" rel="noreferrer">
-                See Book Now
+                See the Customer Booking Experience
                 <ArrowRight className="h-4 w-4" />
               </a>
             </Button>
-          </div>
+          </ScrollReveal>
 
-          <div className="relative mx-auto w-full max-w-[280px]">
-            <div className="rounded-[2rem] border-[10px] border-[hsl(220_22%_12%)] bg-white shadow-2xl overflow-hidden aspect-[9/16]">
-              <div className="flex items-center justify-between px-4 pt-3 pb-2">
-                <span className="text-product-black text-lg">←</span>
-                <div className="h-1.5 flex-1 mx-4 rounded-full bg-secondary overflow-hidden">
-                  <div className="h-full w-1/4 rounded-full bg-product-black" />
-                </div>
-                <span className="text-red-500 font-bold">×</span>
-              </div>
-              <div className="px-5 pt-8 text-center">
-                <p className="text-xl font-bold text-foreground">Select service type</p>
-                <div className="mt-8 space-y-3 text-left">
-                  {["Logbook service", "Brake inspection", "Wheel alignment"].map((s) => (
-                    <div
-                      key={s}
-                      className="rounded-2xl border border-border bg-secondary/40 px-4 py-3 text-sm font-medium"
-                    >
-                      {s}
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
+          <ScrollReveal from="right" distance={72} delay={0.1} className="relative mx-auto w-full max-w-[280px] overflow-visible">
+            <BookingFlowPhone variant="workshop" />
+          </ScrollReveal>
         </div>
       </section>
 
@@ -474,11 +418,9 @@ const ProductBlack = () => {
                 title: "Thanks for choosing us",
                 body: "Service complete. Leave a quick Google review when you have a moment.",
               },
-            ].map((card) => (
-              <div
-                key={card.title}
-                className="flex gap-3 rounded-2xl border border-border bg-[hsl(220_14%_97%)] p-4 shadow-sm"
-              >
+            ].map((card, i) => (
+              <ScrollReveal key={card.title} from="left" distance={48} delay={i * 0.08}>
+                <div className="flex gap-3 rounded-2xl border border-border bg-[hsl(220_14%_97%)] p-4 shadow-sm">
                 <div
                   className={cn(
                     "flex h-10 w-10 shrink-0 items-center justify-center rounded-xl text-white",
@@ -491,43 +433,48 @@ const ProductBlack = () => {
                   <p className="text-sm font-semibold text-foreground">{card.title}</p>
                   <p className="text-xs text-muted-foreground mt-0.5 leading-relaxed">{card.body}</p>
                 </div>
-              </div>
+                </div>
+              </ScrollReveal>
             ))}
-            <div className="pt-4">
-              <img
-                src="/products/black/sms-phone.jpg"
-                alt="Customer checking a booking reminder on their phone"
-                className="w-full rounded-2xl object-cover shadow-lg"
-                loading="lazy"
-              />
-            </div>
+            <ScrollReveal from="bottom" distance={56} delay={0.2}>
+              <div className="pt-4">
+                <img
+                  src="/products/black/sms-phone.jpg"
+                  alt="Customer checking a booking reminder on their phone"
+                  className="w-full rounded-2xl object-cover shadow-lg"
+                  loading="lazy"
+                />
+              </div>
+            </ScrollReveal>
           </div>
 
-          <div className="order-1 lg:order-2">
+          <ScrollReveal from="right" distance={64} className="order-1 lg:order-2">
             <p className="text-sm font-semibold text-product-black mb-3 inline-flex items-center gap-2">
               <Bell className="h-4 w-4" />
-              Booking reminders
+              Customer updates
             </p>
             <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-5">
-              Automated confirmations and reminders
+              Keep customers informed before they feel the need to call.
             </h2>
             <p className="text-muted-foreground text-lg leading-relaxed mb-4">
-              Customers receive instant confirmation
+              Most customers are not trying to interrupt the workshop. They usually just want to know
+              what is happening with their vehicle. Send useful updates
               <Pill>
                 <MessageSquare className="h-3 w-3" />
-                via SMS and email
+                at the right stage
               </Pill>
-              when they book. Automated reminders go out before the appointment, reducing no-shows.
+              — booking confirmation, appointment reminder, additional-work approval, vehicle-ready
+              message, service completion and review request.
             </p>
             <p className="text-muted-foreground text-lg leading-relaxed">
               You can also
               <Pill>
                 <Wrench className="h-3 w-3" />
-                schedule service reminders
+                keep customer and vehicle details together
               </Pill>
-              to bring customers back when it’s time for their next service.
+              so you are not searching through old messages when they contact you again.
             </p>
-          </div>
+          </ScrollReveal>
         </div>
       </section>
 
@@ -537,40 +484,46 @@ const ProductBlack = () => {
           <div>
             <p className="text-sm font-semibold text-product-black mb-3 inline-flex items-center gap-2">
               <LayoutDashboard className="h-4 w-4" />
-              Workshop dashboard
+              Workshop calendar
             </p>
             <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4">
-              Know how your workshop is performing at a glance
+              See what is coming into the workshop before the day gets away from you.
             </h2>
             <p className="text-muted-foreground text-lg leading-relaxed">
-              Track bookings, staff, SMS, and revenue — with confirmations and reminders doing the
-              heavy lifting in the background.
+              View today&apos;s bookings, upcoming bookings, customer arrival times, vehicle details,
+              requested services, assigned staff and booking status — instead of checking a paper
+              diary, text messages and someone else&apos;s calendar.
             </p>
           </div>
 
           <div className="grid sm:grid-cols-2 gap-4">
-            <div className="rounded-3xl bg-product-black text-white p-6 sm:row-span-1">
-              <p className="text-5xl font-bold tracking-tight mb-2">242</p>
+            <ScrollReveal from="bottom" distance={48} delay={0}>
+              <div className="rounded-3xl bg-product-black text-white p-6 sm:row-span-1">
+              <p className="text-5xl font-bold tracking-tight mb-2">
+                <AnimateCount value={242} />
+              </p>
               <p className="text-sm text-white/75 leading-relaxed">
                 Customers submitted bookings through Book Now this month.
               </p>
-            </div>
-            <div className="rounded-3xl bg-white border border-border p-6 shadow-sm">
+              </div>
+            </ScrollReveal>
+            <ScrollReveal from="bottom" distance={48} delay={0.08}>
+              <div className="rounded-3xl bg-white border border-border p-6 shadow-sm">
               <p className="font-semibold mb-1">Submission activity</p>
               <p className="text-sm text-muted-foreground mb-4">
                 Half of bookings come from your public link.
               </p>
-              <div className="h-16 flex items-end gap-1">
-                {[40, 55, 48, 70, 85].map((h, i) => (
-                  <div
-                    key={i}
-                    className="flex-1 rounded-t-md bg-product-black/20"
-                    style={{ height: `${h}%` }}
-                  />
-                ))}
+              <AnimateBars
+                className="h-16"
+                values={[40, 55, 48, 70, 85]}
+                asPercent
+                barClassName="rounded-t-md bg-product-black/20"
+                delay={0.15}
+              />
               </div>
-            </div>
-            <div className="rounded-3xl bg-white border border-border p-6 shadow-sm overflow-hidden">
+            </ScrollReveal>
+            <ScrollReveal from="bottom" distance={48} delay={0.16}>
+              <div className="rounded-3xl bg-white border border-border p-6 shadow-sm overflow-hidden">
               <p className="font-semibold mb-1">Popular service</p>
               <p className="text-sm text-muted-foreground mb-3">
                 Most booked this month: <span className="font-medium text-foreground">Logbook service</span>
@@ -580,27 +533,22 @@ const ProductBlack = () => {
                 alt=""
                 className="rounded-xl h-24 w-full object-cover"
               />
-            </div>
-            <div className="rounded-3xl bg-white border border-border p-6 shadow-sm">
-              <p className="font-semibold mb-3">Upsells &amp; add-ons</p>
-              <div className="space-y-2">
-                {[
-                  { label: "Brake pads", w: "80%" },
-                  { label: "Cabin filter", w: "55%" },
-                  { label: "Wheel align", w: "40%" },
-                ].map((row) => (
-                  <div key={row.label} className="flex items-center gap-2 text-xs">
-                    <span className="w-20 text-muted-foreground shrink-0">{row.label}</span>
-                    <div className="flex-1 h-2 rounded-full bg-secondary overflow-hidden">
-                      <div
-                        className="h-full rounded-full bg-product-black"
-                        style={{ width: row.w }}
-                      />
-                    </div>
-                  </div>
-                ))}
               </div>
-            </div>
+            </ScrollReveal>
+            <ScrollReveal from="bottom" distance={48} delay={0.24}>
+              <div className="rounded-3xl bg-white border border-border p-6 shadow-sm">
+              <p className="font-semibold mb-3">Upsells &amp; add-ons</p>
+              <AnimateProgress
+                barClassName="bg-product-black"
+                delay={0.2}
+                rows={[
+                  { label: "Brake pads", width: "80%" },
+                  { label: "Cabin filter", width: "55%" },
+                  { label: "Wheel align", width: "40%" },
+                ]}
+              />
+              </div>
+            </ScrollReveal>
           </div>
         </div>
       </section>
@@ -608,7 +556,8 @@ const ProductBlack = () => {
       {/* Reviews */}
       <section className="section-padding bg-white">
         <div className="container-wide grid lg:grid-cols-2 gap-12 items-center">
-          <div className="rounded-3xl bg-[hsl(220_14%_94%)] overflow-hidden max-w-md mx-auto lg:mx-0">
+          <AnimateVisual from="left" distance={64}>
+            <div className="rounded-3xl bg-[hsl(220_14%_94%)] overflow-hidden max-w-md mx-auto lg:mx-0">
             <div className="p-5">
               <div className="rounded-2xl bg-[hsl(220_18%_22%)] text-white px-4 py-3 text-sm leading-relaxed">
                 Hi Michael, thanks for trusting us with your vehicle. Please leave a quick Google
@@ -626,7 +575,8 @@ const ProductBlack = () => {
                 <p className="text-sm text-white/80 mt-1">Thanks for choosing your workshop.</p>
               </div>
             </div>
-          </div>
+            </div>
+          </AnimateVisual>
 
           <div>
             <p className="text-sm font-semibold text-product-black mb-3 inline-flex items-center gap-2">
@@ -634,15 +584,15 @@ const ProductBlack = () => {
               Get more Google reviews
             </p>
             <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-5">
-              Turn satisfied customers into Google reviews
+              Turn completed services into reviews and return visits
             </h2>
             <p className="text-muted-foreground text-lg leading-relaxed">
-              Google reviews drive local search. Black can
+              After service completion, send a
               <Pill>
                 <MessageSquare className="h-3 w-3" />
-                request reviews
+                review request
               </Pill>
-              after every service, so you’re constantly building reputation. The more
+              so customers can leave feedback when it is still fresh. The more
               <Pill>
                 <Star className="h-3 w-3 fill-amber-400 text-amber-400" />
                 5-star reviews
@@ -653,12 +603,15 @@ const ProductBlack = () => {
         </div>
       </section>
 
-      {/* Visual forms accordion */}
-      <section className="section-padding bg-[hsl(220_14%_97%)]">
+      {/* Workflow accordion */}
+      <section id="workflow" className="scroll-mt-20 section-padding bg-[hsl(220_14%_97%)]">
         <div className="container-wide">
-          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-center mb-12 max-w-2xl mx-auto">
-            Visual forms that make bookings feel instant
+          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-center mb-3 max-w-2xl mx-auto">
+            From booking request to vehicle pickup
           </h2>
+          <p className="text-muted-foreground text-center mb-12 max-w-xl mx-auto">
+            Here is what a normal customer journey can look like inside BMS Pro Workshop.
+          </p>
           <div className="grid lg:grid-cols-2 gap-10 items-start">
             <div className="space-y-3">
               {FORM_STEPS.map((step, i) => {
@@ -671,16 +624,15 @@ const ProductBlack = () => {
                     className="w-full text-left rounded-2xl bg-white border border-border p-5 shadow-sm"
                   >
                     <div className="flex items-center justify-between gap-3">
-                      <span className="font-semibold text-foreground">{step.title}</span>
+                      <span className="font-semibold text-foreground">
+                        {i + 1}. {step.title}
+                      </span>
                       <span className="flex h-7 w-7 items-center justify-center rounded-full bg-product-black text-white shrink-0">
                         {open ? <Minus className="h-3.5 w-3.5" /> : <Plus className="h-3.5 w-3.5" />}
                       </span>
                     </div>
                     {open && (
                       <div className="mt-3 pr-8">
-                        <p className="text-sm font-medium text-foreground mb-1">
-                          Let customers tap their choice instead of typing.
-                        </p>
                         <p className="text-sm text-muted-foreground leading-relaxed">{step.body}</p>
                       </div>
                     )}
@@ -689,18 +641,30 @@ const ProductBlack = () => {
               })}
             </div>
 
-            <div className="relative mx-auto w-full max-w-[260px]">
-              <div className="rounded-[2rem] border-[10px] border-[hsl(220_22%_12%)] bg-white shadow-xl overflow-hidden aspect-[9/16]">
-                <div className="flex items-center justify-between px-4 pt-3">
-                  <span className="text-product-black">←</span>
-                  <div className="h-1.5 flex-1 mx-3 rounded-full bg-secondary">
-                    <div className="h-full w-[30%] rounded-full bg-product-black" />
+            <AnimateVisual from="right" distance={72} delay={0.1} className="relative mx-auto w-full max-w-[260px]">
+              <PhoneMockup
+                accentClassName="bg-product-black"
+                bezelClassName="border-[hsl(220_22%_12%)]"
+                progress={(Math.max(openFormStep, 0) + 1) / FORM_STEPS.length}
+                screenKey={openFormStep}
+              >
+                <div className="text-center">
+                  <p className="text-xl font-bold text-foreground mb-6">
+                    {WORKFLOW_SCREENS[Math.max(0, openFormStep)]?.title ?? "Select a service"}
+                  </p>
+                  <div className="space-y-3 text-left">
+                    {(WORKFLOW_SCREENS[Math.max(0, openFormStep)]?.items ?? []).map((item) => (
+                      <div
+                        key={item}
+                        className="rounded-2xl border border-border bg-secondary/40 px-4 py-3 text-sm font-medium"
+                      >
+                        {item}
+                      </div>
+                    ))}
                   </div>
-                  <span className="text-red-500 font-bold">×</span>
                 </div>
-                <p className="text-center text-xl font-bold mt-10 px-4">Select a service</p>
-              </div>
-            </div>
+              </PhoneMockup>
+            </AnimateVisual>
           </div>
         </div>
       </section>
@@ -716,7 +680,7 @@ const ProductBlack = () => {
           }}
         />
         <div className="container-wide relative text-center max-w-2xl mx-auto">
-          <div className="flex items-center justify-center gap-3 mb-6">
+          <AnimateVisual from="scale" distance={40} className="flex items-center justify-center gap-3 mb-6">
             <div className="h-12 w-12 rounded-xl bg-white/10 flex items-center justify-center">
               <img src="/products/black/icon.png" alt="" className="h-7 w-7 rounded-md" />
             </div>
@@ -724,77 +688,88 @@ const ProductBlack = () => {
             <div className="h-12 w-12 rounded-xl bg-white flex items-center justify-center">
               <Globe className="h-6 w-6 text-product-black" />
             </div>
-          </div>
+          </AnimateVisual>
           <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-3">
-            One enquiry, updates everywhere
+            Take a proper look inside BMS Pro Workshop
           </h2>
           <p className="text-white/70 text-lg mb-8">
-            Bookings, SMS, staff, and the board stay in sync — no double entry between the phone and
-            the hoist.
+            View the real dashboard, booking request, workshop calendar, customer record, vehicle
+            record, staff schedule and customer-update screens.
           </p>
           <Button
             size="lg"
             className="rounded-full bg-white text-product-black hover:bg-white/90"
             asChild
           >
-            <a href="#demo">Try BMS Pro Black</a>
+            <a href="#demo">See BMS Pro Workshop in Action</a>
           </Button>
         </div>
       </section>
 
-      {/* Testimonials */}
+      {/* Workflow highlight instead of placeholder testimonials */}
       <section className="section-padding bg-white">
         <div className="container-wide">
           <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-10">
             <div className="max-w-xl">
               <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-3">
-                Don&apos;t take our word for it. Hear it from workshops on Black.
+                Start with the basics. You don&apos;t need to rebuild the workshop overnight.
               </h2>
               <p className="text-muted-foreground text-lg">
-                More bookings. Clearer boards. Real results.
+                Begin with your workshop details, services, opening hours, booking availability,
+                staff, customer messages and booking link. Once the essential workflow is working,
+                introduce other functions where they make sense.
               </p>
             </div>
             <Button variant="black" className="rounded-full w-fit" asChild>
               <a href="#demo">
-                Try BMS Pro Black
+                Start Free Trial
                 <ArrowRight className="h-4 w-4" />
               </a>
             </Button>
           </div>
 
           <div className="grid md:grid-cols-5 gap-4">
-            <article className="md:col-span-2 relative min-h-[360px] rounded-3xl overflow-hidden">
+            <ScrollReveal from="left" distance={64} className="md:col-span-2">
+              <article className="relative min-h-[360px] rounded-3xl overflow-hidden h-full">
               <img
-                src={TESTIMONIALS[0].image}
+                src="/products/black/mechanic-portrait.jpg"
                 alt=""
                 className="absolute inset-0 h-full w-full object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/40 to-transparent" />
               <div className="relative h-full flex flex-col justify-end p-6 text-white">
-                <p className="text-lg font-medium leading-snug mb-6">&ldquo;{TESTIMONIALS[0].quote}&rdquo;</p>
+                <p className="text-lg font-medium leading-snug mb-6">
+                  Give your team a clearer view of the day — they can see the relevant booking and
+                  service information before starting.
+                </p>
                 <div>
-                  <p className="font-semibold">{TESTIMONIALS[0].name}</p>
-                  <p className="text-sm text-white/65">{TESTIMONIALS[0].role}</p>
+                  <p className="font-semibold">Team schedules</p>
+                  <p className="text-sm text-white/65">Based on the permissions you give them</p>
                 </div>
               </div>
-            </article>
-            <article className="md:col-span-3 relative min-h-[360px] rounded-3xl overflow-hidden">
+              </article>
+            </ScrollReveal>
+            <ScrollReveal from="right" distance={64} delay={0.12} className="md:col-span-3">
+              <article className="relative min-h-[360px] rounded-3xl overflow-hidden h-full">
               <img
-                src={TESTIMONIALS[1].image}
+                src="/products/black/workshop-bay.jpg"
                 alt=""
                 className="absolute inset-0 h-full w-full object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent" />
               <div className="relative h-full flex flex-col justify-end p-8 text-white">
                 <p className="text-2xl sm:text-3xl font-bold leading-snug mb-6 max-w-lg">
-                  {TESTIMONIALS[1].stat}
+                  Keep the customer and vehicle details together when they contact you again.
                 </p>
                 <div>
-                  <p className="font-semibold">{TESTIMONIALS[1].name}</p>
-                  <p className="text-sm text-white/65">{TESTIMONIALS[1].role}</p>
+                  <p className="font-semibold">Customer &amp; vehicle records</p>
+                  <p className="text-sm text-white/65">
+                    Registration, make and model, notes and booking history
+                  </p>
                 </div>
               </div>
-            </article>
+              </article>
+            </ScrollReveal>
           </div>
         </div>
       </section>
@@ -810,7 +785,8 @@ const ProductBlack = () => {
           <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-6 mb-10">
             <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">Questions &amp; answers</h2>
             <p className="text-muted-foreground max-w-md lg:text-right">
-              Everything you need to know about getting started with BMS Pro Black for your workshop.
+              Everything you need to know about getting started with BMS Pro Workshop for your
+              automotive business.
             </p>
           </div>
 
@@ -878,16 +854,18 @@ const ProductBlack = () => {
         <div className="container-wide grid lg:grid-cols-2 gap-10 lg:gap-16 items-start">
           <div>
             <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4">
-              Try BMS Pro Black for your workshop
+              See whether BMS Pro Workshop fits the way your workshop runs.
             </h2>
             <p className="text-muted-foreground text-lg mb-6">
-              Book a walkthrough — demo, pricing, or help getting your bays onto Black.
+              Show us how you currently manage your bookings. We&apos;ll walk you through the relevant
+              parts of BMS Pro Workshop and show how the same booking could be handled inside the
+              platform.
             </p>
             <ul className="space-y-3 text-sm text-muted-foreground">
               {[
-                "Online booking + SMS confirmations",
-                "Optional human front desk",
-                "Staff, branches, and job board",
+                "Online booking requests you control",
+                "Customer and vehicle records together",
+                "Workshop calendar, staff and service updates",
               ].map((t) => (
                 <li key={t} className="flex items-center gap-2">
                   <Check className="h-4 w-4 text-product-black" />
@@ -990,28 +968,39 @@ const ProductBlack = () => {
           }}
         />
         <div className="container-wide relative max-w-2xl mx-auto">
-          <div className="flex justify-center mb-6">
+          <AnimateVisual from="scale" distance={40} className="flex justify-center mb-6">
             <img
               src="/products/black/icon.png"
               alt=""
               className="h-14 w-14 rounded-2xl ring-1 ring-white/20"
             />
-          </div>
+          </AnimateVisual>
           <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-3">
-            Growing bookings has never been this easy.
+            See whether BMS Pro Workshop fits the way your workshop runs.
           </h2>
           <p className="text-white/65 mb-8">
-            No lock-in · Book Now link ready · Built for Australian workshops
+            No exaggerated promises. Just a proper look at the software.
           </p>
-          <Button
-            size="lg"
-            className="rounded-full bg-white text-product-black hover:bg-white/90"
-            asChild
-          >
-            <a href="#demo">Try BMS Pro Black</a>
-          </Button>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
+            <Button
+              size="lg"
+              className="rounded-full bg-white text-product-black hover:bg-white/90"
+              asChild
+            >
+              <a href="#demo">Start My Free Trial</a>
+            </Button>
+            <Button
+              size="lg"
+              variant="outline"
+              className="rounded-full border-white/40 bg-white/10 text-white hover:bg-white/20 hover:text-white"
+              asChild
+            >
+              <a href="#demo">Book a Live Demonstration</a>
+            </Button>
+          </div>
         </div>
       </section>
+      </ScrollPage>
     </Layout>
   );
 };

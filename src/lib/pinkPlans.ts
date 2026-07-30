@@ -1,5 +1,5 @@
 /**
- * BMS Pro Pink subscription plans for the portfolio pricing showcase.
+ * BMS Pro Salon subscription plans for the portfolio pricing showcase.
  * AUD monthly / yearly (yearly = monthly × 10 ≈ 2 months free).
  */
 

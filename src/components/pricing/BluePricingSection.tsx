@@ -99,7 +99,7 @@ export interface BluePricingSectionProps {
   plans?: BluePlan[];
   /** Standalone SMS top-ups (secondary). Bundled SMS still shows on each plan card. */
   smsTopups?: BlueSmsPack[];
-  /** Full = brand hero + plans. Embedded = plans onward (for Product Blue page). */
+  /** Full = brand hero + plans. Embedded = plans onward (for Product Trade page). */
   variant?: "full" | "embedded";
   /** Pull hero under site header — only for first section on a page */
   offsetHeader?: boolean;
@@ -162,7 +162,7 @@ export function BluePricingSection({
                 </div>
 
                 <h1 className="font-display text-5xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight mb-4 animate-fade-up delay-100 leading-[1.02]">
-                  BMS Pro Blue
+                  BMS Pro Trade
                 </h1>
 
                 <p className="font-sans text-base sm:text-lg text-white/70 max-w-xl mx-auto mb-8 animate-fade-up delay-200 leading-relaxed">
@@ -212,7 +212,7 @@ export function BluePricingSection({
               Plans for trades on the tools
             </h2>
             <p className="font-sans text-lg text-muted-foreground">
-              Live packages from BMS Pro Blue — AUD via Stripe. Staff limits and trials as published.
+              Live packages from BMS Pro Trade — AUD via Stripe. Staff limits and trials as published.
             </p>
           </div>
 
@@ -299,7 +299,7 @@ export function BluePricingSection({
             <div className="container-wide">
               <div className="max-w-2xl mx-auto text-center mb-10 sm:mb-12">
                 <span className="eyebrow inline-flex rounded-full border border-border bg-secondary/60 px-3 py-1 text-muted-foreground">
-                  Across Blue
+                  Across Trade
                 </span>
                 <h2 className="font-display text-3xl sm:text-4xl font-bold text-foreground mt-4 mb-3 tracking-tight">
                   What&apos;s included
@@ -358,7 +358,7 @@ export function BluePricingSection({
                   Live and in production
                 </h2>
                 <p className="font-sans text-lg text-white/70 max-w-xl mx-auto mb-8 animate-fade-up delay-200">
-                  BMS Pro Blue is a Softdev Global / BMS Pros product — built for Australian trades and
+                  BMS Pro Trade is a Softdev Global / BMS Pros product — built for Australian trades and
                   field service businesses.
                 </p>
 

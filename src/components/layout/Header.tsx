@@ -11,19 +11,19 @@ const navigation = [
     href: "/products",
     children: [
       {
-        name: "BMS Pro Black",
+        name: "BMS Pro Workshop",
         href: "/products/black",
         description: "Mechanic shops — filter calls, book jobs",
         dot: "bg-product-black",
       },
       {
-        name: "BMS Pro Blue",
+        name: "BMS Pro Trade",
         href: "/products/blue",
         description: "Plumbers, carpenters & electricians",
         dot: "bg-blue",
       },
       {
-        name: "BMS Pro Pink",
+        name: "BMS Pro Salon",
         href: "/products/pink",
         description: "Salons & beauty — fill the calendar",
         dot: "bg-pink",

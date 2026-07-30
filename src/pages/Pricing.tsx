@@ -19,7 +19,7 @@ const PRODUCTS: {
 }[] = [
   {
     id: "black",
-    name: "Black",
+    name: "Workshop",
     audience: "Workshops",
     icon: "/products/black/icon.png",
     activeClass: "bg-white text-[hsl(220_22%_10%)] shadow-lg",
@@ -27,7 +27,7 @@ const PRODUCTS: {
   },
   {
     id: "blue",
-    name: "Blue",
+    name: "Trade",
     audience: "Trades",
     icon: "/products/blue/icon.png",
     activeClass: "bg-blue text-white shadow-lg shadow-blue/30",
@@ -35,7 +35,7 @@ const PRODUCTS: {
   },
   {
     id: "pink",
-    name: "Pink",
+    name: "Salon",
     audience: "Salons",
     icon: "/products/pink/icon.png",
     activeClass: "bg-pink text-white shadow-lg shadow-pink/30",
@@ -74,8 +74,8 @@ const Pricing = () => {
   return (
     <Layout>
       <SEO
-        title="Pricing | BMS Pro Black, Blue & Pink"
-        description="BMS Pro plans — Black for workshops, Blue for trades, Pink for salons. AUD pricing with clear features per tier."
+        title="Pricing | BMS Pro Workshop, Trade & Salon"
+        description="BMS Pro plans — Workshop for workshops, Trade for trades, Salon for salons. AUD pricing with clear features per tier."
         path="/pricing"
       />
 

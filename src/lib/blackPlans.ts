@@ -1,5 +1,5 @@
 /**
- * BMS Pro Black subscription plans for the portfolio pricing showcase.
+ * BMS Pro Workshop subscription plans for the portfolio pricing showcase.
  * Sourced from live public packages (black.bmspros.com.au).
  * Swap or extend via BlackPricingSection `plans` prop when Firestore sync is wired.
  */
@@ -37,7 +37,7 @@ export interface SmsPack {
 
 const LIVE_SUBSCRIBE_URL = "https://black.bmspros.com.au";
 
-/** Active public plans for BMS Pro Black */
+/** Active public plans for BMS Pro Workshop */
 export const BLACK_PLANS: BlackPlan[] = [
   {
     planKey: "PRO_WORKSHOP_ONLINE",
