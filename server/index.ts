@@ -245,14 +245,14 @@ async function handleContact(req: http.IncomingMessage, res: http.ServerResponse
         toName: fullName,
         replyToEmail: CONTACT_TO,
         replyToName: "BMS Pro",
-        subject: "We received your message — BMS Pro",
+        subject: "We received your message BMS Pro",
         htmlbody: `
           <p>Hi ${escapeHtml(firstName)},</p>
           <p>Thanks for contacting BMS Pro. We’ve received your message and will get back within 24 hours.</p>
           <p>If you need anything sooner, reply to this email or write to
             <a href="mailto:${escapeHtml(CONTACT_TO)}">${escapeHtml(CONTACT_TO)}</a>.
           </p>
-          <p>— ${escapeHtml(FROM_NAME)}</p>
+          <p> ${escapeHtml(FROM_NAME)}</p>
         `,
       });
     } catch (confirmError) {
@@ -298,6 +298,6 @@ const server = http.createServer(async (req, res) => {
 server.listen(PORT, () => {
   console.log(`API listening on http://localhost:${PORT}`);
   if (!ZEPTOMAIL_TOKEN) {
-    console.warn("Warning: ZEPTOMAIL_TOKEN is empty — contact form will fail until set.");
+    console.warn("Warning: ZEPTOMAIL_TOKEN is empty contact form will fail until set.");
   }
 });

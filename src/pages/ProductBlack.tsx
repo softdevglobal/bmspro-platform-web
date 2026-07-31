@@ -406,7 +406,7 @@ const ProductBlack = () => {
                   icon: Mail,
                   color: "bg-red-500",
                   title: "Your appointment is confirmed",
-                  body: "You're all set for Thu, 8:00 AM — bay booked, SMS on the way.",
+                  body: "You're all set for Thu, 8:00 AM bay booked, SMS on the way.",
                 },
                 // {
                 //   icon: MessageSquare,
@@ -465,7 +465,7 @@ const ProductBlack = () => {
                   <MessageSquare className="h-3 w-3" />
                   at the right stage
                 </Pill>
-                — booking confirmation, appointment reminder, additional-work approval, vehicle-ready
+                booking confirmation, appointment reminder, additional-work approval, vehicle-ready
                 message, service completion and review request.
               </p>
               <p className="text-muted-foreground text-lg leading-relaxed">
@@ -493,7 +493,7 @@ const ProductBlack = () => {
               </h2>
               <p className="text-muted-foreground text-lg leading-relaxed">
                 View today&apos;s bookings, upcoming bookings, customer arrival times, vehicle details,
-                requested services, assigned staff and booking status — instead of checking a paper
+                requested services, assigned staff and booking status instead of checking a paper
                 diary, text messages and someone else&apos;s calendar.
               </p>
             </div>
@@ -741,7 +741,7 @@ const ProductBlack = () => {
                   <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/40 to-transparent" />
                   <div className="relative h-full flex flex-col justify-end p-5 sm:p-6 text-white">
                     <p className="text-lg font-medium leading-snug mb-6">
-                      Give your team a clearer view of the day — they can see the relevant booking and
+                      Give your team a clearer view of the day they can see the relevant booking and
                       service information before starting.
                     </p>
                     <div>
@@ -869,8 +869,8 @@ const ProductBlack = () => {
                   "Your customers want to book online, receive updates, and know exactly when their vehicle is ready.",
                   "BMS Pro Workshop helps you deliver that experience without creating more work for your team.",
                 ].map((t) => (
-                  <li key={t} className="flex items-start gap-2">
-                    <Check className="h-4 w-4 text-product-black shrink-0 mt-0.5" />
+                  <li key={t} className="flex items-center gap-2">
+                    <Check className="h-4 w-4 text-product-black" />
                     {t}
                   </li>
                 ))}
@@ -881,7 +881,7 @@ const ProductBlack = () => {
               onSubmit={handleSubmit}
               className="rounded-3xl bg-white border border-border p-6 sm:p-8 shadow-sm space-y-4"
             >
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div className="grid grid-cols-2 gap-3">
                 <div className="space-y-1.5">
                   <Label htmlFor="firstName">First name</Label>
                   <Input
@@ -981,7 +981,7 @@ const ProductBlack = () => {
               Every great customer experience starts with an organised workshop.
             </h2>
             <p className="text-white/65 mb-8">
-              When booking is simple, updates are automatic and customers know what’s happening, they leave with confidence—and they’re more likely to come back.
+              When booking is simple, updates are automatic and customers know what’s happening, they leave with confidence and they’re more likely to come back.
 
               That’s what BMS Pro Workshop is built for.
             </p>

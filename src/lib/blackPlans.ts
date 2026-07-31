@@ -48,10 +48,10 @@ export const BLACK_PLANS: BlackPlan[] = [
     branches: 1,
     staff: 5,
     features: [
-      "BMS Pro Workshop Online-Only Package — $99/month",
+      "BMS Pro Workshop Online-Only Package $99/month",
       "Give your mechanic workshop a professional online booking system without paying for a receptionist.",
       "For only $99 per month, your workshop gets a simple online system where customers can book services 24/7, receive SMS confirmations and reminders, and stay updated throughout the job process.",
-      "This package is ideal for workshops that want to reduce missed calls, organise bookings better, and give customers a smoother experience — while still managing the work themselves.",
+      "This package is ideal for workshops that want to reduce missed calls, organise bookings better, and give customers a smoother experience while still managing the work themselves.",
       "Included:",
       "+17 more",
     ],
@@ -72,7 +72,7 @@ export const BLACK_PLANS: BlackPlan[] = [
     features: [
       "Mechanic Pro Front Desk includes both the receptionist service and the workshop software.",
       "We answer your calls when you're busy, make bookings, get additional work approvals while the vehicle is on the hoist, call customers for pickup, and give you software to track bookings, staff attendance, approvals, customer notes, and daily activity.",
-      "You stay on the tools — we handle the front desk and give you the system to manage it.",
+      "You stay on the tools we handle the front desk and give you the system to manage it.",
     ],
     popular: false,
     trialDays: 14,

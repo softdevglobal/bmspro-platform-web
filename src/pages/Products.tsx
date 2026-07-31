@@ -86,7 +86,7 @@ const Products = () => {
     <Layout>
       <SEO
         title="Products | BMS Pro Workshop, Trade and Salon"
-        description="Choose the BMS Pro built for your business — Workshop for mechanics, Trade for field service, and Salon for appointment-based businesses."
+        description="Choose the BMS Pro built for your business Workshop for mechanics, Trade for field service, and Salon for appointment-based businesses."
         path="/products"
         jsonLd={jsonLd}
       />
@@ -156,7 +156,7 @@ const Products = () => {
                   <p className="text-sm font-semibold text-white leading-snug">
                     Practical booking and operations software.{" "}
                     <span className="text-white/70 font-medium">
-                      Workshop, Trade &amp; Salon — each built for how you work.
+                      Workshop, Trade &amp; Salon each built for how you work.
                     </span>
                   </p>
                 </div>
@@ -200,7 +200,7 @@ const Products = () => {
               Choose the BMS Pro built for your business
             </h2>
             <p className="font-sans text-lg text-muted-foreground">
-              Three versions — one for workshops, one for trades, one for salons.
+              Three versions one for workshops, one for trades, one for salons.
             </p>
           </div>
 
@@ -248,7 +248,7 @@ const Products = () => {
             Not sure which product fits?
           </h2>
           <p className="font-sans text-lg text-white/70 max-w-xl mx-auto mb-8">
-            Book a strategy call — we&apos;ll show the software and match you to Workshop, Trade, or
+            Book a strategy call we&apos;ll show the software and match you to Workshop, Trade, or
             Salon.
           </p>
           <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 sm:gap-4">

@@ -41,10 +41,10 @@ const Contact = () => {
     setLoading(true);
 
     try {
-      await submitContactForm(formData, "Contact / demo request — BMS Pro");
+      await submitContactForm(formData, "Contact / demo request BMS Pro");
       toast({
         title: "Message sent",
-        description: "Thanks — we'll get back within 24 hours.",
+        description: "Thanks we'll get back within 24 hours.",
       });
       setFormData({
         firstName: "",
@@ -106,7 +106,7 @@ const Contact = () => {
                 Let&apos;s talk about your business
               </h1>
               <p className="font-sans text-base sm:text-lg text-white/70 max-w-2xl mx-auto mb-8 animate-fade-up delay-200 leading-relaxed">
-                Book a strategy call — we&apos;ll show the software, explain the receptionist
+                Book a strategy call we&apos;ll show the software, explain the receptionist
                 handover, and match you to Workshop, Trade, or Salon.
               </p>
 
@@ -161,7 +161,7 @@ const Contact = () => {
                   Book a Demo
                 </h2>
                 <p className="font-sans text-muted-foreground">
-                  Tell us a bit about your business — we&apos;ll get back within 24 hours.
+                  Tell us a bit about your business we&apos;ll get back within 24 hours.
                 </p>
               </div>
 
@@ -339,7 +339,7 @@ const Contact = () => {
               Based in Lynbrook, Victoria
             </h2>
             <p className="font-sans text-muted-foreground">
-              Drop by or book a call — we&apos;re here for workshops, salons, and trades across
+              Drop by or book a call we&apos;re here for workshops, salons, and trades across
               Australia.
             </p>
           </div>

@@ -13,7 +13,7 @@ const navigation = [
       {
         name: "BMS Pro Workshop",
         href: "/products/black",
-        description: "Mechanic shops — filter calls, book jobs",
+        description: "Mechanic shops  filter calls, book jobs",
         dot: "bg-product-black",
       },
       {
@@ -25,7 +25,7 @@ const navigation = [
       {
         name: "BMS Pro Salon",
         href: "/products/pink",
-        description: "Salons & beauty — fill the calendar",
+        description: "Salons & beauty  fill the calendar",
         dot: "bg-pink",
       },
     ],

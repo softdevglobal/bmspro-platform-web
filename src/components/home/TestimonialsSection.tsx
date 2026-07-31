@@ -4,7 +4,7 @@ const testimonials = [
   {
     id: 1,
     quote:
-      "While we're with clients, their receptionists fill our calendar. Missed calls used to mean empty chairs — not anymore.",
+      "While we're with clients, their receptionists fill our calendar. Missed calls used to mean empty chairs not anymore.",
     name: "Sarah Mitchell",
     role: "Owner, Serenity Hair Studio",
     product: "Salon",

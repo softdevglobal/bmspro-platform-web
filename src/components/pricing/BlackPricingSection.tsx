@@ -32,7 +32,7 @@ const includedItems = [
   {
     icon: CalendarCheck,
     title: "Online booking",
-    body: "Customers book 24/7 — SMS confirmations and reminders keep the workshop informed.",
+    body: "Customers book 24/7  SMS confirmations and reminders keep the workshop informed.",
   },
   {
     icon: Headphones,
@@ -42,7 +42,7 @@ const includedItems = [
   {
     icon: Building2,
     title: "Staff & branch limits",
-    body: "Both public plans include 1 branch and up to 5 staff — clear capacity for a busy bay.",
+    body: "Both public plans include 1 branch and up to 5 staff clear capacity for a busy bay.",
   },
   {
     icon: CreditCard,
@@ -171,7 +171,7 @@ export function BlackPricingSection({
               Plans built for the bay
             </h2>
             <p className="font-sans text-lg text-muted-foreground">
-              Two live packages — online booking only, or front desk plus software. AUD via Stripe.
+              Two live packages online booking only, or front desk plus software. AUD via Stripe.
             </p>
           </div>
 
@@ -213,7 +213,7 @@ export function BlackPricingSection({
                     </h3>
                     <p className="font-sans text-sm text-muted-foreground mb-4 leading-relaxed">
                       Text customers and staff as needed. SMS packs are separate from subscription
-                      tiers — top up when credits run low.
+                      tiers top up when credits run low.
                     </p>
                     <ul className="flex flex-wrap gap-3">
                       {smsPacks.map((pack) => (
@@ -251,7 +251,7 @@ export function BlackPricingSection({
               What&apos;s included
             </h2>
             <p className="font-sans text-muted-foreground">
-              The same workshop toolkit — capacity and limits differ by subscription tier.
+              The same workshop toolkit capacity and limits differ by subscription tier.
             </p>
           </div>
 
@@ -307,7 +307,7 @@ export function BlackPricingSection({
             Trusted by Australian workshops ⭐⭐⭐⭐⭐
             </h2>
             <p className="font-sans text-lg text-white/70 max-w-xl mx-auto mb-8 animate-fade-up delay-200">
-              BMS Pro Workshop is a Softdev Global / BMS Pros product — serving Australian auto
+              BMS Pro Workshop is a Softdev Global / BMS Pros product serving Australian auto
               workshops today.
             </p>
 
@@ -486,7 +486,7 @@ function PlanCard({ plan, index }: { plan: BlackPlan; index: number }) {
         {plan.features.map((feature) => {
           const isHeading =
             feature === "Included:" ||
-            feature === "BMS Pro Workshop Online-Only Package — $99/month";
+            feature === "BMS Pro Workshop Online-Only Package $99/month";
           const isMuted = feature.startsWith("+") && feature.endsWith("more");
           return (
             <li key={feature} className="flex items-start gap-3">
