@@ -122,7 +122,7 @@ export function BluePricingSection({
         <section className={cn("relative bg-background", offsetHeader && "-mt-16")}>
           <div
             className={cn(
-              "relative min-h-[min(78vh,680px)] flex items-center overflow-hidden",
+              "relative min-h-[min(60vh,520px)] sm:min-h-[min(78vh,680px)] flex items-center overflow-hidden",
               offsetHeader && "pt-16"
             )}
           >
@@ -161,7 +161,7 @@ export function BluePricingSection({
                   </span>
                 </div>
 
-                <h1 className="font-display text-5xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight mb-4 animate-fade-up delay-100 leading-[1.02]">
+                <h1 className="font-display text-4xl sm:text-5xl lg:text-7xl font-extrabold tracking-tight mb-4 animate-fade-up delay-100 leading-[1.02]">
                   BMS Pro Trade
                 </h1>
 
@@ -355,7 +355,7 @@ export function BluePricingSection({
                   className="h-12 w-12 rounded-2xl mb-6 ring-1 ring-white/20 mx-auto animate-fade-up"
                 />
                 <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 tracking-tight animate-fade-up delay-100">
-                  Live and in production
+                Trusted by Australian workshops ⭐⭐⭐⭐⭐
                 </h2>
                 <p className="font-sans text-lg text-white/70 max-w-xl mx-auto mb-8 animate-fade-up delay-200">
                   BMS Pro Trade is a Softdev Global / BMS Pros product — built for Australian trades and
@@ -423,7 +423,7 @@ function PlanCard({ plan, index }: { plan: BluePlan; index: number }) {
   return (
     <article
       className={cn(
-        "relative flex flex-col rounded-2xl p-7 sm:p-8 animate-fade-up transition-all duration-300",
+        "relative flex flex-col rounded-2xl p-5 sm:p-7 lg:p-8 animate-fade-up transition-all duration-300 pt-8",
         plan.popular
           ? "bg-blue text-blue-foreground border-2 border-blue shadow-[0_20px_50px_-20px_hsl(210_65%_30%/0.55)] sm:scale-[1.02] z-10"
           : "card-elevated border border-blue/20 shadow-elevated bg-card ring-1 ring-blue/5"

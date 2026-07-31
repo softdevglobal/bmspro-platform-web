@@ -38,9 +38,6 @@ const navigation = [
 const HERO_ROUTES = new Set([
   "/",
   "/products",
-  "/products/black",
-  "/products/pink",
-  "/products/blue",
   "/pricing",
   "/contact",
 ]);

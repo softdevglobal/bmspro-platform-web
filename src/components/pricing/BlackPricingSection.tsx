@@ -56,6 +56,8 @@ export interface BlackPricingSectionProps {
   plans?: BlackPlan[];
   /** Optional SMS add-ons shown below subscription tiers */
   smsPacks?: SmsPack[];
+  /** `full` includes brand hero + included + proof; `embedded` is plans-only for product pages */
+  variant?: "full" | "embedded";
   /** Pull hero under site header — disable when a page chrome sits above */
   offsetHeader?: boolean;
   /** Extra top space when a floating product picker overlays the hero */
@@ -66,6 +68,7 @@ export interface BlackPricingSectionProps {
 export function BlackPricingSection({
   plans = BLACK_PLANS,
   smsPacks = PLACEHOLDER_SMS_PACKS,
+  variant = "full",
   offsetHeader = true,
   overlayPicker = false,
   className,
@@ -73,10 +76,11 @@ export function BlackPricingSection({
   return (
     <div className={cn(className)}>
       {/* 1. Product intro — brand-first */}
+      {variant === "full" && (
       <section className={cn("relative bg-background", offsetHeader && "-mt-16")}>
         <div
           className={cn(
-            "relative min-h-[min(78vh,680px)] flex items-center overflow-hidden",
+            "relative min-h-[min(60vh,520px)] sm:min-h-[min(78vh,680px)] flex items-center overflow-hidden",
             offsetHeader && "pt-16"
           )}
         >
@@ -100,7 +104,7 @@ export function BlackPricingSection({
 
           <div
             className={cn(
-              "container-wide relative z-10 py-16 sm:py-20 w-full",
+              "container-wide relative z-10 py-12 sm:py-20 w-full",
               overlayPicker && "pt-28 sm:pt-32"
             )}
           >
@@ -116,7 +120,7 @@ export function BlackPricingSection({
                 </span>
               </div>
 
-              <h1 className="font-display text-5xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight mb-4 animate-fade-up delay-100 leading-[1.02]">
+              <h1 className="font-display text-4xl sm:text-5xl lg:text-7xl font-extrabold tracking-tight mb-4 animate-fade-up delay-100 leading-[1.02]">
                 BMS Pro Workshop
               </h1>
 
@@ -148,9 +152,16 @@ export function BlackPricingSection({
           </div>
         </div>
       </section>
+      )}
 
       {/* 2. Subscription plans */}
-      <section id="black-plans" className="section-padding bg-secondary/30 scroll-mt-20">
+      <section
+        id="black-plans"
+        className={cn(
+          "section-padding scroll-mt-20",
+          variant === "full" ? "bg-secondary/30" : "bg-secondary/30 border-t border-border/40"
+        )}
+      >
         <div className="container-wide">
           <div className="max-w-2xl mx-auto text-center mb-12 lg:mb-14">
             <span className="eyebrow inline-flex rounded-full border border-border bg-background/80 px-3 py-1 text-muted-foreground">
@@ -229,6 +240,7 @@ export function BlackPricingSection({
       </section>
 
       {/* 3. What's included */}
+      {variant === "full" && (
       <section className="section-padding bg-background">
         <div className="container-wide">
           <div className="max-w-2xl mx-auto text-center mb-10 sm:mb-12">
@@ -269,8 +281,10 @@ export function BlackPricingSection({
           </div>
         </div>
       </section>
+      )}
 
       {/* 4. Proof / credibility */}
+      {variant === "full" && (
       <section className="relative overflow-hidden text-white">
         <div className="absolute inset-0" aria-hidden>
           <img
@@ -290,7 +304,7 @@ export function BlackPricingSection({
               className="h-12 w-12 rounded-2xl mb-6 ring-1 ring-white/20 mx-auto animate-fade-up"
             />
             <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 tracking-tight animate-fade-up delay-100">
-              Live and in production
+            Trusted by Australian workshops ⭐⭐⭐⭐⭐
             </h2>
             <p className="font-sans text-lg text-white/70 max-w-xl mx-auto mb-8 animate-fade-up delay-200">
               BMS Pro Workshop is a Softdev Global / BMS Pros product — serving Australian auto
@@ -344,6 +358,7 @@ export function BlackPricingSection({
           </div>
         </div>
       </section>
+      )}
     </div>
   );
 }
@@ -356,7 +371,7 @@ function PlanCard({ plan, index }: { plan: BlackPlan; index: number }) {
   return (
     <article
       className={cn(
-        "relative flex flex-col rounded-2xl p-7 sm:p-8 animate-fade-up transition-all duration-300",
+        "relative flex flex-col rounded-2xl p-5 sm:p-7 lg:p-8 pt-8 animate-fade-up transition-all duration-300",
         plan.popular
           ? "bg-product-black text-product-black-foreground border-2 border-product-black shadow-[0_20px_50px_-20px_hsl(220_18%_8%/0.55)] sm:scale-[1.02] z-10"
           : "card-elevated border border-border/60 shadow-elevated bg-card"
@@ -372,26 +387,28 @@ function PlanCard({ plan, index }: { plan: BlackPlan; index: number }) {
       <div className="mb-5">
         <h3
           className={cn(
-            "font-display text-xl sm:text-2xl font-bold mb-2 leading-snug",
+            "font-display text-lg sm:text-xl lg:text-2xl font-bold mb-2 leading-snug",
             plan.popular ? "text-white" : "text-foreground"
           )}
         >
           {plan.name}
         </h3>
-        <p
-          className={cn(
-            "font-sans text-sm leading-relaxed",
-            plan.popular ? "text-white/65" : "text-muted-foreground"
-          )}
-        >
-          {plan.description}
-        </p>
+        {plan.description ? (
+          <p
+            className={cn(
+              "font-sans text-sm leading-relaxed",
+              plan.popular ? "text-white/65" : "text-muted-foreground"
+            )}
+          >
+            {plan.description}
+          </p>
+        ) : null}
       </div>
 
       <div className="mb-5">
         <span
           className={cn(
-            "font-display text-3xl sm:text-4xl font-bold tracking-tight",
+            "font-display text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight break-words",
             plan.popular ? "text-white" : "text-foreground"
           )}
         >
@@ -466,24 +483,42 @@ function PlanCard({ plan, index }: { plan: BlackPlan; index: number }) {
       )}
 
       <ul className="space-y-3 mb-8 flex-grow">
-        {plan.features.map((feature) => (
-          <li key={feature} className="flex items-start gap-3">
-            <Check
-              className={cn(
-                "h-5 w-5 flex-shrink-0 mt-0.5",
-                plan.popular ? "text-white/70" : "text-teal"
-              )}
-            />
-            <span
-              className={cn(
-                "font-sans text-sm leading-relaxed",
-                plan.popular ? "text-white/80" : "text-muted-foreground"
-              )}
-            >
-              {feature}
-            </span>
-          </li>
-        ))}
+        {plan.features.map((feature) => {
+          const isHeading =
+            feature === "Included:" ||
+            feature === "BMS Pro Workshop Online-Only Package — $99/month";
+          const isMuted = feature.startsWith("+") && feature.endsWith("more");
+          return (
+            <li key={feature} className="flex items-start gap-3">
+              <Check
+                className={cn(
+                  "h-5 w-5 flex-shrink-0 mt-0.5",
+                  plan.popular ? "text-white/70" : "text-teal"
+                )}
+              />
+              <span
+                className={cn(
+                  "font-sans text-sm leading-relaxed",
+                  plan.popular ? "text-white/80" : "text-muted-foreground",
+                  isHeading && (plan.popular ? "font-semibold text-white" : "font-semibold text-foreground"),
+                  isMuted && (plan.popular ? "text-white/50" : "text-muted-foreground/80")
+                )}
+              >
+                {feature.startsWith("For only $99 per month") ? (
+                  <>
+                    For only{" "}
+                    <span className={cn("font-semibold", plan.popular ? "text-white" : "text-foreground")}>
+                      $99 per month
+                    </span>
+                    {feature.slice("For only $99 per month".length)}
+                  </>
+                ) : (
+                  feature
+                )}
+              </span>
+            </li>
+          );
+        })}
       </ul>
 
       <Button

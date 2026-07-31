@@ -205,22 +205,22 @@ const ProductPink = () => {
                   BMS Pro Salon
                 </span>
               </div>
-              <h1 className="text-4xl sm:text-5xl lg:text-[3.25rem] font-bold tracking-tight text-[hsl(220_22%_10%)] leading-[1.08] mb-4">
+              <h1 className="text-3xl sm:text-4xl lg:text-[3.25rem] font-bold tracking-tight text-[hsl(220_22%_10%)] leading-[1.08] mb-4">
                 Keep your appointments organised without living on your phone.
               </h1>
-              <p className="text-lg text-muted-foreground mb-8 max-w-md">
+              <p className="text-base sm:text-lg text-muted-foreground mb-8 max-w-md">
                 Manage online booking requests, staff schedules, services and customer updates from
                 one place. Your customers can request a suitable appointment, and you stay in control
                 of what gets confirmed.
               </p>
-              <div className="flex flex-row flex-nowrap items-center gap-3">
-                <Button size="lg" variant="pink" className="rounded-full h-11 px-5 sm:px-6 shrink-0" asChild>
+              <div className="flex flex-col sm:flex-row sm:flex-wrap items-stretch sm:items-center gap-3">
+                <Button size="lg" variant="pink" className="rounded-full h-11 px-5 sm:px-6 w-full sm:w-auto" asChild>
                   <a href="#demo">
                     Start Free Trial
                     <ArrowRight className="h-4 w-4" />
                   </a>
                 </Button>
-                <Button size="lg" variant="outline" className="rounded-full h-11 px-5 sm:px-6 shrink-0" asChild>
+                <Button size="lg" variant="outline" className="rounded-full h-11 px-5 sm:px-6 w-full sm:w-auto whitespace-normal sm:whitespace-nowrap text-center" asChild>
                   <a href="#workflow">See BMS Pro Salon in Action</a>
                 </Button>
               </div>
@@ -269,7 +269,7 @@ const ProductPink = () => {
       <section className="section-padding bg-white">
         <div className="container-wide">
           <div className="rounded-[2rem] bg-[hsl(340_25%_12%)] text-white overflow-hidden">
-            <div className="grid lg:grid-cols-2 gap-8 p-8 sm:p-12 lg:p-14">
+            <div className="grid lg:grid-cols-2 gap-8 p-5 sm:p-8 lg:p-14">
               <ScrollReveal from="left" distance={56} className="flex flex-col justify-center">
                 <div className="mb-5 flex h-11 w-11 items-center justify-center rounded-xl bg-white/10">
                   <Phone className="h-5 w-5" />
@@ -285,7 +285,7 @@ const ProductPink = () => {
                 </p>
                 <Button
                   size="lg"
-                  className="w-fit rounded-full bg-white text-pink hover:bg-white/90"
+                  className="w-full sm:w-fit rounded-full bg-white text-pink hover:bg-white/90 whitespace-normal sm:whitespace-nowrap"
                   asChild
                 >
                   <a href="#demo">
@@ -343,7 +343,7 @@ const ProductPink = () => {
                 You stay in control
               </Pill>
             </p>
-            <Button variant="pink" className="rounded-full" asChild>
+            <Button variant="pink" className="rounded-full w-full sm:w-auto whitespace-normal sm:whitespace-nowrap" asChild>
               <a href="https://pink.bmspros.com.au/book-now" target="_blank" rel="noreferrer">
                 Preview the Customer Booking Experience
                 <ArrowRight className="h-4 w-4" />
@@ -351,7 +351,7 @@ const ProductPink = () => {
             </Button>
           </div>
 
-          <AnimateVisual from="right" distance={72} delay={0.1} className="relative mx-auto w-full max-w-[280px] overflow-visible">
+          <AnimateVisual from="right" distance={72} delay={0.1} className="relative mx-auto w-full max-w-[220px] sm:max-w-[280px] overflow-visible">
             <BookingFlowPhone variant="salon" />
           </AnimateVisual>
         </div>
@@ -368,12 +368,12 @@ const ProductPink = () => {
                 title: "Your appointment is confirmed",
                 body: "You're all set for Fri, 2:00 PM — chair booked, SMS on the way.",
               },
-              {
-                icon: MessageSquare,
-                color: "bg-emerald-500",
-                title: "1H reminder",
-                body: "Your cut & colour tomorrow at 2:00 PM. Reply if you need to reschedule.",
-              },
+              // {
+              //   icon: MessageSquare,
+              //   color: "bg-emerald-500",
+              //   title: "1H reminder",
+              //   body: "Your cut & colour tomorrow at 2:00 PM. Reply if you need to reschedule.",
+              // },
               {
                 icon: MessageSquare,
                 color: "bg-emerald-500",
@@ -403,7 +403,7 @@ const ProductPink = () => {
               <img
                 src="/products/pink/sms-phone.jpg"
                 alt="Client checking a booking reminder on their phone"
-                className="w-full rounded-2xl object-cover shadow-lg"
+                className="w-full rounded-2xl object-cover shadow-lg aspect-[4/3] max-h-[420px]"
                 loading="lazy"
               />
             </div>
@@ -601,7 +601,7 @@ const ProductPink = () => {
               })}
             </div>
 
-            <AnimateVisual from="right" distance={72} delay={0.1} className="relative mx-auto w-full max-w-[280px] lg:sticky lg:top-28">
+            <AnimateVisual from="right" distance={72} delay={0.1} className="relative mx-auto w-full max-w-[200px] sm:max-w-[280px] lg:sticky lg:top-28">
               <div className="relative overflow-hidden rounded-[2rem] border-[10px] border-[hsl(340_25%_12%)] bg-[hsl(340_25%_12%)] shadow-2xl aspect-[9/16]">
                 <video
                   className="absolute inset-0 h-full w-full object-cover"
@@ -682,7 +682,7 @@ const ProductPink = () => {
 
           <div className="grid md:grid-cols-5 gap-4">
             <ScrollReveal from="left" distance={64} className="md:col-span-2">
-            <article className="relative min-h-[360px] rounded-3xl overflow-hidden h-full">
+            <article className="relative min-h-[280px] sm:min-h-[360px] rounded-3xl overflow-hidden h-full">
               <img
                 src="/products/pink/stylist-portrait.jpg"
                 alt=""
@@ -702,7 +702,7 @@ const ProductPink = () => {
             </article>
             </ScrollReveal>
             <ScrollReveal from="right" distance={64} delay={0.12} className="md:col-span-3">
-            <article className="relative min-h-[360px] rounded-3xl overflow-hidden h-full">
+            <article className="relative min-h-[280px] sm:min-h-[360px] rounded-3xl overflow-hidden h-full">
               <img
                 src="/products/pink/salon-bay.jpg"
                 alt=""
@@ -728,7 +728,7 @@ const ProductPink = () => {
 
       {/* Pricing */}
       <section id="pricing" className="scroll-mt-20">
-        <PinkPricingSection offsetHeader={false} />
+        <PinkPricingSection variant="embedded" offsetHeader={false} />
       </section>
 
       {/* FAQ */}
@@ -811,10 +811,10 @@ const ProductPink = () => {
                 "Services, staff calendars and customer records",
                 "Reminders, changes and rebooking messages",
               ].map((t) => (
-                <li key={t} className="flex items-center gap-2">
-                  <Check className="h-4 w-4 text-pink" />
-                  {t}
-                </li>
+                <li key={t} className="flex items-start gap-2">
+                    <Check className="h-4 w-4 text-pink shrink-0 mt-0.5" />
+                    {t}
+                  </li>
               ))}
             </ul>
           </div>
@@ -823,7 +823,7 @@ const ProductPink = () => {
             onSubmit={handleSubmit}
             className="rounded-3xl bg-white border border-border p-6 sm:p-8 shadow-sm space-y-4"
           >
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <div className="space-y-1.5">
                 <Label htmlFor="firstName">First name</Label>
                 <Input
