@@ -44,7 +44,7 @@ export function TrustWalkthroughSection() {
             </h2>
             <p className="font-sans text-lg text-white/65 leading-relaxed mb-8">
               Business software should earn your trust before you rely on it. We’ll show you how BMS
-              Pro works using a normal workflow from your type of business—not a long sales
+              Pro works using a normal workflow from your type of business not a long sales
               presentation filled with features you may never use.
             </p>
             <Button

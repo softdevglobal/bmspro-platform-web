@@ -51,7 +51,7 @@ const includedItems = [
   {
     icon: Briefcase,
     title: "Jobs board",
-    body: "Status, duration, and photos — keep every job visible from request to done.",
+    body: "Status, duration, and photos keep every job visible from request to done.",
   },
   {
     icon: CalendarDays,
@@ -71,7 +71,7 @@ const includedItems = [
   {
     icon: Smartphone,
     title: "Staff & mobile",
-    body: "Roster, attendance, leave, and timesheets — staff work from the mobile app.",
+    body: "Roster, attendance, leave, and timesheets staff work from the mobile app.",
   },
   {
     icon: MessageSquare,
@@ -86,7 +86,7 @@ const includedItems = [
   {
     icon: CreditCard,
     title: "Plans & billing",
-    body: "AUD via Stripe — trials, upgrades, and downgrades when you need them.",
+    body: "AUD via Stripe trials, upgrades, and downgrades when you need them.",
   },
   {
     icon: Bell,
@@ -212,7 +212,7 @@ export function BluePricingSection({
               Plans for trades on the tools
             </h2>
             <p className="font-sans text-lg text-muted-foreground">
-              Live packages from BMS Pro Trade — AUD via Stripe. Staff limits and trials as published.
+              Live packages from BMS Pro Trade AUD via Stripe. Staff limits and trials as published.
             </p>
           </div>
 
@@ -252,7 +252,7 @@ export function BluePricingSection({
                       SMS top-ups
                     </h3>
                     <p className="font-sans text-sm text-muted-foreground mb-4 leading-relaxed">
-                      Extra SMS packs when plan credits run low — separate from subscription tiers.
+                      Extra SMS packs when plan credits run low separate from subscription tiers.
                     </p>
                     <ul className="space-y-3">
                       {smsTopups.map((pack) => (
@@ -305,7 +305,7 @@ export function BluePricingSection({
                   What&apos;s included
                 </h2>
                 <p className="font-sans text-muted-foreground">
-                  Trade operations toolkit — capacity and SMS credits differ by subscription tier.
+                  Trade operations toolkit capacity and SMS credits differ by subscription tier.
                 </p>
               </div>
 
@@ -358,7 +358,7 @@ export function BluePricingSection({
                 Trusted by Australian workshops ⭐⭐⭐⭐⭐
                 </h2>
                 <p className="font-sans text-lg text-white/70 max-w-xl mx-auto mb-8 animate-fade-up delay-200">
-                  BMS Pro Trade is a Softdev Global / BMS Pros product — built for Australian trades and
+                  BMS Pro Trade is a Softdev Global / BMS Pros product built for Australian trades and
                   field service businesses.
                 </p>
 

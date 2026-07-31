@@ -46,7 +46,7 @@ const TRUST_LOGOS = [
 const FORM_STEPS = [
   {
     title: "The customer chooses a service",
-    body: "They pick from your clear service list — name, category, description, duration and optional price.",
+    body: "They pick from your clear service list name, category, description, duration and optional price.",
   },
   {
     title: "They request a suitable appointment",
@@ -336,7 +336,7 @@ const ProductPink = () => {
             </h2>
             <p className="text-muted-foreground text-lg leading-relaxed mb-6">
               They can use your booking link through your website, Google Business Profile,
-              Instagram, Facebook, text message or email. You decide what gets confirmed — a request
+              Instagram, Facebook, text message or email. You decide what gets confirmed a request
               does not automatically become a confirmed appointment unless you choose that setting.
               <Pill>
                 <Calendar className="h-3 w-3" />
@@ -366,7 +366,7 @@ const ProductPink = () => {
                 icon: Mail,
                 color: "bg-red-500",
                 title: "Your appointment is confirmed",
-                body: "You're all set for Fri, 2:00 PM — chair booked, SMS on the way.",
+                body: "You're all set for Fri, 2:00 PM chair booked, SMS on the way.",
               },
               // {
               //   icon: MessageSquare,
@@ -427,7 +427,7 @@ const ProductPink = () => {
               </Pill>
             </p>
             <p className="text-muted-foreground text-lg leading-relaxed">
-              Handle changes without losing track —
+              Handle changes without losing track 
               <Pill>
                 <Sparkles className="h-3 w-3" />
                 reschedule, cancel or record a no-show
@@ -451,7 +451,7 @@ const ProductPink = () => {
             </h2>
             <p className="text-muted-foreground text-lg leading-relaxed">
               See who is booked, what service they are receiving, which staff member is responsible,
-              the start time, duration, status and relevant notes — with each staff calendar kept
+              the start time, duration, status and relevant notes with each staff calendar kept
               clear.
             </p>
           </div>
@@ -691,7 +691,7 @@ const ProductPink = () => {
               <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/40 to-transparent" />
               <div className="relative h-full flex flex-col justify-end p-6 text-white">
                 <p className="text-lg font-medium leading-snug mb-6">
-                  Show customers what they can book — service name, category, description, duration,
+                  Show customers what they can book service name, category, description, duration,
                   optional price and available staff.
                 </p>
                 <div>

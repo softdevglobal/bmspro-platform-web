@@ -75,7 +75,7 @@ const Pricing = () => {
     <Layout>
       <SEO
         title="Pricing | BMS Pro Workshop, Trade & Salon"
-        description="BMS Pro plans — Workshop for workshops, Trade for trades, Salon for salons. AUD pricing with clear features per tier."
+        description="BMS Pro plans Workshop for workshops, Trade for trades, Salon for salons. AUD pricing with clear features per tier."
         path="/pricing"
       />
 

@@ -1,7 +1,8 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Wrench, Scissors, Hammer, Eye, Settings2, Handshake, MapPin } from "lucide-react";
+import { ArrowRight, Wrench, Scissors, Hammer } from "lucide-react";
 import { HeroBundleVisual } from "./HeroBundleVisual";
+import { MarqueeStrip } from "@/components/motion/AnimateVisual";
 
 const heroCollage = [
   {
@@ -25,10 +26,10 @@ const businessTypes = [
 ];
 
 const trustItems = [
-  { icon: Eye, label: "See the software before deciding" },
-  { icon: Settings2, label: "Built for everyday service businesses" },
-  { icon: Handshake, label: "Simple setup and guided onboarding" },
-  { icon: MapPin, label: "Australian-based team" },
+  "See the software before deciding",
+  "Built for everyday service businesses",
+  "Simple setup and guided onboarding",
+  "Australian-based team",
 ];
 
 export function HeroSection() {
@@ -69,7 +70,7 @@ export function HeroSection() {
             </h1>
 
             <p className="font-sans text-sm sm:text-lg text-white/70 max-w-2xl mx-auto mb-6 sm:mb-8 animate-fade-up delay-200 leading-relaxed">
-              Keep your bookings, jobs, staff and customer updates in one place—so you spend less
+              Keep your bookings, jobs, staff and customer updates in one place so you spend less
               time chasing information and more time running your business.
             </p>
 
@@ -132,22 +133,12 @@ export function HeroSection() {
         <HeroBundleVisual />
       </div>
 
-      <div className="border-y border-border/60 bg-[hsl(220_14%_97%)] py-7 sm:py-8">
-        <div className="container-wide">
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
-            {trustItems.map((item) => {
-              const Icon = item.icon;
-              return (
-                <div key={item.label} className="flex items-start gap-3">
-                  <span className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-white border border-border">
-                    <Icon className="h-4 w-4 text-foreground" />
-                  </span>
-                  <p className="text-sm font-medium text-foreground leading-snug">{item.label}</p>
-                </div>
-              );
-            })}
-          </div>
-        </div>
+      <div className="border-y border-border/60 bg-[hsl(220_14%_97%)] py-7 sm:py-8 overflow-hidden">
+        <MarqueeStrip
+          items={trustItems}
+          fadeFromClassName="from-[hsl(220_14%_97%)]"
+          duration={28}
+        />
       </div>
     </section>
   );

@@ -63,7 +63,7 @@ const FORM_STEPS = [
   },
   {
     title: "Turn approval into a job",
-    body: "Reuse the customer, site, scope and quoted items — then assign staff or an approved subcontractor.",
+    body: "Reuse the customer, site, scope and quoted items then assign staff or an approved subcontractor.",
   },
   {
     title: "Complete the job and invoice",
@@ -367,7 +367,7 @@ const ProductBlue = () => {
                 icon: Mail,
                 color: "bg-red-500",
                 title: "Your job is confirmed",
-                body: "You're all set for Tue, 9:00 AM — crew booked, SMS on the way.",
+                body: "You're all set for Tue, 9:00 AM crew booked, SMS on the way.",
               },
               // {
               //   icon: MessageSquare,
@@ -434,7 +434,7 @@ const ProductBlue = () => {
                 <Hammer className="h-3 w-3" />
                 stop entering the same job three times
               </Pill>
-              — carry approved quotes into jobs, then into invoices.
+              carry approved quotes into jobs, then into invoices.
             </p>
           </div>
         </div>
@@ -694,7 +694,7 @@ const ProductBlue = () => {
               <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/40 to-transparent" />
               <div className="relative h-full flex flex-col justify-end p-6 text-white">
                 <p className="text-lg font-medium leading-snug mb-6">
-                  The job details go with your team — view the job, navigate, mark on the way,
+                  The job details go with your team view the job, navigate, mark on the way,
                   complete tasks, upload photos and finish the work.
                 </p>
                 <div>
@@ -714,7 +714,7 @@ const ProductBlue = () => {
               <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent" />
               <div className="relative h-full flex flex-col justify-end p-8 text-white">
                 <p className="text-2xl sm:text-3xl font-bold leading-snug mb-6 max-w-lg">
-                  Send the quote — and know what needs following up.
+                  Send the quote and know what needs following up.
                 </p>
                 <div>
                   <p className="font-semibold">Quotes &amp; follow-ups</p>

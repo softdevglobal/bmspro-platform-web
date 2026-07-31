@@ -136,7 +136,7 @@ export function HeroBundleVisual() {
           </p>
           <p className="text-white/70 text-xs sm:text-sm mt-1 flex items-center gap-1.5">
             <Phone className="h-3.5 w-3.5" />
-            Answering · Booking · Filtering — every industry
+            Answering · Booking · Filtering  every industry
           </p>
         </div>
         <div className="absolute top-4 right-4 hidden sm:flex items-center gap-1.5 rounded-full bg-white/95 px-2.5 py-1 shadow-md">

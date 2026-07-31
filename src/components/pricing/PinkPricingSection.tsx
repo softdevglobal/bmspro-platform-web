@@ -39,7 +39,7 @@ const includedItems = [
   {
     icon: Store,
     title: "Grow across locations",
-    body: "Start with one salon — scale to multi-branch with Pro or Enterprise.",
+    body: "Start with one salon scale to multi-branch with Pro or Enterprise.",
   },
   {
     icon: BarChart3,
@@ -54,7 +54,7 @@ const includedItems = [
   {
     icon: Sparkles,
     title: "Built for beauty businesses",
-    body: "Salon and beauty workflows — SoftDev Global / BMS Pros, priced in AUD.",
+    body: "Salon and beauty workflows SoftDev Global / BMS Pros, priced in AUD.",
   },
 ];
 
@@ -121,7 +121,7 @@ export function PinkPricingSection({
                 </h1>
 
                 <p className="font-sans text-base sm:text-lg text-white/70 max-w-xl mx-auto mb-8 animate-fade-up delay-200 leading-relaxed">
-                  Salon &amp; beauty business management — scheduling, clients, and growth in AUD.
+                  Salon &amp; beauty business management scheduling, clients, and growth in AUD.
                 </p>
 
                 <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 animate-fade-up delay-300">
@@ -167,7 +167,7 @@ export function PinkPricingSection({
               Salon pricing for Australian salons
             </h2>
             <p className="font-sans text-lg text-muted-foreground mb-2">
-              Clear AUD plans — from a single chair to multi-location beauty groups.
+              Clear AUD plans from a single chair to multi-location beauty groups.
             </p>
             <p className="font-sans text-sm text-muted-foreground">
               Starter for single-location → Pro for growing teams → Enterprise for multi-branch orgs.
@@ -210,7 +210,7 @@ export function PinkPricingSection({
             </div>
             {period === "yearly" && (
               <p className="text-sm font-medium text-pink animate-fade-in">
-                Pay yearly — ~2 months free
+                Pay yearly ~2 months free
               </p>
             )}
           </div>
@@ -297,7 +297,7 @@ export function PinkPricingSection({
                 SoftDev Global · BMS Pro Salon
               </h2>
               <p className="font-sans text-lg text-white/70 max-w-xl mx-auto mb-8 animate-fade-up delay-200">
-                Salon management for Australian beauty businesses — book a demo or talk to sales.
+                Salon management for Australian beauty businesses book a demo or talk to sales.
               </p>
               <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 mb-10 animate-fade-up delay-300">
                 <Button

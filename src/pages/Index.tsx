@@ -16,7 +16,7 @@ const Index = () => {
     <Layout>
       <SEO
         title="BMS Pro | Run the work without letting the admin run you"
-        description="One platform for workshops, trades and salons. Keep bookings, jobs, staff and customer updates in one place — built in Melbourne."
+        description="One platform for workshops, trades and salons. Keep bookings, jobs, staff and customer updates in one place built in Melbourne."
         path="/"
         jsonLd={[
           {
