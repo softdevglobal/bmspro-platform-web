@@ -84,7 +84,7 @@ export function PinkPricingSection({
         <section className={cn("relative bg-background", offsetHeader && "-mt-16")}>
           <div
             className={cn(
-              "relative min-h-[min(72vh,620px)] flex items-center overflow-hidden",
+              "relative min-h-[min(60vh,520px)] sm:min-h-[min(72vh,620px)] flex items-center overflow-hidden",
               offsetHeader && "pt-16"
             )}
           >
@@ -116,7 +116,7 @@ export function PinkPricingSection({
                   </span>
                 </div>
 
-                <h1 className="font-display text-5xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight mb-4 animate-fade-up delay-100 leading-[1.02]">
+                <h1 className="font-display text-4xl sm:text-5xl lg:text-7xl font-extrabold tracking-tight mb-4 animate-fade-up delay-100 leading-[1.02]">
                   BMS Pro Salon
                 </h1>
 
@@ -366,7 +366,7 @@ function PlanCard({
   return (
     <article
       className={cn(
-        "relative flex flex-col rounded-2xl p-6 sm:p-7 animate-fade-up transition-all duration-300",
+        "relative flex flex-col rounded-2xl p-5 sm:p-6 lg:p-7 animate-fade-up transition-all duration-300 pt-8",
         plan.popular
           ? "bg-pink text-pink-foreground border-2 border-pink shadow-[0_20px_50px_-20px_hsl(340_60%_35%/0.5)] md:scale-[1.03] z-10"
           : "card-elevated border border-pink/15 shadow-elevated bg-card"

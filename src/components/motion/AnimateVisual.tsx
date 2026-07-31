@@ -395,7 +395,7 @@ export function PhoneMockup({
   return (
     <div
       className={cn(
-        "relative mx-auto w-full max-w-[280px] rounded-[2rem] border-[10px] bg-white shadow-2xl overflow-hidden aspect-[9/16]",
+        "relative mx-auto w-full max-w-[220px] sm:max-w-[280px] rounded-[2rem] border-8 sm:border-[10px] bg-white shadow-2xl overflow-hidden aspect-[9/16]",
         bezelClassName,
         className
       )}

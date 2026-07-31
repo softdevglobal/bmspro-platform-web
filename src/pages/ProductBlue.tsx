@@ -206,22 +206,22 @@ const ProductBlue = () => {
                   BMS Pro Trade
                 </span>
               </div>
-              <h1 className="text-4xl sm:text-5xl lg:text-[3.25rem] font-bold tracking-tight text-[hsl(220_22%_10%)] leading-[1.08] mb-4">
+              <h1 className="text-3xl sm:text-4xl lg:text-[3.25rem] font-bold tracking-tight text-[hsl(220_22%_10%)] leading-[1.08] mb-4">
                 Keep every enquiry, quote and job moving.
               </h1>
-              <p className="text-lg text-muted-foreground mb-8 max-w-md">
+              <p className="text-base sm:text-lg text-muted-foreground mb-8 max-w-md">
                 Manage customer enquiries, quotes, jobs, staff, subcontractors and invoices in one
                 connected system. See what needs following up, who is doing the work and what the
                 customer needs to hear next.
               </p>
-              <div className="flex flex-row flex-nowrap items-center gap-3">
-                <Button size="lg" variant="blue" className="rounded-full h-11 px-5 sm:px-6 shrink-0" asChild>
+              <div className="flex flex-col sm:flex-row sm:flex-wrap items-stretch sm:items-center gap-3">
+                <Button size="lg" variant="blue" className="rounded-full h-11 px-5 sm:px-6 w-full sm:w-auto" asChild>
                   <a href="#demo">
                     Start Free Trial
                     <ArrowRight className="h-4 w-4" />
                   </a>
                 </Button>
-                <Button size="lg" variant="outline" className="rounded-full h-11 px-5 sm:px-6 shrink-0" asChild>
+                <Button size="lg" variant="outline" className="rounded-full h-11 px-5 sm:px-6 w-full sm:w-auto whitespace-normal sm:whitespace-nowrap text-center" asChild>
                   <a href="#workflow">See BMS Pro Trade in Action</a>
                 </Button>
               </div>
@@ -270,7 +270,7 @@ const ProductBlue = () => {
       <section className="section-padding bg-white">
         <div className="container-wide">
           <div className="rounded-[2rem] bg-[hsl(210_40%_14%)] text-white overflow-hidden">
-            <div className="grid lg:grid-cols-2 gap-8 p-8 sm:p-12 lg:p-14">
+            <div className="grid lg:grid-cols-2 gap-8 p-5 sm:p-8 lg:p-14">
               <ScrollReveal from="left" distance={56} className="flex flex-col justify-center">
                 <div className="mb-5 flex h-11 w-11 items-center justify-center rounded-xl bg-white/10">
                   <Phone className="h-5 w-5" />
@@ -285,7 +285,7 @@ const ProductBlue = () => {
                 </p>
                 <Button
                   size="lg"
-                  className="w-fit rounded-full bg-white text-blue hover:bg-white/90"
+                  className="w-full sm:w-fit rounded-full bg-white text-blue hover:bg-white/90 whitespace-normal sm:whitespace-nowrap"
                   asChild
                 >
                   <a href="#demo">
@@ -344,7 +344,7 @@ const ProductBlue = () => {
                 You confirm the time
               </Pill>
             </p>
-            <Button variant="blue" className="rounded-full" asChild>
+            <Button variant="blue" className="rounded-full w-full sm:w-auto whitespace-normal sm:whitespace-nowrap" asChild>
               <a href="https://blue.bmspros.com.au/book-now" target="_blank" rel="noreferrer">
                 See the Customer Booking Experience
                 <ArrowRight className="h-4 w-4" />
@@ -352,7 +352,7 @@ const ProductBlue = () => {
             </Button>
           </div>
 
-          <AnimateVisual from="right" distance={72} delay={0.1} className="relative mx-auto w-full max-w-[280px] overflow-visible">
+          <AnimateVisual from="right" distance={72} delay={0.1} className="relative mx-auto w-full max-w-[220px] sm:max-w-[280px] overflow-visible">
             <BookingFlowPhone variant="trade" />
           </AnimateVisual>
         </div>
@@ -369,12 +369,12 @@ const ProductBlue = () => {
                 title: "Your job is confirmed",
                 body: "You're all set for Tue, 9:00 AM — crew booked, SMS on the way.",
               },
-              {
-                icon: MessageSquare,
-                color: "bg-emerald-500",
-                title: "1H reminder",
-                body: "Your plumber arrives tomorrow at 9:00 AM. Reply if you need to reschedule.",
-              },
+              // {
+              //   icon: MessageSquare,
+              //   color: "bg-emerald-500",
+              //   title: "1H reminder",
+              //   body: "Your plumber arrives tomorrow at 9:00 AM. Reply if you need to reschedule.",
+              // },
               {
                 icon: MessageSquare,
                 color: "bg-emerald-500",
@@ -404,7 +404,7 @@ const ProductBlue = () => {
               <img
                 src="/products/blue/sms-phone.jpg"
                 alt="Customer checking a job reminder on their phone"
-                className="w-full rounded-2xl object-cover shadow-lg"
+                className="w-full rounded-2xl object-cover shadow-lg aspect-[4/3] max-h-[420px]"
                 loading="lazy"
               />
             </div>
@@ -603,7 +603,7 @@ const ProductBlue = () => {
               })}
             </div>
 
-            <AnimateVisual from="right" distance={72} delay={0.1} className="relative mx-auto w-full max-w-[280px] lg:sticky lg:top-28">
+            <AnimateVisual from="right" distance={72} delay={0.1} className="relative mx-auto w-full max-w-[200px] sm:max-w-[280px] lg:sticky lg:top-28">
               <div className="relative overflow-hidden rounded-[2rem] border-[10px] border-[hsl(210_40%_14%)] bg-[hsl(210_40%_14%)] shadow-2xl aspect-[9/16]">
                 <video
                   className="absolute inset-0 h-full w-full object-cover"
@@ -685,7 +685,7 @@ const ProductBlue = () => {
 
           <div className="grid md:grid-cols-5 gap-4">
             <ScrollReveal from="left" distance={64} className="md:col-span-2">
-            <article className="relative min-h-[360px] rounded-3xl overflow-hidden h-full">
+            <article className="relative min-h-[280px] sm:min-h-[360px] rounded-3xl overflow-hidden h-full">
               <img
                 src="/products/blue/tradesperson-portrait.jpg"
                 alt=""
@@ -705,7 +705,7 @@ const ProductBlue = () => {
             </article>
             </ScrollReveal>
             <ScrollReveal from="right" distance={64} delay={0.12} className="md:col-span-3">
-            <article className="relative min-h-[360px] rounded-3xl overflow-hidden h-full">
+            <article className="relative min-h-[280px] sm:min-h-[360px] rounded-3xl overflow-hidden h-full">
               <img
                 src="/products/blue/job-site.jpg"
                 alt=""
@@ -731,7 +731,7 @@ const ProductBlue = () => {
 
       {/* Pricing */}
       <section id="pricing" className="scroll-mt-20">
-        <BluePricingSection offsetHeader={false} />
+        <BluePricingSection variant="embedded" offsetHeader={false} />
       </section>
 
       {/* FAQ */}
@@ -814,10 +814,10 @@ const ProductBlue = () => {
                 "Jobs, staff and subcontractor assignment",
                 "Connected invoices and customer updates",
               ].map((t) => (
-                <li key={t} className="flex items-center gap-2">
-                  <Check className="h-4 w-4 text-blue" />
-                  {t}
-                </li>
+                <li key={t} className="flex items-start gap-2">
+                    <Check className="h-4 w-4 text-blue shrink-0 mt-0.5" />
+                    {t}
+                  </li>
               ))}
             </ul>
           </div>
@@ -826,7 +826,7 @@ const ProductBlue = () => {
             onSubmit={handleSubmit}
             className="rounded-3xl bg-white border border-border p-6 sm:p-8 shadow-sm space-y-4"
           >
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <div className="space-y-1.5">
                 <Label htmlFor="firstName">First name</Label>
                 <Input
