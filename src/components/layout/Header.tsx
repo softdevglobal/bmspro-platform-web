@@ -1,5 +1,5 @@
 import { Link, useLocation } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X, ChevronDown, ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -54,9 +54,23 @@ export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [productsOpen, setProductsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [hiddenByScroll, setHiddenByScroll] = useState(false);
+  const lastScrollY = useRef(0);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24);
+    lastScrollY.current = window.scrollY;
+
+    const onScroll = () => {
+      const y = window.scrollY;
+      setScrolled(y > 24);
+
+      const delta = y - lastScrollY.current;
+      // Ignore jitter, and keep the bar visible near the top of the page
+      if (Math.abs(delta) < 4) return;
+      setHiddenByScroll(delta > 0 && y > 80);
+      lastScrollY.current = y;
+    };
+
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
@@ -65,9 +79,11 @@ export function Header() {
   useEffect(() => {
     setMobileMenuOpen(false);
     setProductsOpen(false);
+    setHiddenByScroll(false);
   }, [location.pathname]);
 
   const overHero = hasHero && !scrolled && !mobileMenuOpen;
+  const collapsed = hiddenByScroll && !mobileMenuOpen && !productsOpen;
 
   const linkClass = (active: boolean) =>
     cn(
@@ -84,7 +100,8 @@ export function Header() {
   return (
     <header
       className={cn(
-        "sticky top-0 z-50 w-full transition-all duration-300",
+        "sticky top-0 z-50 w-full transition-all duration-300 will-change-transform",
+        collapsed ? "-translate-y-full" : "translate-y-0",
         overHero
           ? "border-b border-white/10 bg-[hsl(220_22%_6%/0.4)] backdrop-blur-md"
           : "border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80 shadow-sm"
