@@ -165,12 +165,14 @@
   body {
     @apply bg-background text-foreground font-sans antialiased;
     line-height: 1.65;
-    overflow-x: hidden;
+    /* `clip` instead of `hidden`: hidden turns these into scroll containers,
+       which stops the sticky header from tracking the viewport. */
+    overflow-x: clip;
     min-width: 0;
   }
 
   #root {
-    overflow-x: hidden;
+    overflow-x: clip;
     min-width: 0;
   }
 
