@@ -10,8 +10,14 @@ import { ScrollPage, ScrollReveal } from "@/components/motion/ScrollReveal";
 import { AnimateBars, AnimateCount, AnimateProgress, AnimateVisual, MarqueeStrip } from "@/components/motion/AnimateVisual";
 import { BookingFlowPhone } from "@/components/motion/BookingFlowPhone";
 import { submitContactForm } from "@/lib/contactForm";
+import { productSoftwareSchema } from "@/lib/structuredData";
+import {
+  trackContactFormStart,
+  trackContactFormSubmit,
+  trackCtaClick,
+} from "@/lib/analytics";
 import { useToast } from "@/hooks/use-toast";
-import { useState, type ReactNode } from "react";
+import { useRef, useState, type ReactNode } from "react";
 import { cn } from "@/lib/utils";
 import {
   ArrowRight,
@@ -129,6 +135,7 @@ const ProductBlue = () => {
   const [openFormStep, setOpenFormStep] = useState(0);
   const [faqCat, setFaqCat] = useState(0);
   const [openFaq, setOpenFaq] = useState(0);
+  const formStarted = useRef(false);
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -139,6 +146,10 @@ const ProductBlue = () => {
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    if (!formStarted.current) {
+      formStarted.current = true;
+      trackContactFormStart("trade");
+    }
     setFormData({ ...formData, [e.target.id]: e.target.value });
   };
 
@@ -150,6 +161,7 @@ const ProductBlue = () => {
         { ...formData, product: "blue" },
         "BMS Pro Trade demo request"
       );
+      trackContactFormSubmit("trade", true);
       toast({
         title: "Demo request sent!",
         description: "We'll get back to you within 24 hours.",
@@ -162,7 +174,9 @@ const ProductBlue = () => {
         product: "blue",
         message: "",
       });
+      formStarted.current = false;
     } catch (err) {
+      trackContactFormSubmit("trade", false);
       toast({
         title: "Error sending message",
         description: err instanceof Error ? err.message : "Please try again or email us.",
@@ -176,18 +190,20 @@ const ProductBlue = () => {
   return (
     <Layout>
       <SEO
-        title="BMS Pro Trade | Enquiries, Quotes and Jobs for Field Service"
-        description="Keep every enquiry, quote and job moving. Manage customer enquiries, quotes, jobs, staff, subcontractors and invoices in one connected system."
+        title="BMS PRO Trade | Job, Quote and Scheduling Software for Tradies"
+        description="Job, quote and scheduling software for tradies. Manage enquiries, quotes, jobs, staff and invoices in one connected system built for Australian field service."
+        image="/products/blue/hero.jpg"
         path="/products/blue"
-        jsonLd={{
-          "@context": "https://schema.org",
-          "@type": "Product",
+        jsonLd={productSoftwareSchema({
           name: "BMS Pro Trade",
           description:
             "Keep enquiries, quotes, jobs, staff, subcontractors and invoices connected from the first customer call through to final payment.",
-          brand: { "@type": "Brand", name: "BMS Pro" },
-          url: "https://bmspros.com.au/products/blue",
-        }}
+          path: "/products/blue",
+          imagePath: "/products/blue/hero.jpg",
+          // From BLUE_PLANS: AU$99/28-day
+          lowPrice: 99,
+          offerCount: 1,
+        })}
       />
 
       <ScrollPage>
@@ -216,7 +232,12 @@ const ProductBlue = () => {
               </p>
               <div className="flex flex-col sm:flex-row sm:flex-wrap items-stretch sm:items-center gap-3">
                 <Button size="lg" variant="blue" className="rounded-full h-11 px-5 sm:px-6 w-full sm:w-auto" asChild>
-                  <a href="#demo">
+                  <a
+                    href="#demo"
+                    onClick={() =>
+                      trackCtaClick("product_trade", "demo_cta", "#demo")
+                    }
+                  >
                     Start Free Trial
                     <ArrowRight className="h-4 w-4" />
                   </a>
@@ -288,7 +309,12 @@ const ProductBlue = () => {
                   className="w-full sm:w-fit rounded-full bg-white text-blue hover:bg-white/90 whitespace-normal sm:whitespace-nowrap"
                   asChild
                 >
-                  <a href="#demo">
+                  <a
+                    href="#demo"
+                    onClick={() =>
+                      trackCtaClick("product_trade", "demo_cta", "#demo")
+                    }
+                  >
                     Book a Live Demonstration
                     <ArrowRight className="h-4 w-4" />
                   </a>
@@ -656,7 +682,12 @@ const ProductBlue = () => {
             invoices using real product screens.
           </p>
           <Button size="lg" className="rounded-full bg-white text-blue hover:bg-white/90" asChild>
-            <a href="#demo">See BMS Pro Trade in Action</a>
+            <a
+                    href="#demo"
+                    onClick={() =>
+                      trackCtaClick("product_trade", "demo_cta", "#demo")
+                    }
+                  >See BMS Pro Trade in Action</a>
           </Button>
         </div>
       </section>
@@ -676,7 +707,12 @@ const ProductBlue = () => {
               </p>
             </div>
             <Button variant="blue" className="rounded-full w-fit" asChild>
-              <a href="#demo">
+              <a
+                    href="#demo"
+                    onClick={() =>
+                      trackCtaClick("product_trade", "demo_cta", "#demo")
+                    }
+                  >
                 Start Free Trial
                 <ArrowRight className="h-4 w-4" />
               </a>
@@ -930,7 +966,12 @@ const ProductBlue = () => {
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
             <Button size="lg" className="rounded-full bg-white text-blue hover:bg-white/90" asChild>
-              <a href="#demo">Start My Free Trial</a>
+              <a
+                    href="#demo"
+                    onClick={() =>
+                      trackCtaClick("product_trade", "demo_cta", "#demo")
+                    }
+                  >Start My Free Trial</a>
             </Button>
             <Button
               size="lg"
@@ -938,7 +979,12 @@ const ProductBlue = () => {
               className="rounded-full border-white/40 bg-white/10 text-white hover:bg-white/20 hover:text-white"
               asChild
             >
-              <a href="#demo">Book a Live Demonstration</a>
+              <a
+                    href="#demo"
+                    onClick={() =>
+                      trackCtaClick("product_trade", "demo_cta", "#demo")
+                    }
+                  >Book a Live Demonstration</a>
             </Button>
           </div>
         </div>

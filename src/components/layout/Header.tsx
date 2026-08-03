@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X, ChevronDown, ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { productKeyFromPath, trackCtaClick, trackProductClick } from "@/lib/analytics";
 
 const navigation = [
   { name: "Home", href: "/" },
@@ -167,7 +168,13 @@ export function Header() {
                                   "flex items-start gap-3 rounded-xl px-3 py-3 transition-colors",
                                   childActive ? "bg-secondary" : "hover:bg-secondary"
                                 )}
-                                onClick={() => setProductsOpen(false)}
+                                onClick={() => {
+                                  setProductsOpen(false);
+                                  trackProductClick(
+                                    productKeyFromPath(child.href),
+                                    "header_dropdown"
+                                  );
+                                }}
                               >
                                 <span
                                   className={cn(
@@ -225,7 +232,12 @@ export function Header() {
             )}
             asChild
           >
-            <Link to="/contact">
+            <Link
+              to="/contact"
+              onClick={() =>
+                trackCtaClick("header", "Book Your Strategy Call", "/contact")
+              }
+            >
               Book Your Strategy Call
               <ArrowRight className="h-4 w-4" />
             </Link>
@@ -283,7 +295,13 @@ export function Header() {
                                 ? "bg-secondary text-foreground font-medium"
                                 : "text-muted-foreground hover:text-foreground hover:bg-secondary"
                             )}
-                            onClick={() => setMobileMenuOpen(false)}
+                            onClick={() => {
+                              setMobileMenuOpen(false);
+                              trackProductClick(
+                                productKeyFromPath(child.href),
+                                "header_mobile"
+                              );
+                            }}
                           >
                             <span className={cn("h-2 w-2 rounded-full", child.dot)} />
                             {child.name}
@@ -297,7 +315,13 @@ export function Header() {
             })}
             <div className="pt-4 border-t border-border space-y-2">
               <Button className="w-full rounded-full" asChild>
-                <Link to="/contact" onClick={() => setMobileMenuOpen(false)}>
+                <Link
+                  to="/contact"
+                  onClick={() => {
+                    setMobileMenuOpen(false);
+                    trackCtaClick("header_mobile", "Book Your Strategy Call", "/contact");
+                  }}
+                >
                   Book Your Strategy Call
                   <ArrowRight className="h-4 w-4" />
                 </Link>

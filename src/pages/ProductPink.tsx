@@ -10,8 +10,14 @@ import { ScrollPage, ScrollReveal } from "@/components/motion/ScrollReveal";
 import { AnimateBars, AnimateCount, AnimateProgress, AnimateVisual, MarqueeStrip } from "@/components/motion/AnimateVisual";
 import { BookingFlowPhone } from "@/components/motion/BookingFlowPhone";
 import { submitContactForm } from "@/lib/contactForm";
+import { productSoftwareSchema } from "@/lib/structuredData";
+import {
+  trackContactFormStart,
+  trackContactFormSubmit,
+  trackCtaClick,
+} from "@/lib/analytics";
 import { useToast } from "@/hooks/use-toast";
-import { useState, type ReactNode } from "react";
+import { useRef, useState, type ReactNode } from "react";
 import { cn } from "@/lib/utils";
 import {
   ArrowRight,
@@ -128,6 +134,7 @@ const ProductPink = () => {
   const [openFormStep, setOpenFormStep] = useState(0);
   const [faqCat, setFaqCat] = useState(0);
   const [openFaq, setOpenFaq] = useState(0);
+  const formStarted = useRef(false);
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -138,6 +145,10 @@ const ProductPink = () => {
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    if (!formStarted.current) {
+      formStarted.current = true;
+      trackContactFormStart("salon");
+    }
     setFormData({ ...formData, [e.target.id]: e.target.value });
   };
 
@@ -149,6 +160,7 @@ const ProductPink = () => {
         { ...formData, product: "pink" },
         "BMS Pro Salon demo request"
       );
+      trackContactFormSubmit("salon", true);
       toast({
         title: "Demo request sent!",
         description: "We'll get back to you within 24 hours.",
@@ -161,7 +173,9 @@ const ProductPink = () => {
         product: "pink",
         message: "",
       });
+      formStarted.current = false;
     } catch (err) {
+      trackContactFormSubmit("salon", false);
       toast({
         title: "Error sending message",
         description: err instanceof Error ? err.message : "Please try again or email us.",
@@ -175,18 +189,21 @@ const ProductPink = () => {
   return (
     <Layout>
       <SEO
-        title="BMS Pro Salon | Appointments for Salons, Barbers and Beauty"
-        description="Keep your appointments organised without living on your phone. Manage online booking requests, staff schedules, services and customer updates from one place."
+        title="BMS PRO Salon | Appointment and Staff Scheduling Software"
+        description="Appointment and staff scheduling software for salons, barbers and beauty businesses. Manage bookings, services, schedules and customer updates from one place."
+        image="/products/pink/hero.jpg"
         path="/products/pink"
-        jsonLd={{
-          "@context": "https://schema.org",
-          "@type": "Product",
+        jsonLd={productSoftwareSchema({
           name: "BMS Pro Salon",
           description:
             "Let customers request appointments online while you manage your services, staff schedules and daily bookings from one place.",
-          brand: { "@type": "Brand", name: "BMS Pro" },
-          url: "https://bmspros.com.au/products/pink",
-        }}
+          path: "/products/pink",
+          imagePath: "/products/pink/hero.jpg",
+          // From PINK_PLANS monthly: AU$99 … AU$299
+          lowPrice: 99,
+          highPrice: 299,
+          offerCount: 3,
+        })}
       />
 
       <ScrollPage>
@@ -215,7 +232,12 @@ const ProductPink = () => {
               </p>
               <div className="flex flex-col sm:flex-row sm:flex-wrap items-stretch sm:items-center gap-3">
                 <Button size="lg" variant="pink" className="rounded-full h-11 px-5 sm:px-6 w-full sm:w-auto" asChild>
-                  <a href="#demo">
+                  <a
+                    href="#demo"
+                    onClick={() =>
+                      trackCtaClick("product_salon", "demo_cta", "#demo")
+                    }
+                  >
                     Start Free Trial
                     <ArrowRight className="h-4 w-4" />
                   </a>
@@ -288,7 +310,12 @@ const ProductPink = () => {
                   className="w-full sm:w-fit rounded-full bg-white text-pink hover:bg-white/90 whitespace-normal sm:whitespace-nowrap"
                   asChild
                 >
-                  <a href="#demo">
+                  <a
+                    href="#demo"
+                    onClick={() =>
+                      trackCtaClick("product_salon", "demo_cta", "#demo")
+                    }
+                  >
                     Book a Live Demonstration
                     <ArrowRight className="h-4 w-4" />
                   </a>
@@ -654,7 +681,12 @@ const ProductPink = () => {
             screens using the real product.
           </p>
           <Button size="lg" className="rounded-full bg-white text-pink hover:bg-white/90" asChild>
-            <a href="#demo">See BMS Pro Salon in Action</a>
+            <a
+                    href="#demo"
+                    onClick={() =>
+                      trackCtaClick("product_salon", "demo_cta", "#demo")
+                    }
+                  >See BMS Pro Salon in Action</a>
           </Button>
         </div>
       </section>
@@ -673,7 +705,12 @@ const ProductPink = () => {
               </p>
             </div>
             <Button variant="pink" className="rounded-full w-fit" asChild>
-              <a href="#demo">
+              <a
+                    href="#demo"
+                    onClick={() =>
+                      trackCtaClick("product_salon", "demo_cta", "#demo")
+                    }
+                  >
                 Start Free Trial
                 <ArrowRight className="h-4 w-4" />
               </a>
@@ -927,7 +964,12 @@ const ProductPink = () => {
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
             <Button size="lg" className="rounded-full bg-white text-pink hover:bg-white/90" asChild>
-              <a href="#demo">Start My Free Trial</a>
+              <a
+                    href="#demo"
+                    onClick={() =>
+                      trackCtaClick("product_salon", "demo_cta", "#demo")
+                    }
+                  >Start My Free Trial</a>
             </Button>
             <Button
               size="lg"
@@ -935,7 +977,12 @@ const ProductPink = () => {
               className="rounded-full border-white/40 bg-white/10 text-white hover:bg-white/20 hover:text-white"
               asChild
             >
-              <a href="#demo">Book a Live Demonstration</a>
+              <a
+                    href="#demo"
+                    onClick={() =>
+                      trackCtaClick("product_salon", "demo_cta", "#demo")
+                    }
+                  >Book a Live Demonstration</a>
             </Button>
           </div>
         </div>

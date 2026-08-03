@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { Layout } from "@/components/layout/Layout";
 import { SEO } from "@/components/SEO";
 import { Button } from "@/components/ui/button";
@@ -13,26 +13,55 @@ import {
   ShieldCheck,
   Headphones,
 } from "lucide-react";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useToast } from "@/hooks/use-toast";
 import { submitContactForm } from "@/lib/contactForm";
-import { SITE_CONTACT_EMAIL } from "@/lib/siteContact";
+import {
+  SITE_ADDRESS_DISPLAY,
+  SITE_CONTACT_EMAIL,
+  SITE_PHONE_DISPLAY,
+  SITE_PHONE_TEL,
+} from "@/lib/siteContact";
+import { WhatHappensNext } from "@/components/WhatHappensNext";
+import {
+  trackCtaClick,
+  trackContactFormStart,
+  trackContactFormSubmit,
+  trackEmailClick,
+  trackPhoneClick,
+} from "@/lib/analytics";
+
+function messageFromTopic(topic: string | null): string {
+  if (topic === "pricing") {
+    return "I’d like a tailored pricing quote for my business. Please include plan options and any receptionist / call-support add-ons that fit.";
+  }
+  return "";
+}
 
 const Contact = () => {
   const { toast } = useToast();
+  const [searchParams] = useSearchParams();
   const [loading, setLoading] = useState(false);
+  const formStarted = useRef(false);
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
     email: "",
     company: "",
     product: "",
-    message: "",
+    message: messageFromTopic(searchParams.get("topic")),
   });
+
+  const markFormStarted = () => {
+    if (formStarted.current) return;
+    formStarted.current = true;
+    trackContactFormStart(formData.product || undefined);
+  };
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) => {
+    markFormStarted();
     setFormData({ ...formData, [e.target.id]: e.target.value });
   };
 
@@ -42,6 +71,7 @@ const Contact = () => {
 
     try {
       await submitContactForm(formData, "Contact / demo request BMS Pro");
+      trackContactFormSubmit(formData.product || "unspecified", true);
       toast({
         title: "Message sent",
         description: "Thanks we'll get back within 24 hours.",
@@ -54,7 +84,9 @@ const Contact = () => {
         product: "",
         message: "",
       });
+      formStarted.current = false;
     } catch (error) {
+      trackContactFormSubmit(formData.product || "unspecified", false);
       toast({
         title: "Couldn’t send message",
         description:
@@ -69,9 +101,10 @@ const Contact = () => {
   return (
     <Layout>
       <SEO
-        title="Contact BMS Pro | Book a Demo"
-        description="Talk to the BMS Pro team. Book a demo, ask about pricing, or get help choosing the right product. Based in Lynbrook, Victoria."
+        title="Book a BMS Pro Walkthrough | Contact BMS Pro"
+        description="Book a BMS Pro walkthrough with our team. Ask about pricing, choose the right product for your workshop, trade or salon, or get help getting started."
         path="/contact"
+        image="/logo.png"
       />
 
       {/* Full-bleed image hero */}
@@ -106,8 +139,8 @@ const Contact = () => {
                 Let&apos;s talk about your business
               </h1>
               <p className="font-sans text-base sm:text-lg text-white/70 max-w-2xl mx-auto mb-8 animate-fade-up delay-200 leading-relaxed">
-                Book a strategy call we&apos;ll show the software, explain the receptionist
-                handover, and match you to Workshop, Trade, or Salon.
+                Book a short walkthrough. We&apos;ll match you to Workshop, Trade or Salon, show the
+                workflow that fits, and leave the decision with you — no hard sell.
               </p>
 
               <div className="flex flex-col items-center gap-4 animate-fade-up delay-300">
@@ -117,7 +150,12 @@ const Contact = () => {
                     className="rounded-full w-full sm:w-auto bg-white text-[hsl(220_22%_10%)] hover:bg-white/90 shadow-lg"
                     asChild
                   >
-                    <a href="#demo">
+                    <a
+                      href="#demo"
+                      onClick={() =>
+                        trackCtaClick("contact_hero", "Book a Demo", "#demo")
+                      }
+                    >
                       Book a Demo
                       <ArrowRight className="h-5 w-5" />
                     </a>
@@ -128,7 +166,12 @@ const Contact = () => {
                     className="rounded-full w-full sm:w-auto border-white/40 bg-white/10 text-white hover:bg-white/20 hover:text-white backdrop-blur-sm"
                     asChild
                   >
-                    <a href="tel:0387973795">Call 03 8797 3795</a>
+                    <a
+                      href={`tel:${SITE_PHONE_TEL}`}
+                      onClick={() => trackPhoneClick("contact_hero")}
+                    >
+                      Call {SITE_PHONE_DISPLAY}
+                    </a>
                   </Button>
                 </div>
 
@@ -161,7 +204,8 @@ const Contact = () => {
                   Book a Demo
                 </h2>
                 <p className="font-sans text-muted-foreground">
-                  Tell us a bit about your business we&apos;ll get back within 24 hours.
+                  Tell us your business type — we&apos;ll get back within 24 hours to schedule a
+                  low-pressure walkthrough.
                 </p>
               </div>
 
@@ -273,6 +317,7 @@ const Contact = () => {
             <div className="lg:col-span-2 space-y-4">
               <a
                 href={`mailto:${SITE_CONTACT_EMAIL}`}
+                onClick={() => trackEmailClick("contact_sidebar")}
                 className="card-elevated flex items-start gap-4 p-5 border border-border/60 shadow-elevated hover:border-primary/30 transition-colors"
               >
                 <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-primary/10 text-primary shrink-0">
@@ -285,7 +330,8 @@ const Contact = () => {
               </a>
 
               <a
-                href="tel:0387973795"
+                href={`tel:${SITE_PHONE_TEL}`}
+                onClick={() => trackPhoneClick("contact_sidebar")}
                 className="card-elevated flex items-start gap-4 p-5 border border-border/60 shadow-elevated hover:border-primary/30 transition-colors"
               >
                 <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-primary/10 text-primary shrink-0">
@@ -293,7 +339,7 @@ const Contact = () => {
                 </div>
                 <div>
                   <p className="font-display font-semibold text-foreground mb-0.5">Call us</p>
-                  <p className="font-sans text-sm text-muted-foreground">03 8797 3795</p>
+                  <p className="font-sans text-sm text-muted-foreground">{SITE_PHONE_DISPLAY}</p>
                 </div>
               </a>
 
@@ -304,7 +350,7 @@ const Contact = () => {
                 <div>
                   <p className="font-display font-semibold text-foreground mb-0.5">Visit us</p>
                   <p className="font-sans text-sm text-muted-foreground">
-                    12 Stelvio Close, Lynbrook VIC 3975
+                    {SITE_ADDRESS_DISPLAY}
                   </p>
                 </div>
               </div>
@@ -325,6 +371,27 @@ const Contact = () => {
               </div>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* What happens next — reduces hesitation */}
+      <section
+        id="what-happens-next"
+        className="scroll-mt-24 section-padding bg-[hsl(220_18%_96%)]"
+      >
+        <div className="container-wide">
+          <WhatHappensNext variant="light" />
+          <p className="mt-8 text-center text-sm text-muted-foreground max-w-xl mx-auto">
+            Prefer to talk first? Call{" "}
+            <a
+              href={`tel:${SITE_PHONE_TEL}`}
+              onClick={() => trackPhoneClick("contact_what_next")}
+              className="font-semibold text-foreground underline-offset-4 hover:underline"
+            >
+              {SITE_PHONE_DISPLAY}
+            </a>{" "}
+            or use the form above — same low-pressure process either way.
+          </p>
         </div>
       </section>
 

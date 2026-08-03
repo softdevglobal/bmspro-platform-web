@@ -27,10 +27,10 @@ const values = [
 ];
 
 const stats = [
-  { value: "10,000+", label: "Businesses Served" },
-  { value: "500K+", label: "Bookings Processed Monthly" },
-  { value: "99.9%", label: "Uptime Guarantee" },
-  { value: "24/7", label: "Australian Support" },
+  { value: "3", label: "Industry-Focused Products" },
+  { value: "AU", label: "Melbourne-Based Team" },
+  { value: "2018", label: "Serving Australian Businesses" },
+  { value: "24/7", label: "Support Availability" },
 ];
 
 export default function About() {
@@ -59,9 +59,10 @@ export default function About() {
             Empowering Australian Businesses Since 2018
           </h1>
           <p className="text-lg text-muted-foreground leading-relaxed">
-            BMS Pro was founded with a simple mission: to provide service businesses with 
-            powerful, easy-to-use software that streamlines operations and drives growth. 
-            Today, we're proud to serve thousands of businesses across Australia.
+            BMS Pro was founded with a simple mission: to provide service businesses with
+            powerful, easy-to-use software that streamlines operations and drives growth.
+            Today we help workshops, trades and salons across Australia manage bookings,
+            jobs and customer updates in one place.
           </p>
         </div>
 
@@ -118,7 +119,8 @@ export default function About() {
         <section className="text-center py-12">
           <h2 className="text-2xl font-bold text-foreground mb-4">Ready to Get Started?</h2>
           <p className="text-muted-foreground mb-6 max-w-xl mx-auto">
-            Join thousands of Australian businesses already using BMS Pro to streamline their operations.
+            See how BMS Pro can help your workshop, trade business or salon manage bookings,
+            jobs and customer updates.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
