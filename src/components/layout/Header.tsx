@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X, ChevronDown, ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { trackCtaClick } from "@/lib/analytics";
+import { productKeyFromPath, trackCtaClick, trackProductClick } from "@/lib/analytics";
 
 const navigation = [
   { name: "Home", href: "/" },
@@ -168,7 +168,13 @@ export function Header() {
                                   "flex items-start gap-3 rounded-xl px-3 py-3 transition-colors",
                                   childActive ? "bg-secondary" : "hover:bg-secondary"
                                 )}
-                                onClick={() => setProductsOpen(false)}
+                                onClick={() => {
+                                  setProductsOpen(false);
+                                  trackProductClick(
+                                    productKeyFromPath(child.href),
+                                    "header_dropdown"
+                                  );
+                                }}
                               >
                                 <span
                                   className={cn(
@@ -229,11 +235,7 @@ export function Header() {
             <Link
               to="/contact"
               onClick={() =>
-                trackCtaClick({
-                  label: "Book a walkthrough",
-                  location: "header",
-                  destination: "/contact",
-                })
+                trackCtaClick("header", "Book a walkthrough", "/contact")
               }
             >
               Book a walkthrough
@@ -293,7 +295,13 @@ export function Header() {
                                 ? "bg-secondary text-foreground font-medium"
                                 : "text-muted-foreground hover:text-foreground hover:bg-secondary"
                             )}
-                            onClick={() => setMobileMenuOpen(false)}
+                            onClick={() => {
+                              setMobileMenuOpen(false);
+                              trackProductClick(
+                                productKeyFromPath(child.href),
+                                "header_mobile"
+                              );
+                            }}
                           >
                             <span className={cn("h-2 w-2 rounded-full", child.dot)} />
                             {child.name}
@@ -311,11 +319,7 @@ export function Header() {
                   to="/contact"
                   onClick={() => {
                     setMobileMenuOpen(false);
-                    trackCtaClick({
-                      label: "Book a walkthrough",
-                      location: "header_mobile",
-                      destination: "/contact",
-                    });
+                    trackCtaClick("header_mobile", "Book a walkthrough", "/contact");
                   }}
                 >
                   Book a walkthrough

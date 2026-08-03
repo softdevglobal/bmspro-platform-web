@@ -1,0 +1,30 @@
+# Monthly broken-link / route health check (Task 19).
+# Also review GA4 → Events → page_404 for live client 404 URLs.
+name: Link health check
+
+on:
+  schedule:
+    # 1st of each month, 01:00 UTC
+    - cron: "0 1 1 * *"
+  workflow_dispatch:
+
+jobs:
+  check-links:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run link check
+        env:
+          CHECK_LINKS_BASE_URL: https://www.bmspros.com.au
+        run: npm run check:links

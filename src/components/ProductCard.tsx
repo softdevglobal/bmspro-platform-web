@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, LucideIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { productKeyFromPath, trackProductClick } from "@/lib/analytics";
 
 export type ProductVariant = "pink" | "blue" | "teal" | "slate" | "black";
 
@@ -100,7 +101,12 @@ export function ProductCard({
       </ul>
 
       <Button variant={styles.button} className="w-full rounded-full group/btn" asChild>
-        <Link to={href}>
+        <Link
+          to={href}
+          onClick={() =>
+            trackProductClick(productKeyFromPath(href), "products_page")
+          }
+        >
           {cta}
           <ArrowRight className="h-4 w-4 transition-transform group-hover/btn:translate-x-1" />
         </Link>

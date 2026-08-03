@@ -7,6 +7,7 @@ import {
   BLUE_SMS_TOPUPS,
   formatStaffLabel,
 } from "@/lib/bluePlans";
+import { trackCtaClick, trackEmailClick } from "@/lib/analytics";
 import {
   ArrowRight,
   Check,
@@ -186,7 +187,14 @@ export function BluePricingSection({
                     className="rounded-full w-full sm:w-auto border-white/40 bg-white/10 text-white hover:bg-white/20 hover:text-white backdrop-blur-sm transition-transform duration-200 hover:-translate-y-0.5"
                     asChild
                   >
-                    <Link to="/contact">Book a demo</Link>
+                    <Link
+                    to="/contact"
+                    onClick={() =>
+                      trackCtaClick("pricing_trade", "Book a demo", "/contact")
+                    }
+                  >
+                    Book a demo
+                  </Link>
                   </Button>
                 </div>
               </div>
@@ -231,6 +239,7 @@ export function BluePricingSection({
             Need help choosing a plan?{" "}
             <a
               href={`mailto:${SUPPORT_EMAIL}`}
+              onClick={() => trackEmailClick("pricing_trade")}
               className="font-semibold text-foreground underline-offset-4 hover:underline"
             >
               Contact our support team
@@ -388,6 +397,7 @@ export function BluePricingSection({
                     <Mail className="h-4 w-4 text-white/45" />
                     <a
                       href={`mailto:${SUPPORT_EMAIL}`}
+                      onClick={() => trackEmailClick("pricing_trade")}
                       className="text-white/90 font-medium underline-offset-4 hover:underline"
                     >
                       {SUPPORT_EMAIL}
@@ -400,6 +410,7 @@ export function BluePricingSection({
                     <Mail className="h-4 w-4 text-white/45" />
                     <a
                       href={`mailto:${INFO_EMAIL}`}
+                      onClick={() => trackEmailClick("pricing_trade")}
                       className="text-white/90 font-medium underline-offset-4 hover:underline"
                     >
                       {INFO_EMAIL}

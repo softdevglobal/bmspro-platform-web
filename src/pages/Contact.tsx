@@ -15,14 +15,30 @@ import {
   CheckCircle2,
   CalendarCheck,
 } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useToast } from "@/hooks/use-toast";
 import { BUSINESS_TYPES, submitContactForm, type BusinessType } from "@/lib/contactForm";
-import { SITE_CONTACT_EMAIL } from "@/lib/siteContact";
+import {
+  SITE_ADDRESS_DISPLAY,
+  SITE_CONTACT_EMAIL,
+  SITE_PHONE_DISPLAY,
+  SITE_PHONE_TEL,
+} from "@/lib/siteContact";
+import { WhatHappensNext } from "@/components/WhatHappensNext";
+import {
+  trackCtaClick,
+  trackContactFormStart,
+  trackContactFormSubmit,
+  trackEmailClick,
+  trackPhoneClick,
+} from "@/lib/analytics";
 
-const PHONE_DISPLAY = "03 5911 1400";
-const PHONE_TEL = "0359111400";
-const ADDRESS = "12 Stelvio Close, Lynbrook VIC 3975";
+function messageFromTopic(topic: string | null): string {
+  if (topic === "pricing") {
+    return "I’d like a tailored pricing quote for my business. Please include plan options and any receptionist / call-support add-ons that fit.";
+  }
+  return "";
+}
 
 /** Map ?type= / ?product= from product CTAs to the Business type select */
 const TYPE_QUERY_MAP: Record<string, BusinessType> = {
@@ -60,7 +76,11 @@ const Contact = () => {
   const [searchParams] = useSearchParams();
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
-  const [formData, setFormData] = useState(emptyForm);
+  const formStarted = useRef(false);
+  const [formData, setFormData] = useState(() => ({
+    ...emptyForm,
+    message: messageFromTopic(searchParams.get("topic")),
+  }));
 
   useEffect(() => {
     const fromQuery = resolveBusinessType(
@@ -72,9 +92,16 @@ const Contact = () => {
     );
   }, [searchParams]);
 
+  const markFormStarted = () => {
+    if (formStarted.current) return;
+    formStarted.current = true;
+    trackContactFormStart(formData.product || undefined);
+  };
+
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) => {
+    markFormStarted();
     setFormData({ ...formData, [e.target.id]: e.target.value });
   };
 
@@ -96,19 +123,22 @@ const Contact = () => {
         },
         "BMS Pro walkthrough request"
       );
+      trackContactFormSubmit(formData.product || "unspecified", true);
       setSubmitted(true);
       setFormData(emptyForm);
+      formStarted.current = false;
       toast({
         title: "Walkthrough booked",
         description: "Thanks we'll get back within 24 hours.",
       });
     } catch (error) {
+      trackContactFormSubmit(formData.product || "unspecified", false);
       toast({
         title: "Couldn't send your request",
         description:
           error instanceof Error
             ? error.message
-            : "Please try again, or call 03 5911 1400.",
+            : `Please try again, or call ${SITE_PHONE_DISPLAY}.`,
         variant: "destructive",
       });
     } finally {
@@ -120,8 +150,9 @@ const Contact = () => {
     <Layout>
       <SEO
         title="Book a BMS Pro Walkthrough | Contact"
-        description="Book a BMS Pro walkthrough tailored to Workshop, Trade, or Salon. Call 03 5911 1400 or request a demo online."
+        description={`Book a BMS Pro walkthrough tailored to Workshop, Trade, or Salon. Call ${SITE_PHONE_DISPLAY} or request a demo online.`}
         path="/contact"
+        image="/logo.png"
       />
 
       <section className="relative bg-background -mt-16">
@@ -169,7 +200,12 @@ const Contact = () => {
                     className="rounded-full w-full sm:w-auto bg-white text-[hsl(220_22%_10%)] hover:bg-white/90 shadow-lg"
                     asChild
                   >
-                    <a href="#demo">
+                    <a
+                      href="#demo"
+                      onClick={() =>
+                        trackCtaClick("contact_hero", "Book My Walkthrough", "#demo")
+                      }
+                    >
                       Book My Walkthrough
                       <ArrowRight className="h-5 w-5" />
                     </a>
@@ -180,7 +216,12 @@ const Contact = () => {
                     className="rounded-full w-full sm:w-auto border-white/40 bg-white/10 text-white hover:bg-white/20 hover:text-white backdrop-blur-sm"
                     asChild
                   >
-                    <a href={`tel:${PHONE_TEL}`}>Call {PHONE_DISPLAY}</a>
+                    <a
+                      href={`tel:${SITE_PHONE_TEL}`}
+                      onClick={() => trackPhoneClick("contact_hero")}
+                    >
+                      Call {SITE_PHONE_DISPLAY}
+                    </a>
                   </Button>
                 </div>
 
@@ -225,7 +266,7 @@ const Contact = () => {
                       Submit another request
                     </Button>
                     <Button size="lg" variant="outline" className="rounded-full" asChild>
-                      <a href={`tel:${PHONE_TEL}`}>Call {PHONE_DISPLAY}</a>
+                      <a href={`tel:${SITE_PHONE_TEL}`}>Call {SITE_PHONE_DISPLAY}</a>
                     </Button>
                   </div>
                 </div>
@@ -408,6 +449,7 @@ const Contact = () => {
             <div className="lg:col-span-2 space-y-4">
               <a
                 href={`mailto:${SITE_CONTACT_EMAIL}`}
+                onClick={() => trackEmailClick("contact_sidebar")}
                 className="card-elevated flex items-start gap-4 p-5 border border-border/60 shadow-elevated hover:border-primary/30 transition-colors"
               >
                 <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-primary/10 text-primary shrink-0">
@@ -420,7 +462,8 @@ const Contact = () => {
               </a>
 
               <a
-                href={`tel:${PHONE_TEL}`}
+                href={`tel:${SITE_PHONE_TEL}`}
+                onClick={() => trackPhoneClick("contact_sidebar")}
                 className="card-elevated flex items-start gap-4 p-5 border border-border/60 shadow-elevated hover:border-primary/30 transition-colors"
               >
                 <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-primary/10 text-primary shrink-0">
@@ -428,7 +471,7 @@ const Contact = () => {
                 </div>
                 <div>
                   <p className="font-display font-semibold text-foreground mb-0.5">Call us</p>
-                  <p className="font-sans text-sm text-muted-foreground">{PHONE_DISPLAY}</p>
+                  <p className="font-sans text-sm text-muted-foreground">{SITE_PHONE_DISPLAY}</p>
                 </div>
               </a>
 
@@ -438,7 +481,9 @@ const Contact = () => {
                 </div>
                 <div>
                   <p className="font-display font-semibold text-foreground mb-0.5">Visit us</p>
-                  <p className="font-sans text-sm text-muted-foreground">{ADDRESS}</p>
+                  <p className="font-sans text-sm text-muted-foreground">
+                    {SITE_ADDRESS_DISPLAY}
+                  </p>
                 </div>
               </div>
 
@@ -467,6 +512,28 @@ const Contact = () => {
         </div>
       </section>
 
+      {/* What happens next — reduces hesitation */}
+      <section
+        id="what-happens-next"
+        className="scroll-mt-24 section-padding bg-[hsl(220_18%_96%)]"
+      >
+        <div className="container-wide">
+          <WhatHappensNext variant="light" />
+          <p className="mt-8 text-center text-sm text-muted-foreground max-w-xl mx-auto">
+            Prefer to talk first? Call{" "}
+            <a
+              href={`tel:${SITE_PHONE_TEL}`}
+              onClick={() => trackPhoneClick("contact_what_next")}
+              className="font-semibold text-foreground underline-offset-4 hover:underline"
+            >
+              {SITE_PHONE_DISPLAY}
+            </a>{" "}
+            or use the form above — same low-pressure process either way.
+          </p>
+        </div>
+      </section>
+
+      {/* Map */}
       <section className="bg-secondary/30 pb-16 sm:pb-24">
         <div className="container-wide">
           <div className="max-w-2xl mx-auto text-center mb-8">

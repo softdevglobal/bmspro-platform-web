@@ -9,6 +9,7 @@ import {
   priceForPeriod,
   periodSuffix,
 } from "@/lib/pinkPlans";
+import { trackCtaClick, trackEmailClick } from "@/lib/analytics";
 import {
   ArrowRight,
   Check,
@@ -141,7 +142,14 @@ export function PinkPricingSection({
                     className="rounded-full w-full sm:w-auto border-white/40 bg-white/10 text-white hover:bg-white/20 hover:text-white backdrop-blur-sm transition-transform duration-200 hover:-translate-y-0.5"
                     asChild
                   >
-                    <Link to="/contact">Book a demo</Link>
+                    <Link
+                    to="/contact"
+                    onClick={() =>
+                      trackCtaClick("pricing_salon", "Book a demo", "/contact")
+                    }
+                  >
+                    Book a demo
+                  </Link>
                   </Button>
                 </div>
               </div>
@@ -225,6 +233,7 @@ export function PinkPricingSection({
             All prices in Australian dollars (AUD). Need a walkthrough?{" "}
             <a
               href={`mailto:${SUPPORT_EMAIL}`}
+              onClick={() => trackEmailClick("pricing_salon")}
               className="font-semibold text-foreground underline-offset-4 hover:underline"
             >
               Contact support
@@ -305,7 +314,12 @@ export function PinkPricingSection({
                   className="rounded-full bg-white text-pink hover:bg-white/90 shadow-lg transition-transform duration-200 hover:-translate-y-0.5"
                   asChild
                 >
-                  <Link to="/contact">
+                  <Link
+                    to="/contact"
+                    onClick={() =>
+                      trackCtaClick("pricing_salon_footer", "Book a demo", "/contact")
+                    }
+                  >
                     Book a demo
                     <ArrowRight className="h-5 w-5" />
                   </Link>
@@ -324,6 +338,7 @@ export function PinkPricingSection({
                   <Mail className="h-4 w-4 text-white/45" />
                   <a
                     href={`mailto:${SUPPORT_EMAIL}`}
+                    onClick={() => trackEmailClick("pricing_salon")}
                     className="text-white/90 font-medium underline-offset-4 hover:underline"
                   >
                     {SUPPORT_EMAIL}
@@ -336,6 +351,7 @@ export function PinkPricingSection({
                   <Mail className="h-4 w-4 text-white/45" />
                   <a
                     href={`mailto:${INFO_EMAIL}`}
+                    onClick={() => trackEmailClick("pricing_salon")}
                     className="text-white/90 font-medium underline-offset-4 hover:underline"
                   >
                     {INFO_EMAIL}

@@ -10,9 +10,14 @@ import { ScrollPage, ScrollReveal } from "@/components/motion/ScrollReveal";
 import { AnimateBars, AnimateCount, AnimateProgress, AnimateVisual, MarqueeStrip } from "@/components/motion/AnimateVisual";
 import { BookingFlowPhone } from "@/components/motion/BookingFlowPhone";
 import { submitContactForm } from "@/lib/contactForm";
-import { trackCtaClick } from "@/lib/analytics";
+import { productSoftwareSchema } from "@/lib/structuredData";
+import {
+  trackContactFormStart,
+  trackContactFormSubmit,
+  trackCtaClick,
+} from "@/lib/analytics";
 import { useToast } from "@/hooks/use-toast";
-import { useState, type ReactNode } from "react";
+import { useRef, useState, type ReactNode } from "react";
 import { cn } from "@/lib/utils";
 import {
   ArrowRight,
@@ -173,6 +178,7 @@ const ProductBlue = () => {
   const [openFormStep, setOpenFormStep] = useState(0);
   const [faqCat, setFaqCat] = useState(0);
   const [openFaq, setOpenFaq] = useState(0);
+  const formStarted = useRef(false);
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -183,6 +189,10 @@ const ProductBlue = () => {
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    if (!formStarted.current) {
+      formStarted.current = true;
+      trackContactFormStart("trade");
+    }
     setFormData({ ...formData, [e.target.id]: e.target.value });
   };
 
@@ -194,6 +204,7 @@ const ProductBlue = () => {
         { ...formData, product: "Trade" },
         "BMS Pro Trade demo request"
       );
+      trackContactFormSubmit("trade", true);
       toast({
         title: "Demo request sent!",
         description: "We'll get back to you within 24 hours.",
@@ -206,7 +217,9 @@ const ProductBlue = () => {
         product: "Trade",
         message: "",
       });
+      formStarted.current = false;
     } catch (err) {
+      trackContactFormSubmit("trade", false);
       toast({
         title: "Error sending message",
         description: err instanceof Error ? err.message : "Please try again or email us.",
@@ -220,18 +233,20 @@ const ProductBlue = () => {
   return (
     <Layout>
       <SEO
-        title="BMS Pro Trade | Enquiries, Quotes and Jobs for Field Service"
-        description="Keep every enquiry, quote and job moving. Manage customer enquiries, quotes, jobs, staff, subcontractors and invoices in one connected system."
+        title="BMS PRO Trade | Job, Quote and Scheduling Software for Tradies"
+        description="Job, quote and scheduling software for tradies. Manage enquiries, quotes, jobs, staff and invoices in one connected system built for Australian field service."
+        image="/products/blue/hero.jpg"
         path="/products/blue"
-        jsonLd={{
-          "@context": "https://schema.org",
-          "@type": "Product",
+        jsonLd={productSoftwareSchema({
           name: "BMS Pro Trade",
           description:
             "Keep enquiries, quotes, jobs, staff, subcontractors and invoices connected from the first customer call through to final payment.",
-          brand: { "@type": "Brand", name: "BMS Pro" },
-          url: "https://bmspros.com.au/products/blue",
-        }}
+          path: "/products/blue",
+          imagePath: "/products/blue/hero.jpg",
+          // From BLUE_PLANS: AU$99/28-day
+          lowPrice: 99,
+          offerCount: 1,
+        })}
       />
 
       <ScrollPage>
@@ -260,22 +275,29 @@ const ProductBlue = () => {
               </p>
               <div className="flex flex-col sm:flex-row sm:flex-wrap items-stretch sm:items-center gap-3">
                 <Button size="lg" variant="blue" className="rounded-full h-11 px-5 sm:px-6 w-full sm:w-auto" asChild>
-                  <Link
-                    to="/contact?type=Trade"
+                  <a
+                    href="#demo"
                     onClick={() =>
-                      trackCtaClick({
-                        label: "Book a Trade Walkthrough",
-                        location: "product_trade",
-                        destination: "/contact?type=Trade",
-                      })
+                      trackCtaClick("product_trade", "Book a Trade Walkthrough", "#demo")
                     }
                   >
-                      Book a Trade Walkthrough
+                    Book a Trade Walkthrough
                     <ArrowRight className="h-4 w-4" />
-                  </Link>
+                  </a>
                 </Button>
                 <Button size="lg" variant="outline" className="rounded-full h-11 px-5 sm:px-6 w-full sm:w-auto whitespace-normal sm:whitespace-nowrap text-center" asChild>
-                  <a href="https://trade.bmspros.com.au/login">See BMS Pro Trade in Action</a>
+                  <a
+                    href="https://trade.bmspros.com.au/login"
+                    onClick={() =>
+                      trackCtaClick(
+                        "product_trade",
+                        "See BMS Pro Trade in Action",
+                        "https://trade.bmspros.com.au/login"
+                      )
+                    }
+                  >
+                    See BMS Pro Trade in Action
+                  </a>
                 </Button>
               </div>
               <div className="mt-6 flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
@@ -368,19 +390,15 @@ const ProductBlue = () => {
                   className="w-full sm:w-fit rounded-full bg-white text-blue hover:bg-white/90 whitespace-normal sm:whitespace-nowrap"
                   asChild
                 >
-                  <Link
-                    to="/contact?type=Trade"
+                  <a
+                    href="#demo"
                     onClick={() =>
-                      trackCtaClick({
-                        label: "Book a Trade Walkthrough",
-                        location: "product_trade",
-                        destination: "/contact?type=Trade",
-                      })
+                      trackCtaClick("product_trade", "Book a Trade Walkthrough", "#demo")
                     }
                   >
-                      Book a Trade Walkthrough
+                    Book a Trade Walkthrough
                     <ArrowRight className="h-4 w-4" />
-                  </Link>
+                  </a>
                 </Button>
               </ScrollReveal>
 
@@ -789,12 +807,20 @@ const ProductBlue = () => {
             View the dashboard, enquiries, quotes, calendar, job card, team, customer updates and
             invoices using real product screens.
           </p>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
-            <Button size="lg" className="rounded-full bg-white text-blue hover:bg-white/90" asChild>
-              <Link to="/contact?type=Trade" onClick={() => trackCtaClick({ label: "Book a Trade Walkthrough", location: "product_trade", destination: "/contact?type=Trade" })}>Book a Trade Walkthrough</Link>
-            </Button>
-           
-          </div>
+          <Button size="lg" className="rounded-full bg-white text-blue hover:bg-white/90" asChild>
+            <a
+              href="https://trade.bmspros.com.au/login"
+              onClick={() =>
+                trackCtaClick(
+                  "product_trade",
+                  "See BMS Pro Trade in Action",
+                  "https://trade.bmspros.com.au/login"
+                )
+              }
+            >
+              See BMS Pro Trade in Action
+            </a>
+          </Button>
         </div>
       </section>
 
@@ -813,19 +839,19 @@ const ProductBlue = () => {
               </p>
             </div>
             <Button variant="blue" className="rounded-full w-fit" asChild>
-              <Link
-                    to="/contact?type=Trade"
-                    onClick={() =>
-                      trackCtaClick({
-                        label: "Book a Trade Walkthrough",
-                        location: "product_trade",
-                        destination: "/contact?type=Trade",
-                      })
-                    }
-                  >
-                      Book a Trade Walkthrough
+              <a
+                href="https://trade.bmspros.com.au/login"
+                onClick={() =>
+                  trackCtaClick(
+                    "product_trade",
+                    "Start Free Trial",
+                    "https://trade.bmspros.com.au/login"
+                  )
+                }
+              >
+                Start Free Trial
                 <ArrowRight className="h-4 w-4" />
-              </Link>
+              </a>
             </Button>
           </div>
 
@@ -1078,18 +1104,14 @@ const ProductBlue = () => {
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
             <Button size="lg" className="rounded-full bg-white text-blue hover:bg-white/90" asChild>
-              <Link
-                to="/contact?type=Trade"
+              <a
+                href="#demo"
                 onClick={() =>
-                  trackCtaClick({
-                    label: "Book a Trade Walkthrough",
-                    location: "product_trade",
-                    destination: "/contact?type=Trade",
-                  })
+                  trackCtaClick("product_trade_footer", "Book a Trade Walkthrough", "#demo")
                 }
               >
                 Book a Trade Walkthrough
-              </Link>
+              </a>
             </Button>
             <Button
               size="lg"
@@ -1097,7 +1119,18 @@ const ProductBlue = () => {
               className="rounded-full border-white/40 bg-white/10 text-white hover:bg-white/20 hover:text-white"
               asChild
             >
-              <a href="https://trade.bmspros.com.au/login" target="_blank" rel="noopener noreferrer">
+              <a
+                href="https://trade.bmspros.com.au/login"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() =>
+                  trackCtaClick(
+                    "product_trade_footer",
+                    "Start My Free Trial",
+                    "https://trade.bmspros.com.au/login"
+                  )
+                }
+              >
                 Start My Free Trial
                 <span className="sr-only"> (opens in a new tab)</span>
               </a>

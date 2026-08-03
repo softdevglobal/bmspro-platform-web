@@ -1,16 +1,8 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Check } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { trackCtaClick } from "@/lib/analytics";
-
-const points = [
-  "How a customer makes a booking",
-  "What you see inside the platform",
-  "How work is scheduled",
-  "What your team can access",
-  "How customers receive updates",
-  "How the job moves to the next step",
-];
+import { WhatHappensNext } from "@/components/WhatHappensNext";
 
 export function TrustWalkthroughSection() {
   return (
@@ -41,12 +33,11 @@ export function TrustWalkthroughSection() {
         <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
           <div>
             <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight mb-5">
-              We’d rather show you the system than make big promises.
+              See it with your workflow — before you decide.
             </h2>
             <p className="font-sans text-lg text-white/65 leading-relaxed mb-8">
-              Business software should earn your trust before you rely on it. We’ll show you how BMS
-              Pro works using a normal workflow from your type of business not a long sales
-              presentation filled with features you may never use.
+              We’ll walk through a normal day for your workshop, trade crew or salon. Not a feature
+              dump — just the parts you’d actually use.
             </p>
             <Button
               size="lg"
@@ -56,11 +47,7 @@ export function TrustWalkthroughSection() {
               <Link
                 to="/contact"
                 onClick={() =>
-                  trackCtaClick({
-                    label: "Book a walkthrough",
-                    location: "homepage_trust_walkthrough",
-                    destination: "/contact",
-                  })
+                  trackCtaClick("homepage_trust_walkthrough", "Book a walkthrough", "/contact")
                 }
               >
                 Book a walkthrough
@@ -68,21 +55,11 @@ export function TrustWalkthroughSection() {
               </Link>
             </Button>
             <p className="mt-4 text-sm text-white/50">
-              No pressure to decide during the walkthrough.
+              No pressure to decide on the call.
             </p>
           </div>
 
-          <ul className="space-y-3">
-            {points.map((point) => (
-              <li
-                key={point}
-                className="flex items-start gap-3 rounded-2xl border border-white/15 bg-white/10 backdrop-blur-md px-4 py-3.5"
-              >
-                <Check className="h-4 w-4 text-teal shrink-0 mt-0.5" />
-                <span className="text-sm sm:text-base text-white/85">{point}</span>
-              </li>
-            ))}
-          </ul>
+          <WhatHappensNext variant="dark" />
         </div>
       </div>
     </section>

@@ -298,16 +298,19 @@ const server = http.createServer(async (req, res) => {
   }
 
   if (url.startsWith("/api/")) {
+    console.warn(`[404] Unknown API route: ${req.method || "GET"} ${url}`);
     json(res, 404, { error: "Not found" });
     return;
   }
 
   // In production (`npm start`), serve the Vite build.
+  // Unknown SPA paths still return index.html (200) — client NotFound fires GA `page_404`.
   if (process.env.NODE_ENV === "production") {
     serveStatic(req, res);
     return;
   }
 
+  console.warn(`[404] No handler in development API for: ${req.method || "GET"} ${url}`);
   json(res, 404, { error: "Not found" });
 });
 

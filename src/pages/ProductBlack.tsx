@@ -10,9 +10,14 @@ import { ScrollPage, ScrollReveal } from "@/components/motion/ScrollReveal";
 import { AnimateBars, AnimateCount, AnimateProgress, AnimateVisual, MarqueeStrip, PhoneMockup } from "@/components/motion/AnimateVisual";
 import { BookingFlowPhone } from "@/components/motion/BookingFlowPhone";
 import { submitContactForm } from "@/lib/contactForm";
-import { trackCtaClick } from "@/lib/analytics";
+import { productSoftwareSchema } from "@/lib/structuredData";
+import {
+  trackContactFormStart,
+  trackContactFormSubmit,
+  trackCtaClick,
+} from "@/lib/analytics";
 import { useToast } from "@/hooks/use-toast";
-import { useState, type ReactNode } from "react";
+import { useRef, useState, type ReactNode } from "react";
 import { cn } from "@/lib/utils";
 import {
   ArrowRight,
@@ -202,6 +207,7 @@ const ProductBlack = () => {
   const [openFormStep, setOpenFormStep] = useState(0);
   const [faqCat, setFaqCat] = useState(0);
   const [openFaq, setOpenFaq] = useState(0);
+  const formStarted = useRef(false);
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -212,6 +218,10 @@ const ProductBlack = () => {
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    if (!formStarted.current) {
+      formStarted.current = true;
+      trackContactFormStart("workshop");
+    }
     setFormData({ ...formData, [e.target.id]: e.target.value });
   };
 
@@ -223,6 +233,7 @@ const ProductBlack = () => {
         { ...formData, product: "Workshop" },
         "BMS Pro Workshop demo request"
       );
+      trackContactFormSubmit("workshop", true);
       toast({
         title: "Demo request sent!",
         description: "We'll get back to you within 24 hours.",
@@ -235,7 +246,9 @@ const ProductBlack = () => {
         product: "Workshop",
         message: "",
       });
+      formStarted.current = false;
     } catch (err) {
+      trackContactFormSubmit("workshop", false);
       toast({
         title: "Error sending message",
         description: err instanceof Error ? err.message : "Please try again or email us.",
@@ -249,18 +262,21 @@ const ProductBlack = () => {
   return (
     <Layout>
       <SEO
-        title="BMS Pro Workshop | Booking & Operations for Automotive Workshops"
-        description="Keep the workshop moving without running everything from memory. Manage bookings, customer details, vehicle information, staff schedules and service updates from one place."
+        title="BMS PRO Workshop | Booking and Job Management for Auto Workshops"
+        description="Booking and job management software for auto workshops. Track bookings, vehicles, staff schedules and service updates in one place built for Australian workshops."
+        image="/products/black/hero.jpg"
         path="/products/black"
-        jsonLd={{
-          "@context": "https://schema.org",
-          "@type": "Product",
+        jsonLd={productSoftwareSchema({
           name: "BMS Pro Workshop",
           description:
             "Manage bookings, customer details, vehicle information, workshop schedules and service updates from one place.",
-          brand: { "@type": "Brand", name: "BMS Pro" },
-          url: "https://bmspros.com.au/products/black",
-        }}
+          path: "/products/black",
+          imagePath: "/products/black/hero.jpg",
+          // From BLACK_PLANS: AU$99/28-day … AU$399/7-day
+          lowPrice: 99,
+          highPrice: 399,
+          offerCount: 2,
+        })}
       />
 
       <ScrollPage>
@@ -294,19 +310,15 @@ const ProductBlack = () => {
                     className="rounded-full h-11 px-5 sm:px-6 w-full sm:w-auto"
                     asChild
                   >
-                    <Link
-                    to="/contact?type=Workshop"
-                    onClick={() =>
-                      trackCtaClick({
-                        label: "Book a Workshop Walkthrough",
-                        location: "product_workshop",
-                        destination: "/contact?type=Workshop",
-                      })
-                    }
-                  >
+                    <a
+                      href="#demo"
+                      onClick={() =>
+                        trackCtaClick("product_workshop", "Book a Workshop Walkthrough", "#demo")
+                      }
+                    >
                       Book a Workshop Walkthrough
                       <ArrowRight className="h-4 w-4" />
-                    </Link>
+                    </a>
                   </Button>
                   <Button
                     size="lg"
@@ -314,7 +326,18 @@ const ProductBlack = () => {
                     className="rounded-full h-11 px-5 sm:px-6 w-full sm:w-auto whitespace-normal sm:whitespace-nowrap text-center"
                     asChild
                   >
-                    <a href="https://black.bmspros.com.au/login">See BMS Pro Workshop in Action</a>
+                    <a
+                      href="https://black.bmspros.com.au/login"
+                      onClick={() =>
+                        trackCtaClick(
+                          "product_workshop",
+                          "See BMS Pro Workshop in Action",
+                          "https://black.bmspros.com.au/login"
+                        )
+                      }
+                    >
+                      See BMS Pro Workshop in Action
+                    </a>
                   </Button>
                 </div>
                 <div className="mt-6 flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
@@ -408,19 +431,15 @@ const ProductBlack = () => {
                     className="w-full sm:w-fit rounded-full bg-white text-product-black hover:bg-white/90 whitespace-normal sm:whitespace-nowrap"
                     asChild
                   >
-                    <Link
-                    to="/contact?type=Workshop"
-                    onClick={() =>
-                      trackCtaClick({
-                        label: "Book a Workshop Walkthrough",
-                        location: "product_workshop",
-                        destination: "/contact?type=Workshop",
-                      })
-                    }
-                  >
+                    <a
+                      href="#demo"
+                      onClick={() =>
+                        trackCtaClick("product_workshop", "Book a Workshop Walkthrough", "#demo")
+                      }
+                    >
                       Book a Workshop Walkthrough
                       <ArrowRight className="h-4 w-4" />
-                    </Link>
+                    </a>
                   </Button>
                 </ScrollReveal>
 
@@ -800,18 +819,18 @@ const ProductBlack = () => {
               className="rounded-full bg-white text-product-black hover:bg-white/90"
               asChild
             >
-              <Link
-                to="/contact?type=Workshop"
+              <a
+                href="https://black.bmspros.com.au/login"
                 onClick={() =>
-                  trackCtaClick({
-                    label: "Book a Workshop Walkthrough",
-                    location: "product_workshop",
-                    destination: "/contact?type=Workshop",
-                  })
+                  trackCtaClick(
+                    "product_workshop",
+                    "See BMS Pro Workshop in Action",
+                    "https://black.bmspros.com.au/login"
+                  )
                 }
               >
-                Book a Workshop Walkthrough
-              </Link>
+                See BMS Pro Workshop in Action
+              </a>
             </Button>
           </div>
         </section>
@@ -831,7 +850,16 @@ const ProductBlack = () => {
                 </p>
               </div>
               <Button variant="black" className="rounded-full w-fit" asChild>
-                <a href="https://black.bmspros.com.au/login">
+                <a
+                  href="https://black.bmspros.com.au/login"
+                  onClick={() =>
+                    trackCtaClick(
+                      "product_workshop",
+                      "Start Free Trial",
+                      "https://black.bmspros.com.au/login"
+                    )
+                  }
+                >
                   Start Free Trial
                   <ArrowRight className="h-4 w-4" />
                 </a>
@@ -1101,18 +1129,18 @@ const ProductBlack = () => {
                 className="rounded-full bg-white text-product-black hover:bg-white/90"
                 asChild
               >
-                <Link
-                  to="/contact?type=Workshop"
+                <a
+                  href="#demo"
                   onClick={() =>
-                    trackCtaClick({
-                      label: "Book a Workshop Walkthrough",
-                      location: "product_workshop",
-                      destination: "/contact?type=Workshop",
-                    })
+                    trackCtaClick(
+                      "product_workshop_footer",
+                      "Book a Workshop Walkthrough",
+                      "#demo"
+                    )
                   }
                 >
                   Book a Workshop Walkthrough
-                </Link>
+                </a>
               </Button>
               <Button
                 size="lg"
@@ -1120,7 +1148,18 @@ const ProductBlack = () => {
                 className="rounded-full border-white/40 bg-white/10 text-white hover:bg-white/20 hover:text-white"
                 asChild
               >
-                <a href="https://black.bmspros.com.au/login" target="_blank" rel="noopener noreferrer">
+                <a
+                  href="https://black.bmspros.com.au/login"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() =>
+                    trackCtaClick(
+                      "product_workshop_footer",
+                      "Start My Free Trial",
+                      "https://black.bmspros.com.au/login"
+                    )
+                  }
+                >
                   Start My Free Trial
                   <span className="sr-only"> (opens in a new tab)</span>
                 </a>
