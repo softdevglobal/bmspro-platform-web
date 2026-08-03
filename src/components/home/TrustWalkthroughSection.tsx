@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Check } from "lucide-react";
+import { trackCtaClick } from "@/lib/analytics";
 
 const points = [
   "How a customer makes a booking",
@@ -52,7 +53,12 @@ export function TrustWalkthroughSection() {
               className="rounded-full bg-white text-[hsl(220_22%_10%)] hover:bg-white/90"
               asChild
             >
-              <Link to="/contact">
+              <Link
+                to="/contact"
+                onClick={() =>
+                  trackCtaClick("trust_walkthrough", "Book a Live Walkthrough", "/contact")
+                }
+              >
                 Book a Live Walkthrough
                 <ArrowRight className="h-4 w-4" />
               </Link>

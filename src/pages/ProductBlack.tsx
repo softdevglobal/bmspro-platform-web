@@ -215,7 +215,7 @@ const ProductBlack = () => {
           description:
             "Manage bookings, customer details, vehicle information, workshop schedules and service updates from one place.",
           brand: { "@type": "Brand", name: "BMS Pro" },
-          url: "https://bmspros.com.au/products/black",
+          url: "https://www.bmspros.com.au/products/black",
         }}
       />
 

@@ -13,14 +13,21 @@ import {
   ShieldCheck,
   Headphones,
 } from "lucide-react";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useToast } from "@/hooks/use-toast";
 import { submitContactForm } from "@/lib/contactForm";
 import { SITE_CONTACT_EMAIL } from "@/lib/siteContact";
+import {
+  trackCtaClick,
+  trackEmailClick,
+  trackEvent,
+  trackPhoneClick,
+} from "@/lib/analytics";
 
 const Contact = () => {
   const { toast } = useToast();
   const [loading, setLoading] = useState(false);
+  const formStarted = useRef(false);
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -30,9 +37,16 @@ const Contact = () => {
     message: "",
   });
 
+  const markFormStarted = () => {
+    if (formStarted.current) return;
+    formStarted.current = true;
+    trackEvent("contact_form_start");
+  };
+
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) => {
+    markFormStarted();
     setFormData({ ...formData, [e.target.id]: e.target.value });
   };
 
@@ -42,6 +56,10 @@ const Contact = () => {
 
     try {
       await submitContactForm(formData, "Contact / demo request BMS Pro");
+      trackEvent("contact_form_submit", {
+        product: formData.product || "unspecified",
+        success: true,
+      });
       toast({
         title: "Message sent",
         description: "Thanks we'll get back within 24 hours.",
@@ -54,7 +72,12 @@ const Contact = () => {
         product: "",
         message: "",
       });
+      formStarted.current = false;
     } catch (error) {
+      trackEvent("contact_form_submit", {
+        product: formData.product || "unspecified",
+        success: false,
+      });
       toast({
         title: "Couldn’t send message",
         description:
@@ -117,7 +140,12 @@ const Contact = () => {
                     className="rounded-full w-full sm:w-auto bg-white text-[hsl(220_22%_10%)] hover:bg-white/90 shadow-lg"
                     asChild
                   >
-                    <a href="#demo">
+                    <a
+                      href="#demo"
+                      onClick={() =>
+                        trackCtaClick("contact_hero", "Book a Demo", "#demo")
+                      }
+                    >
                       Book a Demo
                       <ArrowRight className="h-5 w-5" />
                     </a>
@@ -128,7 +156,12 @@ const Contact = () => {
                     className="rounded-full w-full sm:w-auto border-white/40 bg-white/10 text-white hover:bg-white/20 hover:text-white backdrop-blur-sm"
                     asChild
                   >
-                    <a href="tel:0387973795">Call 03 8797 3795</a>
+                    <a
+                      href="tel:0387973795"
+                      onClick={() => trackPhoneClick("contact_hero")}
+                    >
+                      Call 03 8797 3795
+                    </a>
                   </Button>
                 </div>
 
@@ -273,6 +306,7 @@ const Contact = () => {
             <div className="lg:col-span-2 space-y-4">
               <a
                 href={`mailto:${SITE_CONTACT_EMAIL}`}
+                onClick={() => trackEmailClick("contact_sidebar")}
                 className="card-elevated flex items-start gap-4 p-5 border border-border/60 shadow-elevated hover:border-primary/30 transition-colors"
               >
                 <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-primary/10 text-primary shrink-0">
@@ -286,6 +320,7 @@ const Contact = () => {
 
               <a
                 href="tel:0387973795"
+                onClick={() => trackPhoneClick("contact_sidebar")}
                 className="card-elevated flex items-start gap-4 p-5 border border-border/60 shadow-elevated hover:border-primary/30 transition-colors"
               >
                 <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-primary/10 text-primary shrink-0">

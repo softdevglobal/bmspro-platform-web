@@ -186,7 +186,7 @@ const ProductBlue = () => {
           description:
             "Keep enquiries, quotes, jobs, staff, subcontractors and invoices connected from the first customer call through to final payment.",
           brand: { "@type": "Brand", name: "BMS Pro" },
-          url: "https://bmspros.com.au/products/blue",
+          url: "https://www.bmspros.com.au/products/blue",
         }}
       />
 

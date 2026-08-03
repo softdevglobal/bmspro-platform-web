@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { ArrowRight, Wrench, Scissors, Hammer, LucideIcon } from "lucide-react";
+import { productKeyFromPath, trackProductClick } from "@/lib/analytics";
 
 type ShowcaseProduct = {
   shortName: string;
@@ -154,6 +155,12 @@ export function ProductSuiteSection() {
                     </ul>
                     <Link
                       to={product.href}
+                      onClick={() =>
+                        trackProductClick(
+                          productKeyFromPath(product.href),
+                          "homepage_suite"
+                        )
+                      }
                       className={`inline-flex items-center justify-center gap-2 w-full h-12 rounded-full text-sm font-semibold transition-all ${product.ctaClass}`}
                     >
                       {product.cta}

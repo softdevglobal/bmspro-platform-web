@@ -3,12 +3,14 @@ import { useEffect } from "react";
 import { Layout } from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
+import { trackEvent } from "@/lib/analytics";
 
 const NotFound = () => {
   const location = useLocation();
 
   useEffect(() => {
     console.error("404 Error: User attempted to access non-existent route:", location.pathname);
+    trackEvent("page_404", { page_path: location.pathname });
   }, [location.pathname]);
 
   return (

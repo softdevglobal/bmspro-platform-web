@@ -23,8 +23,8 @@ const Index = () => {
             "@context": "https://schema.org",
             "@type": "Organization",
             name: "BMS Pro",
-            url: "https://bmspros.com.au",
-            logo: "https://bmspros.com.au/logo.png",
+            url: "https://www.bmspros.com.au",
+            logo: "https://www.bmspros.com.au/logo.png",
             email: SITE_CONTACT_EMAIL,
             telephone: "+61387973795",
             address: {
@@ -40,7 +40,7 @@ const Index = () => {
             "@context": "https://schema.org",
             "@type": "WebSite",
             name: "BMS Pro",
-            url: "https://bmspros.com.au",
+            url: "https://www.bmspros.com.au",
           },
         ]}
       />

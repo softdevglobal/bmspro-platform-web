@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight, Wrench, Scissors, Hammer } from "lucide-react";
 import { HeroBundleVisual } from "./HeroBundleVisual";
 import { MarqueeStrip } from "@/components/motion/AnimateVisual";
+import { productKeyFromPath, trackCtaClick, trackProductClick } from "@/lib/analytics";
 
 const heroCollage = [
   {
@@ -81,7 +82,12 @@ export function HeroSection() {
                   className="rounded-full w-full sm:w-auto bg-white text-[hsl(220_22%_10%)] hover:bg-white/90 shadow-lg"
                   asChild
                 >
-                  <Link to="/contact">
+                  <Link
+                    to="/contact"
+                    onClick={() =>
+                      trackCtaClick("hero", "See BMS Pro in Action", "/contact")
+                    }
+                  >
                     See BMS Pro in Action
                     <ArrowRight className="h-5 w-5" />
                   </Link>
@@ -92,7 +98,14 @@ export function HeroSection() {
                   className="rounded-full w-full sm:w-auto border-white/40 bg-white/10 text-white hover:bg-white/20 hover:text-white backdrop-blur-sm"
                   asChild
                 >
-                  <a href="#products">Choose Your Business</a>
+                  <a
+                    href="#products"
+                    onClick={() =>
+                      trackCtaClick("hero", "Choose Your Business", "#products")
+                    }
+                  >
+                    Choose Your Business
+                  </a>
                 </Button>
               </div>
 
@@ -112,6 +125,9 @@ export function HeroSection() {
                     <Link
                       key={item.label}
                       to={item.href}
+                      onClick={() =>
+                        trackProductClick(productKeyFromPath(item.href), "hero")
+                      }
                       className="inline-flex items-center justify-center gap-2 rounded-full border border-white/20 bg-white/10 backdrop-blur-sm px-4 py-2.5 text-sm font-label font-semibold text-white hover:bg-white/20 transition-colors"
                     >
                       <span

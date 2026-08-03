@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { Mail, Phone, MapPin } from "lucide-react";
 import { SITE_CONTACT_EMAIL } from "@/lib/siteContact";
+import { trackEmailClick, trackPhoneClick } from "@/lib/analytics";
 
 const footerLinks = {
   products: [
@@ -95,6 +96,7 @@ export function Footer() {
               <li>
                 <a
                   href={`mailto:${SITE_CONTACT_EMAIL}`}
+                  onClick={() => trackEmailClick("footer")}
                   className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
                 >
                   <Mail className="h-4 w-4" />
@@ -104,6 +106,7 @@ export function Footer() {
               <li>
                 <a
                   href="tel:0387973795"
+                  onClick={() => trackPhoneClick("footer")}
                   className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
                 >
                   <Phone className="h-4 w-4" />
@@ -125,7 +128,9 @@ export function Footer() {
             © {new Date().getFullYear()} BMS Pro. All rights reserved.
           </p>
           <div className="flex items-center gap-4">
-            <span className="text-sm text-muted-foreground">Trusted by 10,000+ businesses</span>
+            <span className="text-sm text-muted-foreground">
+              Built for workshops, trades and salons
+            </span>
           </div>
         </div>
       </div>

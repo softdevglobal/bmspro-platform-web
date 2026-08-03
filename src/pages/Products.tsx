@@ -11,6 +11,7 @@ import {
   ArrowRight,
   ShieldCheck,
 } from "lucide-react";
+import { trackCtaClick } from "@/lib/analytics";
 
 const products = [
   {
@@ -77,7 +78,7 @@ const Products = () => {
     itemListElement: products.map((p, i) => ({
       "@type": "ListItem",
       position: i + 1,
-      url: `https://bmspros.com.au${p.href}`,
+      url: `https://www.bmspros.com.au${p.href}`,
       name: p.name,
     })),
   };
@@ -147,7 +148,18 @@ const Products = () => {
                     className="rounded-full w-full sm:w-auto border-white/40 bg-white/10 text-white hover:bg-white/20 hover:text-white backdrop-blur-sm"
                     asChild
                   >
-                    <Link to="/contact">Book Your Strategy Call</Link>
+                    <Link
+                      to="/contact"
+                      onClick={() =>
+                        trackCtaClick(
+                          "products_hero",
+                          "Book Your Strategy Call",
+                          "/contact"
+                        )
+                      }
+                    >
+                      Book Your Strategy Call
+                    </Link>
                   </Button>
                 </div>
 
@@ -257,7 +269,16 @@ const Products = () => {
               className="rounded-full bg-white text-[hsl(220_22%_10%)] hover:bg-white/90 shadow-lg"
               asChild
             >
-              <Link to="/contact">
+              <Link
+                to="/contact"
+                onClick={() =>
+                  trackCtaClick(
+                    "products_footer",
+                    "Book Your Strategy Call",
+                    "/contact"
+                  )
+                }
+              >
                 Book Your Strategy Call
                 <ArrowRight className="h-5 w-5" />
               </Link>

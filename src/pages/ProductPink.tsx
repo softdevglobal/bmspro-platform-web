@@ -185,7 +185,7 @@ const ProductPink = () => {
           description:
             "Let customers request appointments online while you manage your services, staff schedules and daily bookings from one place.",
           brand: { "@type": "Brand", name: "BMS Pro" },
-          url: "https://bmspros.com.au/products/pink",
+          url: "https://www.bmspros.com.au/products/pink",
         }}
       />
 

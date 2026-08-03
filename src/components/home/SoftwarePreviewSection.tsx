@@ -11,6 +11,7 @@ import {
   UserRound,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { trackCtaClick } from "@/lib/analytics";
 
 const tabs = [
   {
@@ -152,7 +153,12 @@ export function SoftwarePreviewSection() {
 
         <div className="text-center">
           <Button size="lg" className="rounded-full" asChild>
-            <Link to="/contact">
+            <Link
+              to="/contact"
+              onClick={() =>
+                trackCtaClick("software_preview", "Take a Proper Look Inside", "/contact")
+              }
+            >
               Take a Proper Look Inside
               <ArrowRight className="h-4 w-4" />
             </Link>
