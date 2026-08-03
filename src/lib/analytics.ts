@@ -10,7 +10,7 @@
  * - email_click          { location }
  * - pricing_page_view    { page_path }
  * - page_view            { page_path, page_title? }
- * - page_404             { page_path }
+ * - page_404             { page_path, page_location?, page_search?, page_referrer? }
  *
  * Verification before launch:
  * 1. Set VITE_GA_MEASUREMENT_ID in .env and restart the Vite dev server.
@@ -18,6 +18,8 @@
  * 3. In GA4 → Admin → DebugView (or Realtime), confirm the same event names arrive.
  * 4. Smoke checklist: hero CTA, product card click, /pricing visit, phone + email
  *    links, contact form first field focus/change, contact form submit.
+ * 5. Visit a fake path (e.g. /this-is-not-real) and confirm `page_404` with page_path.
+ * 6. Run `npm run check:links` monthly (also scheduled via GitHub Actions).
  */
 
 export type AnalyticsEventName =
@@ -103,6 +105,21 @@ export function trackContactFormSubmit(product: string, success: boolean): void 
   trackEvent("contact_form_submit", {
     product: product || "unspecified",
     success,
+  });
+}
+
+/** Client-side SPA 404 — use GA4 to see which URLs fail (hosting often still returns 200). */
+export function trackPage404(params: {
+  page_path: string;
+  page_location?: string;
+  page_search?: string;
+  page_referrer?: string;
+}): void {
+  trackEvent("page_404", {
+    page_path: params.page_path,
+    page_location: params.page_location,
+    page_search: params.page_search,
+    page_referrer: params.page_referrer,
   });
 }
 

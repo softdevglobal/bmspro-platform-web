@@ -11,7 +11,8 @@
     "build:dev": "vite build --mode development",
     "start": "cross-env NODE_ENV=production tsx server/index.ts",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "check:links": "tsx scripts/check-links.ts"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",

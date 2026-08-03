@@ -3,15 +3,21 @@ import { useEffect } from "react";
 import { Layout } from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
-import { trackEvent } from "@/lib/analytics";
+import { trackPage404 } from "@/lib/analytics";
 
 const NotFound = () => {
   const location = useLocation();
 
   useEffect(() => {
-    console.error("404 Error: User attempted to access non-existent route:", location.pathname);
-    trackEvent("page_404", { page_path: location.pathname });
-  }, [location.pathname]);
+    const pagePath = `${location.pathname}${location.search}${location.hash}`;
+    console.error("404 Error: User attempted to access non-existent route:", pagePath);
+    trackPage404({
+      page_path: location.pathname,
+      page_location: pagePath,
+      page_search: location.search || undefined,
+      page_referrer: typeof document !== "undefined" ? document.referrer || undefined : undefined,
+    });
+  }, [location.pathname, location.search, location.hash]);
 
   return (
     <Layout>
