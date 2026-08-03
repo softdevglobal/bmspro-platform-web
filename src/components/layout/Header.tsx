@@ -235,10 +235,10 @@ export function Header() {
             <Link
               to="/contact"
               onClick={() =>
-                trackCtaClick("header", "Book Your Strategy Call", "/contact")
+                trackCtaClick("header", "Book a walkthrough", "/contact")
               }
             >
-              Book Your Strategy Call
+              Book a walkthrough
               <ArrowRight className="h-4 w-4" />
             </Link>
           </Button>
@@ -319,10 +319,10 @@ export function Header() {
                   to="/contact"
                   onClick={() => {
                     setMobileMenuOpen(false);
-                    trackCtaClick("header_mobile", "Book Your Strategy Call", "/contact");
+                    trackCtaClick("header_mobile", "Book a walkthrough", "/contact");
                   }}
                 >
-                  Book Your Strategy Call
+                  Book a walkthrough
                   <ArrowRight className="h-4 w-4" />
                 </Link>
               </Button>

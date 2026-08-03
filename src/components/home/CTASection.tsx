@@ -46,10 +46,10 @@ export function CTASection() {
             <Link
               to="/contact"
               onClick={() =>
-                trackCtaClick("final_cta", "Book My Walkthrough", "/contact")
+                trackCtaClick("homepage_final_cta", "Book my walkthrough", "/contact")
               }
             >
-              Book My Walkthrough
+              Book my walkthrough
               <ArrowRight className="h-5 w-5" />
             </Link>
           </Button>
@@ -62,10 +62,10 @@ export function CTASection() {
             <a
               href="#products"
               onClick={() =>
-                trackCtaClick("final_cta", "Choose My BMS Pro", "#products")
+                trackCtaClick("homepage_final_cta", "Choose your BMS Pro", "#products")
               }
             >
-              Choose My BMS Pro
+              Choose your BMS Pro
             </a>
           </Button>
         </div>

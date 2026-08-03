@@ -1,9 +1,12 @@
 import { Layout } from "@/components/layout/Layout";
 import { SEO } from "@/components/SEO";
 import { HeroSection } from "@/components/home/HeroSection";
+import { ProductWorkflowPreview } from "@/components/home/ProductWorkflowPreview";
+import { AudienceSection } from "@/components/home/AudienceSection";
 import { SoftwarePreviewSection } from "@/components/home/SoftwarePreviewSection";
 import { ProductSuiteSection } from "@/components/home/ProductSuiteSection";
 import { ArchitectureSection } from "@/components/home/ArchitectureSection";
+import { BenefitsSection } from "@/components/home/BenefitsSection";
 import { TrustWalkthroughSection } from "@/components/home/TrustWalkthroughSection";
 import { HomeFAQSection } from "@/components/home/HomeFAQSection";
 import { CTASection } from "@/components/home/CTASection";
@@ -31,9 +34,12 @@ const Index = () => {
         ]}
       />
       <HeroSection />
-      <SoftwarePreviewSection />
+      <ProductWorkflowPreview />
+      <AudienceSection />
       <ProductSuiteSection />
       <ArchitectureSection />
+      <BenefitsSection />
+      <SoftwarePreviewSection />
       <TrustWalkthroughSection />
       <HomeFAQSection />
       <CTASection />

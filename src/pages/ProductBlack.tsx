@@ -21,6 +21,7 @@ import { useRef, useState, type ReactNode } from "react";
 import { cn } from "@/lib/utils";
 import {
   ArrowRight,
+  ArrowDown,
   Bell,
   Calendar,
   Check,
@@ -45,6 +46,48 @@ const TRUST_LOGOS = [
   "Auto electricians",
   "Vehicle service centres",
   "Specialist repair workshops",
+];
+
+const WHO_ITS_FOR = [
+  {
+    title: "Mechanics",
+    body: "Independent and franchise workshops that need bookings and vehicle history in one place.",
+  },
+  {
+    title: "Automotive workshops",
+    body: "Busy service centres managing multiple bays, staff and customer updates every day.",
+  },
+  {
+    title: "Service centres",
+    body: "Teams that want online booking requests without giving away calendar control.",
+  },
+];
+
+const PRODUCT_SCREENS = [
+  {
+    title: "Booking request",
+    caption: "Customers request a time. You approve what fits the workshop.",
+    src: "/products/black/sms-phone.jpg",
+    alt: "Customer booking confirmation on phone",
+  },
+  {
+    title: "Vehicle & customer record",
+    caption: "Keep registration, history and notes with the booking.",
+    src: "/products/black/workshop-bay.jpg",
+    alt: "Workshop bay representing vehicle service records",
+  },
+  {
+    title: "Workshop calendar",
+    caption: "See what is coming into the bays before the day starts.",
+    src: "/products/black/mechanic-focus.jpg",
+    alt: "Mechanic using workshop scheduling tools",
+  },
+  {
+    title: "Service / job view",
+    caption: "Track progress and send updates without rewriting messages.",
+    src: "/products/black/front-desk.jpg",
+    alt: "Front desk handling workshop service updates",
+  },
 ];
 
 const FORM_STEPS = [
@@ -170,7 +213,7 @@ const ProductBlack = () => {
     lastName: "",
     email: "",
     company: "",
-    product: "black",
+    product: "Workshop",
     message: "",
   });
 
@@ -187,7 +230,7 @@ const ProductBlack = () => {
     setLoading(true);
     try {
       await submitContactForm(
-        { ...formData, product: "black" },
+        { ...formData, product: "Workshop" },
         "BMS Pro Workshop demo request"
       );
       trackContactFormSubmit("workshop", true);
@@ -200,7 +243,7 @@ const ProductBlack = () => {
         lastName: "",
         email: "",
         company: "",
-        product: "black",
+        product: "Workshop",
         message: "",
       });
       formStarted.current = false;
@@ -270,10 +313,10 @@ const ProductBlack = () => {
                     <a
                       href="#demo"
                       onClick={() =>
-                        trackCtaClick("product_workshop", "demo_cta", "#demo")
+                        trackCtaClick("product_workshop", "Book a Workshop Walkthrough", "#demo")
                       }
                     >
-                      Start Free Trial
+                      Book a Workshop Walkthrough
                       <ArrowRight className="h-4 w-4" />
                     </a>
                   </Button>
@@ -283,7 +326,18 @@ const ProductBlack = () => {
                     className="rounded-full h-11 px-5 sm:px-6 w-full sm:w-auto whitespace-normal sm:whitespace-nowrap text-center"
                     asChild
                   >
-                    <a href="#workflow">See BMS Pro Workshop in Action</a>
+                    <a
+                      href="https://black.bmspros.com.au/login"
+                      onClick={() =>
+                        trackCtaClick(
+                          "product_workshop",
+                          "See BMS Pro Workshop in Action",
+                          "https://black.bmspros.com.au/login"
+                        )
+                      }
+                    >
+                      See BMS Pro Workshop in Action
+                    </a>
                   </Button>
                 </div>
                 <div className="mt-6 flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
@@ -324,6 +378,33 @@ const ProductBlack = () => {
           <MarqueeStrip items={TRUST_LOGOS} fadeFromClassName="from-[hsl(220_14%_97%)]" />
         </section>
 
+        {/* Who it is for */}
+        <section className="section-padding bg-white">
+          <div className="container-wide">
+            <div className="max-w-2xl mb-10">
+              <p className="text-sm font-semibold text-product-black mb-3">Who it is for</p>
+              <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4">
+                Built for mechanics, automotive workshops and service centres.
+              </h2>
+              <p className="text-muted-foreground text-lg leading-relaxed">
+                BMS Pro Workshop helps you manage booking requests, vehicle records, the workshop
+                calendar, staff allocation and customer updates.
+              </p>
+            </div>
+            <div className="grid sm:grid-cols-3 gap-4 lg:gap-6">
+              {WHO_ITS_FOR.map((item) => (
+                <div
+                  key={item.title}
+                  className="rounded-2xl border border-border bg-[hsl(220_14%_98%)] p-6"
+                >
+                  <h3 className="font-semibold text-foreground mb-2">{item.title}</h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed">{item.body}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
         {/* Front desk / never miss a call */}
         <section className="section-padding bg-white">
           <div className="container-wide">
@@ -353,14 +434,10 @@ const ProductBlack = () => {
                     <a
                       href="#demo"
                       onClick={() =>
-                        trackCtaClick(
-                          "product_workshop",
-                          "Book a Live Demonstration",
-                          "#demo"
-                        )
+                        trackCtaClick("product_workshop", "Book a Workshop Walkthrough", "#demo")
                       }
                     >
-                      Book a Live Demonstration
+                      Book a Workshop Walkthrough
                       <ArrowRight className="h-4 w-4" />
                     </a>
                   </Button>
@@ -415,9 +492,10 @@ const ProductBlack = () => {
                 </Pill>
               </p>
               <Button variant="black" className="rounded-full w-full sm:w-auto whitespace-normal sm:whitespace-nowrap" asChild>
-                <a href="https://black.bmspros.com.au/book-now" target="_blank" rel="noreferrer">
+                <a href="https://black.bmspros.com.au/book-now" target="_blank" rel="noopener noreferrer">
                   See the Customer Booking Experience
-                  <ArrowRight className="h-4 w-4" />
+                  <span className="sr-only"> (opens in a new tab)</span>
+                  <ArrowRight className="h-4 w-4" aria-hidden="true" />
                 </a>
               </Button>
             </ScrollReveal>
@@ -563,7 +641,7 @@ const ProductBlack = () => {
                   </p>
                   <img
                     src="/products/black/workshop-bay.jpg"
-                    alt=""
+                    alt="Workshop service bay set up for a logbook service booking"
                     className="rounded-xl h-24 w-full object-cover"
                   />
                 </div>
@@ -634,9 +712,7 @@ const ProductBlack = () => {
               </p>
             </div>
           </div>
-        </section>
-
-        {/* Workflow accordion */}
+        </section>        {/* Workflow accordion */}
         <section id="workflow" className="scroll-mt-20 section-padding bg-[hsl(220_14%_97%)]">
           <div className="container-wide">
             <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-center mb-3 max-w-2xl mx-auto">
@@ -646,30 +722,39 @@ const ProductBlack = () => {
               Here is what a normal customer journey can look like inside BMS Pro Workshop.
             </p>
             <div className="grid lg:grid-cols-2 gap-10 items-start">
-              <div className="space-y-3">
+              <div className="space-y-0">
                 {FORM_STEPS.map((step, i) => {
                   const open = openFormStep === i;
+                  const isLast = i === FORM_STEPS.length - 1;
                   return (
-                    <button
-                      key={step.title}
-                      type="button"
-                      onClick={() => setOpenFormStep(open ? -1 : i)}
-                      className="w-full text-left rounded-2xl bg-white border border-border p-5 shadow-sm"
-                    >
-                      <div className="flex items-center justify-between gap-3">
-                        <span className="font-semibold text-foreground">
-                          {i + 1}. {step.title}
-                        </span>
-                        <span className="flex h-7 w-7 items-center justify-center rounded-full bg-product-black text-white shrink-0">
-                          {open ? <Minus className="h-3.5 w-3.5" /> : <Plus className="h-3.5 w-3.5" />}
-                        </span>
-                      </div>
-                      {open && (
-                        <div className="mt-3 pr-8">
-                          <p className="text-sm text-muted-foreground leading-relaxed">{step.body}</p>
+                    <div key={step.title}>
+                      <button
+                        type="button"
+                        aria-expanded={open}
+                        onClick={() => setOpenFormStep(open ? -1 : i)}
+                        className="w-full text-left rounded-2xl bg-white border border-border p-5 shadow-sm"
+                      >
+                        <div className="flex items-center justify-between gap-3">
+                          <span className="font-semibold text-foreground">
+                            {i + 1}. {step.title}
+                          </span>
+                          <span className="flex h-7 w-7 items-center justify-center rounded-full bg-product-black text-white shrink-0">
+                            {open ? <Minus className="h-3.5 w-3.5" /> : <Plus className="h-3.5 w-3.5" />}
+                          </span>
+                        </div>
+                        {open && (
+                          <div className="mt-3 pr-8">
+                            <p className="text-sm text-muted-foreground leading-relaxed">{step.body}</p>
+                          </div>
+                        )}
+                      </button>
+                      {!isLast && (
+                        <div className="flex flex-col items-center py-1.5" aria-hidden>
+                          <div className="h-3 w-px bg-border" />
+                          <ArrowDown className="h-4 w-4 text-muted-foreground/70 -mt-0.5" />
                         </div>
                       )}
-                    </button>
+                    </div>
                   );
                 })}
               </div>
@@ -735,11 +820,17 @@ const ProductBlack = () => {
               asChild
             >
               <a
-                      href="#demo"
-                      onClick={() =>
-                        trackCtaClick("product_workshop", "demo_cta", "#demo")
-                      }
-                    >See BMS Pro Workshop in Action</a>
+                href="https://black.bmspros.com.au/login"
+                onClick={() =>
+                  trackCtaClick(
+                    "product_workshop",
+                    "See BMS Pro Workshop in Action",
+                    "https://black.bmspros.com.au/login"
+                  )
+                }
+              >
+                See BMS Pro Workshop in Action
+              </a>
             </Button>
           </div>
         </section>
@@ -760,11 +851,15 @@ const ProductBlack = () => {
               </div>
               <Button variant="black" className="rounded-full w-fit" asChild>
                 <a
-                      href="#demo"
-                      onClick={() =>
-                        trackCtaClick("product_workshop", "demo_cta", "#demo")
-                      }
-                    >
+                  href="https://black.bmspros.com.au/login"
+                  onClick={() =>
+                    trackCtaClick(
+                      "product_workshop",
+                      "Start Free Trial",
+                      "https://black.bmspros.com.au/login"
+                    )
+                  }
+                >
                   Start Free Trial
                   <ArrowRight className="h-4 w-4" />
                 </a>
@@ -776,7 +871,7 @@ const ProductBlack = () => {
                 <article className="relative min-h-[280px] sm:min-h-[360px] rounded-3xl overflow-hidden h-full">
                   <img
                     src="/products/black/mechanic-portrait.jpg"
-                    alt=""
+                    alt="Mechanic checking the day's booked jobs before starting work"
                     className="absolute inset-0 h-full w-full object-cover"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/40 to-transparent" />
@@ -796,7 +891,7 @@ const ProductBlack = () => {
                 <article className="relative min-h-[280px] sm:min-h-[360px] rounded-3xl overflow-hidden h-full">
                   <img
                     src="/products/black/workshop-bay.jpg"
-                    alt=""
+                    alt="Vehicle in a workshop bay with customer and service history on file"
                     className="absolute inset-0 h-full w-full object-cover"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent" />
@@ -839,6 +934,7 @@ const ProductBlack = () => {
                   <button
                     key={cat.category}
                     type="button"
+                    aria-pressed={faqCat === i}
                     onClick={() => {
                       setFaqCat(i);
                       setOpenFaq(0);
@@ -862,6 +958,7 @@ const ProductBlack = () => {
                     <div key={item.q} className="rounded-2xl bg-[hsl(220_14%_96%)] overflow-hidden">
                       <button
                         type="button"
+                        aria-expanded={open}
                         className="w-full flex items-center justify-between gap-4 px-5 py-4 text-left"
                         onClick={() => setOpenFaq(open ? -1 : i)}
                       >
@@ -1035,10 +1132,14 @@ const ProductBlack = () => {
                 <a
                   href="#demo"
                   onClick={() =>
-                    trackCtaClick("product_workshop_footer", "Start My Free Trial", "#demo")
+                    trackCtaClick(
+                      "product_workshop_footer",
+                      "Book a Workshop Walkthrough",
+                      "#demo"
+                    )
                   }
                 >
-                  Start My Free Trial
+                  Book a Workshop Walkthrough
                 </a>
               </Button>
               <Button
@@ -1048,16 +1149,19 @@ const ProductBlack = () => {
                 asChild
               >
                 <a
-                  href="#demo"
+                  href="https://black.bmspros.com.au/login"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   onClick={() =>
                     trackCtaClick(
                       "product_workshop_footer",
-                      "Book a Live Demonstration",
-                      "#demo"
+                      "Start My Free Trial",
+                      "https://black.bmspros.com.au/login"
                     )
                   }
                 >
-                  Book a Live Demonstration
+                  Start My Free Trial
+                  <span className="sr-only"> (opens in a new tab)</span>
                 </a>
               </Button>
             </div>

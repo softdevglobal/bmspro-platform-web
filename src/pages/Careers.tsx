@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { Layout } from "@/components/layout/Layout";
 import { SEO } from "@/components/SEO";
-import { ArrowLeft, Briefcase, Heart, Zap, Globe, Coffee, GraduationCap, MapPin, Clock, Building2 } from "lucide-react";
+import { ArrowLeft, Briefcase, Heart, Zap, Globe, Coffee, GraduationCap, MapPin, Clock } from "lucide-react";
 
 const benefits = [
   {
@@ -36,43 +36,51 @@ const benefits = [
   },
 ];
 
-const jobOpenings = [
-  {
-    title: "DevOps Engineer",
-    department: "Engineering",
-    location: "Melbourne / Remote",
-    type: "Full-time",
-    description: "Design, implement, and maintain our cloud infrastructure and CI/CD pipelines to ensure seamless deployment and scalability.",
-  },
-  {
-    title: "IT Technician",
-    department: "IT Support",
-    location: "Melbourne",
-    type: "Full-time",
-    description: "Provide technical support and maintain IT systems, ensuring smooth operations across all departments.",
-  },
-  {
-    title: "Cloud Support Engineer",
-    department: "Engineering",
-    location: "Melbourne / Remote",
-    type: "Full-time",
-    description: "Support and troubleshoot cloud-based solutions, helping customers maximize the value of our platform.",
-  },
-  {
-    title: "AI Engineer",
-    department: "Engineering",
-    location: "Melbourne / Remote",
-    type: "Full-time",
-    description: "Develop and integrate AI/ML solutions to enhance our product suite and deliver intelligent automation features.",
-  },
-  {
-    title: "Sales Representative",
-    department: "Sales",
-    location: "Melbourne",
-    type: "Full-time",
-    description: "Drive business growth by building relationships with potential clients and showcasing our product solutions.",
-  },
-];
+// No open positions at the moment — re-enable when hiring resumes.
+// const jobOpenings = [
+//   {
+//     title: "DevOps Engineer",
+//     department: "Engineering",
+//     location: "Melbourne / Remote",
+//     type: "Full-time",
+//     description: "Design, implement, and maintain our cloud infrastructure and CI/CD pipelines to ensure seamless deployment and scalability.",
+//   },
+//   {
+//     title: "IT Technician",
+//     department: "IT Support",
+//     location: "Melbourne",
+//     type: "Full-time",
+//     description: "Provide technical support and maintain IT systems, ensuring smooth operations across all departments.",
+//   },
+//   {
+//     title: "Cloud Support Engineer",
+//     department: "Engineering",
+//     location: "Melbourne / Remote",
+//     type: "Full-time",
+//     description: "Support and troubleshoot cloud-based solutions, helping customers maximize the value of our platform.",
+//   },
+//   {
+//     title: "AI Engineer",
+//     department: "Engineering",
+//     location: "Melbourne / Remote",
+//     type: "Full-time",
+//     description: "Develop and integrate AI/ML solutions to enhance our product suite and deliver intelligent automation features.",
+//   },
+//   {
+//     title: "Sales Representative",
+//     department: "Sales",
+//     location: "Melbourne",
+//     type: "Full-time",
+//     description: "Drive business growth by building relationships with potential clients and showcasing our product solutions.",
+//   },
+// ];
+const jobOpenings: {
+  title: string;
+  department: string;
+  location: string;
+  type: string;
+  description: string;
+}[] = [];
 
 const hiringProcess = [
   { step: 1, title: "Apply Online", description: "Submit your resume and cover letter via email." },
@@ -130,39 +138,57 @@ export default function Careers() {
         {/* Open Positions */}
         <section className="mb-16">
           <h2 className="text-2xl font-bold text-foreground mb-8">Open Positions</h2>
-          <div className="grid gap-4">
-            {jobOpenings.map((job) => (
-              <div key={job.title} className="p-6 rounded-lg border border-border bg-card hover:border-primary/50 transition-colors">
-                <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-                  <div className="flex-1">
-                    <div className="flex items-center gap-3 mb-2">
-                      <h3 className="text-lg font-semibold text-foreground">{job.title}</h3>
-                      <span className="px-2 py-0.5 text-xs font-medium bg-primary/10 text-primary rounded-full">
-                        {job.department}
-                      </span>
+          {jobOpenings.length === 0 ? (
+            <div className="p-8 rounded-lg border border-border bg-card text-center">
+              <Briefcase className="h-10 w-10 text-muted-foreground mx-auto mb-4" />
+              <h3 className="text-lg font-semibold text-foreground mb-2">No open positions right now</h3>
+              <p className="text-sm text-muted-foreground max-w-md mx-auto">
+                We don&apos;t have any openings at the moment. Check back soon, or send your resume
+                to{" "}
+                <a
+                  href="mailto:info@bmspros.com.au?subject=General Application"
+                  className="text-primary hover:underline"
+                >
+                  info@bmspros.com.au
+                </a>
+                .
+              </p>
+            </div>
+          ) : (
+            <div className="grid gap-4">
+              {jobOpenings.map((job) => (
+                <div key={job.title} className="p-6 rounded-lg border border-border bg-card hover:border-primary/50 transition-colors">
+                  <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                    <div className="flex-1">
+                      <div className="flex items-center gap-3 mb-2">
+                        <h3 className="text-lg font-semibold text-foreground">{job.title}</h3>
+                        <span className="px-2 py-0.5 text-xs font-medium bg-primary/10 text-primary rounded-full">
+                          {job.department}
+                        </span>
+                      </div>
+                      <p className="text-sm text-muted-foreground mb-3">{job.description}</p>
+                      <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
+                        <span className="flex items-center gap-1.5">
+                          <MapPin className="h-4 w-4" />
+                          {job.location}
+                        </span>
+                        <span className="flex items-center gap-1.5">
+                          <Clock className="h-4 w-4" />
+                          {job.type}
+                        </span>
+                      </div>
                     </div>
-                    <p className="text-sm text-muted-foreground mb-3">{job.description}</p>
-                    <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
-                      <span className="flex items-center gap-1.5">
-                        <MapPin className="h-4 w-4" />
-                        {job.location}
-                      </span>
-                      <span className="flex items-center gap-1.5">
-                        <Clock className="h-4 w-4" />
-                        {job.type}
-                      </span>
-                    </div>
+                    <a
+                      href={`mailto:info@bmspros.com.au?subject=Application: ${job.title}`}
+                      className="inline-flex items-center justify-center px-5 py-2.5 bg-primary text-primary-foreground font-medium rounded-lg hover:bg-primary/90 transition-colors whitespace-nowrap"
+                    >
+                      Apply Now
+                    </a>
                   </div>
-                  <a
-                    href={`mailto:info@bmspros.com.au?subject=Application: ${job.title}`}
-                    className="inline-flex items-center justify-center px-5 py-2.5 bg-primary text-primary-foreground font-medium rounded-lg hover:bg-primary/90 transition-colors whitespace-nowrap"
-                  >
-                    Apply Now
-                  </a>
                 </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          )}
         </section>
 
         {/* Hiring Process */}

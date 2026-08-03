@@ -111,6 +111,7 @@ export function SoftwarePreviewSection() {
             <button
               key={tab.id}
               type="button"
+              aria-pressed={active === tab.id}
               onClick={() => setActive(tab.id)}
               className={cn(
                 "rounded-full px-3.5 sm:px-4 py-2 text-sm font-semibold transition-colors border whitespace-nowrap shrink-0",
@@ -156,10 +157,10 @@ export function SoftwarePreviewSection() {
             <Link
               to="/contact"
               onClick={() =>
-                trackCtaClick("software_preview", "Book a Live Walkthrough", "/contact")
+                trackCtaClick("homepage_software_preview", "Book a walkthrough", "/contact")
               }
             >
-              Book a Live Walkthrough
+              Book a walkthrough
               <ArrowRight className="h-4 w-4" />
             </Link>
           </Button>

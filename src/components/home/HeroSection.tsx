@@ -82,15 +82,15 @@ export function HeroSection() {
                   className="rounded-full w-full sm:w-auto bg-white text-[hsl(220_22%_10%)] hover:bg-white/90 shadow-lg"
                   asChild
                 >
-                  <a
-                    href="#preview"
+                  <Link
+                    to="/contact"
                     onClick={() =>
-                      trackCtaClick("hero", "See Inside BMS Pro", "#preview")
+                      trackCtaClick("homepage_hero", "Book a walkthrough", "/contact")
                     }
                   >
-                    See Inside BMS Pro
+                    Book a walkthrough
                     <ArrowRight className="h-5 w-5" />
-                  </a>
+                  </Link>
                 </Button>
                 <Button
                   size="xl"
@@ -98,14 +98,14 @@ export function HeroSection() {
                   className="rounded-full w-full sm:w-auto border-white/40 bg-white/10 text-white hover:bg-white/20 hover:text-white backdrop-blur-sm"
                   asChild
                 >
-                  <Link
-                    to="/contact"
+                  <a
+                    href="#products"
                     onClick={() =>
-                      trackCtaClick("hero", "Book a Walkthrough", "/contact")
+                      trackCtaClick("homepage_hero", "Choose your BMS Pro", "#products")
                     }
                   >
-                    Book a Walkthrough
-                  </Link>
+                    Choose your BMS Pro
+                  </a>
                 </Button>
               </div>
 

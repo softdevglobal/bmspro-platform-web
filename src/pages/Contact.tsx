@@ -12,10 +12,12 @@ import {
   ArrowRight,
   ShieldCheck,
   Headphones,
+  CheckCircle2,
+  CalendarCheck,
 } from "lucide-react";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useToast } from "@/hooks/use-toast";
-import { submitContactForm } from "@/lib/contactForm";
+import { BUSINESS_TYPES, submitContactForm, type BusinessType } from "@/lib/contactForm";
 import {
   SITE_ADDRESS_DISPLAY,
   SITE_CONTACT_EMAIL,
@@ -38,19 +40,57 @@ function messageFromTopic(topic: string | null): string {
   return "";
 }
 
+/** Map ?type= / ?product= from product CTAs to the Business type select */
+const TYPE_QUERY_MAP: Record<string, BusinessType> = {
+  workshop: "Workshop",
+  black: "Workshop",
+  trade: "Trade",
+  blue: "Trade",
+  salon: "Salon",
+  pink: "Salon",
+  other: "Other",
+};
+
+function resolveBusinessType(raw: string | null): (typeof BUSINESS_TYPES)[number] | "" {
+  if (!raw) return "";
+  const trimmed = raw.trim();
+  if ((BUSINESS_TYPES as readonly string[]).includes(trimmed)) {
+    return trimmed as (typeof BUSINESS_TYPES)[number];
+  }
+  return TYPE_QUERY_MAP[trimmed.toLowerCase()] ?? "";
+}
+
+const emptyForm = {
+  name: "",
+  company: "",
+  email: "",
+  phone: "",
+  product: "",
+  currentProblem: "",
+  preferredContactTime: "",
+  message: "",
+};
+
 const Contact = () => {
   const { toast } = useToast();
   const [searchParams] = useSearchParams();
   const [loading, setLoading] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
   const formStarted = useRef(false);
-  const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    company: "",
-    product: "",
+  const [formData, setFormData] = useState(() => ({
+    ...emptyForm,
     message: messageFromTopic(searchParams.get("topic")),
-  });
+  }));
+
+  useEffect(() => {
+    const fromQuery = resolveBusinessType(
+      searchParams.get("type") || searchParams.get("product")
+    );
+    if (!fromQuery) return;
+    setFormData((prev) =>
+      prev.product === fromQuery ? prev : { ...prev, product: fromQuery }
+    );
+  }, [searchParams]);
 
   const markFormStarted = () => {
     if (formStarted.current) return;
@@ -70,27 +110,35 @@ const Contact = () => {
     setLoading(true);
 
     try {
-      await submitContactForm(formData, "Contact / demo request BMS Pro");
+      await submitContactForm(
+        {
+          name: formData.name,
+          company: formData.company,
+          email: formData.email,
+          phone: formData.phone,
+          product: formData.product,
+          currentProblem: formData.currentProblem,
+          preferredContactTime: formData.preferredContactTime,
+          message: formData.message,
+        },
+        "BMS Pro walkthrough request"
+      );
       trackContactFormSubmit(formData.product || "unspecified", true);
+      setSubmitted(true);
+      setFormData(emptyForm);
+      formStarted.current = false;
       toast({
-        title: "Message sent",
+        title: "Walkthrough booked",
         description: "Thanks we'll get back within 24 hours.",
       });
-      setFormData({
-        firstName: "",
-        lastName: "",
-        email: "",
-        company: "",
-        product: "",
-        message: "",
-      });
-      formStarted.current = false;
     } catch (error) {
       trackContactFormSubmit(formData.product || "unspecified", false);
       toast({
-        title: "Couldn’t send message",
+        title: "Couldn't send your request",
         description:
-          error instanceof Error ? error.message : "Please try again shortly.",
+          error instanceof Error
+            ? error.message
+            : `Please try again, or call ${SITE_PHONE_DISPLAY}.`,
         variant: "destructive",
       });
     } finally {
@@ -101,15 +149,14 @@ const Contact = () => {
   return (
     <Layout>
       <SEO
-        title="Book a BMS Pro Walkthrough | Contact BMS Pro"
-        description="Book a BMS Pro walkthrough with our team. Ask about pricing, choose the right product for your workshop, trade or salon, or get help getting started."
+        title="Book a BMS Pro Walkthrough | Contact"
+        description={`Book a BMS Pro walkthrough tailored to Workshop, Trade, or Salon. Call ${SITE_PHONE_DISPLAY} or request a demo online.`}
         path="/contact"
         image="/logo.png"
       />
 
-      {/* Full-bleed image hero */}
       <section className="relative bg-background -mt-16">
-        <div className="relative min-h-[min(72vh,640px)] flex items-center overflow-hidden pt-16">
+        <div className="relative min-h-[min(64vh,560px)] flex items-center overflow-hidden pt-16">
           <div className="absolute inset-0 grid grid-cols-1 sm:grid-cols-3" aria-hidden>
             <img
               src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=900&h=1200&fit=crop"
@@ -130,17 +177,20 @@ const Contact = () => {
           <div className="absolute inset-0 bg-[hsl(220_22%_6%/0.62)]" />
           <div className="absolute inset-0 bg-gradient-to-b from-[hsl(220_22%_6%/0.45)] via-[hsl(220_22%_6%/0.35)] to-[hsl(220_22%_6%/0.82)]" />
 
-          <div className="container-wide relative z-10 py-16 sm:py-20 w-full">
+          <div className="container-wide relative z-10 py-14 sm:py-20 w-full">
             <div className="max-w-3xl mx-auto text-center text-white">
               <p className="font-label text-sm font-semibold tracking-[0.2em] uppercase text-white/55 mb-4 animate-fade-up">
                 Contact
               </p>
-              <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight mb-4 animate-fade-up delay-100 leading-[1.05]">
-                Let&apos;s talk about your business
+              <h1 className="font-display text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight mb-4 animate-fade-up delay-100 leading-[1.08]">
+                Book a BMS Pro walkthrough
               </h1>
               <p className="font-sans text-base sm:text-lg text-white/70 max-w-2xl mx-auto mb-8 animate-fade-up delay-200 leading-relaxed">
-                Book a short walkthrough. We&apos;ll match you to Workshop, Trade or Salon, show the
-                workflow that fits, and leave the decision with you — no hard sell.
+                We&apos;ll tailor the session to how you work {" "}
+                <span className="text-white/90 font-medium">BMS Pro Workshop</span>,{" "}
+                <span className="text-white/90 font-medium">BMS Pro Trade</span>, or{" "}
+                <span className="text-white/90 font-medium">BMS Pro Salon</span> and show the parts
+                that matter for your bookings, jobs, and customer updates.
               </p>
 
               <div className="flex flex-col items-center gap-4 animate-fade-up delay-300">
@@ -153,10 +203,10 @@ const Contact = () => {
                     <a
                       href="#demo"
                       onClick={() =>
-                        trackCtaClick("contact_hero", "Book a Demo", "#demo")
+                        trackCtaClick("contact_hero", "Book My Walkthrough", "#demo")
                       }
                     >
-                      Book a Demo
+                      Book My Walkthrough
                       <ArrowRight className="h-5 w-5" />
                     </a>
                   </Button>
@@ -189,129 +239,211 @@ const Contact = () => {
           </div>
         </div>
 
-        {/* Demo form + contact cards overlapping hero */}
         <div
           id="demo"
           className="container-wide relative -mt-10 sm:-mt-14 lg:-mt-16 pb-12 sm:pb-16 z-20 scroll-mt-24"
         >
           <div className="grid lg:grid-cols-5 gap-6 lg:gap-8 items-start">
-            <div className="lg:col-span-3 card-elevated p-6 sm:p-8 lg:p-10 border border-border/60 shadow-elevated">
-              <div className="mb-6 sm:mb-8">
-                <span className="inline-flex items-center gap-1.5 rounded-full border border-border bg-secondary/60 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-3">
-                  Strategy call
-                </span>
-                <h2 className="font-display text-2xl sm:text-3xl font-bold tracking-tight text-foreground mb-2">
-                  Book a Demo
-                </h2>
-                <p className="font-sans text-muted-foreground">
-                  Tell us your business type — we&apos;ll get back within 24 hours to schedule a
-                  low-pressure walkthrough.
-                </p>
-              </div>
-
-              <form onSubmit={handleSubmit} className="space-y-4">
-                <div className="grid sm:grid-cols-2 gap-3">
-                  <div className="space-y-1.5">
-                    <Label htmlFor="firstName">First name</Label>
-                    <Input
-                      id="firstName"
-                      placeholder="John"
-                      required
-                      value={formData.firstName}
-                      onChange={handleChange}
-                      className="h-11 rounded-xl"
-                    />
+            <div className="lg:col-span-3 card-elevated p-5 sm:p-8 lg:p-10 border border-border/60 shadow-elevated">
+              {submitted ? (
+                <div className="py-8 sm:py-12 text-center max-w-md mx-auto">
+                  <div className="mx-auto mb-5 flex h-14 w-14 items-center justify-center rounded-full bg-emerald-50 text-emerald-600">
+                    <CheckCircle2 className="h-8 w-8" />
                   </div>
-                  <div className="space-y-1.5">
-                    <Label htmlFor="lastName">Last name</Label>
-                    <Input
-                      id="lastName"
-                      placeholder="Smith"
-                      required
-                      value={formData.lastName}
-                      onChange={handleChange}
-                      className="h-11 rounded-xl"
-                    />
+                  <h2 className="font-display text-2xl sm:text-3xl font-bold tracking-tight text-foreground mb-3">
+                    You&apos;re booked in
+                  </h2>
+                  <p className="font-sans text-muted-foreground mb-6 leading-relaxed">
+                    Thanks for requesting a BMS Pro walkthrough. We&apos;ve received your details and
+                    will contact you within 24 hours often sooner.
+                  </p>
+                  <div className="flex flex-col sm:flex-row gap-3 justify-center">
+                    <Button
+                      size="lg"
+                      className="rounded-full"
+                      onClick={() => setSubmitted(false)}
+                    >
+                      Submit another request
+                    </Button>
+                    <Button size="lg" variant="outline" className="rounded-full" asChild>
+                      <a href={`tel:${SITE_PHONE_TEL}`}>Call {SITE_PHONE_DISPLAY}</a>
+                    </Button>
                   </div>
                 </div>
+              ) : (
+                <>
+                  <div className="mb-6 sm:mb-8">
+                    <span className="inline-flex items-center gap-1.5 rounded-full border border-border bg-secondary/60 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-3">
+                      Walkthrough request
+                    </span>
+                    <h2 className="font-display text-2xl sm:text-3xl font-bold tracking-tight text-foreground mb-2">
+                      Tell us about your business
+                    </h2>
+                    <p className="font-sans text-muted-foreground">
+                      Required fields are marked. We&apos;ll get back within 24 hours.
+                    </p>
+                  </div>
 
-                <div className="space-y-1.5">
-                  <Label htmlFor="email">Work email</Label>
-                  <Input
-                    id="email"
-                    type="email"
-                    placeholder="john@company.com"
-                    required
-                    value={formData.email}
-                    onChange={handleChange}
-                    className="h-11 rounded-xl"
-                  />
-                </div>
+                  <form onSubmit={handleSubmit} className="space-y-4" noValidate>
+                    <div className="space-y-1.5">
+                      <Label htmlFor="name">Name</Label>
+                      <Input
+                        id="name"
+                        name="name"
+                        autoComplete="name"
+                        placeholder="Your full name"
+                        required
+                        value={formData.name}
+                        onChange={handleChange}
+                        className="h-11 rounded-xl"
+                      />
+                    </div>
 
-                <div className="space-y-1.5">
-                  <Label htmlFor="company">Company name</Label>
-                  <Input
-                    id="company"
-                    placeholder="Acme Inc"
-                    required
-                    value={formData.company}
-                    onChange={handleChange}
-                    className="h-11 rounded-xl"
-                  />
-                </div>
+                    <div className="space-y-1.5">
+                      <Label htmlFor="company">Business name</Label>
+                      <Input
+                        id="company"
+                        name="organization"
+                        autoComplete="organization"
+                        placeholder="Your business name"
+                        required
+                        value={formData.company}
+                        onChange={handleChange}
+                        className="h-11 rounded-xl"
+                      />
+                    </div>
 
-                <div className="space-y-1.5">
-                  <Label htmlFor="product">Product interest</Label>
-                  <select
-                    id="product"
-                    className="flex h-11 w-full rounded-xl border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-                    value={formData.product}
-                    onChange={handleChange}
-                  >
-                    <option value="">Select a product</option>
-                    <option value="black">BMS Pro Workshop</option>
-                    <option value="pink">BMS Pro Salon</option>
-                    <option value="blue">BMS Pro Trade</option>
-                    <option value="all">Full Platform</option>
-                  </select>
-                </div>
+                    <div className="grid sm:grid-cols-2 gap-3">
+                      <div className="space-y-1.5">
+                        <Label htmlFor="email">Email</Label>
+                        <Input
+                          id="email"
+                          name="email"
+                          type="email"
+                          autoComplete="email"
+                          placeholder="you@business.com.au"
+                          required
+                          value={formData.email}
+                          onChange={handleChange}
+                          className="h-11 rounded-xl"
+                        />
+                      </div>
+                      <div className="space-y-1.5">
+                        <Label htmlFor="phone">Phone</Label>
+                        <Input
+                          id="phone"
+                          name="tel"
+                          type="tel"
+                          autoComplete="tel"
+                          placeholder="04xx xxx xxx"
+                          required
+                          value={formData.phone}
+                          onChange={handleChange}
+                          className="h-11 rounded-xl"
+                        />
+                      </div>
+                    </div>
 
-                <div className="space-y-1.5">
-                  <Label htmlFor="message">
-                    Message <span className="text-muted-foreground font-normal">(optional)</span>
-                  </Label>
-                  <Textarea
-                    id="message"
-                    placeholder="Tell us about your business needs..."
-                    rows={4}
-                    value={formData.message}
-                    onChange={handleChange}
-                    className="rounded-xl resize-none"
-                  />
-                </div>
+                    <div className="grid sm:grid-cols-2 gap-3">
+                      <div className="space-y-1.5">
+                        <Label htmlFor="product">Business type</Label>
+                        <select
+                          id="product"
+                          required
+                          className="flex h-11 w-full rounded-xl border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                          value={formData.product}
+                          onChange={handleChange}
+                        >
+                          <option value="">Select business type</option>
+                          {BUSINESS_TYPES.map((type) => (
+                            <option key={type} value={type}>
+                              {type}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+                      <div className="space-y-1.5">
+                        <Label htmlFor="currentProblem">Current problem</Label>
+                        <select
+                          id="currentProblem"
+                          required
+                          className="flex h-11 w-full rounded-xl border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                          value={formData.currentProblem}
+                          onChange={handleChange}
+                        >
+                          <option value="">What needs fixing?</option>
+                          <option value="Bookings">Bookings</option>
+                          <option value="Jobs">Jobs</option>
+                          <option value="Quotes">Quotes</option>
+                          <option value="Staff scheduling">Staff scheduling</option>
+                          <option value="Customer updates">Customer updates</option>
+                          <option value="Other">Other</option>
+                        </select>
+                      </div>
+                    </div>
 
-                <Button
-                  type="submit"
-                  size="lg"
-                  className="w-full h-12 rounded-full text-base font-semibold"
-                  disabled={loading}
-                >
-                  {loading ? "Sending..." : "Request Demo"}
-                  <ArrowRight className="h-4 w-4" />
-                </Button>
+                    <div className="space-y-1.5">
+                      <Label htmlFor="preferredContactTime">Preferred contact time</Label>
+                      <select
+                        id="preferredContactTime"
+                        required
+                        className="flex h-11 w-full rounded-xl border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                        value={formData.preferredContactTime}
+                        onChange={handleChange}
+                      >
+                        <option value="">Select a time</option>
+                        <option value="Morning (8am–12pm)">Morning (8am–12pm)</option>
+                        <option value="Afternoon (12pm–4pm)">Afternoon (12pm–4pm)</option>
+                        <option value="Late afternoon (4pm–6pm)">Late afternoon (4pm–6pm)</option>
+                        <option value="Anytime">Anytime</option>
+                      </select>
+                    </div>
 
-                <p className="text-xs text-muted-foreground text-center">
-                  By submitting you agree to our{" "}
-                  <Link to="/privacy" className="underline underline-offset-2 hover:text-foreground">
-                    Privacy Policy
-                  </Link>{" "}
-                  and{" "}
-                  <Link to="/terms" className="underline underline-offset-2 hover:text-foreground">
-                    Terms
-                  </Link>
-                  .
-                </p>
-              </form>
+                    <div className="space-y-1.5">
+                      <Label htmlFor="message">
+                        Message{" "}
+                        <span className="text-muted-foreground font-normal">(optional)</span>
+                      </Label>
+                      <Textarea
+                        id="message"
+                        placeholder="Anything else we should know before the walkthrough..."
+                        rows={4}
+                        value={formData.message}
+                        onChange={handleChange}
+                        className="rounded-xl resize-none"
+                      />
+                    </div>
+
+                    <Button
+                      type="submit"
+                      size="lg"
+                      className="w-full h-12 rounded-full text-base font-semibold"
+                      disabled={loading}
+                    >
+                      {loading ? "Sending..." : "Book My Walkthrough"}
+                      {!loading && <CalendarCheck className="h-4 w-4" />}
+                    </Button>
+
+                    <p className="text-xs text-muted-foreground text-center">
+                      By submitting you agree to our{" "}
+                      <Link
+                        to="/privacy"
+                        className="underline underline-offset-2 hover:text-foreground"
+                      >
+                        Privacy Policy
+                      </Link>{" "}
+                      and{" "}
+                      <Link
+                        to="/terms"
+                        className="underline underline-offset-2 hover:text-foreground"
+                      >
+                        Terms
+                      </Link>
+                      .
+                    </p>
+                  </form>
+                </>
+              )}
             </div>
 
             <div className="lg:col-span-2 space-y-4">
@@ -364,7 +496,13 @@ const Contact = () => {
                     </h3>
                     <p className="font-sans text-sm text-muted-foreground leading-relaxed">
                       Existing customers can reach us through the dashboard or at{" "}
-                      {SITE_CONTACT_EMAIL}
+                      <a
+                        href={`mailto:${SITE_CONTACT_EMAIL}`}
+                        className="text-foreground underline underline-offset-2"
+                      >
+                        {SITE_CONTACT_EMAIL}
+                      </a>
+                      .
                     </p>
                   </div>
                 </div>

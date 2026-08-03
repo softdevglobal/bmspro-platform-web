@@ -21,6 +21,7 @@ import { useRef, useState, type ReactNode } from "react";
 import { cn } from "@/lib/utils";
 import {
   ArrowRight,
+  ArrowDown,
   Bell,
   Calendar,
   Check,
@@ -47,6 +48,48 @@ const TRUST_LOGOS = [
   "Brow and lash studios",
   "Massage businesses",
   "Wellness businesses",
+];
+
+const WHO_ITS_FOR = [
+  {
+    title: "Hair & beauty salons",
+    body: "Manage appointment requests, services and staff calendars without living on your phone.",
+  },
+  {
+    title: "Beauty clinics",
+    body: "Keep client details, treatments and reminders together for a smoother chair day.",
+  },
+  {
+    title: "Appointment businesses",
+    body: "Online requests, confirmations and daily bookings for teams that run on the calendar.",
+  },
+];
+
+const PRODUCT_SCREENS = [
+  {
+    title: "Appointment request",
+    caption: "Clients request a time. You confirm what fits the salon.",
+    src: "/products/pink/bookings.png",
+    alt: "Salon appointment booking preview",
+  },
+  {
+    title: "Service list",
+    caption: "Clear services with duration and optional pricing.",
+    src: "/products/pink/services.png",
+    alt: "Salon services list preview",
+  },
+  {
+    title: "Staff calendar",
+    caption: "See who is booked and what is coming next.",
+    src: "/products/pink/stylist-focus.jpg",
+    alt: "Stylist calendar and schedule context",
+  },
+  {
+    title: "Customer detail",
+    caption: "History, notes and reminders for returning clients.",
+    src: "/products/pink/clients.png",
+    alt: "Salon client records preview",
+  },
 ];
 
 const FORM_STEPS = [
@@ -140,7 +183,7 @@ const ProductPink = () => {
     lastName: "",
     email: "",
     company: "",
-    product: "pink",
+    product: "Salon",
     message: "",
   });
 
@@ -157,7 +200,7 @@ const ProductPink = () => {
     setLoading(true);
     try {
       await submitContactForm(
-        { ...formData, product: "pink" },
+        { ...formData, product: "Salon" },
         "BMS Pro Salon demo request"
       );
       trackContactFormSubmit("salon", true);
@@ -170,7 +213,7 @@ const ProductPink = () => {
         lastName: "",
         email: "",
         company: "",
-        product: "pink",
+        product: "Salon",
         message: "",
       });
       formStarted.current = false;
@@ -235,15 +278,26 @@ const ProductPink = () => {
                   <a
                     href="#demo"
                     onClick={() =>
-                      trackCtaClick("product_salon", "demo_cta", "#demo")
+                      trackCtaClick("product_salon", "Book a Salon Walkthrough", "#demo")
                     }
                   >
-                    Start Free Trial
+                    Book a Salon Walkthrough
                     <ArrowRight className="h-4 w-4" />
                   </a>
                 </Button>
                 <Button size="lg" variant="outline" className="rounded-full h-11 px-5 sm:px-6 w-full sm:w-auto whitespace-normal sm:whitespace-nowrap text-center" asChild>
-                  <a href="#workflow">See BMS Pro Salon in Action</a>
+                  <a
+                    href="https://pink.bmspros.com.au/login"
+                    onClick={() =>
+                      trackCtaClick(
+                        "product_salon",
+                        "See BMS Pro Salon in Action",
+                        "https://pink.bmspros.com.au/login"
+                      )
+                    }
+                  >
+                    See BMS Pro Salon in Action
+                  </a>
                 </Button>
               </div>
               <div className="mt-6 flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
@@ -287,6 +341,33 @@ const ProductPink = () => {
         />
       </section>
 
+      {/* Who it is for */}
+      <section className="section-padding bg-white">
+        <div className="container-wide">
+          <div className="max-w-2xl mb-10">
+            <p className="text-sm font-semibold text-pink mb-3">Who it is for</p>
+            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4">
+              Built for salons, beauty clinics and appointment-based businesses.
+            </h2>
+            <p className="text-muted-foreground text-lg leading-relaxed">
+              BMS Pro Salon helps with online appointment requests, services, staff calendars,
+              reminders and the daily booking list without living in your DMs.
+            </p>
+          </div>
+          <div className="grid sm:grid-cols-3 gap-4 lg:gap-6">
+            {WHO_ITS_FOR.map((item) => (
+              <div
+                key={item.title}
+                className="rounded-2xl border border-border bg-[hsl(340_20%_98%)] p-6"
+              >
+                <h3 className="font-semibold text-foreground mb-2">{item.title}</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed">{item.body}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Front desk */}
       <section className="section-padding bg-white">
         <div className="container-wide">
@@ -313,10 +394,10 @@ const ProductPink = () => {
                   <a
                     href="#demo"
                     onClick={() =>
-                      trackCtaClick("product_salon", "demo_cta", "#demo")
+                      trackCtaClick("product_salon", "Book a Salon Walkthrough", "#demo")
                     }
                   >
-                    Book a Live Demonstration
+                    Book a Salon Walkthrough
                     <ArrowRight className="h-4 w-4" />
                   </a>
                 </Button>
@@ -371,9 +452,10 @@ const ProductPink = () => {
               </Pill>
             </p>
             <Button variant="pink" className="rounded-full w-full sm:w-auto whitespace-normal sm:whitespace-nowrap" asChild>
-              <a href="https://pink.bmspros.com.au/book-now" target="_blank" rel="noreferrer">
+              <a href="https://pink.bmspros.com.au/book-now" target="_blank" rel="noopener noreferrer">
                 Preview the Customer Booking Experience
-                <ArrowRight className="h-4 w-4" />
+                <span className="sr-only"> (opens in a new tab)</span>
+                <ArrowRight className="h-4 w-4" aria-hidden="true" />
               </a>
             </Button>
           </div>
@@ -516,7 +598,7 @@ const ProductPink = () => {
               </p>
               <img
                 src="/products/pink/salon-bay.jpg"
-                alt=""
+                alt="Salon styling station set up for a cut and colour appointment"
                 className="rounded-xl h-24 w-full object-cover"
               />
             </div>
@@ -590,6 +672,41 @@ const ProductPink = () => {
         </div>
       </section>
 
+      {/* Product screens */}
+      <section className="section-padding bg-white border-t border-border/40">
+        <div className="container-wide">
+          <div className="max-w-2xl mb-10">
+            <p className="text-sm font-semibold text-pink mb-3">Product screens</p>
+            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4">
+              From appointment request to the chair without starting again.
+            </h2>
+            <p className="text-muted-foreground text-lg">
+              Appointment requests, services, staff calendars and customer details connected end to
+              end so nothing gets retyped.
+            </p>
+          </div>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {PRODUCT_SCREENS.map((screen) => (
+              <figure
+                key={screen.title}
+                className="rounded-2xl border border-border overflow-hidden bg-[hsl(340_20%_98%)]"
+              >
+                <img
+                  src={screen.src}
+                  alt={screen.alt}
+                  className="aspect-[4/3] w-full object-cover"
+                  loading="lazy"
+                />
+                <figcaption className="p-4">
+                  <p className="font-semibold text-foreground text-sm mb-1">{screen.title}</p>
+                  <p className="text-xs text-muted-foreground leading-relaxed">{screen.caption}</p>
+                </figcaption>
+              </figure>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Workflow */}
       <section id="workflow" className="scroll-mt-20 section-padding bg-[hsl(340_20%_97%)]">
         <div className="container-wide">
@@ -600,30 +717,39 @@ const ProductPink = () => {
             The customer gets a simple booking experience, while you keep control of your calendar.
           </p>
           <div className="grid lg:grid-cols-2 gap-10 items-start">
-            <div className="space-y-3">
+            <div className="space-y-0">
               {FORM_STEPS.map((step, i) => {
                 const open = openFormStep === i;
+                const isLast = i === FORM_STEPS.length - 1;
                 return (
-                  <button
-                    key={step.title}
-                    type="button"
-                    onClick={() => setOpenFormStep(open ? -1 : i)}
-                    className="w-full text-left rounded-2xl bg-white border border-border p-5 shadow-sm"
-                  >
-                    <div className="flex items-center justify-between gap-3">
-                      <span className="font-semibold text-foreground">
-                        {i + 1}. {step.title}
-                      </span>
-                      <span className="flex h-7 w-7 items-center justify-center rounded-full bg-pink text-white shrink-0">
-                        {open ? <Minus className="h-3.5 w-3.5" /> : <Plus className="h-3.5 w-3.5" />}
-                      </span>
-                    </div>
-                    {open && (
-                      <div className="mt-3 pr-8">
-                        <p className="text-sm text-muted-foreground leading-relaxed">{step.body}</p>
+                  <div key={step.title}>
+                    <button
+                      type="button"
+                      aria-expanded={open}
+                      onClick={() => setOpenFormStep(open ? -1 : i)}
+                      className="w-full text-left rounded-2xl bg-white border border-border p-5 shadow-sm"
+                    >
+                      <div className="flex items-center justify-between gap-3">
+                        <span className="font-semibold text-foreground">
+                          {i + 1}. {step.title}
+                        </span>
+                        <span className="flex h-7 w-7 items-center justify-center rounded-full bg-pink text-white shrink-0">
+                          {open ? <Minus className="h-3.5 w-3.5" /> : <Plus className="h-3.5 w-3.5" />}
+                        </span>
+                      </div>
+                      {open && (
+                        <div className="mt-3 pr-8">
+                          <p className="text-sm text-muted-foreground leading-relaxed">{step.body}</p>
+                        </div>
+                      )}
+                    </button>
+                    {!isLast && (
+                      <div className="flex flex-col items-center py-1.5" aria-hidden>
+                        <div className="h-3 w-px bg-border" />
+                        <ArrowDown className="h-4 w-4 text-muted-foreground/70 -mt-0.5" />
                       </div>
                     )}
-                  </button>
+                  </div>
                 );
               })}
             </div>
@@ -682,11 +808,17 @@ const ProductPink = () => {
           </p>
           <Button size="lg" className="rounded-full bg-white text-pink hover:bg-white/90" asChild>
             <a
-                    href="#demo"
-                    onClick={() =>
-                      trackCtaClick("product_salon", "demo_cta", "#demo")
-                    }
-                  >See BMS Pro Salon in Action</a>
+              href="https://pink.bmspros.com.au/login"
+              onClick={() =>
+                trackCtaClick(
+                  "product_salon",
+                  "See BMS Pro Salon in Action",
+                  "https://pink.bmspros.com.au/login"
+                )
+              }
+            >
+              See BMS Pro Salon in Action
+            </a>
           </Button>
         </div>
       </section>
@@ -706,11 +838,15 @@ const ProductPink = () => {
             </div>
             <Button variant="pink" className="rounded-full w-fit" asChild>
               <a
-                    href="#demo"
-                    onClick={() =>
-                      trackCtaClick("product_salon", "demo_cta", "#demo")
-                    }
-                  >
+                href="https://pink.bmspros.com.au/login"
+                onClick={() =>
+                  trackCtaClick(
+                    "product_salon",
+                    "Start Free Trial",
+                    "https://pink.bmspros.com.au/login"
+                  )
+                }
+              >
                 Start Free Trial
                 <ArrowRight className="h-4 w-4" />
               </a>
@@ -722,7 +858,7 @@ const ProductPink = () => {
             <article className="relative min-h-[280px] sm:min-h-[360px] rounded-3xl overflow-hidden h-full">
               <img
                 src="/products/pink/stylist-portrait.jpg"
-                alt=""
+                alt="Stylist reviewing the salon service list and available bookings"
                 className="absolute inset-0 h-full w-full object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/40 to-transparent" />
@@ -742,7 +878,7 @@ const ProductPink = () => {
             <article className="relative min-h-[280px] sm:min-h-[360px] rounded-3xl overflow-hidden h-full">
               <img
                 src="/products/pink/salon-bay.jpg"
-                alt=""
+                alt="Salon styling stations with each staff calendar kept clear"
                 className="absolute inset-0 h-full w-full object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent" />
@@ -785,6 +921,7 @@ const ProductPink = () => {
                 <button
                   key={cat.category}
                   type="button"
+                  aria-pressed={faqCat === i}
                   onClick={() => {
                     setFaqCat(i);
                     setOpenFaq(0);
@@ -804,11 +941,12 @@ const ProductPink = () => {
                 const open = openFaq === i;
                 return (
                   <div key={item.q} className="rounded-2xl bg-[hsl(340_20%_96%)] overflow-hidden">
-                    <button
-                      type="button"
-                      className="w-full flex items-center justify-between gap-4 px-5 py-4 text-left"
-                      onClick={() => setOpenFaq(open ? -1 : i)}
-                    >
+                      <button
+                        type="button"
+                        aria-expanded={open}
+                        className="w-full flex items-center justify-between gap-4 px-5 py-4 text-left"
+                        onClick={() => setOpenFaq(open ? -1 : i)}
+                      >
                       <span className={cn("font-semibold", open ? "text-pink" : "text-foreground")}>
                         {item.q}
                       </span>
@@ -965,11 +1103,13 @@ const ProductPink = () => {
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
             <Button size="lg" className="rounded-full bg-white text-pink hover:bg-white/90" asChild>
               <a
-                    href="#demo"
-                    onClick={() =>
-                      trackCtaClick("product_salon", "demo_cta", "#demo")
-                    }
-                  >Start My Free Trial</a>
+                href="#demo"
+                onClick={() =>
+                  trackCtaClick("product_salon_footer", "Book a Salon Walkthrough", "#demo")
+                }
+              >
+                Book a Salon Walkthrough
+              </a>
             </Button>
             <Button
               size="lg"
@@ -978,11 +1118,20 @@ const ProductPink = () => {
               asChild
             >
               <a
-                    href="#demo"
-                    onClick={() =>
-                      trackCtaClick("product_salon", "demo_cta", "#demo")
-                    }
-                  >Book a Live Demonstration</a>
+                href="https://pink.bmspros.com.au/login"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() =>
+                  trackCtaClick(
+                    "product_salon_footer",
+                    "Start My Free Trial",
+                    "https://pink.bmspros.com.au/login"
+                  )
+                }
+              >
+                Start My Free Trial
+                <span className="sr-only"> (opens in a new tab)</span>
+              </a>
             </Button>
           </div>
         </div>

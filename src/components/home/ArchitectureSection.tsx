@@ -85,10 +85,10 @@ export function ArchitectureSection() {
             <Link
               to="/contact"
               onClick={() =>
-                trackCtaClick("architecture", "Walk Through This Flow", "/contact")
+                trackCtaClick("homepage_architecture", "Book a walkthrough", "/contact")
               }
             >
-              Walk Through This Flow
+              Book a walkthrough
               <ArrowRight className="h-4 w-4" />
             </Link>
           </Button>

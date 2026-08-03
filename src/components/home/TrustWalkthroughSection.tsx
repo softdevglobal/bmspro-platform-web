@@ -47,10 +47,10 @@ export function TrustWalkthroughSection() {
               <Link
                 to="/contact"
                 onClick={() =>
-                  trackCtaClick("trust_walkthrough", "Book a Live Walkthrough", "/contact")
+                  trackCtaClick("homepage_trust_walkthrough", "Book a walkthrough", "/contact")
                 }
               >
-                Book a Live Walkthrough
+                Book a walkthrough
                 <ArrowRight className="h-4 w-4" />
               </Link>
             </Button>
