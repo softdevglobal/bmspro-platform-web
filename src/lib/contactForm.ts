@@ -1,9 +1,18 @@
+export const BUSINESS_TYPES = ["Workshop", "Trade", "Salon", "Other"] as const;
+export type BusinessType = (typeof BUSINESS_TYPES)[number];
+
 export type ContactFormData = {
-  firstName: string;
-  lastName: string;
+  /** Preferred when the UI collects a single name field */
+  name?: string;
+  firstName?: string;
+  lastName?: string;
   email: string;
   company: string;
+  phone?: string;
+  /** Business type shown in the contact email (Workshop / Trade / Salon / Other) */
   product?: string;
+  currentProblem?: string;
+  preferredContactTime?: string;
   message?: string;
 };
 

@@ -15,6 +15,7 @@ import { useState, type ReactNode } from "react";
 import { cn } from "@/lib/utils";
 import {
   ArrowRight,
+  ArrowDown,
   Bell,
   Calendar,
   Check,
@@ -42,6 +43,48 @@ const TRUST_LOGOS = [
   "Property maintenance",
   "HVAC technicians",
   "Solar installers",
+];
+
+const WHO_ITS_FOR = [
+  {
+    title: "Plumbers",
+    body: "Keep enquiries, quotes and on-site jobs connected from the first call to payment.",
+  },
+  {
+    title: "Electricians & locksmiths",
+    body: "Schedule jobs, assign staff or subcontractors, and send updates from the field.",
+  },
+  {
+    title: "Mobile service businesses",
+    body: "Capture photos, notes and invoices without re-entering the same job three times.",
+  },
+];
+
+const PRODUCT_SCREENS = [
+  {
+    title: "Lead / enquiry",
+    caption: "Capture the customer, site and what they need before anything else.",
+    src: "/products/blue/front-desk.jpg",
+    alt: "Trade front desk handling customer enquiries",
+  },
+  {
+    title: "Quote",
+    caption: "Build quotes with labour, materials and follow-ups in one place.",
+    src: "/products/blue/quotes.png",
+    alt: "Quote workflow preview for trade businesses",
+  },
+  {
+    title: "Job detail",
+    caption: "Turn approved quotes into jobs with staff or subcontractor assignment.",
+    src: "/products/blue/jobs.jpg",
+    alt: "Job detail and scheduling for field service",
+  },
+  {
+    title: "Field updates & invoice",
+    caption: "Photos, notes and payment links after the work is done.",
+    src: "/products/blue/job-site.jpg",
+    alt: "Job site updates and completion for trades",
+  },
 ];
 
 const FORM_STEPS = [
@@ -134,7 +177,7 @@ const ProductBlue = () => {
     lastName: "",
     email: "",
     company: "",
-    product: "blue",
+    product: "Trade",
     message: "",
   });
 
@@ -147,7 +190,7 @@ const ProductBlue = () => {
     setLoading(true);
     try {
       await submitContactForm(
-        { ...formData, product: "blue" },
+        { ...formData, product: "Trade" },
         "BMS Pro Trade demo request"
       );
       toast({
@@ -159,7 +202,7 @@ const ProductBlue = () => {
         lastName: "",
         email: "",
         company: "",
-        product: "blue",
+        product: "Trade",
         message: "",
       });
     } catch (err) {
@@ -216,13 +259,13 @@ const ProductBlue = () => {
               </p>
               <div className="flex flex-col sm:flex-row sm:flex-wrap items-stretch sm:items-center gap-3">
                 <Button size="lg" variant="blue" className="rounded-full h-11 px-5 sm:px-6 w-full sm:w-auto" asChild>
-                  <a href="#demo">
-                    Start Free Trial
+                  <Link to="/contact?type=Trade">
+                    Book Trade Walkthrough
                     <ArrowRight className="h-4 w-4" />
-                  </a>
+                  </Link>
                 </Button>
                 <Button size="lg" variant="outline" className="rounded-full h-11 px-5 sm:px-6 w-full sm:w-auto whitespace-normal sm:whitespace-nowrap text-center" asChild>
-                  <a href="#workflow">See BMS Pro Trade in Action</a>
+                  <a href="https://trade.bmspros.com.au/login">See BMS Pro Trade in Action</a>
                 </Button>
               </div>
               <div className="mt-6 flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
@@ -266,6 +309,33 @@ const ProductBlue = () => {
         />
       </section>
 
+      {/* Who it is for */}
+      <section className="section-padding bg-white">
+        <div className="container-wide">
+          <div className="max-w-2xl mb-10">
+            <p className="text-sm font-semibold text-blue mb-3">Who it is for</p>
+            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4">
+              Built for plumbers, electricians, locksmiths and mobile service businesses.
+            </h2>
+            <p className="text-muted-foreground text-lg leading-relaxed">
+              BMS Pro Trade connects enquiries, quotes, job scheduling, subcontractors, photos and
+              invoices so the same job isn&apos;t entered three times.
+            </p>
+          </div>
+          <div className="grid sm:grid-cols-3 gap-4 lg:gap-6">
+            {WHO_ITS_FOR.map((item) => (
+              <div
+                key={item.title}
+                className="rounded-2xl border border-border bg-[hsl(210_25%_98%)] p-6"
+              >
+                <h3 className="font-semibold text-foreground mb-2">{item.title}</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed">{item.body}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Front desk */}
       <section className="section-padding bg-white">
         <div className="container-wide">
@@ -288,10 +358,10 @@ const ProductBlue = () => {
                   className="w-full sm:w-fit rounded-full bg-white text-blue hover:bg-white/90 whitespace-normal sm:whitespace-nowrap"
                   asChild
                 >
-                  <a href="#demo">
-                    Book a Live Demonstration
+                  <Link to="/contact?type=Trade">
+                    Book Trade Walkthrough
                     <ArrowRight className="h-4 w-4" />
-                  </a>
+                  </Link>
                 </Button>
               </ScrollReveal>
 
@@ -565,6 +635,41 @@ const ProductBlue = () => {
       </section>
 
       {/* Workflow */}
+      {/* Product screens */}
+      <section className="section-padding bg-white border-t border-border/40">
+        <div className="container-wide">
+          <div className="max-w-2xl mb-10">
+            <p className="text-sm font-semibold text-blue mb-3">Product screens</p>
+            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4">
+              From enquiry to invoice without starting again.
+            </h2>
+            <p className="text-muted-foreground text-lg">
+              Lead capture, quotes, job detail, field updates and payment links connected end to
+              end so nothing gets retyped.
+            </p>
+          </div>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {PRODUCT_SCREENS.map((screen) => (
+              <figure
+                key={screen.title}
+                className="rounded-2xl border border-border overflow-hidden bg-[hsl(210_25%_98%)]"
+              >
+                <img
+                  src={screen.src}
+                  alt={screen.alt}
+                  className="aspect-[4/3] w-full object-cover"
+                  loading="lazy"
+                />
+                <figcaption className="p-4">
+                  <p className="font-semibold text-foreground text-sm mb-1">{screen.title}</p>
+                  <p className="text-xs text-muted-foreground leading-relaxed">{screen.caption}</p>
+                </figcaption>
+              </figure>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <section id="workflow" className="scroll-mt-20 section-padding bg-[hsl(210_25%_96%)]">
         <div className="container-wide">
           <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-center mb-3 max-w-2xl mx-auto">
@@ -575,30 +680,38 @@ const ProductBlue = () => {
             entered again and again.
           </p>
           <div className="grid lg:grid-cols-2 gap-10 items-start">
-            <div className="space-y-3">
+            <div className="space-y-0">
               {FORM_STEPS.map((step, i) => {
                 const open = openFormStep === i;
+                const isLast = i === FORM_STEPS.length - 1;
                 return (
-                  <button
-                    key={step.title}
-                    type="button"
-                    onClick={() => setOpenFormStep(open ? -1 : i)}
-                    className="w-full text-left rounded-2xl bg-white border border-border p-5 shadow-sm"
-                  >
-                    <div className="flex items-center justify-between gap-3">
-                      <span className="font-semibold text-foreground">
-                        {i + 1}. {step.title}
-                      </span>
-                      <span className="flex h-7 w-7 items-center justify-center rounded-full bg-blue text-white shrink-0">
-                        {open ? <Minus className="h-3.5 w-3.5" /> : <Plus className="h-3.5 w-3.5" />}
-                      </span>
-                    </div>
-                    {open && (
-                      <div className="mt-3 pr-8">
-                        <p className="text-sm text-muted-foreground leading-relaxed">{step.body}</p>
+                  <div key={step.title}>
+                    <button
+                      type="button"
+                      onClick={() => setOpenFormStep(open ? -1 : i)}
+                      className="w-full text-left rounded-2xl bg-white border border-border p-5 shadow-sm"
+                    >
+                      <div className="flex items-center justify-between gap-3">
+                        <span className="font-semibold text-foreground">
+                          {i + 1}. {step.title}
+                        </span>
+                        <span className="flex h-7 w-7 items-center justify-center rounded-full bg-blue text-white shrink-0">
+                          {open ? <Minus className="h-3.5 w-3.5" /> : <Plus className="h-3.5 w-3.5" />}
+                        </span>
+                      </div>
+                      {open && (
+                        <div className="mt-3 pr-8">
+                          <p className="text-sm text-muted-foreground leading-relaxed">{step.body}</p>
+                        </div>
+                      )}
+                    </button>
+                    {!isLast && (
+                      <div className="flex flex-col items-center py-1.5" aria-hidden>
+                        <div className="h-3 w-px bg-border" />
+                        <ArrowDown className="h-4 w-4 text-muted-foreground/70 -mt-0.5" />
                       </div>
                     )}
-                  </button>
+                  </div>
                 );
               })}
             </div>
@@ -655,9 +768,12 @@ const ProductBlue = () => {
             View the dashboard, enquiries, quotes, calendar, job card, team, customer updates and
             invoices using real product screens.
           </p>
-          <Button size="lg" className="rounded-full bg-white text-blue hover:bg-white/90" asChild>
-            <a href="#demo">See BMS Pro Trade in Action</a>
-          </Button>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
+            <Button size="lg" className="rounded-full bg-white text-blue hover:bg-white/90" asChild>
+              <Link to="/contact?type=Trade">Book Trade Walkthrough</Link>
+            </Button>
+           
+          </div>
         </div>
       </section>
 
@@ -676,10 +792,10 @@ const ProductBlue = () => {
               </p>
             </div>
             <Button variant="blue" className="rounded-full w-fit" asChild>
-              <a href="#demo">
-                Start Free Trial
+              <Link to="/contact?type=Trade">
+                Book Trade Walkthrough
                 <ArrowRight className="h-4 w-4" />
-              </a>
+              </Link>
             </Button>
           </div>
 
@@ -929,17 +1045,20 @@ const ProductBlue = () => {
             Explore BMS Pro Trade before changing the way your team currently works.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
-            <Button size="lg" className="rounded-full bg-white text-blue hover:bg-white/90" asChild>
-              <a href="#demo">Start My Free Trial</a>
-            </Button>
-            <Button
+          <Button
               size="lg"
               variant="outline"
               className="rounded-full border-white/40 bg-white/10 text-white hover:bg-white/20 hover:text-white"
               asChild
             >
-              <a href="#demo">Book a Live Demonstration</a>
+              <a href="https://trade.bmspros.com.au/login" target="_blank" rel="noopener noreferrer">
+                Start My Free Trial
+              </a>
             </Button>
+            <Button size="lg" className="rounded-full bg-white text-blue hover:bg-white/90" asChild>
+              <Link to="/contact?type=Trade">Book Trade Walkthrough</Link>
+            </Button>
+           
           </div>
         </div>
       </section>

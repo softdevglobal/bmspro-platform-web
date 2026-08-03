@@ -15,6 +15,7 @@ import { useState, type ReactNode } from "react";
 import { cn } from "@/lib/utils";
 import {
   ArrowRight,
+  ArrowDown,
   Bell,
   Calendar,
   Check,
@@ -39,6 +40,48 @@ const TRUST_LOGOS = [
   "Auto electricians",
   "Vehicle service centres",
   "Specialist repair workshops",
+];
+
+const WHO_ITS_FOR = [
+  {
+    title: "Mechanics",
+    body: "Independent and franchise workshops that need bookings and vehicle history in one place.",
+  },
+  {
+    title: "Automotive workshops",
+    body: "Busy service centres managing multiple bays, staff and customer updates every day.",
+  },
+  {
+    title: "Service centres",
+    body: "Teams that want online booking requests without giving away calendar control.",
+  },
+];
+
+const PRODUCT_SCREENS = [
+  {
+    title: "Booking request",
+    caption: "Customers request a time. You approve what fits the workshop.",
+    src: "/products/black/sms-phone.jpg",
+    alt: "Customer booking confirmation on phone",
+  },
+  {
+    title: "Vehicle & customer record",
+    caption: "Keep registration, history and notes with the booking.",
+    src: "/products/black/workshop-bay.jpg",
+    alt: "Workshop bay representing vehicle service records",
+  },
+  {
+    title: "Workshop calendar",
+    caption: "See what is coming into the bays before the day starts.",
+    src: "/products/black/mechanic-focus.jpg",
+    alt: "Mechanic using workshop scheduling tools",
+  },
+  {
+    title: "Service / job view",
+    caption: "Track progress and send updates without rewriting messages.",
+    src: "/products/black/front-desk.jpg",
+    alt: "Front desk handling workshop service updates",
+  },
 ];
 
 const FORM_STEPS = [
@@ -163,7 +206,7 @@ const ProductBlack = () => {
     lastName: "",
     email: "",
     company: "",
-    product: "black",
+    product: "Workshop",
     message: "",
   });
 
@@ -176,7 +219,7 @@ const ProductBlack = () => {
     setLoading(true);
     try {
       await submitContactForm(
-        { ...formData, product: "black" },
+        { ...formData, product: "Workshop" },
         "BMS Pro Workshop demo request"
       );
       toast({
@@ -188,7 +231,7 @@ const ProductBlack = () => {
         lastName: "",
         email: "",
         company: "",
-        product: "black",
+        product: "Workshop",
         message: "",
       });
     } catch (err) {
@@ -250,10 +293,10 @@ const ProductBlack = () => {
                     className="rounded-full h-11 px-5 sm:px-6 w-full sm:w-auto"
                     asChild
                   >
-                    <a href="#demo">
-                      Start Free Trial
+                    <Link to="/contact?type=Workshop">
+                      Book Workshop Walkthrough
                       <ArrowRight className="h-4 w-4" />
-                    </a>
+                    </Link>
                   </Button>
                   <Button
                     size="lg"
@@ -261,7 +304,7 @@ const ProductBlack = () => {
                     className="rounded-full h-11 px-5 sm:px-6 w-full sm:w-auto whitespace-normal sm:whitespace-nowrap text-center"
                     asChild
                   >
-                    <a href="#workflow">See BMS Pro Workshop in Action</a>
+                    <a href="https://black.bmspros.com.au/login">See BMS Pro Workshop in Action</a>
                   </Button>
                 </div>
                 <div className="mt-6 flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
@@ -302,6 +345,33 @@ const ProductBlack = () => {
           <MarqueeStrip items={TRUST_LOGOS} fadeFromClassName="from-[hsl(220_14%_97%)]" />
         </section>
 
+        {/* Who it is for */}
+        <section className="section-padding bg-white">
+          <div className="container-wide">
+            <div className="max-w-2xl mb-10">
+              <p className="text-sm font-semibold text-product-black mb-3">Who it is for</p>
+              <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4">
+                Built for mechanics, automotive workshops and service centres.
+              </h2>
+              <p className="text-muted-foreground text-lg leading-relaxed">
+                BMS Pro Workshop helps you manage booking requests, vehicle records, the workshop
+                calendar, staff allocation and customer updates — without running the day from memory.
+              </p>
+            </div>
+            <div className="grid sm:grid-cols-3 gap-4 lg:gap-6">
+              {WHO_ITS_FOR.map((item) => (
+                <div
+                  key={item.title}
+                  className="rounded-2xl border border-border bg-[hsl(220_14%_98%)] p-6"
+                >
+                  <h3 className="font-semibold text-foreground mb-2">{item.title}</h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed">{item.body}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
         {/* Front desk / never miss a call */}
         <section className="section-padding bg-white">
           <div className="container-wide">
@@ -328,10 +398,10 @@ const ProductBlack = () => {
                     className="w-full sm:w-fit rounded-full bg-white text-product-black hover:bg-white/90 whitespace-normal sm:whitespace-nowrap"
                     asChild
                   >
-                    <a href="#demo">
-                      Book a Live Demonstration
+                    <Link to="/contact?type=Workshop">
+                      Book Workshop Walkthrough
                       <ArrowRight className="h-4 w-4" />
-                    </a>
+                    </Link>
                   </Button>
                 </ScrollReveal>
 
@@ -603,9 +673,7 @@ const ProductBlack = () => {
               </p>
             </div>
           </div>
-        </section>
-
-        {/* Workflow accordion */}
+        </section>        {/* Workflow accordion */}
         <section id="workflow" className="scroll-mt-20 section-padding bg-[hsl(220_14%_97%)]">
           <div className="container-wide">
             <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-center mb-3 max-w-2xl mx-auto">
@@ -615,30 +683,38 @@ const ProductBlack = () => {
               Here is what a normal customer journey can look like inside BMS Pro Workshop.
             </p>
             <div className="grid lg:grid-cols-2 gap-10 items-start">
-              <div className="space-y-3">
+              <div className="space-y-0">
                 {FORM_STEPS.map((step, i) => {
                   const open = openFormStep === i;
+                  const isLast = i === FORM_STEPS.length - 1;
                   return (
-                    <button
-                      key={step.title}
-                      type="button"
-                      onClick={() => setOpenFormStep(open ? -1 : i)}
-                      className="w-full text-left rounded-2xl bg-white border border-border p-5 shadow-sm"
-                    >
-                      <div className="flex items-center justify-between gap-3">
-                        <span className="font-semibold text-foreground">
-                          {i + 1}. {step.title}
-                        </span>
-                        <span className="flex h-7 w-7 items-center justify-center rounded-full bg-product-black text-white shrink-0">
-                          {open ? <Minus className="h-3.5 w-3.5" /> : <Plus className="h-3.5 w-3.5" />}
-                        </span>
-                      </div>
-                      {open && (
-                        <div className="mt-3 pr-8">
-                          <p className="text-sm text-muted-foreground leading-relaxed">{step.body}</p>
+                    <div key={step.title}>
+                      <button
+                        type="button"
+                        onClick={() => setOpenFormStep(open ? -1 : i)}
+                        className="w-full text-left rounded-2xl bg-white border border-border p-5 shadow-sm"
+                      >
+                        <div className="flex items-center justify-between gap-3">
+                          <span className="font-semibold text-foreground">
+                            {i + 1}. {step.title}
+                          </span>
+                          <span className="flex h-7 w-7 items-center justify-center rounded-full bg-product-black text-white shrink-0">
+                            {open ? <Minus className="h-3.5 w-3.5" /> : <Plus className="h-3.5 w-3.5" />}
+                          </span>
+                        </div>
+                        {open && (
+                          <div className="mt-3 pr-8">
+                            <p className="text-sm text-muted-foreground leading-relaxed">{step.body}</p>
+                          </div>
+                        )}
+                      </button>
+                      {!isLast && (
+                        <div className="flex flex-col items-center py-1.5" aria-hidden>
+                          <div className="h-3 w-px bg-border" />
+                          <ArrowDown className="h-4 w-4 text-muted-foreground/70 -mt-0.5" />
                         </div>
                       )}
-                    </button>
+                    </div>
                   );
                 })}
               </div>
@@ -723,7 +799,7 @@ const ProductBlack = () => {
                 </p>
               </div>
               <Button variant="black" className="rounded-full w-fit" asChild>
-                <a href="#demo">
+                <a href="https://black.bmspros.com.au/login">
                   Start Free Trial
                   <ArrowRight className="h-4 w-4" />
                 </a>
@@ -991,7 +1067,7 @@ const ProductBlack = () => {
                 className="rounded-full bg-white text-product-black hover:bg-white/90"
                 asChild
               >
-                <a href="#demo">Start My Free Trial</a>
+                <a href="https://black.bmspros.com.au/login">Start My Free Trial</a>
               </Button>
               <Button
                 size="lg"

@@ -15,6 +15,7 @@ import { useState, type ReactNode } from "react";
 import { cn } from "@/lib/utils";
 import {
   ArrowRight,
+  ArrowDown,
   Bell,
   Calendar,
   Check,
@@ -41,6 +42,48 @@ const TRUST_LOGOS = [
   "Brow and lash studios",
   "Massage businesses",
   "Wellness businesses",
+];
+
+const WHO_ITS_FOR = [
+  {
+    title: "Hair & beauty salons",
+    body: "Manage appointment requests, services and staff calendars without living on your phone.",
+  },
+  {
+    title: "Beauty clinics",
+    body: "Keep client details, treatments and reminders together for a smoother chair day.",
+  },
+  {
+    title: "Appointment businesses",
+    body: "Online requests, confirmations and daily bookings for teams that run on the calendar.",
+  },
+];
+
+const PRODUCT_SCREENS = [
+  {
+    title: "Appointment request",
+    caption: "Clients request a time. You confirm what fits the salon.",
+    src: "/products/pink/bookings.png",
+    alt: "Salon appointment booking preview",
+  },
+  {
+    title: "Service list",
+    caption: "Clear services with duration and optional pricing.",
+    src: "/products/pink/services.png",
+    alt: "Salon services list preview",
+  },
+  {
+    title: "Staff calendar",
+    caption: "See who is booked and what is coming next.",
+    src: "/products/pink/stylist-focus.jpg",
+    alt: "Stylist calendar and schedule context",
+  },
+  {
+    title: "Customer detail",
+    caption: "History, notes and reminders for returning clients.",
+    src: "/products/pink/clients.png",
+    alt: "Salon client records preview",
+  },
 ];
 
 const FORM_STEPS = [
@@ -133,7 +176,7 @@ const ProductPink = () => {
     lastName: "",
     email: "",
     company: "",
-    product: "pink",
+    product: "Salon",
     message: "",
   });
 
@@ -146,7 +189,7 @@ const ProductPink = () => {
     setLoading(true);
     try {
       await submitContactForm(
-        { ...formData, product: "pink" },
+        { ...formData, product: "Salon" },
         "BMS Pro Salon demo request"
       );
       toast({
@@ -158,7 +201,7 @@ const ProductPink = () => {
         lastName: "",
         email: "",
         company: "",
-        product: "pink",
+        product: "Salon",
         message: "",
       });
     } catch (err) {
@@ -215,13 +258,13 @@ const ProductPink = () => {
               </p>
               <div className="flex flex-col sm:flex-row sm:flex-wrap items-stretch sm:items-center gap-3">
                 <Button size="lg" variant="pink" className="rounded-full h-11 px-5 sm:px-6 w-full sm:w-auto" asChild>
-                  <a href="#demo">
-                    Start Free Trial
+                  <Link to="/contact?type=Salon">
+                    Book Salon Walkthrough
                     <ArrowRight className="h-4 w-4" />
-                  </a>
+                  </Link>
                 </Button>
                 <Button size="lg" variant="outline" className="rounded-full h-11 px-5 sm:px-6 w-full sm:w-auto whitespace-normal sm:whitespace-nowrap text-center" asChild>
-                  <a href="#workflow">See BMS Pro Salon in Action</a>
+                  <a href="https://pink.bmspros.com.au/login">See BMS Pro Salon in Action</a>
                 </Button>
               </div>
               <div className="mt-6 flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
@@ -265,6 +308,33 @@ const ProductPink = () => {
         />
       </section>
 
+      {/* Who it is for */}
+      <section className="section-padding bg-white">
+        <div className="container-wide">
+          <div className="max-w-2xl mb-10">
+            <p className="text-sm font-semibold text-pink mb-3">Who it is for</p>
+            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4">
+              Built for salons, beauty clinics and appointment-based businesses.
+            </h2>
+            <p className="text-muted-foreground text-lg leading-relaxed">
+              BMS Pro Salon helps with online appointment requests, services, staff calendars,
+              reminders and the daily booking list without living in your DMs.
+            </p>
+          </div>
+          <div className="grid sm:grid-cols-3 gap-4 lg:gap-6">
+            {WHO_ITS_FOR.map((item) => (
+              <div
+                key={item.title}
+                className="rounded-2xl border border-border bg-[hsl(340_20%_98%)] p-6"
+              >
+                <h3 className="font-semibold text-foreground mb-2">{item.title}</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed">{item.body}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Front desk */}
       <section className="section-padding bg-white">
         <div className="container-wide">
@@ -288,10 +358,10 @@ const ProductPink = () => {
                   className="w-full sm:w-fit rounded-full bg-white text-pink hover:bg-white/90 whitespace-normal sm:whitespace-nowrap"
                   asChild
                 >
-                  <a href="#demo">
-                    Book a Live Demonstration
+                  <Link to="/contact?type=Salon">
+                    Book Salon Walkthrough
                     <ArrowRight className="h-4 w-4" />
-                  </a>
+                  </Link>
                 </Button>
               </ScrollReveal>
 
@@ -563,6 +633,41 @@ const ProductPink = () => {
         </div>
       </section>
 
+      {/* Product screens */}
+      <section className="section-padding bg-white border-t border-border/40">
+        <div className="container-wide">
+          <div className="max-w-2xl mb-10">
+            <p className="text-sm font-semibold text-pink mb-3">Product screens</p>
+            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4">
+              From appointment request to the chair without starting again.
+            </h2>
+            <p className="text-muted-foreground text-lg">
+              Appointment requests, services, staff calendars and customer details connected end to
+              end so nothing gets retyped.
+            </p>
+          </div>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {PRODUCT_SCREENS.map((screen) => (
+              <figure
+                key={screen.title}
+                className="rounded-2xl border border-border overflow-hidden bg-[hsl(340_20%_98%)]"
+              >
+                <img
+                  src={screen.src}
+                  alt={screen.alt}
+                  className="aspect-[4/3] w-full object-cover"
+                  loading="lazy"
+                />
+                <figcaption className="p-4">
+                  <p className="font-semibold text-foreground text-sm mb-1">{screen.title}</p>
+                  <p className="text-xs text-muted-foreground leading-relaxed">{screen.caption}</p>
+                </figcaption>
+              </figure>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Workflow */}
       <section id="workflow" className="scroll-mt-20 section-padding bg-[hsl(340_20%_97%)]">
         <div className="container-wide">
@@ -573,30 +678,38 @@ const ProductPink = () => {
             The customer gets a simple booking experience, while you keep control of your calendar.
           </p>
           <div className="grid lg:grid-cols-2 gap-10 items-start">
-            <div className="space-y-3">
+            <div className="space-y-0">
               {FORM_STEPS.map((step, i) => {
                 const open = openFormStep === i;
+                const isLast = i === FORM_STEPS.length - 1;
                 return (
-                  <button
-                    key={step.title}
-                    type="button"
-                    onClick={() => setOpenFormStep(open ? -1 : i)}
-                    className="w-full text-left rounded-2xl bg-white border border-border p-5 shadow-sm"
-                  >
-                    <div className="flex items-center justify-between gap-3">
-                      <span className="font-semibold text-foreground">
-                        {i + 1}. {step.title}
-                      </span>
-                      <span className="flex h-7 w-7 items-center justify-center rounded-full bg-pink text-white shrink-0">
-                        {open ? <Minus className="h-3.5 w-3.5" /> : <Plus className="h-3.5 w-3.5" />}
-                      </span>
-                    </div>
-                    {open && (
-                      <div className="mt-3 pr-8">
-                        <p className="text-sm text-muted-foreground leading-relaxed">{step.body}</p>
+                  <div key={step.title}>
+                    <button
+                      type="button"
+                      onClick={() => setOpenFormStep(open ? -1 : i)}
+                      className="w-full text-left rounded-2xl bg-white border border-border p-5 shadow-sm"
+                    >
+                      <div className="flex items-center justify-between gap-3">
+                        <span className="font-semibold text-foreground">
+                          {i + 1}. {step.title}
+                        </span>
+                        <span className="flex h-7 w-7 items-center justify-center rounded-full bg-pink text-white shrink-0">
+                          {open ? <Minus className="h-3.5 w-3.5" /> : <Plus className="h-3.5 w-3.5" />}
+                        </span>
+                      </div>
+                      {open && (
+                        <div className="mt-3 pr-8">
+                          <p className="text-sm text-muted-foreground leading-relaxed">{step.body}</p>
+                        </div>
+                      )}
+                    </button>
+                    {!isLast && (
+                      <div className="flex flex-col items-center py-1.5" aria-hidden>
+                        <div className="h-3 w-px bg-border" />
+                        <ArrowDown className="h-4 w-4 text-muted-foreground/70 -mt-0.5" />
                       </div>
                     )}
-                  </button>
+                  </div>
                 );
               })}
             </div>
@@ -653,9 +766,21 @@ const ProductPink = () => {
             View the dashboard, booking request, calendar, services, customer, staff and message
             screens using the real product.
           </p>
-          <Button size="lg" className="rounded-full bg-white text-pink hover:bg-white/90" asChild>
-            <a href="#demo">See BMS Pro Salon in Action</a>
-          </Button>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
+            <Button size="lg" className="rounded-full bg-white text-pink hover:bg-white/90" asChild>
+              <Link to="/contact?type=Salon">Book Salon Walkthrough</Link>
+            </Button>
+            <Button
+              size="lg"
+              variant="outline"
+              className="rounded-full border-white/40 bg-white/10 text-white hover:bg-white/20 hover:text-white"
+              asChild
+            >
+              <a href="https://pink.bmspros.com.au/login" target="_blank" rel="noopener noreferrer">
+                Start My Free Trial
+              </a>
+            </Button>
+          </div>
         </div>
       </section>
 
@@ -673,7 +798,7 @@ const ProductPink = () => {
               </p>
             </div>
             <Button variant="pink" className="rounded-full w-fit" asChild>
-              <a href="#demo">
+              <a href="https://pink.bmspros.com.au/login">
                 Start Free Trial
                 <ArrowRight className="h-4 w-4" />
               </a>
@@ -927,7 +1052,7 @@ const ProductPink = () => {
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
             <Button size="lg" className="rounded-full bg-white text-pink hover:bg-white/90" asChild>
-              <a href="#demo">Start My Free Trial</a>
+              <Link to="/contact?type=Salon">Book Salon Walkthrough</Link>
             </Button>
             <Button
               size="lg"
@@ -935,7 +1060,9 @@ const ProductPink = () => {
               className="rounded-full border-white/40 bg-white/10 text-white hover:bg-white/20 hover:text-white"
               asChild
             >
-              <a href="#demo">Book a Live Demonstration</a>
+              <a href="https://pink.bmspros.com.au/login" target="_blank" rel="noopener noreferrer">
+                Start My Free Trial
+              </a>
             </Button>
           </div>
         </div>

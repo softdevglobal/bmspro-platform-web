@@ -19,11 +19,15 @@ const FROM_NAME = process.env.ZEPTOMAIL_FROM_NAME || "BMS Pro";
 const CONTACT_TO = process.env.CONTACT_TO_EMAIL || "info@bmspros.com.au";
 
 type ContactBody = {
+  name?: string;
   firstName?: string;
   lastName?: string;
   email?: string;
   company?: string;
+  phone?: string;
   product?: string;
+  currentProblem?: string;
+  preferredContactTime?: string;
   message?: string;
   subject?: string;
 };
@@ -204,11 +208,20 @@ async function handleContact(req: http.IncomingMessage, res: http.ServerResponse
 
   try {
     const body = await readJsonBody(req);
-    const firstName = (body.firstName || "").trim();
-    const lastName = (body.lastName || "").trim();
+    let firstName = (body.firstName || "").trim();
+    let lastName = (body.lastName || "").trim();
+    const name = (body.name || "").trim();
+    if ((!firstName || !lastName) && name) {
+      const parts = name.split(/\s+/);
+      firstName = firstName || parts[0] || "";
+      lastName = lastName || parts.slice(1).join(" ") || "-";
+    }
     const email = (body.email || "").trim();
     const company = (body.company || "").trim();
+    const phone = (body.phone || "").trim();
     const product = (body.product || "").trim();
+    const currentProblem = (body.currentProblem || "").trim();
+    const preferredContactTime = (body.preferredContactTime || "").trim();
     const message = (body.message || "").trim();
     const subject =
       (body.subject || "").trim() || "Contact from BMS Pro website";
@@ -218,14 +231,17 @@ async function handleContact(req: http.IncomingMessage, res: http.ServerResponse
       return;
     }
 
-    const fullName = `${firstName} ${lastName}`;
+    const fullName = lastName === "-" ? firstName : `${firstName} ${lastName}`;
     const adminHtml = `
       <h2>New website enquiry</h2>
       <table cellpadding="8" cellspacing="0" border="1" style="border-collapse:collapse;">
         <tr><td><strong>Name</strong></td><td>${escapeHtml(fullName)}</td></tr>
         <tr><td><strong>Email</strong></td><td><a href="mailto:${escapeHtml(email)}">${escapeHtml(email)}</a></td></tr>
-        <tr><td><strong>Company</strong></td><td>${escapeHtml(company)}</td></tr>
-        ${product ? `<tr><td><strong>Product</strong></td><td>${escapeHtml(product)}</td></tr>` : ""}
+        ${phone ? `<tr><td><strong>Phone</strong></td><td><a href="tel:${escapeHtml(phone.replace(/\s+/g, ""))}">${escapeHtml(phone)}</a></td></tr>` : ""}
+        <tr><td><strong>Business</strong></td><td>${escapeHtml(company)}</td></tr>
+        ${product ? `<tr><td><strong>Business type</strong></td><td>${escapeHtml(product)}</td></tr>` : ""}
+        ${currentProblem ? `<tr><td><strong>Current problem</strong></td><td>${escapeHtml(currentProblem)}</td></tr>` : ""}
+        ${preferredContactTime ? `<tr><td><strong>Preferred contact time</strong></td><td>${escapeHtml(preferredContactTime)}</td></tr>` : ""}
         <tr><td><strong>Message</strong></td><td>${escapeHtml(message || "(No message)")}</td></tr>
       </table>
     `;
@@ -245,14 +261,14 @@ async function handleContact(req: http.IncomingMessage, res: http.ServerResponse
         toName: fullName,
         replyToEmail: CONTACT_TO,
         replyToName: "BMS Pro",
-        subject: "We received your message BMS Pro",
+        subject: "We received your walkthrough request BMS Pro",
         htmlbody: `
           <p>Hi ${escapeHtml(firstName)},</p>
-          <p>Thanks for contacting BMS Pro. We’ve received your message and will get back within 24 hours.</p>
-          <p>If you need anything sooner, reply to this email or write to
+          <p>Thanks for booking a BMS Pro walkthrough. We’ve received your request and will get back within 24 hours.</p>
+          <p>If you need anything sooner, call <a href="tel:0359111400">03 5911 1400</a> or reply to this email /
             <a href="mailto:${escapeHtml(CONTACT_TO)}">${escapeHtml(CONTACT_TO)}</a>.
           </p>
-          <p> ${escapeHtml(FROM_NAME)}</p>
+          <p>${escapeHtml(FROM_NAME)}</p>
         `,
       });
     } catch (confirmError) {
