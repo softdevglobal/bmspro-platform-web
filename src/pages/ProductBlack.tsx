@@ -10,6 +10,7 @@ import { ScrollPage, ScrollReveal } from "@/components/motion/ScrollReveal";
 import { AnimateBars, AnimateCount, AnimateProgress, AnimateVisual, MarqueeStrip, PhoneMockup } from "@/components/motion/AnimateVisual";
 import { BookingFlowPhone } from "@/components/motion/BookingFlowPhone";
 import { submitContactForm } from "@/lib/contactForm";
+import { trackCtaClick } from "@/lib/analytics";
 import { useToast } from "@/hooks/use-toast";
 import { useState, type ReactNode } from "react";
 import { cn } from "@/lib/utils";
@@ -293,8 +294,17 @@ const ProductBlack = () => {
                     className="rounded-full h-11 px-5 sm:px-6 w-full sm:w-auto"
                     asChild
                   >
-                    <Link to="/contact?type=Workshop">
-                      Book Workshop Walkthrough
+                    <Link
+                    to="/contact?type=Workshop"
+                    onClick={() =>
+                      trackCtaClick({
+                        label: "Book a Workshop Walkthrough",
+                        location: "product_workshop",
+                        destination: "/contact?type=Workshop",
+                      })
+                    }
+                  >
+                      Book a Workshop Walkthrough
                       <ArrowRight className="h-4 w-4" />
                     </Link>
                   </Button>
@@ -355,7 +365,7 @@ const ProductBlack = () => {
               </h2>
               <p className="text-muted-foreground text-lg leading-relaxed">
                 BMS Pro Workshop helps you manage booking requests, vehicle records, the workshop
-                calendar, staff allocation and customer updates — without running the day from memory.
+                calendar, staff allocation and customer updates.
               </p>
             </div>
             <div className="grid sm:grid-cols-3 gap-4 lg:gap-6">
@@ -398,8 +408,17 @@ const ProductBlack = () => {
                     className="w-full sm:w-fit rounded-full bg-white text-product-black hover:bg-white/90 whitespace-normal sm:whitespace-nowrap"
                     asChild
                   >
-                    <Link to="/contact?type=Workshop">
-                      Book Workshop Walkthrough
+                    <Link
+                    to="/contact?type=Workshop"
+                    onClick={() =>
+                      trackCtaClick({
+                        label: "Book a Workshop Walkthrough",
+                        location: "product_workshop",
+                        destination: "/contact?type=Workshop",
+                      })
+                    }
+                  >
+                      Book a Workshop Walkthrough
                       <ArrowRight className="h-4 w-4" />
                     </Link>
                   </Button>
@@ -454,9 +473,10 @@ const ProductBlack = () => {
                 </Pill>
               </p>
               <Button variant="black" className="rounded-full w-full sm:w-auto whitespace-normal sm:whitespace-nowrap" asChild>
-                <a href="https://black.bmspros.com.au/book-now" target="_blank" rel="noreferrer">
+                <a href="https://black.bmspros.com.au/book-now" target="_blank" rel="noopener noreferrer">
                   See the Customer Booking Experience
-                  <ArrowRight className="h-4 w-4" />
+                  <span className="sr-only"> (opens in a new tab)</span>
+                  <ArrowRight className="h-4 w-4" aria-hidden="true" />
                 </a>
               </Button>
             </ScrollReveal>
@@ -602,7 +622,7 @@ const ProductBlack = () => {
                   </p>
                   <img
                     src="/products/black/workshop-bay.jpg"
-                    alt=""
+                    alt="Workshop service bay set up for a logbook service booking"
                     className="rounded-xl h-24 w-full object-cover"
                   />
                 </div>
@@ -691,6 +711,7 @@ const ProductBlack = () => {
                     <div key={step.title}>
                       <button
                         type="button"
+                        aria-expanded={open}
                         onClick={() => setOpenFormStep(open ? -1 : i)}
                         className="w-full text-left rounded-2xl bg-white border border-border p-5 shadow-sm"
                       >
@@ -779,7 +800,18 @@ const ProductBlack = () => {
               className="rounded-full bg-white text-product-black hover:bg-white/90"
               asChild
             >
-              <a href="#demo">See BMS Pro Workshop in Action</a>
+              <Link
+                to="/contact?type=Workshop"
+                onClick={() =>
+                  trackCtaClick({
+                    label: "Book a Workshop Walkthrough",
+                    location: "product_workshop",
+                    destination: "/contact?type=Workshop",
+                  })
+                }
+              >
+                Book a Workshop Walkthrough
+              </Link>
             </Button>
           </div>
         </section>
@@ -811,7 +843,7 @@ const ProductBlack = () => {
                 <article className="relative min-h-[280px] sm:min-h-[360px] rounded-3xl overflow-hidden h-full">
                   <img
                     src="/products/black/mechanic-portrait.jpg"
-                    alt=""
+                    alt="Mechanic checking the day's booked jobs before starting work"
                     className="absolute inset-0 h-full w-full object-cover"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/40 to-transparent" />
@@ -831,7 +863,7 @@ const ProductBlack = () => {
                 <article className="relative min-h-[280px] sm:min-h-[360px] rounded-3xl overflow-hidden h-full">
                   <img
                     src="/products/black/workshop-bay.jpg"
-                    alt=""
+                    alt="Vehicle in a workshop bay with customer and service history on file"
                     className="absolute inset-0 h-full w-full object-cover"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent" />
@@ -874,6 +906,7 @@ const ProductBlack = () => {
                   <button
                     key={cat.category}
                     type="button"
+                    aria-pressed={faqCat === i}
                     onClick={() => {
                       setFaqCat(i);
                       setOpenFaq(0);
@@ -897,6 +930,7 @@ const ProductBlack = () => {
                     <div key={item.q} className="rounded-2xl bg-[hsl(220_14%_96%)] overflow-hidden">
                       <button
                         type="button"
+                        aria-expanded={open}
                         className="w-full flex items-center justify-between gap-4 px-5 py-4 text-left"
                         onClick={() => setOpenFaq(open ? -1 : i)}
                       >
@@ -1067,7 +1101,18 @@ const ProductBlack = () => {
                 className="rounded-full bg-white text-product-black hover:bg-white/90"
                 asChild
               >
-                <a href="https://black.bmspros.com.au/login">Start My Free Trial</a>
+                <Link
+                  to="/contact?type=Workshop"
+                  onClick={() =>
+                    trackCtaClick({
+                      label: "Book a Workshop Walkthrough",
+                      location: "product_workshop",
+                      destination: "/contact?type=Workshop",
+                    })
+                  }
+                >
+                  Book a Workshop Walkthrough
+                </Link>
               </Button>
               <Button
                 size="lg"
@@ -1075,7 +1120,10 @@ const ProductBlack = () => {
                 className="rounded-full border-white/40 bg-white/10 text-white hover:bg-white/20 hover:text-white"
                 asChild
               >
-                <a href="#demo">Book a Live Demonstration</a>
+                <a href="https://black.bmspros.com.au/login" target="_blank" rel="noopener noreferrer">
+                  Start My Free Trial
+                  <span className="sr-only"> (opens in a new tab)</span>
+                </a>
               </Button>
             </div>
           </div>

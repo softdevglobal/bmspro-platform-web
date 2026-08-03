@@ -11,6 +11,7 @@ import {
   UserRound,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { trackCtaClick } from "@/lib/analytics";
 
 const tabs = [
   {
@@ -110,6 +111,7 @@ export function SoftwarePreviewSection() {
             <button
               key={tab.id}
               type="button"
+              aria-pressed={active === tab.id}
               onClick={() => setActive(tab.id)}
               className={cn(
                 "rounded-full px-3.5 sm:px-4 py-2 text-sm font-semibold transition-colors border whitespace-nowrap shrink-0",
@@ -152,8 +154,17 @@ export function SoftwarePreviewSection() {
 
         <div className="text-center">
           <Button size="lg" className="rounded-full" asChild>
-            <Link to="/contact">
-              Take a Proper Look Inside
+            <Link
+              to="/contact"
+              onClick={() =>
+                trackCtaClick({
+                  label: "Book a walkthrough",
+                  location: "homepage_software_preview",
+                  destination: "/contact",
+                })
+              }
+            >
+              Book a walkthrough
               <ArrowRight className="h-4 w-4" />
             </Link>
           </Button>

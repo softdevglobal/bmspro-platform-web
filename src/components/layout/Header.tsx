@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X, ChevronDown, ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { trackCtaClick } from "@/lib/analytics";
 
 const navigation = [
   { name: "Home", href: "/" },
@@ -225,8 +226,17 @@ export function Header() {
             )}
             asChild
           >
-            <Link to="/contact">
-              Book Your Strategy Call
+            <Link
+              to="/contact"
+              onClick={() =>
+                trackCtaClick({
+                  label: "Book a walkthrough",
+                  location: "header",
+                  destination: "/contact",
+                })
+              }
+            >
+              Book a walkthrough
               <ArrowRight className="h-4 w-4" />
             </Link>
           </Button>
@@ -297,8 +307,18 @@ export function Header() {
             })}
             <div className="pt-4 border-t border-border space-y-2">
               <Button className="w-full rounded-full" asChild>
-                <Link to="/contact" onClick={() => setMobileMenuOpen(false)}>
-                  Book Your Strategy Call
+                <Link
+                  to="/contact"
+                  onClick={() => {
+                    setMobileMenuOpen(false);
+                    trackCtaClick({
+                      label: "Book a walkthrough",
+                      location: "header_mobile",
+                      destination: "/contact",
+                    });
+                  }}
+                >
+                  Book a walkthrough
                   <ArrowRight className="h-4 w-4" />
                 </Link>
               </Button>

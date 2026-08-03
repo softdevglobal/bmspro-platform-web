@@ -327,43 +327,55 @@ export function MarqueeStrip({
   }, [duration, items]);
 
   return (
-    <div
-      className={cn("relative overflow-hidden", className)}
-      aria-hidden
-      onMouseEnter={() => {
-        pausedRef.current = true;
-      }}
-      onMouseLeave={() => {
-        pausedRef.current = false;
-      }}
-    >
-      <div
-        className={cn(
-          "pointer-events-none absolute inset-y-0 left-0 z-10 w-12 sm:w-20 bg-gradient-to-r to-transparent",
-          fadeFromClassName
-        )}
-      />
-      <div
-        className={cn(
-          "pointer-events-none absolute inset-y-0 right-0 z-10 w-12 sm:w-20 bg-gradient-to-l to-transparent",
-          fadeFromClassName
-        )}
-      />
-      <div
-        ref={trackRef}
-        className="flex w-max gap-10 sm:gap-14 py-1 will-change-transform"
-      >
-        {row.map((label, i) => (
-          <span
-            key={`${label}-${i}`}
-            className={cn(
-              "shrink-0 text-sm font-semibold uppercase tracking-wider text-muted-foreground/45",
-              itemClassName
-            )}
-          >
-            {label}
-          </span>
+    <div className={cn("relative overflow-hidden", className)}>
+      {/*
+        Expose the message to assistive tech exactly once. The animated strip
+        below repeats each label many times for the visual loop, so it is marked
+        decorative (aria-hidden) to keep screen readers from reading duplicates.
+      */}
+      <ul className="sr-only">
+        {items.map((label) => (
+          <li key={label}>{label}</li>
         ))}
+      </ul>
+      <div
+        className="relative overflow-hidden"
+        aria-hidden="true"
+        onMouseEnter={() => {
+          pausedRef.current = true;
+        }}
+        onMouseLeave={() => {
+          pausedRef.current = false;
+        }}
+      >
+        <div
+          className={cn(
+            "pointer-events-none absolute inset-y-0 left-0 z-10 w-12 sm:w-20 bg-gradient-to-r to-transparent",
+            fadeFromClassName
+          )}
+        />
+        <div
+          className={cn(
+            "pointer-events-none absolute inset-y-0 right-0 z-10 w-12 sm:w-20 bg-gradient-to-l to-transparent",
+            fadeFromClassName
+          )}
+        />
+        <div
+          ref={trackRef}
+          className="flex w-max gap-10 sm:gap-14 py-1 will-change-transform"
+        >
+          {row.map((label, i) => (
+            <span
+              key={`${label}-${i}`}
+              className={cn(
+                "shrink-0 text-sm font-semibold uppercase tracking-wider text-muted-foreground/45",
+                itemClassName
+              )}
+            >
+              {label}
+            </span>
+          ))}
+        </div>
       </div>
     </div>
   );

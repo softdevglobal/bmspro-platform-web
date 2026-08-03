@@ -10,6 +10,7 @@ import { ScrollPage, ScrollReveal } from "@/components/motion/ScrollReveal";
 import { AnimateBars, AnimateCount, AnimateProgress, AnimateVisual, MarqueeStrip } from "@/components/motion/AnimateVisual";
 import { BookingFlowPhone } from "@/components/motion/BookingFlowPhone";
 import { submitContactForm } from "@/lib/contactForm";
+import { trackCtaClick } from "@/lib/analytics";
 import { useToast } from "@/hooks/use-toast";
 import { useState, type ReactNode } from "react";
 import { cn } from "@/lib/utils";
@@ -259,8 +260,17 @@ const ProductBlue = () => {
               </p>
               <div className="flex flex-col sm:flex-row sm:flex-wrap items-stretch sm:items-center gap-3">
                 <Button size="lg" variant="blue" className="rounded-full h-11 px-5 sm:px-6 w-full sm:w-auto" asChild>
-                  <Link to="/contact?type=Trade">
-                    Book Trade Walkthrough
+                  <Link
+                    to="/contact?type=Trade"
+                    onClick={() =>
+                      trackCtaClick({
+                        label: "Book a Trade Walkthrough",
+                        location: "product_trade",
+                        destination: "/contact?type=Trade",
+                      })
+                    }
+                  >
+                      Book a Trade Walkthrough
                     <ArrowRight className="h-4 w-4" />
                   </Link>
                 </Button>
@@ -358,8 +368,17 @@ const ProductBlue = () => {
                   className="w-full sm:w-fit rounded-full bg-white text-blue hover:bg-white/90 whitespace-normal sm:whitespace-nowrap"
                   asChild
                 >
-                  <Link to="/contact?type=Trade">
-                    Book Trade Walkthrough
+                  <Link
+                    to="/contact?type=Trade"
+                    onClick={() =>
+                      trackCtaClick({
+                        label: "Book a Trade Walkthrough",
+                        location: "product_trade",
+                        destination: "/contact?type=Trade",
+                      })
+                    }
+                  >
+                      Book a Trade Walkthrough
                     <ArrowRight className="h-4 w-4" />
                   </Link>
                 </Button>
@@ -415,9 +434,10 @@ const ProductBlue = () => {
               </Pill>
             </p>
             <Button variant="blue" className="rounded-full w-full sm:w-auto whitespace-normal sm:whitespace-nowrap" asChild>
-              <a href="https://blue.bmspros.com.au/book-now" target="_blank" rel="noreferrer">
+              <a href="https://blue.bmspros.com.au/book-now" target="_blank" rel="noopener noreferrer">
                 See the Customer Booking Experience
-                <ArrowRight className="h-4 w-4" />
+                <span className="sr-only"> (opens in a new tab)</span>
+                <ArrowRight className="h-4 w-4" aria-hidden="true" />
               </a>
             </Button>
           </div>
@@ -560,7 +580,7 @@ const ProductBlue = () => {
               </p>
               <img
                 src="/products/blue/job-site.jpg"
-                alt=""
+                alt="Trade job site set up for a blocked drain callout"
                 className="rounded-xl h-24 w-full object-cover"
               />
             </div>
@@ -688,6 +708,7 @@ const ProductBlue = () => {
                   <div key={step.title}>
                     <button
                       type="button"
+                      aria-expanded={open}
                       onClick={() => setOpenFormStep(open ? -1 : i)}
                       className="w-full text-left rounded-2xl bg-white border border-border p-5 shadow-sm"
                     >
@@ -770,7 +791,7 @@ const ProductBlue = () => {
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
             <Button size="lg" className="rounded-full bg-white text-blue hover:bg-white/90" asChild>
-              <Link to="/contact?type=Trade">Book Trade Walkthrough</Link>
+              <Link to="/contact?type=Trade" onClick={() => trackCtaClick({ label: "Book a Trade Walkthrough", location: "product_trade", destination: "/contact?type=Trade" })}>Book a Trade Walkthrough</Link>
             </Button>
            
           </div>
@@ -792,8 +813,17 @@ const ProductBlue = () => {
               </p>
             </div>
             <Button variant="blue" className="rounded-full w-fit" asChild>
-              <Link to="/contact?type=Trade">
-                Book Trade Walkthrough
+              <Link
+                    to="/contact?type=Trade"
+                    onClick={() =>
+                      trackCtaClick({
+                        label: "Book a Trade Walkthrough",
+                        location: "product_trade",
+                        destination: "/contact?type=Trade",
+                      })
+                    }
+                  >
+                      Book a Trade Walkthrough
                 <ArrowRight className="h-4 w-4" />
               </Link>
             </Button>
@@ -804,7 +834,7 @@ const ProductBlue = () => {
             <article className="relative min-h-[280px] sm:min-h-[360px] rounded-3xl overflow-hidden h-full">
               <img
                 src="/products/blue/tradesperson-portrait.jpg"
-                alt=""
+                alt="Tradesperson updating job progress and photos from the field"
                 className="absolute inset-0 h-full w-full object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/40 to-transparent" />
@@ -824,7 +854,7 @@ const ProductBlue = () => {
             <article className="relative min-h-[280px] sm:min-h-[360px] rounded-3xl overflow-hidden h-full">
               <img
                 src="/products/blue/job-site.jpg"
-                alt=""
+                alt="Trade job site where quotes are sent and follow-ups are tracked"
                 className="absolute inset-0 h-full w-full object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent" />
@@ -867,6 +897,7 @@ const ProductBlue = () => {
                 <button
                   key={cat.category}
                   type="button"
+                  aria-pressed={faqCat === i}
                   onClick={() => {
                     setFaqCat(i);
                     setOpenFaq(0);
@@ -886,11 +917,12 @@ const ProductBlue = () => {
                 const open = openFaq === i;
                 return (
                   <div key={item.q} className="rounded-2xl bg-[hsl(210_25%_96%)] overflow-hidden">
-                    <button
-                      type="button"
-                      className="w-full flex items-center justify-between gap-4 px-5 py-4 text-left"
-                      onClick={() => setOpenFaq(open ? -1 : i)}
-                    >
+                      <button
+                        type="button"
+                        aria-expanded={open}
+                        className="w-full flex items-center justify-between gap-4 px-5 py-4 text-left"
+                        onClick={() => setOpenFaq(open ? -1 : i)}
+                      >
                       <span className={cn("font-semibold", open ? "text-blue" : "text-foreground")}>
                         {item.q}
                       </span>
@@ -1045,7 +1077,21 @@ const ProductBlue = () => {
             Explore BMS Pro Trade before changing the way your team currently works.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
-          <Button
+            <Button size="lg" className="rounded-full bg-white text-blue hover:bg-white/90" asChild>
+              <Link
+                to="/contact?type=Trade"
+                onClick={() =>
+                  trackCtaClick({
+                    label: "Book a Trade Walkthrough",
+                    location: "product_trade",
+                    destination: "/contact?type=Trade",
+                  })
+                }
+              >
+                Book a Trade Walkthrough
+              </Link>
+            </Button>
+            <Button
               size="lg"
               variant="outline"
               className="rounded-full border-white/40 bg-white/10 text-white hover:bg-white/20 hover:text-white"
@@ -1053,12 +1099,9 @@ const ProductBlue = () => {
             >
               <a href="https://trade.bmspros.com.au/login" target="_blank" rel="noopener noreferrer">
                 Start My Free Trial
+                <span className="sr-only"> (opens in a new tab)</span>
               </a>
             </Button>
-            <Button size="lg" className="rounded-full bg-white text-blue hover:bg-white/90" asChild>
-              <Link to="/contact?type=Trade">Book Trade Walkthrough</Link>
-            </Button>
-           
           </div>
         </div>
       </section>

@@ -10,6 +10,7 @@ import { ScrollPage, ScrollReveal } from "@/components/motion/ScrollReveal";
 import { AnimateBars, AnimateCount, AnimateProgress, AnimateVisual, MarqueeStrip } from "@/components/motion/AnimateVisual";
 import { BookingFlowPhone } from "@/components/motion/BookingFlowPhone";
 import { submitContactForm } from "@/lib/contactForm";
+import { trackCtaClick } from "@/lib/analytics";
 import { useToast } from "@/hooks/use-toast";
 import { useState, type ReactNode } from "react";
 import { cn } from "@/lib/utils";
@@ -258,8 +259,17 @@ const ProductPink = () => {
               </p>
               <div className="flex flex-col sm:flex-row sm:flex-wrap items-stretch sm:items-center gap-3">
                 <Button size="lg" variant="pink" className="rounded-full h-11 px-5 sm:px-6 w-full sm:w-auto" asChild>
-                  <Link to="/contact?type=Salon">
-                    Book Salon Walkthrough
+                  <Link
+                    to="/contact?type=Salon"
+                    onClick={() =>
+                      trackCtaClick({
+                        label: "Book a Salon Walkthrough",
+                        location: "product_salon",
+                        destination: "/contact?type=Salon",
+                      })
+                    }
+                  >
+                      Book a Salon Walkthrough
                     <ArrowRight className="h-4 w-4" />
                   </Link>
                 </Button>
@@ -358,8 +368,17 @@ const ProductPink = () => {
                   className="w-full sm:w-fit rounded-full bg-white text-pink hover:bg-white/90 whitespace-normal sm:whitespace-nowrap"
                   asChild
                 >
-                  <Link to="/contact?type=Salon">
-                    Book Salon Walkthrough
+                  <Link
+                    to="/contact?type=Salon"
+                    onClick={() =>
+                      trackCtaClick({
+                        label: "Book a Salon Walkthrough",
+                        location: "product_salon",
+                        destination: "/contact?type=Salon",
+                      })
+                    }
+                  >
+                      Book a Salon Walkthrough
                     <ArrowRight className="h-4 w-4" />
                   </Link>
                 </Button>
@@ -414,9 +433,10 @@ const ProductPink = () => {
               </Pill>
             </p>
             <Button variant="pink" className="rounded-full w-full sm:w-auto whitespace-normal sm:whitespace-nowrap" asChild>
-              <a href="https://pink.bmspros.com.au/book-now" target="_blank" rel="noreferrer">
+              <a href="https://pink.bmspros.com.au/book-now" target="_blank" rel="noopener noreferrer">
                 Preview the Customer Booking Experience
-                <ArrowRight className="h-4 w-4" />
+                <span className="sr-only"> (opens in a new tab)</span>
+                <ArrowRight className="h-4 w-4" aria-hidden="true" />
               </a>
             </Button>
           </div>
@@ -559,7 +579,7 @@ const ProductPink = () => {
               </p>
               <img
                 src="/products/pink/salon-bay.jpg"
-                alt=""
+                alt="Salon styling station set up for a cut and colour appointment"
                 className="rounded-xl h-24 w-full object-cover"
               />
             </div>
@@ -686,6 +706,7 @@ const ProductPink = () => {
                   <div key={step.title}>
                     <button
                       type="button"
+                      aria-expanded={open}
                       onClick={() => setOpenFormStep(open ? -1 : i)}
                       className="w-full text-left rounded-2xl bg-white border border-border p-5 shadow-sm"
                     >
@@ -768,7 +789,7 @@ const ProductPink = () => {
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
             <Button size="lg" className="rounded-full bg-white text-pink hover:bg-white/90" asChild>
-              <Link to="/contact?type=Salon">Book Salon Walkthrough</Link>
+              <Link to="/contact?type=Salon" onClick={() => trackCtaClick({ label: "Book a Salon Walkthrough", location: "product_salon", destination: "/contact?type=Salon" })}>Book a Salon Walkthrough</Link>
             </Button>
             <Button
               size="lg"
@@ -778,6 +799,7 @@ const ProductPink = () => {
             >
               <a href="https://pink.bmspros.com.au/login" target="_blank" rel="noopener noreferrer">
                 Start My Free Trial
+                <span className="sr-only"> (opens in a new tab)</span>
               </a>
             </Button>
           </div>
@@ -810,7 +832,7 @@ const ProductPink = () => {
             <article className="relative min-h-[280px] sm:min-h-[360px] rounded-3xl overflow-hidden h-full">
               <img
                 src="/products/pink/stylist-portrait.jpg"
-                alt=""
+                alt="Stylist reviewing the salon service list and available bookings"
                 className="absolute inset-0 h-full w-full object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/40 to-transparent" />
@@ -830,7 +852,7 @@ const ProductPink = () => {
             <article className="relative min-h-[280px] sm:min-h-[360px] rounded-3xl overflow-hidden h-full">
               <img
                 src="/products/pink/salon-bay.jpg"
-                alt=""
+                alt="Salon styling stations with each staff calendar kept clear"
                 className="absolute inset-0 h-full w-full object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent" />
@@ -873,6 +895,7 @@ const ProductPink = () => {
                 <button
                   key={cat.category}
                   type="button"
+                  aria-pressed={faqCat === i}
                   onClick={() => {
                     setFaqCat(i);
                     setOpenFaq(0);
@@ -892,11 +915,12 @@ const ProductPink = () => {
                 const open = openFaq === i;
                 return (
                   <div key={item.q} className="rounded-2xl bg-[hsl(340_20%_96%)] overflow-hidden">
-                    <button
-                      type="button"
-                      className="w-full flex items-center justify-between gap-4 px-5 py-4 text-left"
-                      onClick={() => setOpenFaq(open ? -1 : i)}
-                    >
+                      <button
+                        type="button"
+                        aria-expanded={open}
+                        className="w-full flex items-center justify-between gap-4 px-5 py-4 text-left"
+                        onClick={() => setOpenFaq(open ? -1 : i)}
+                      >
                       <span className={cn("font-semibold", open ? "text-pink" : "text-foreground")}>
                         {item.q}
                       </span>
@@ -1052,7 +1076,7 @@ const ProductPink = () => {
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
             <Button size="lg" className="rounded-full bg-white text-pink hover:bg-white/90" asChild>
-              <Link to="/contact?type=Salon">Book Salon Walkthrough</Link>
+              <Link to="/contact?type=Salon" onClick={() => trackCtaClick({ label: "Book a Salon Walkthrough", location: "product_salon", destination: "/contact?type=Salon" })}>Book a Salon Walkthrough</Link>
             </Button>
             <Button
               size="lg"
@@ -1062,6 +1086,7 @@ const ProductPink = () => {
             >
               <a href="https://pink.bmspros.com.au/login" target="_blank" rel="noopener noreferrer">
                 Start My Free Trial
+                <span className="sr-only"> (opens in a new tab)</span>
               </a>
             </Button>
           </div>

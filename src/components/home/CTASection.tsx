@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
+import { trackCtaClick } from "@/lib/analytics";
 
 export function CTASection() {
   return (
@@ -42,8 +43,17 @@ export function CTASection() {
             className="rounded-full bg-white text-[hsl(220_22%_10%)] hover:bg-white/90 shadow-lg"
             asChild
           >
-            <Link to="/contact">
-              Book My Walkthrough
+            <Link
+              to="/contact"
+              onClick={() =>
+                trackCtaClick({
+                  label: "Book my walkthrough",
+                  location: "homepage_final_cta",
+                  destination: "/contact",
+                })
+              }
+            >
+              Book my walkthrough
               <ArrowRight className="h-5 w-5" />
             </Link>
           </Button>
@@ -53,7 +63,18 @@ export function CTASection() {
             className="rounded-full border-white/40 bg-white/10 text-white hover:bg-white/20 hover:text-white backdrop-blur-sm"
             asChild
           >
-            <a href="#products">Choose My BMS Pro</a>
+            <a
+              href="#products"
+              onClick={() =>
+                trackCtaClick({
+                  label: "Choose your BMS Pro",
+                  location: "homepage_final_cta",
+                  destination: "#products",
+                })
+              }
+            >
+              Choose your BMS Pro
+            </a>
           </Button>
         </div>
 

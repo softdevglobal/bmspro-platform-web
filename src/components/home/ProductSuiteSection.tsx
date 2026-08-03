@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { ArrowRight, Wrench, Scissors, Hammer, LucideIcon } from "lucide-react";
+import { trackCtaClick } from "@/lib/analytics";
 
 type ShowcaseProduct = {
   shortName: string;
@@ -32,7 +33,7 @@ const products: ShowcaseProduct[] = [
     ],
     href: "/products/black",
     icon: Wrench,
-    cta: "Explore BMS Pro Workshop",
+    cta: "View BMS Pro Workshop",
     image: "https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?w=1000&h=1400&fit=crop",
     badge: "bg-product-black text-white",
     ctaClass: "bg-white text-[hsl(220_22%_10%)] hover:bg-white/90",
@@ -53,7 +54,7 @@ const products: ShowcaseProduct[] = [
     ],
     href: "/products/blue",
     icon: Hammer,
-    cta: "Explore BMS Pro Trade",
+    cta: "View BMS Pro Trade",
     image: "/products/blue/jobs.jpg",
     badge: "bg-blue text-white",
     ctaClass: "bg-white text-blue hover:bg-white/90",
@@ -74,7 +75,7 @@ const products: ShowcaseProduct[] = [
     ],
     href: "/products/pink",
     icon: Scissors,
-    cta: "Explore BMS Pro Salon",
+    cta: "View BMS Pro Salon",
     image: "https://images.unsplash.com/photo-1560066984-138dadb4c035?w=1000&h=1400&fit=crop",
     badge: "bg-pink text-white",
     ctaClass: "bg-white text-pink hover:bg-white/90",
@@ -154,6 +155,13 @@ export function ProductSuiteSection() {
                     </ul>
                     <Link
                       to={product.href}
+                      onClick={() =>
+                        trackCtaClick({
+                          label: product.cta,
+                          location: "homepage_product_suite",
+                          destination: product.href,
+                        })
+                      }
                       className={`inline-flex items-center justify-center gap-2 w-full h-12 rounded-full text-sm font-semibold transition-all ${product.ctaClass}`}
                     >
                       {product.cta}
