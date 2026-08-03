@@ -22,7 +22,7 @@ const products: ShowcaseProduct[] = [
     tagline: "Workshop",
     headline: "BMS Pro Workshop",
     description:
-      "Manage bookings, customer details, vehicle information, workshop schedules and service updates from one place. Customers can request a booking online. You choose the time that works, organise the job and keep the customer informed.",
+      "Online booking requests, vehicle records, bay schedules and service updates — so the floor and front desk stay aligned.",
     features: [
       "Online booking requests",
       "Customer and vehicle records",
@@ -33,7 +33,7 @@ const products: ShowcaseProduct[] = [
     ],
     href: "/products/black",
     icon: Wrench,
-    cta: "Explore BMS Pro Workshop",
+    cta: "Explore Workshop",
     image: "https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?w=1000&h=1400&fit=crop",
     badge: "bg-product-black text-white",
     ctaClass: "bg-white text-[hsl(220_22%_10%)] hover:bg-white/90",
@@ -43,7 +43,7 @@ const products: ShowcaseProduct[] = [
     tagline: "Trade Business",
     headline: "BMS Pro Trade",
     description:
-      "Keep enquiries, quotes, jobs, staff, subcontractors and invoices connected from the first customer call through to final payment. When a quote is approved, turn it into a job, schedule the work and assign the right person without entering everything again.",
+      "Enquiries, quotes, jobs, subcontractors and invoices in one flow — from the first call through to payment.",
     features: [
       "Enquiries and customer records",
       "Quotes and follow-ups",
@@ -54,7 +54,7 @@ const products: ShowcaseProduct[] = [
     ],
     href: "/products/blue",
     icon: Hammer,
-    cta: "Explore BMS Pro Trade",
+    cta: "Explore Trade",
     image: "/products/blue/jobs.jpg",
     badge: "bg-blue text-white",
     ctaClass: "bg-white text-blue hover:bg-white/90",
@@ -64,7 +64,7 @@ const products: ShowcaseProduct[] = [
     tagline: "Salon",
     headline: "BMS Pro Salon",
     description:
-      "Let customers request appointments online while you manage your services, staff schedules and daily bookings from one place. Spend less time answering booking messages and more time looking after your customers.",
+      "Customers request appointments online. You run services, stylist calendars and the day’s bookings from one place.",
     features: [
       "Online appointment requests",
       "Service selection",
@@ -75,7 +75,7 @@ const products: ShowcaseProduct[] = [
     ],
     href: "/products/pink",
     icon: Scissors,
-    cta: "Explore BMS Pro Salon",
+    cta: "Explore Salon",
     image: "https://images.unsplash.com/photo-1560066984-138dadb4c035?w=1000&h=1400&fit=crop",
     badge: "bg-pink text-white",
     ctaClass: "bg-white text-pink hover:bg-white/90",
@@ -102,12 +102,11 @@ export function ProductSuiteSection() {
       <div className="container-wide relative section-padding">
         <div className="max-w-3xl mb-12 lg:mb-14 text-center mx-auto">
           <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold mt-4 mb-3 tracking-tight">
-            Choose the BMS Pro built for your business
+            Which BMS Pro fits your business?
           </h2>
           <p className="font-sans text-lg text-white/65 leading-relaxed">
-            Every service business works differently. A workshop doesn’t run like a salon, and a
-            tradie working across different job sites needs different tools again. That’s why BMS Pro
-            comes in three versions.
+            A workshop doesn’t run like a salon. A tradie on different sites needs different tools
+            again. Pick the version built for how you work.
           </p>
         </div>
 

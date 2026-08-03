@@ -1,4 +1,24 @@
-/** Conversion and engagement events for BMS Pro marketing site. */
+/**
+ * Conversion and engagement events for BMS Pro marketing site.
+ *
+ * Event catalog (names must stay snake_case and stable):
+ * - cta_click            { location, label, destination }
+ * - contact_form_start   { product? }
+ * - contact_form_submit  { product, success }
+ * - product_click        { product, location }
+ * - phone_click          { location }
+ * - email_click          { location }
+ * - pricing_page_view    { page_path }
+ * - page_view            { page_path, page_title? }
+ * - page_404             { page_path }
+ *
+ * Verification before launch:
+ * 1. Set VITE_GA_MEASUREMENT_ID in .env and restart the Vite dev server.
+ * 2. Open the site, open DevTools Console — each action logs `[analytics] <event> …`.
+ * 3. In GA4 → Admin → DebugView (or Realtime), confirm the same event names arrive.
+ * 4. Smoke checklist: hero CTA, product card click, /pricing visit, phone + email
+ *    links, contact form first field focus/change, contact form submit.
+ */
 
 export type AnalyticsEventName =
   | "cta_click"
@@ -73,6 +93,17 @@ export function trackPhoneClick(location: string): void {
 
 export function trackEmailClick(location: string): void {
   trackEvent("email_click", { location });
+}
+
+export function trackContactFormStart(product?: string): void {
+  trackEvent("contact_form_start", { product: product || undefined });
+}
+
+export function trackContactFormSubmit(product: string, success: boolean): void {
+  trackEvent("contact_form_submit", {
+    product: product || "unspecified",
+    success,
+  });
 }
 
 export function productKeyFromPath(href: string): string {

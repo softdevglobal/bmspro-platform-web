@@ -6,28 +6,28 @@ import { trackCtaClick } from "@/lib/analytics";
 const steps = [
   {
     number: "1",
-    title: "The customer gets in touch",
-    body: "They make an enquiry, request a booking or ask for a quote.",
+    title: "Customer gets in touch",
+    body: "Enquiry, booking request or quote — captured once.",
   },
   {
     number: "2",
-    title: "You decide what happens next",
-    body: "Confirm the booking, arrange an inspection or prepare the quote.",
+    title: "You decide the next step",
+    body: "Confirm the booking, book an inspection or send the quote.",
   },
   {
     number: "3",
-    title: "The work is scheduled",
-    body: "Choose the date and assign the right staff member or subcontractor.",
+    title: "Work is scheduled",
+    body: "Pick the day and assign the right staff member or subcontractor.",
   },
   {
     number: "4",
     title: "Everyone stays updated",
-    body: "Your team sees the details and the customer receives the updates they need.",
+    body: "Your team has the details. The customer gets the updates they need.",
   },
   {
     number: "5",
-    title: "The work is completed",
-    body: "Record the outcome, finish the paperwork and move on to the next job.",
+    title: "Work is finished",
+    body: "Record the outcome, close the paperwork, move to the next job.",
   },
 ];
 
@@ -52,11 +52,10 @@ export function ArchitectureSection() {
             How It Works
           </span>
           <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold mt-4 mb-4 tracking-tight">
-            From the first enquiry to the finished work
+            From first call to finished job
           </h2>
           <p className="font-sans text-lg text-white/65 leading-relaxed">
-            BMS Pro keeps each step connected, so you don’t have to move the same information between
-            different apps.
+            Each step stays connected — no retyping the same job into another app.
           </p>
         </div>
 
@@ -86,10 +85,10 @@ export function ArchitectureSection() {
             <Link
               to="/contact"
               onClick={() =>
-                trackCtaClick("architecture", "See the Full Workflow", "/contact")
+                trackCtaClick("architecture", "Walk Through This Flow", "/contact")
               }
             >
-              See the Full Workflow
+              Walk Through This Flow
               <ArrowRight className="h-4 w-4" />
             </Link>
           </Button>

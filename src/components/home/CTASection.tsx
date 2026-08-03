@@ -30,11 +30,11 @@ export function CTASection() {
 
       <div className="container-wide relative section-padding text-center">
         <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 tracking-tight max-w-3xl mx-auto">
-          Let’s see whether BMS Pro fits the way you work.
+          Ready to book a walkthrough?
         </h2>
         <p className="font-sans text-lg text-white/65 max-w-2xl mx-auto mb-8 leading-relaxed">
-          Tell us how you currently manage your bookings, jobs or appointments. We’ll show you the
-          parts of BMS Pro that are relevant to your business and leave out the parts you don’t need.
+          Tell us how you run bookings and jobs today. We’ll show the BMS Pro version that matches
+          — Workshop, Trade or Salon — and skip what you don’t need.
         </p>
 
         <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 sm:gap-4 mb-6">
@@ -71,7 +71,7 @@ export function CTASection() {
         </div>
 
         <p className="text-sm text-white/50">
-          No exaggerated promises. Just a proper look at how the system works.
+          A proper look at how the system works — no hard sell.
         </p>
       </div>
     </section>

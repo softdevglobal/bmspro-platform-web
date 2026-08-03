@@ -289,7 +289,14 @@ const Products = () => {
               className="rounded-full border-white/40 bg-white/10 text-white hover:bg-white/20 hover:text-white backdrop-blur-sm"
               asChild
             >
-              <Link to="/pricing">View Pricing</Link>
+              <Link
+                to="/pricing"
+                onClick={() =>
+                  trackCtaClick("products_footer", "View Pricing", "/pricing")
+                }
+              >
+                View Pricing
+              </Link>
             </Button>
           </div>
         </div>

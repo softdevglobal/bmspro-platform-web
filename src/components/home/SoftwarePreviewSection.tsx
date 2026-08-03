@@ -20,7 +20,7 @@ const tabs = [
     icon: ClipboardList,
     title: "Booking requests",
     lines: [
-      { label: "Service", value: "Request a suitable day and time" },
+      { label: "Service", value: "Oil service, colour & cut, call-out…" },
       { label: "Preferred day", value: "Customer picks what works" },
       { label: "Status", value: "Awaiting your confirmation" },
       { label: "Details", value: "Contact and notes captured" },
@@ -33,7 +33,7 @@ const tabs = [
     title: "Day board",
     lines: [
       { label: "Morning", value: "Confirmed bookings and jobs" },
-      { label: "Midday", value: "Staff and bay availability" },
+      { label: "Midday", value: "Staff, bay or van availability" },
       { label: "Afternoon", value: "Follow-ups and inspections" },
       { label: "Updates", value: "Reminders already sent" },
     ],
@@ -98,11 +98,11 @@ export function SoftwarePreviewSection() {
       <div className="container-wide">
         <div className="max-w-3xl mx-auto text-center mb-10">
           <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight mb-4">
-            See what your day looks like inside BMS Pro
+            Here’s what you’ll actually use
           </h2>
           <p className="font-sans text-lg text-muted-foreground leading-relaxed">
-            Use the tabs below to look at the real booking, calendar, customer, job, team and update
-            screens.
+            Booking requests, the day board, customer history, job progress and team updates —
+            the screens your front desk and floor already need.
           </p>
         </div>
 
@@ -151,17 +151,27 @@ export function SoftwarePreviewSection() {
           </div>
         </div>
 
-        <div className="text-center">
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3">
           <Button size="lg" className="rounded-full" asChild>
             <Link
               to="/contact"
               onClick={() =>
-                trackCtaClick("software_preview", "Take a Proper Look Inside", "/contact")
+                trackCtaClick("software_preview", "Book a Live Walkthrough", "/contact")
               }
             >
-              Take a Proper Look Inside
+              Book a Live Walkthrough
               <ArrowRight className="h-4 w-4" />
             </Link>
+          </Button>
+          <Button size="lg" variant="outline" className="rounded-full" asChild>
+            <a
+              href="#products"
+              onClick={() =>
+                trackCtaClick("software_preview", "Choose Your Product", "#products")
+              }
+            >
+              Choose Your Product
+            </a>
           </Button>
         </div>
       </div>

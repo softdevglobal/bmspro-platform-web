@@ -28,7 +28,7 @@ const businessTypes = [
 
 const trustItems = [
   "See the software before deciding",
-  "Built for everyday service businesses",
+  "Built for workshops, trades and salons",
   "Simple setup and guided onboarding",
   "Australian-based team",
 ];
@@ -63,16 +63,16 @@ export function HeroSection() {
         <div className="container-wide relative z-10 py-12 sm:py-20 lg:py-24 w-full">
           <div className="max-w-3xl mx-auto text-center text-white px-1">
             <p className="eyebrow inline-flex max-w-full text-center rounded-full border border-white/25 bg-white/10 backdrop-blur-sm px-3 py-1 text-white/80 mb-4 sm:mb-5 animate-fade-up">
-              One platform built around the way you work
+              BMS Pro — booking and ops for service businesses
             </p>
 
             <h1 className="font-display text-[1.75rem] leading-tight sm:text-4xl lg:text-5xl xl:text-6xl font-extrabold tracking-tight mb-4 sm:mb-5 animate-fade-up delay-100 sm:leading-[1.05]">
-              Run the work without letting the admin run you.
+              Bookings, jobs and customer updates — without the chase.
             </h1>
 
             <p className="font-sans text-sm sm:text-lg text-white/70 max-w-2xl mx-auto mb-6 sm:mb-8 animate-fade-up delay-200 leading-relaxed">
-              Keep your bookings, jobs, staff and customer updates in one place so you spend less
-              time chasing information and more time running your business.
+              One place for workshop bays, job sites and salon chairs. Less time hunting through
+              messages and notes. More time on the work.
             </p>
 
             <div className="flex flex-col items-center gap-4 animate-fade-up delay-300">
@@ -82,15 +82,15 @@ export function HeroSection() {
                   className="rounded-full w-full sm:w-auto bg-white text-[hsl(220_22%_10%)] hover:bg-white/90 shadow-lg"
                   asChild
                 >
-                  <Link
-                    to="/contact"
+                  <a
+                    href="#preview"
                     onClick={() =>
-                      trackCtaClick("hero", "See BMS Pro in Action", "/contact")
+                      trackCtaClick("hero", "See Inside BMS Pro", "#preview")
                     }
                   >
-                    See BMS Pro in Action
+                    See Inside BMS Pro
                     <ArrowRight className="h-5 w-5" />
-                  </Link>
+                  </a>
                 </Button>
                 <Button
                   size="xl"
@@ -98,14 +98,14 @@ export function HeroSection() {
                   className="rounded-full w-full sm:w-auto border-white/40 bg-white/10 text-white hover:bg-white/20 hover:text-white backdrop-blur-sm"
                   asChild
                 >
-                  <a
-                    href="#products"
+                  <Link
+                    to="/contact"
                     onClick={() =>
-                      trackCtaClick("hero", "Choose Your Business", "#products")
+                      trackCtaClick("hero", "Book a Walkthrough", "/contact")
                     }
                   >
-                    Choose Your Business
-                  </a>
+                    Book a Walkthrough
+                  </Link>
                 </Button>
               </div>
 
@@ -116,7 +116,7 @@ export function HeroSection() {
 
             <div className="mt-8 sm:mt-10 animate-fade-up delay-400">
               <p className="text-sm font-semibold text-white/80 mb-3 sm:mb-4">
-                Which type of business do you run?
+                Jump to your product
               </p>
               <div className="grid grid-cols-1 xs:grid-cols-3 gap-2 sm:flex sm:flex-wrap sm:items-center sm:justify-center sm:gap-3 max-w-md xs:max-w-none mx-auto">
                 {businessTypes.map((item) => {
