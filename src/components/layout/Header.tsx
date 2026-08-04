@@ -1,5 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Menu, X, ChevronDown, ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -57,6 +58,8 @@ export function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [hiddenByScroll, setHiddenByScroll] = useState(false);
   const lastScrollY = useRef(0);
+  const reduce = useReducedMotion();
+  const menuEase = [0.22, 1, 0.36, 1] as const;
 
   useEffect(() => {
     lastScrollY.current = window.scrollY;
@@ -246,90 +249,140 @@ export function Header() {
 
         <button
           type="button"
-          className={cn("md:hidden p-2 rounded-lg", overHero ? "text-white" : "text-foreground")}
+          className={cn(
+            "md:hidden p-2 rounded-lg transition-colors duration-300",
+            overHero ? "text-white" : "text-foreground"
+          )}
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
           aria-expanded={mobileMenuOpen}
           aria-controls="mobile-menu"
         >
-          {mobileMenuOpen ? (
-            <X className="h-6 w-6" aria-hidden="true" />
-          ) : (
-            <Menu className="h-6 w-6" aria-hidden="true" />
-          )}
+          <span className="relative flex h-6 w-6 items-center justify-center">
+            <AnimatePresence mode="wait" initial={false}>
+              <motion.span
+                key={mobileMenuOpen ? "close" : "open"}
+                initial={reduce ? false : { opacity: 0, rotate: -90, scale: 0.8 }}
+                animate={{ opacity: 1, rotate: 0, scale: 1 }}
+                exit={reduce ? undefined : { opacity: 0, rotate: 90, scale: 0.8 }}
+                transition={{ duration: reduce ? 0 : 0.2, ease: menuEase }}
+                className="absolute inset-0 flex items-center justify-center"
+              >
+                {mobileMenuOpen ? (
+                  <X className="h-6 w-6" aria-hidden="true" />
+                ) : (
+                  <Menu className="h-6 w-6" aria-hidden="true" />
+                )}
+              </motion.span>
+            </AnimatePresence>
+          </span>
         </button>
       </nav>
 
-      {mobileMenuOpen && (
-        <div id="mobile-menu" className="md:hidden border-t border-border bg-background">
-          <div className="container-wide py-4 space-y-2">
-            {navigation.map((item) => {
-              const active = isActivePath(location.pathname, item.href, Boolean(item.children));
-              return (
-                <div key={item.name}>
-                  <Link
-                    to={item.href}
-                    aria-current={active ? "page" : undefined}
-                    className={cn(
-                      "block px-4 py-3 text-base font-label font-medium rounded-lg transition-colors",
-                      active
-                        ? "bg-secondary text-foreground"
-                        : "text-foreground hover:bg-secondary"
-                    )}
-                    onClick={() => setMobileMenuOpen(false)}
+      <AnimatePresence initial={false}>
+        {mobileMenuOpen && (
+          <motion.div
+            id="mobile-menu"
+            key="mobile-menu"
+            initial={reduce ? false : { height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={reduce ? undefined : { height: 0, opacity: 0 }}
+            transition={{ duration: reduce ? 0 : 0.32, ease: menuEase }}
+            className="md:hidden overflow-hidden border-t border-border bg-background"
+          >
+            <motion.div
+              className="container-wide py-4 space-y-2"
+              initial={reduce ? false : { y: -8 }}
+              animate={{ y: 0 }}
+              exit={reduce ? undefined : { y: -8 }}
+              transition={{ duration: reduce ? 0 : 0.28, ease: menuEase }}
+            >
+              {navigation.map((item, index) => {
+                const active = isActivePath(location.pathname, item.href, Boolean(item.children));
+                return (
+                  <motion.div
+                    key={item.name}
+                    initial={reduce ? false : { opacity: 0, y: 8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{
+                      duration: reduce ? 0 : 0.22,
+                      delay: reduce ? 0 : 0.04 + index * 0.04,
+                      ease: menuEase,
+                    }}
                   >
-                    {item.name}
+                    <Link
+                      to={item.href}
+                      aria-current={active ? "page" : undefined}
+                      className={cn(
+                        "block px-4 py-3 text-base font-label font-medium rounded-lg transition-colors duration-300",
+                        active
+                          ? "bg-secondary text-foreground"
+                          : "text-foreground hover:bg-secondary"
+                      )}
+                      onClick={() => setMobileMenuOpen(false)}
+                    >
+                      {item.name}
+                    </Link>
+                    {item.children && (
+                      <div className="ml-4 mt-1 space-y-1">
+                        {item.children.map((child) => {
+                          const childActive = location.pathname === child.href;
+                          return (
+                            <Link
+                              key={child.name}
+                              to={child.href}
+                              aria-current={childActive ? "page" : undefined}
+                              className={cn(
+                                "flex items-center gap-2 px-4 py-2 text-base rounded-lg transition-colors duration-300",
+                                childActive
+                                  ? "bg-secondary text-foreground font-medium"
+                                  : "text-muted-foreground hover:text-foreground hover:bg-secondary"
+                              )}
+                              onClick={() => {
+                                setMobileMenuOpen(false);
+                                trackProductClick(
+                                  productKeyFromPath(child.href),
+                                  "header_mobile"
+                                );
+                              }}
+                            >
+                              <span className={cn("h-2 w-2 rounded-full", child.dot)} />
+                              {child.name}
+                            </Link>
+                          );
+                        })}
+                      </div>
+                    )}
+                  </motion.div>
+                );
+              })}
+              <motion.div
+                className="pt-4 border-t border-border space-y-2"
+                initial={reduce ? false : { opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{
+                  duration: reduce ? 0 : 0.22,
+                  delay: reduce ? 0 : 0.2,
+                  ease: menuEase,
+                }}
+              >
+                <Button className="w-full rounded-full" asChild>
+                  <Link
+                    to="/contact"
+                    onClick={() => {
+                      setMobileMenuOpen(false);
+                      trackCtaClick("header_mobile", "Book a walkthrough", "/contact");
+                    }}
+                  >
+                    Book a walkthrough
+                    <ArrowRight className="h-4 w-4" />
                   </Link>
-                  {item.children && (
-                    <div className="ml-4 mt-1 space-y-1">
-                      {item.children.map((child) => {
-                        const childActive = location.pathname === child.href;
-                        return (
-                          <Link
-                            key={child.name}
-                            to={child.href}
-                            aria-current={childActive ? "page" : undefined}
-                            className={cn(
-                              "flex items-center gap-2 px-4 py-2 text-base rounded-lg transition-colors",
-                              childActive
-                                ? "bg-secondary text-foreground font-medium"
-                                : "text-muted-foreground hover:text-foreground hover:bg-secondary"
-                            )}
-                            onClick={() => {
-                              setMobileMenuOpen(false);
-                              trackProductClick(
-                                productKeyFromPath(child.href),
-                                "header_mobile"
-                              );
-                            }}
-                          >
-                            <span className={cn("h-2 w-2 rounded-full", child.dot)} />
-                            {child.name}
-                          </Link>
-                        );
-                      })}
-                    </div>
-                  )}
-                </div>
-              );
-            })}
-            <div className="pt-4 border-t border-border space-y-2">
-              <Button className="w-full rounded-full" asChild>
-                <Link
-                  to="/contact"
-                  onClick={() => {
-                    setMobileMenuOpen(false);
-                    trackCtaClick("header_mobile", "Book a walkthrough", "/contact");
-                  }}
-                >
-                  Book a walkthrough
-                  <ArrowRight className="h-4 w-4" />
-                </Link>
-              </Button>
-            </div>
-          </div>
-        </div>
-      )}
+                </Button>
+              </motion.div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </header>
   );
 }
