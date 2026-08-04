@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import {
   ArrowRight,
@@ -92,6 +93,10 @@ export function SoftwarePreviewSection() {
   const [active, setActive] = useState<(typeof tabs)[number]["id"]>("booking");
   const current = tabs.find((t) => t.id === active) ?? tabs[0];
   const Icon = current.icon;
+  const reduce = useReducedMotion();
+  const panelTransition = reduce
+    ? { duration: 0 }
+    : { duration: 0.28, ease: [0.22, 1, 0.36, 1] as const };
 
   return (
     <section id="preview" className="scroll-mt-24 section-padding bg-background">
@@ -106,7 +111,7 @@ export function SoftwarePreviewSection() {
           </p>
         </div>
 
-        <div className="flex gap-2 mb-8 overflow-x-auto pb-1 -mx-4 px-4 sm:mx-0 sm:px-0 sm:flex-wrap sm:justify-center scrollbar-none">
+        <div className="grid grid-cols-3 gap-2 mb-8 max-w-md mx-auto sm:max-w-none sm:flex sm:flex-wrap sm:justify-center">
           {tabs.map((tab) => (
             <button
               key={tab.id}
@@ -114,7 +119,7 @@ export function SoftwarePreviewSection() {
               aria-pressed={active === tab.id}
               onClick={() => setActive(tab.id)}
               className={cn(
-                "rounded-full px-3.5 sm:px-4 py-2 text-sm font-semibold transition-colors border whitespace-nowrap shrink-0",
+                "rounded-full px-2 sm:px-4 py-2 text-sm font-semibold transition-all duration-300 border whitespace-nowrap w-full sm:w-auto text-center",
                 active === tab.id
                   ? "bg-foreground text-background border-foreground"
                   : "bg-white text-foreground border-border hover:bg-secondary/60"
@@ -126,30 +131,47 @@ export function SoftwarePreviewSection() {
         </div>
 
         <div className="max-w-2xl mx-auto rounded-3xl border border-border bg-white shadow-elevated overflow-hidden mb-10">
-          <div className="flex items-center gap-3 border-b border-border px-5 py-4 bg-[hsl(220_14%_97%)]">
-            <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-foreground text-background">
-              <Icon className="h-4 w-4" />
-            </span>
-            <div>
-              <p className="text-sm font-semibold text-foreground">{current.title}</p>
-              <p className="text-xs text-muted-foreground">BMS Pro · {current.label} view</p>
-            </div>
-          </div>
-          <div className="divide-y divide-border">
-            {current.lines.map((line) => (
-              <div
-                key={line.label}
-                className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 px-5 py-4"
-              >
-                <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-                  {line.label}
+          <AnimatePresence mode="wait" initial={false}>
+            <motion.div
+              key={current.id}
+              initial={reduce ? false : { opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={reduce ? undefined : { opacity: 0, y: -8 }}
+              transition={panelTransition}
+            >
+              <div className="flex items-center gap-3 border-b border-border px-5 py-4 bg-[hsl(220_14%_97%)]">
+                <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-foreground text-background">
+                  <Icon className="h-4 w-4" />
                 </span>
-                <span className="text-sm font-medium text-foreground sm:text-right">
-                  {line.value}
-                </span>
+                <div>
+                  <p className="text-sm font-semibold text-foreground">{current.title}</p>
+                  <p className="text-xs text-muted-foreground">BMS Pro · {current.label} view</p>
+                </div>
               </div>
-            ))}
-          </div>
+              <div className="divide-y divide-border">
+                {current.lines.map((line, index) => (
+                  <motion.div
+                    key={line.label}
+                    initial={reduce ? false : { opacity: 0, y: 6 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={
+                      reduce
+                        ? { duration: 0 }
+                        : { duration: 0.22, delay: 0.04 + index * 0.04, ease: "easeOut" }
+                    }
+                    className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 px-5 py-4"
+                  >
+                    <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                      {line.label}
+                    </span>
+                    <span className="text-sm font-medium text-foreground sm:text-right">
+                      {line.value}
+                    </span>
+                  </motion.div>
+                ))}
+              </div>
+            </motion.div>
+          </AnimatePresence>
         </div>
 
         <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3">

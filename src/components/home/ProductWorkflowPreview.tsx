@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Hammer, Scissors, Wrench } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -14,7 +15,7 @@ const views = [
     tabActive: "bg-product-black text-white border-product-black",
     title: "Workshop bookings, bays and customer updates",
     body: "Bookings, vehicle jobs, bay schedules and service reminders in one place.",
-    image: "/home/preview-workshop.webp",
+    image: "/home/preview-workshop.png",
     imageAlt:
       "BMS Pro Workshop dashboard on laptop and phone showing revenue, jobs, status charts and today’s schedule",
     href: "/products/black",
@@ -28,7 +29,7 @@ const views = [
     tabActive: "bg-blue text-white border-blue",
     title: "Trade enquiries, quotes, jobs and invoices",
     body: "Enquiries, quotes, scheduled jobs, field updates and payment links in one place.",
-    image: "/home/preview-trade.webp",
+    image: "/home/preview-trade.png",
     imageAlt:
       "BMS Pro Trade dashboard on laptop and phone showing jobs, quotes, field updates and daily work",
     href: "/products/blue",
@@ -42,7 +43,7 @@ const views = [
     tabActive: "bg-pink text-white border-pink",
     title: "Salon appointments, staff calendars and clients",
     body: "Appointment requests, services, staff calendars, reminders and client history in one place.",
-    image: "/home/preview-salon.webp",
+    image: "/home/preview-salon.png",
     imageAlt:
       "BMS Pro Salon dashboard on laptop and phone showing appointments, staff calendars and client activity",
     href: "/products/pink",
@@ -54,6 +55,10 @@ export function ProductWorkflowPreview() {
   const [active, setActive] = useState<(typeof views)[number]["id"]>("workshop");
   const current = views.find((v) => v.id === active) ?? views[0];
   const Icon = current.icon;
+  const reduce = useReducedMotion();
+  const panelTransition = reduce
+    ? { duration: 0 }
+    : { duration: 0.3, ease: [0.22, 1, 0.36, 1] as const };
 
   return (
     <section
@@ -70,7 +75,7 @@ export function ProductWorkflowPreview() {
           </p>
         </div>
 
-        <div className="flex gap-2 mb-6 sm:mb-8 overflow-x-auto pb-1 -mx-4 px-4 sm:mx-0 sm:px-0 sm:flex-wrap sm:justify-center scrollbar-none">
+        <div className="grid grid-cols-3 gap-2 sm:gap-3 mb-6 sm:mb-8 max-w-lg sm:max-w-2xl mx-auto">
           {views.map((view) => {
             const TabIcon = view.icon;
             const selected = active === view.id;
@@ -81,13 +86,13 @@ export function ProductWorkflowPreview() {
                 aria-pressed={selected}
                 onClick={() => setActive(view.id)}
                 className={cn(
-                  "inline-flex items-center gap-2 rounded-full px-3.5 sm:px-4 py-2 text-sm font-semibold transition-colors border whitespace-nowrap shrink-0",
+                  "inline-flex items-center justify-center gap-1.5 sm:gap-2 rounded-full px-2 sm:px-4 py-2 text-xs sm:text-sm font-semibold transition-all duration-300 border whitespace-nowrap w-full",
                   selected
                     ? view.tabActive
                     : "bg-white text-foreground border-border hover:bg-secondary/60"
                 )}
               >
-                <TabIcon className="h-3.5 w-3.5" aria-hidden="true" />
+                <TabIcon className="h-3.5 w-3.5 shrink-0" aria-hidden="true" />
                 {view.label}
               </button>
             );
@@ -96,54 +101,69 @@ export function ProductWorkflowPreview() {
 
         <div className="max-w-5xl mx-auto">
           <div className="rounded-2xl sm:rounded-3xl border border-border bg-white shadow-elevated overflow-hidden">
-            <figure className="relative bg-[hsl(220_14%_96%)]">
-              <img
-                key={current.image}
-                src={current.image}
-                alt={current.imageAlt}
-                width={1400}
-                height={900}
-                className="w-full h-auto object-contain object-center"
-                loading="eager"
-                decoding="async"
-              />
+            <figure className="relative bg-[hsl(220_14%_96%)] overflow-hidden">
+              <AnimatePresence mode="wait" initial={false}>
+                <motion.img
+                  key={current.image}
+                  src={current.image}
+                  alt={current.imageAlt}
+                  width={1400}
+                  height={900}
+                  className="w-full h-auto object-contain object-center"
+                  loading="eager"
+                  decoding="async"
+                  initial={reduce ? false : { opacity: 0, scale: 1.02 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={reduce ? undefined : { opacity: 0, scale: 0.99 }}
+                  transition={panelTransition}
+                />
+              </AnimatePresence>
             </figure>
 
             <div className="p-5 sm:p-7 border-t border-border">
-              <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
-                <div className="max-w-2xl">
-                  <p
-                    className={cn(
-                      "text-sm font-semibold mb-1.5 inline-flex items-center gap-2",
-                      current.accent
-                    )}
-                  >
-                    <Icon className="h-4 w-4" />
-                    {current.label}
-                  </p>
-                  <h3 className="text-lg sm:text-xl font-bold tracking-tight text-foreground mb-2">
-                    {current.title}
-                  </h3>
-                  <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
-                    {current.body}
-                  </p>
-                </div>
-                <Button className="rounded-full shrink-0 w-full sm:w-auto" asChild>
-                  <Link
-                    to={current.href}
-                    onClick={() =>
-                      trackCtaClick({
-                        label: current.cta,
-                        location: "homepage_workflow_preview",
-                        destination: current.href,
-                      })
-                    }
-                  >
-                    {current.cta}
-                    <ArrowRight className="h-4 w-4" />
-                  </Link>
-                </Button>
-              </div>
+              <AnimatePresence mode="wait" initial={false}>
+                <motion.div
+                  key={current.id}
+                  initial={reduce ? false : { opacity: 0, y: 8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={reduce ? undefined : { opacity: 0, y: -6 }}
+                  transition={panelTransition}
+                  className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4"
+                >
+                  <div className="max-w-2xl">
+                    <p
+                      className={cn(
+                        "text-sm font-semibold mb-1.5 inline-flex items-center gap-2 transition-colors duration-300",
+                        current.accent
+                      )}
+                    >
+                      <Icon className="h-4 w-4" />
+                      {current.label}
+                    </p>
+                    <h3 className="text-lg sm:text-xl font-bold tracking-tight text-foreground mb-2">
+                      {current.title}
+                    </h3>
+                    <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
+                      {current.body}
+                    </p>
+                  </div>
+                  <Button className="rounded-full shrink-0 w-full sm:w-auto" asChild>
+                    <Link
+                      to={current.href}
+                      onClick={() =>
+                        trackCtaClick(
+                          "homepage_workflow_preview",
+                          current.cta,
+                          current.href
+                        )
+                      }
+                    >
+                      {current.cta}
+                      <ArrowRight className="h-4 w-4" />
+                    </Link>
+                  </Button>
+                </motion.div>
+              </AnimatePresence>
             </div>
           </div>
 
@@ -158,7 +178,7 @@ export function ProductWorkflowPreview() {
                   aria-label={`Show ${view.label}`}
                   onClick={() => setActive(view.id)}
                   className={cn(
-                    "text-left rounded-2xl border bg-white p-4 transition-all",
+                    "text-left rounded-2xl border bg-white p-4 transition-all duration-300",
                     selected
                       ? "border-foreground/30 shadow-sm ring-1 ring-foreground/10"
                       : "border-border hover:border-foreground/20"

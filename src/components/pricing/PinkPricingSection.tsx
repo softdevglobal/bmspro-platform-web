@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import {
   PinkPlan,
@@ -78,6 +79,8 @@ export function PinkPricingSection({
   className,
 }: PinkPricingSectionProps) {
   const [period, setPeriod] = useState<PinkBillingPeriod>("monthly");
+  const reduce = useReducedMotion();
+  const toggleEase = [0.22, 1, 0.36, 1] as const;
 
   return (
     <div className={cn(className)}>
@@ -183,44 +186,57 @@ export function PinkPricingSection({
           </div>
 
           {/* Monthly / Yearly toggle */}
-          <div className="flex flex-col items-center gap-3 mb-10 sm:mb-12">
+          <div className="flex flex-col items-center gap-3 mb-10 sm:mb-12 min-h-[4.5rem]">
             <div
-              className="inline-flex rounded-full border border-border bg-background p-1 shadow-sm"
+              className="inline-flex relative rounded-full border border-border bg-background p-1 shadow-sm"
               role="group"
               aria-label="Billing period"
             >
-              <button
-                type="button"
-                aria-pressed={period === "monthly"}
-                onClick={() => setPeriod("monthly")}
-                className={cn(
-                  "rounded-full px-5 py-2 text-sm font-label font-semibold transition-all",
-                  period === "monthly"
-                    ? "bg-pink text-white shadow-sm"
-                    : "text-muted-foreground hover:text-foreground"
-                )}
-              >
-                Monthly
-              </button>
-              <button
-                type="button"
-                aria-pressed={period === "yearly"}
-                onClick={() => setPeriod("yearly")}
-                className={cn(
-                  "rounded-full px-5 py-2 text-sm font-label font-semibold transition-all",
-                  period === "yearly"
-                    ? "bg-pink text-white shadow-sm"
-                    : "text-muted-foreground hover:text-foreground"
-                )}
-              >
-                Yearly
-              </button>
+              {(["monthly", "yearly"] as const).map((value) => {
+                const selected = period === value;
+                return (
+                  <button
+                    key={value}
+                    type="button"
+                    aria-pressed={selected}
+                    onClick={() => setPeriod(value)}
+                    className={cn(
+                      "relative z-10 rounded-full px-5 py-2 text-sm font-label font-semibold transition-colors duration-300",
+                      selected
+                        ? "text-white"
+                        : "text-muted-foreground hover:text-foreground"
+                    )}
+                  >
+                    {selected && (
+                      <motion.span
+                        layoutId="pink-billing-pill"
+                        className="absolute inset-0 -z-10 rounded-full bg-pink shadow-sm"
+                        transition={
+                          reduce
+                            ? { duration: 0 }
+                            : { type: "spring", stiffness: 420, damping: 32 }
+                        }
+                      />
+                    )}
+                    {value === "monthly" ? "Monthly" : "Yearly"}
+                  </button>
+                );
+              })}
             </div>
-            {period === "yearly" && (
-              <p className="text-sm font-medium text-pink animate-fade-in">
-                Pay yearly ~2 months free
-              </p>
-            )}
+            <AnimatePresence mode="wait" initial={false}>
+              {period === "yearly" && (
+                <motion.p
+                  key="yearly-note"
+                  initial={reduce ? false : { opacity: 0, y: -6 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={reduce ? undefined : { opacity: 0, y: -4 }}
+                  transition={{ duration: reduce ? 0 : 0.22, ease: toggleEase }}
+                  className="text-sm font-medium text-pink"
+                >
+                  Pay yearly ~2 months free
+                </motion.p>
+              )}
+            </AnimatePresence>
           </div>
 
           <div className="grid gap-5 lg:gap-6 md:grid-cols-3 max-w-5xl mx-auto items-stretch">
@@ -378,6 +394,8 @@ function PlanCard({
   const price = priceForPeriod(plan, period);
   const suffix = periodSuffix(period);
   const isExternal = /^https?:\/\//.test(plan.ctaHref);
+  const reduce = useReducedMotion();
+  const priceEase = [0.22, 1, 0.36, 1] as const;
 
   return (
     <article
@@ -415,34 +433,44 @@ function PlanCard({
       </header>
 
       <div className="mb-6">
-        <div className="flex items-baseline gap-1 flex-wrap">
-          <span
-            className={cn(
-              "font-display text-3xl sm:text-4xl font-bold tracking-tight",
-              plan.popular ? "text-white" : "text-foreground"
-            )}
+        <AnimatePresence mode="wait" initial={false}>
+          <motion.div
+            key={`${plan.planKey}-${period}`}
+            initial={reduce ? false : { opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={reduce ? undefined : { opacity: 0, y: -6 }}
+            transition={{ duration: reduce ? 0 : 0.22, ease: priceEase }}
           >
-            {formatAud(price)}
-          </span>
-          <span
-            className={cn(
-              "text-sm font-medium",
-              plan.popular ? "text-white/55" : "text-muted-foreground"
+            <div className="flex items-baseline gap-1 flex-wrap">
+              <span
+                className={cn(
+                  "font-display text-3xl sm:text-4xl font-bold tracking-tight",
+                  plan.popular ? "text-white" : "text-foreground"
+                )}
+              >
+                {formatAud(price)}
+              </span>
+              <span
+                className={cn(
+                  "text-sm font-medium",
+                  plan.popular ? "text-white/55" : "text-muted-foreground"
+                )}
+              >
+                {suffix}
+              </span>
+            </div>
+            {period === "yearly" && (
+              <p
+                className={cn(
+                  "mt-1.5 text-xs",
+                  plan.popular ? "text-white/50" : "text-muted-foreground"
+                )}
+              >
+                Billed annually · ~2 months free vs monthly
+              </p>
             )}
-          >
-            {suffix}
-          </span>
-        </div>
-        {period === "yearly" && (
-          <p
-            className={cn(
-              "mt-1.5 text-xs",
-              plan.popular ? "text-white/50" : "text-muted-foreground"
-            )}
-          >
-            Billed annually · ~2 months free vs monthly
-          </p>
-        )}
+          </motion.div>
+        </AnimatePresence>
       </div>
 
       <ul className="space-y-3 mb-8 flex-grow" aria-label={`${plan.name} features`}>

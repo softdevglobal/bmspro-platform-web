@@ -22,7 +22,13 @@ const heroCollage = [
 
 const businessTypes = [
   { label: "Workshop", href: "/products/black", icon: Wrench, color: "bg-product-black" },
-  { label: "Trade Business", href: "/products/blue", icon: Hammer, color: "bg-blue" },
+  {
+    label: "Trade Business",
+    shortLabel: "Trade",
+    href: "/products/blue",
+    icon: Hammer,
+    color: "bg-blue",
+  },
   { label: "Salon", href: "/products/pink", icon: Scissors, color: "bg-pink" },
 ];
 
@@ -76,10 +82,10 @@ export function HeroSection() {
             </p>
 
             <div className="flex flex-col items-center gap-4 animate-fade-up delay-300">
-              <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 w-full sm:w-auto">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 w-full max-w-xl mx-auto">
                 <Button
                   size="xl"
-                  className="rounded-full w-full sm:w-auto bg-white text-[hsl(220_22%_10%)] hover:bg-white/90 shadow-lg"
+                  className="rounded-full w-full bg-white text-[hsl(220_22%_10%)] hover:bg-white/90 shadow-lg"
                   asChild
                 >
                   <Link
@@ -95,7 +101,7 @@ export function HeroSection() {
                 <Button
                   size="xl"
                   variant="outline"
-                  className="rounded-full w-full sm:w-auto border-white/40 bg-white/10 text-white hover:bg-white/20 hover:text-white backdrop-blur-sm"
+                  className="rounded-full w-full border-white/40 bg-white/10 text-white hover:bg-white/20 hover:text-white backdrop-blur-sm"
                   asChild
                 >
                   <a
@@ -118,7 +124,7 @@ export function HeroSection() {
               <p className="text-sm font-semibold text-white/80 mb-3 sm:mb-4">
                 Jump to your product
               </p>
-              <div className="grid grid-cols-1 xs:grid-cols-3 gap-2 sm:flex sm:flex-wrap sm:items-center sm:justify-center sm:gap-3 max-w-md xs:max-w-none mx-auto">
+              <div className="grid grid-cols-1 xs:grid-cols-3 gap-2 sm:gap-3 max-w-md sm:max-w-2xl mx-auto">
                 {businessTypes.map((item) => {
                   const Icon = item.icon;
                   return (
@@ -128,14 +134,21 @@ export function HeroSection() {
                       onClick={() =>
                         trackProductClick(productKeyFromPath(item.href), "hero")
                       }
-                      className="inline-flex items-center justify-center gap-2 rounded-full border border-white/20 bg-white/10 backdrop-blur-sm px-4 py-2.5 text-sm font-label font-semibold text-white hover:bg-white/20 transition-colors"
+                      className="inline-flex items-center justify-center gap-2 rounded-full border border-white/20 bg-white/10 backdrop-blur-sm px-4 py-2.5 text-sm font-label font-semibold text-white hover:bg-white/20 transition-colors w-full"
                     >
                       <span
                         className={`flex h-6 w-6 items-center justify-center rounded-full ${item.color}`}
                       >
                         <Icon className="h-3 w-3" />
                       </span>
-                      {item.label}
+                      {"shortLabel" in item && item.shortLabel ? (
+                        <>
+                          <span className="sm:hidden">{item.shortLabel}</span>
+                          <span className="hidden sm:inline">{item.label}</span>
+                        </>
+                      ) : (
+                        item.label
+                      )}
                     </Link>
                   );
                 })}
