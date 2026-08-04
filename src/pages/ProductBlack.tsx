@@ -280,7 +280,7 @@ const ProductBlack = () => {
       />
 
       <ScrollPage>
-        {/* Hero — Avenue-style growth visual */}
+        {/* Hero - Avenue-style growth visual */}
         <section className="relative bg-white pt-8 pb-16 sm:pt-12 sm:pb-24">
           <div className="container-wide">
             <div className="grid lg:grid-cols-[minmax(0,1fr)_minmax(0,1.25fr)] gap-10 lg:gap-14 items-center">
@@ -368,7 +368,7 @@ const ProductBlack = () => {
           </div>
         </section>
 
-        {/* Trust strip — Avenue-style marquee */}
+        {/* Trust strip - Avenue-style marquee */}
         <section className="border-y border-border/60 bg-[hsl(220_14%_97%)] py-8 overflow-hidden">
           <div className="container-wide mb-3 text-center">
             <p className="text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground/60">
@@ -485,7 +485,7 @@ const ProductBlack = () => {
                 Give them a booking link they can use through your website, Google Business Profile,
                 social media, text messages or email. They request a suitable time. You decide whether
                 it works
-                {/* — a booking request is not automatically accepted. */}
+                {/* - a booking request is not automatically accepted. */}
                 <Pill>
                   <Calendar className="h-3 w-3" />
                   You stay in control

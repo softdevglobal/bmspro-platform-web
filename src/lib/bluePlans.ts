@@ -1,7 +1,7 @@
 /**
  * BMS Pro Trade subscription plans for the portfolio pricing showcase.
  * Sourced from live public packages (trade.bmspros.com.au /api/packages/public).
- * Extend via BluePricingSection `plans` prop — do not invent tiers.
+ * Extend via BluePricingSection `plans` prop - do not invent tiers.
  */
 
 export type BillingCycle = "weekly" | "monthly" | "custom";
@@ -74,7 +74,7 @@ export const BLUE_PLANS: BluePlan[] = [
   },
 ];
 
-/** Optional standalone SMS top-ups — only populate when real packs are provided */
+/** Optional standalone SMS top-ups - only populate when real packs are provided */
 export const BLUE_SMS_TOPUPS: BlueSmsPack[] = [];
 
 export function formatStaffLabel(value: number | "Unlimited"): string {

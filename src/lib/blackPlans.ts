@@ -28,7 +28,7 @@ export interface BlackPlan {
   ctaHref?: string;
 }
 
-/** Optional SMS add-ons — visually secondary to subscription tiers */
+/** Optional SMS add-ons - visually secondary to subscription tiers */
 export interface SmsPack {
   name: string;
   credits: number | string;
@@ -82,7 +82,7 @@ export const BLACK_PLANS: BlackPlan[] = [
   },
 ];
 
-/** @deprecated Use BLACK_PLANS — kept as alias for earlier scaffold imports */
+/** @deprecated Use BLACK_PLANS - kept as alias for earlier scaffold imports */
 export const PLACEHOLDER_BLACK_PLANS = BLACK_PLANS;
 
 export const PLACEHOLDER_SMS_PACKS: SmsPack[] = [];

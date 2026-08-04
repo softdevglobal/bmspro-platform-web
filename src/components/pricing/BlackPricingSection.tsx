@@ -53,13 +53,13 @@ const includedItems = [
 ];
 
 export interface BlackPricingSectionProps {
-  /** Live plans — defaults to active Workshop public packages */
+  /** Live plans - defaults to active Workshop public packages */
   plans?: BlackPlan[];
   /** Optional SMS add-ons shown below subscription tiers */
   smsPacks?: SmsPack[];
   /** `full` includes brand hero + included + proof; `embedded` is plans-only for product pages */
   variant?: "full" | "embedded";
-  /** Pull hero under site header — disable when a page chrome sits above */
+  /** Pull hero under site header - disable when a page chrome sits above */
   offsetHeader?: boolean;
   /** Extra top space when a floating product picker overlays the hero */
   overlayPicker?: boolean;
@@ -76,7 +76,7 @@ export function BlackPricingSection({
 }: BlackPricingSectionProps) {
   return (
     <div className={cn(className)}>
-      {/* 1. Product intro — brand-first */}
+      {/* 1. Product intro - brand-first */}
       {variant === "full" && (
       <section className={cn("relative bg-background", offsetHeader && "-mt-16")}>
         <div
@@ -205,7 +205,7 @@ export function BlackPricingSection({
             </a>
           </p>
 
-          {/* SMS add-ons — secondary */}
+          {/* SMS add-ons - secondary */}
           {smsPacks.length > 0 && (
             <div className="mt-10 max-w-4xl mx-auto">
               <div className="rounded-2xl border border-dashed border-border/80 bg-background/60 px-5 py-5 sm:px-6 sm:py-6">

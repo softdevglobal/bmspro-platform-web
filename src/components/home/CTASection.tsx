@@ -34,7 +34,7 @@ export function CTASection() {
         </h2>
         <p className="font-sans text-lg text-white/65 max-w-2xl mx-auto mb-8 leading-relaxed">
           Tell us how you run bookings and jobs today. We’ll show the BMS Pro version that matches
-          — Workshop, Trade or Salon — and skip what you don’t need.
+          (Workshop, Trade or Salon) and skip what you don’t need.
         </p>
 
         <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 sm:gap-4 mb-6">
@@ -71,7 +71,7 @@ export function CTASection() {
         </div>
 
         <p className="text-sm text-white/50">
-          A proper look at how the system works — no hard sell.
+          A proper look at how the system works. No hard sell.
         </p>
       </div>
     </section>

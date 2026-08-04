@@ -69,7 +69,7 @@ type Beat = {
   serviceSelected?: boolean;
   /** Time selected after click */
   timeSelected?: boolean;
-  /** How many stars lit (0–5) */
+  /** How many stars lit (0-5) */
   stars?: number;
   /** Rebook button pressed look */
   rebookPressed?: boolean;
@@ -81,7 +81,7 @@ type Beat = {
  */
 function buildBeats(): Beat[] {
   return [
-    // Enter — cursor arrives, look at services
+    // Enter - cursor arrives, look at services
     { screen: "choose", progress: 0.15, cursor: { x: 82, y: 78 }, hold: 600 },
     { screen: "choose", progress: 0.18, cursor: { x: 58, y: 36 }, hold: 700 },
     // Hover first option, then click
@@ -142,7 +142,7 @@ function buildBeats(): Beat[] {
       serviceSelected: true,
       timeSelected: true,
     },
-    // Thank you — click stars
+    // Thank you - click stars
     {
       screen: "thank",
       progress: 0.82,
@@ -285,7 +285,7 @@ export function BookingFlowPhone({ variant = "salon", className }: BookingFlowPh
       setShowClick(false);
     }
 
-    // Always advance the demo — only soften timing when reduced-motion is on
+    // Always advance the demo - only soften timing when reduced-motion is on
     const hold = reduce ? Math.min(beat.hold, 700) : beat.hold;
     const t = window.setTimeout(() => {
       setBeatIndex((i) => (i + 1) % beats.length);
@@ -472,7 +472,7 @@ export function BookingFlowPhone({ variant = "salon", className }: BookingFlowPh
         {screen}
       </PhoneMockup>
 
-      {/* Cursor sits above the phone — CSS % positioning (reliable) */}
+      {/* Cursor sits above the phone - CSS % positioning (reliable) */}
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0 z-[60] overflow-visible"

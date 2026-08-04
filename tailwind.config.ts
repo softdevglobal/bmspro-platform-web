@@ -26,13 +26,13 @@ export default {
     },
     extend: {
       fontFamily: {
-        // Body / UI — DM Sans
+        // Body / UI - DM Sans
         sans: ["var(--font-sans)", "system-ui", "sans-serif"],
-        // Brand + major headlines — Geist
+        // Brand + major headlines - Geist
         display: ["var(--font-geist-sans)", "system-ui", "sans-serif"],
-        // Eyebrows, chips, nav labels, product tags — Geist
+        // Eyebrows, chips, nav labels, product tags - Geist
         label: ["var(--font-geist-sans)", "system-ui", "sans-serif"],
-        // Code / mono — Geist Mono
+        // Code / mono - Geist Mono
         mono: ["var(--font-geist-mono)", "ui-monospace", "monospace"],
         geist: ["var(--font-geist-sans)", "system-ui", "sans-serif"],
         "geist-mono": ["var(--font-geist-mono)", "ui-monospace", "monospace"],

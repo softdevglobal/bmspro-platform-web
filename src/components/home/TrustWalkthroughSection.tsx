@@ -33,11 +33,11 @@ export function TrustWalkthroughSection() {
         <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
           <div>
             <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight mb-5">
-              See it with your workflow — before you decide.
+              See it with your workflow before you decide.
             </h2>
             <p className="font-sans text-lg text-white/65 leading-relaxed mb-8">
               We’ll walk through a normal day for your workshop, trade crew or salon. Not a feature
-              dump — just the parts you’d actually use.
+              dump, just the parts you’d actually use.
             </p>
             <Button
               size="lg"

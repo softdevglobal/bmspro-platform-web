@@ -5,7 +5,7 @@ export const HOME_FAQS = [
   },
   {
     q: "Do I need to change how my whole business works?",
-    a: "No. Start with the pain point — usually bookings or job handoffs — then add more when your team is ready.",
+    a: "No. Start with the pain point (usually bookings or job handoffs), then add more when your team is ready.",
   },
   {
     q: "Can customers book online?",
@@ -13,7 +13,7 @@ export const HOME_FAQS = [
   },
   {
     q: "Will my customers need an app?",
-    a: "No. Customers use the links and messages you send — they don’t install the staff platform.",
+    a: "No. Customers use the links and messages you send. They don’t install the staff platform.",
   },
   {
     q: "Can I see the software before deciding?",

@@ -6,7 +6,7 @@
  * 2. Scans src for internal `to=` / `href=` paths and flags unknown routes.
  * 3. Optionally HTTP-checks live sitemap URLs (hosting reachability).
  *
- * Note: This is an SPA — unknown paths still return HTTP 200 + index.html.
+ * Note: This is an SPA - unknown paths still return HTTP 200 + index.html.
  * Client 404s are tracked in GA4 as `page_404`. Review those events monthly too.
  *
  * Usage:
@@ -187,7 +187,7 @@ async function main() {
   }
 
   console.log("\nAlso review GA4 event `page_404` (page_path) for live broken URLs.");
-  console.log("Hosting: Vercel rewrites + production server SPA fallback return index.html for unknown paths — use GA4 for client 404s.\n");
+  console.log("Hosting: Vercel rewrites + production server SPA fallback return index.html for unknown paths - use GA4 for client 404s.\n");
 
   if (errors.length) {
     console.error(`Failed with ${errors.length} error(s), ${warns.length} warning(s).`);

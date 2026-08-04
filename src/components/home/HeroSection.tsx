@@ -63,11 +63,11 @@ export function HeroSection() {
         <div className="container-wide relative z-10 py-12 sm:py-20 lg:py-24 w-full">
           <div className="max-w-3xl mx-auto text-center text-white px-1">
             <p className="eyebrow inline-flex max-w-full text-center rounded-full border border-white/25 bg-white/10 backdrop-blur-sm px-3 py-1 text-white/80 mb-4 sm:mb-5 animate-fade-up">
-              BMS Pro — booking and ops for service businesses
+              BMS Pro for booking and ops in service businesses
             </p>
 
             <h1 className="font-display text-[1.75rem] leading-tight sm:text-4xl lg:text-5xl xl:text-6xl font-extrabold tracking-tight mb-4 sm:mb-5 animate-fade-up delay-100 sm:leading-[1.05]">
-              Bookings, jobs and customer updates — without the chase.
+              Bookings, jobs and customer updates without the chase.
             </h1>
 
             <p className="font-sans text-sm sm:text-lg text-white/70 max-w-2xl mx-auto mb-6 sm:mb-8 animate-fade-up delay-200 leading-relaxed">

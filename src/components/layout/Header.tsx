@@ -151,7 +151,7 @@ export function Header() {
                     </Link>
                     {productsOpen && (
                       <div className="absolute top-full left-0 z-50 pt-1">
-                        {/* Invisible hover bridge — keeps menu open while moving into it */}
+                        {/* Invisible hover bridge - keeps menu open while moving into it */}
                         <div
                           role="menu"
                           className="w-80 rounded-2xl border border-border bg-card p-2 shadow-elevated animate-fade-in"

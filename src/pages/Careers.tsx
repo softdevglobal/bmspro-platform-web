@@ -36,7 +36,7 @@ const benefits = [
   },
 ];
 
-// No open positions at the moment — re-enable when hiring resumes.
+// No open positions at the moment - re-enable when hiring resumes.
 // const jobOpenings = [
 //   {
 //     title: "DevOps Engineer",

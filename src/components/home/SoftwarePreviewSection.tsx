@@ -101,8 +101,8 @@ export function SoftwarePreviewSection() {
             Here’s what you’ll actually use
           </h2>
           <p className="font-sans text-lg text-muted-foreground leading-relaxed">
-            Booking requests, the day board, customer history, job progress and team updates —
-            the screens your front desk and floor already need.
+            Booking requests, the day board, customer history, job progress and team updates.
+            The screens your front desk and floor already need.
           </p>
         </div>
 

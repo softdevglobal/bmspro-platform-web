@@ -22,7 +22,7 @@ const products: ShowcaseProduct[] = [
     tagline: "Workshop",
     headline: "BMS Pro Workshop",
     description:
-      "Online booking requests, vehicle records, bay schedules and service updates — so the floor and front desk stay aligned.",
+      "Online booking requests, vehicle records, bay schedules and service updates so the floor and front desk stay aligned.",
     features: [
       "Online booking requests",
       "Customer and vehicle records",
@@ -43,7 +43,7 @@ const products: ShowcaseProduct[] = [
     tagline: "Trade Business",
     headline: "BMS Pro Trade",
     description:
-      "Enquiries, quotes, jobs, subcontractors and invoices in one flow — from the first call through to payment.",
+      "Enquiries, quotes, jobs, subcontractors and invoices in one flow, from the first call through to payment.",
     features: [
       "Enquiries and customer records",
       "Quotes and follow-ups",

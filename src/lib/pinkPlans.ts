@@ -11,7 +11,7 @@ export interface PinkPlan {
   tagline: string;
   /** Monthly price in AUD (whole dollars) */
   monthlyAud: number;
-  /** Yearly price in AUD (whole dollars) — typically monthly × 10 */
+  /** Yearly price in AUD (whole dollars) - typically monthly × 10 */
   yearlyAud: number;
   features: string[];
   popular?: boolean;

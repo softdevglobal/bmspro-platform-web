@@ -2,12 +2,12 @@ const STEPS = [
   {
     number: "1",
     title: "Tell us your business type",
-    body: "Workshop, trade crew or salon — so we prepare the right product.",
+    body: "Workshop, trade crew or salon, so we prepare the right product.",
   },
   {
     number: "2",
     title: "We show the relevant workflow",
-    body: "A normal day on the day board, bookings and job handoffs — not a feature dump.",
+    body: "A normal day on the day board, bookings and job handoffs. Not a feature dump.",
   },
   {
     number: "3",
@@ -44,7 +44,7 @@ export function WhatHappensNext({ variant = "light", className }: WhatHappensNex
               : "font-sans text-lg text-muted-foreground leading-relaxed"
           }
         >
-          The walkthrough is low pressure — three simple steps, then you decide.
+          The walkthrough is low pressure: three simple steps, then you decide.
         </p>
       </div>
 
