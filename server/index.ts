@@ -304,7 +304,7 @@ const server = http.createServer(async (req, res) => {
   }
 
   // In production (`npm start`), serve the Vite build.
-  // Unknown SPA paths still return index.html (200) — client NotFound fires GA `page_404`.
+  // Unknown SPA paths still return index.html (200) - client NotFound fires GA `page_404`.
   if (process.env.NODE_ENV === "production") {
     serveStatic(req, res);
     return;

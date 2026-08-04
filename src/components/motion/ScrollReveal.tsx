@@ -41,7 +41,7 @@ export function ScrollReveal({
   distance = 100,
   delay = 0,
 }: ScrollRevealProps) {
-  // Intentionally not skipping for reduced-motion beyond softer distance —
+  // Intentionally not skipping for reduced-motion beyond softer distance -
   // product marketing pages need visible entrance motion.
   const reduce = useReducedMotion();
   const travel = reduce ? Math.min(distance, 24) : distance;
@@ -70,7 +70,7 @@ interface ScrollPageProps {
   className?: string;
 }
 
-/** Pass-through wrapper — visuals animate via ScrollReveal. */
+/** Pass-through wrapper - visuals animate via ScrollReveal. */
 export function ScrollPage({ children, className }: ScrollPageProps) {
   return <div className={className}>{children}</div>;
 }

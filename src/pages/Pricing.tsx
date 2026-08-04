@@ -19,7 +19,7 @@ const pricingFactors = [
   {
     icon: Building2,
     title: "Which BMS Pro you need",
-    body: "Workshop, Trade and Salon are priced separately — each is built for a different way of taking bookings and running jobs.",
+    body: "Workshop, Trade and Salon are priced separately. Each is built for a different way of taking bookings and running jobs.",
   },
   {
     icon: MapPin,
@@ -29,7 +29,7 @@ const pricingFactors = [
   {
     icon: Users,
     title: "Staff and team size",
-    body: "How many people need login access — front desk, technicians, stylists or subcontractors — changes the plan.",
+    body: "How many people need login access (front desk, technicians, stylists or subcontractors) changes the plan.",
   },
   {
     icon: Headphones,
@@ -77,7 +77,7 @@ const Pricing = () => {
         path="/pricing"
       />
 
-      {/* Hero — why pricing isn’t a fixed public grid */}
+      {/* Hero - why pricing isn’t a fixed public grid */}
       <section className="relative bg-background -mt-16">
         <div className="relative min-h-[min(72vh,640px)] flex items-center overflow-hidden pt-16">
           <div className="absolute inset-0 grid grid-cols-1 sm:grid-cols-3" aria-hidden>
@@ -106,11 +106,11 @@ const Pricing = () => {
                 Pricing
               </p>
               <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight mb-4 animate-fade-up delay-100 leading-[1.05]">
-                Pricing that matches how you work — not a one-size grid.
+                Pricing that matches how you work, not a one-size grid.
               </h1>
               <p className="font-sans text-base sm:text-lg text-white/70 max-w-2xl mx-auto mb-8 animate-fade-up delay-200 leading-relaxed">
                 We don’t publish a single Starter / Pro / Business list here because Workshop, Trade
-                and Salon setups differ — and optional receptionist cover changes the number. Book a
+                and Salon setups differ, and optional receptionist cover changes the number. Book a
                 short walkthrough and we’ll quote for your business.
               </p>
 
@@ -170,7 +170,7 @@ const Pricing = () => {
               What affects your price
             </h2>
             <p className="text-muted-foreground text-lg leading-relaxed">
-              We’ll walk through these with you — then send a clear AUD quote for your setup.
+              We’ll walk through these with you, then send a clear AUD quote for your setup.
             </p>
           </div>
 
@@ -269,7 +269,7 @@ const Pricing = () => {
           </h2>
           <p className="font-sans text-lg text-white/65 max-w-2xl mx-auto mb-8 leading-relaxed">
             Tell us your business type, how many locations and whether you need call support. We’ll
-            show the relevant workflow and send pricing that fits — no generic SaaS tiers.
+            show the relevant workflow and send pricing that fits. No generic SaaS tiers.
           </p>
           <Button
             size="xl"
@@ -291,7 +291,7 @@ const Pricing = () => {
             </Link>
           </Button>
           <p className="mt-4 text-sm text-white/50">
-            Goes to our contact form — usually a reply within 24 hours.
+            Goes to our contact form. Usually a reply within 24 hours.
           </p>
         </div>
       </section>

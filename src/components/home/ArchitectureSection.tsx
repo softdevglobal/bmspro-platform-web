@@ -7,7 +7,7 @@ const steps = [
   {
     number: "1",
     title: "Customer gets in touch",
-    body: "Enquiry, booking request or quote — captured once.",
+    body: "Enquiry, booking request or quote, captured once.",
   },
   {
     number: "2",
@@ -55,7 +55,7 @@ export function ArchitectureSection() {
             From first call to finished job
           </h2>
           <p className="font-sans text-lg text-white/65 leading-relaxed">
-            Each step stays connected — no retyping the same job into another app.
+            Each step stays connected. No retyping the same job into another app.
           </p>
         </div>
 

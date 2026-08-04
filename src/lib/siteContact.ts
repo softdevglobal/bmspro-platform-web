@@ -1,4 +1,4 @@
-/** Public contact details for this marketing site — keep footer, contact page, and schema in sync. */
+/** Public contact details for this marketing site - keep footer, contact page, and schema in sync. */
 export const SITE_CONTACT_EMAIL = "info@bmspros.com.au";
 
 export const SITE_PHONE_DISPLAY = "03 8797 3795";

@@ -45,7 +45,7 @@ export function websiteSchema() {
   };
 }
 
-/** Platform-level software schema for the homepage — no fake offers or ratings. */
+/** Platform-level software schema for the homepage - no fake offers or ratings. */
 export function softwareApplicationSchema() {
   return {
     "@context": "https://schema.org",
@@ -119,7 +119,7 @@ function productOffers({
 /**
  * Product + SoftwareApplication for product pages.
  * Includes AggregateOffer from published plan prices (required for Product rich results).
- * No AggregateRating / review — those would be misleading without real reviews.
+ * No AggregateRating / review - those would be misleading without real reviews.
  */
 export function productSoftwareSchema({
   name,

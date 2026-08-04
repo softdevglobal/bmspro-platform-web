@@ -243,7 +243,7 @@ const PrivacyPolicy = () => {
             <section className="mb-10">
               <h2 className="text-2xl font-bold text-foreground mb-4">16. Contact Us</h2>
               <div className="bg-secondary/50 rounded-xl p-6">
-                <p className="text-foreground font-medium mb-2">Privacy Officer – BMS Pro Pty Ltd</p>
+                <p className="text-foreground font-medium mb-2">Privacy Officer, BMS Pro Pty Ltd</p>
                 <p className="text-muted-foreground text-sm">
                   Email: <a href="mailto:info@bmspros.com.au" className="text-primary hover:underline">info@bmspros.com.au</a><br />
                   Phone: <a href="tel:0387973795" className="text-primary hover:underline">03 8797 3795</a><br />

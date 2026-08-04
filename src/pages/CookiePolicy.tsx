@@ -97,9 +97,9 @@ export default function CookiePolicy() {
                 We may use third-party services that set cookies on your device. These third parties include:
               </p>
               <ul className="list-disc pl-6 text-muted-foreground space-y-2 mb-4">
-                <li>Google Analytics - for website analytics and performance monitoring</li>
-                <li>Intercom - for customer support and communication</li>
-                <li>Social media platforms - for sharing functionality and social login</li>
+                <li>Google Analytics for website analytics and performance monitoring</li>
+                <li>Intercom for customer support and communication</li>
+                <li>Social media platforms for sharing functionality and social login</li>
               </ul>
               <p className="text-muted-foreground">
                 These third parties have their own privacy policies, and we encourage you to read them.

@@ -102,7 +102,7 @@ export interface BluePricingSectionProps {
   smsTopups?: BlueSmsPack[];
   /** Full = brand hero + plans. Embedded = plans onward (for Product Trade page). */
   variant?: "full" | "embedded";
-  /** Pull hero under site header — only for first section on a page */
+  /** Pull hero under site header - only for first section on a page */
   offsetHeader?: boolean;
   /** Extra top space when a floating product picker overlays the hero */
   overlayPicker?: boolean;
@@ -301,7 +301,7 @@ export function BluePricingSection({
         </div>
       </section>
 
-      {/* What's included + credibility — full showcase only (product page already covers modules) */}
+      {/* What's included + credibility - full showcase only (product page already covers modules) */}
       {variant === "full" && (
         <>
           <section className="section-padding bg-background">

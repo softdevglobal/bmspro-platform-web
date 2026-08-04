@@ -31,7 +31,7 @@ function dashboardSvg({ title, accent, rows, badge }) {
     <circle cx="22" cy="26" r="5" fill="#EF4444"/>
     <circle cx="40" cy="26" r="5" fill="#F59E0B"/>
     <circle cx="58" cy="26" r="5" fill="#22C55E"/>
-    <text x="400" y="32" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="13" fill="#D1D5DB">bmspros.com.au — ${title}</text>
+    <text x="400" y="32" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="13" fill="#D1D5DB">bmspros.com.au - ${title}</text>
     <rect x="24" y="72" width="752" height="36" rx="10" fill="#fff" stroke="#E5E7EB"/>
     <text x="40" y="95" font-family="Segoe UI, Arial, sans-serif" font-size="14" font-weight="700" fill="#111827">${title}</text>
     <rect x="640" y="80" width="120" height="20" rx="10" fill="${accent}"/>
@@ -57,35 +57,35 @@ const configs = [
     badge: "Workshop",
     rows: [
       {
-        name: "Logbook service — Toyota Camry",
+        name: "Logbook service - Toyota Camry",
         meta: "Bay 2 · 8:00 AM · Confirmed",
         status: "In bay",
         pillBg: "#ECFDF5",
         pillFg: "#047857",
       },
       {
-        name: "Brake inspection — Mazda 3",
+        name: "Brake inspection - Mazda 3",
         meta: "Bay 1 · 9:30 AM · Awaiting drop-off",
         status: "Booked",
         pillBg: "#EFF6FF",
         pillFg: "#1D4ED8",
       },
       {
-        name: "Wheel alignment — Ford Ranger",
+        name: "Wheel alignment - Ford Ranger",
         meta: "Bay 3 · 11:00 AM · Reminder sent",
         status: "Ready",
         pillBg: "#F3F4F6",
         pillFg: "#374151",
       },
       {
-        name: "Service update — Holden Commodore",
+        name: "Service update - Holden Commodore",
         meta: "Customer notified · Ready for pickup",
         status: "Complete",
         pillBg: "#ECFDF5",
         pillFg: "#047857",
       },
       {
-        name: "Online booking request — Hyundai i30",
+        name: "Online booking request - Hyundai i30",
         meta: "Preferred Thu afternoon · Needs review",
         status: "Request",
         pillBg: "#FEF3C7",
@@ -100,35 +100,35 @@ const configs = [
     badge: "Trade",
     rows: [
       {
-        name: "Hot water repair — 14 Ocean St",
+        name: "Hot water repair - 14 Ocean St",
         meta: "Quote approved · Assigned to Sam",
         status: "Scheduled",
         pillBg: "#EFF6FF",
         pillFg: "#1D4ED8",
       },
       {
-        name: "Blocked drain — Riverside Unit 3",
+        name: "Blocked drain - Riverside Unit 3",
         meta: "Enquiry → quote → job linked",
         status: "In progress",
         pillBg: "#ECFDF5",
         pillFg: "#047857",
       },
       {
-        name: "Electrical inspection — Warehouse B",
+        name: "Electrical inspection - Warehouse B",
         meta: "Photos + notes attached on site",
         status: "Field update",
         pillBg: "#F3F4F6",
         pillFg: "#374151",
       },
       {
-        name: "Invoice — Kitchen fit-out follow-up",
+        name: "Invoice - Kitchen fit-out follow-up",
         meta: "Payment link sent to customer",
         status: "Invoiced",
         pillBg: "#ECFDF5",
         pillFg: "#047857",
       },
       {
-        name: "New enquiry — Roof leak report",
+        name: "New enquiry - Roof leak report",
         meta: "Lead captured · Quote draft started",
         status: "Lead",
         pillBg: "#FEF3C7",
@@ -143,35 +143,35 @@ const configs = [
     badge: "Salon",
     rows: [
       {
-        name: "Cut and blow dry — Emma Wilson",
+        name: "Cut and blow dry - Emma Wilson",
         meta: "With Jess · Fri 2:00 PM · Confirmed",
         status: "Confirmed",
         pillBg: "#FDF2F8",
         pillFg: "#BE185D",
       },
       {
-        name: "Colour and toner — Mia Chen",
+        name: "Colour and toner - Mia Chen",
         meta: "Service list · 2h 15m · Reminder queued",
         status: "Booked",
         pillBg: "#EFF6FF",
         pillFg: "#1D4ED8",
       },
       {
-        name: "Balayage — Olivia Park",
+        name: "Balayage - Olivia Park",
         meta: "Staff calendar · Chair 3 open after",
         status: "Assigned",
         pillBg: "#F3F4F6",
         pillFg: "#374151",
       },
       {
-        name: "Online appointment request — Ava",
+        name: "Online appointment request - Ava",
         meta: "Awaiting salon confirmation",
         status: "Request",
         pillBg: "#FEF3C7",
         pillFg: "#B45309",
       },
       {
-        name: "Client record — Sophie Nguyen",
+        name: "Client record - Sophie Nguyen",
         meta: "History, notes and preferred stylist",
         status: "Customer",
         pillBg: "#ECFDF5",

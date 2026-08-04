@@ -14,7 +14,7 @@
  *
  * Verification before launch:
  * 1. Set VITE_GA_MEASUREMENT_ID in .env and restart the Vite dev server.
- * 2. Open the site, open DevTools Console — each action logs `[analytics] <event> …`.
+ * 2. Open the site, open DevTools Console - each action logs `[analytics] <event> …`.
  * 3. In GA4 → Admin → DebugView (or Realtime), confirm the same event names arrive.
  * 4. Smoke checklist: hero CTA, product card click, /pricing visit, phone + email
  *    links, contact form first field focus/change, contact form submit.
@@ -108,7 +108,7 @@ export function trackContactFormSubmit(product: string, success: boolean): void 
   });
 }
 
-/** Client-side SPA 404 — use GA4 to see which URLs fail (hosting often still returns 200). */
+/** Client-side SPA 404 - use GA4 to see which URLs fail (hosting often still returns 200). */
 export function trackPage404(params: {
   page_path: string;
   page_location?: string;

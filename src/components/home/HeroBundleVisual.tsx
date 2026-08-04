@@ -5,7 +5,7 @@ export function HeroBundleVisual() {
   const bookings = [
     {
       time: "9:00",
-      name: "Oil service — Bay 2",
+      name: "Oil service, Bay 2",
       tag: "Workshop",
       color: "bg-product-black text-white",
       icon: Wrench,
@@ -13,7 +13,7 @@ export function HeroBundleVisual() {
     },
     {
       time: "10:30",
-      name: "Colour & cut — Mia",
+      name: "Colour & cut, Mia",
       tag: "Salon",
       color: "bg-pink text-white",
       icon: Sparkles,
@@ -31,7 +31,7 @@ export function HeroBundleVisual() {
 
   return (
     <div className="relative grid sm:grid-cols-2 gap-3 sm:gap-4 animate-fade-up delay-300">
-      {/* Software side — industry-tagged schedule */}
+      {/* Software side - industry-tagged schedule */}
       <div className="relative rounded-2xl sm:rounded-3xl border border-border/60 bg-card shadow-elevated overflow-hidden min-h-[300px] sm:min-h-[360px]">
         <div className="flex items-center justify-between px-4 py-3 border-b border-border/50 bg-secondary/40">
           <div className="flex items-center gap-2">

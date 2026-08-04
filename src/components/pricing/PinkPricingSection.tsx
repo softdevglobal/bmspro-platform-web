@@ -63,7 +63,7 @@ export interface PinkPricingSectionProps {
   plans?: PinkPlan[];
   /** Full = brand hero + plans. Embedded = plans onward (for Product Salon page). */
   variant?: "full" | "embedded";
-  /** Pull hero under site header — only for first section on a page */
+  /** Pull hero under site header - only for first section on a page */
   offsetHeader?: boolean;
   /** Extra top space when a floating product picker overlays the hero */
   overlayPicker?: boolean;

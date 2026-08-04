@@ -392,9 +392,9 @@ const Contact = () => {
                         onChange={handleChange}
                       >
                         <option value="">Select a time</option>
-                        <option value="Morning (8am–12pm)">Morning (8am–12pm)</option>
-                        <option value="Afternoon (12pm–4pm)">Afternoon (12pm–4pm)</option>
-                        <option value="Late afternoon (4pm–6pm)">Late afternoon (4pm–6pm)</option>
+                        <option value="Morning (8am-12pm)">Morning (8am-12pm)</option>
+                        <option value="Afternoon (12pm-4pm)">Afternoon (12pm-4pm)</option>
+                        <option value="Late afternoon (4pm-6pm)">Late afternoon (4pm-6pm)</option>
                         <option value="Anytime">Anytime</option>
                       </select>
                     </div>
@@ -512,7 +512,7 @@ const Contact = () => {
         </div>
       </section>
 
-      {/* What happens next — reduces hesitation */}
+      {/* What happens next - reduces hesitation */}
       <section
         id="what-happens-next"
         className="scroll-mt-24 section-padding bg-[hsl(220_18%_96%)]"
@@ -528,7 +528,7 @@ const Contact = () => {
             >
               {SITE_PHONE_DISPLAY}
             </a>{" "}
-            or use the form above — same low-pressure process either way.
+            or use the form above. Same low-pressure process either way.
           </p>
         </div>
       </section>
