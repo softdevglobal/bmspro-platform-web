@@ -245,11 +245,11 @@
 
 @layer components {
   .container-narrow {
-    @apply w-full max-w-5xl mx-auto px-4 sm:px-6 lg:px-8;
+    @apply w-full max-w-5xl mx-auto px-[10%];
   }
 
   .container-wide {
-    @apply w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+    @apply w-full max-w-7xl mx-auto px-[10%];
   }
 
   .section-padding {
