@@ -21,7 +21,7 @@ export function AcknowledgementOfCountry() {
   return (
     <Dialog open={open} onOpenChange={handleOpenChange}>
       <DialogContent
-        className="max-w-lg border-0 rounded-3xl p-0 overflow-hidden bg-[hsl(220_22%_8%)] text-white shadow-2xl [&>button]:text-white/70 [&>button]:hover:text-white [&>button]:hover:bg-white/10 [&>button]:rounded-full [&>button]:h-8 [&>button]:w-8 [&>button]:flex [&>button]:items-center [&>button]:justify-center [&>button]:top-5 [&>button]:right-5 [&>button]:opacity-100"
+        className="w-[calc(100%-2rem)] max-w-lg border-0 rounded-3xl p-0 overflow-hidden bg-[hsl(220_22%_8%)] text-white shadow-2xl [&>button]:text-white/70 [&>button]:hover:text-white [&>button]:top-5 [&>button]:right-5 [&>button]:opacity-100 [&>button]:!ring-0 [&>button]:!ring-offset-0 [&>button]:!outline-none"
       >
         <DialogTitle className="sr-only">Acknowledgement of Country</DialogTitle>
 
